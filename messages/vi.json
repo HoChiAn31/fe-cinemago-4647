@@ -1,4 +1,55 @@
 {
-    "greeting": "Hello",
-    "farewell": "Goodbye"
+	"LayoutHeader": {
+		"home": "Trang chủ",
+		"movies": "Phim",
+		"schedule": "Lịch chiếu",
+		"tickets": "Vé",
+		"profile": "Tài khoản của tôi",
+		"orderHistory": "Lịch sử giao dịch",
+		"admin": "Admin",
+		"logout": "Đăng xuất",
+		"login": "Đăng nhập",
+		"register": "Đăng ký",
+		"noNotifications": "Chưa có thông báo mới!",
+		"searchPlaceholder": "Nhập tên phim",
+		"tooltipSearch": "Tìm kiếm",
+		"darkMode": "Chế độ tối"
+	},
+	"LayoutFooter": {
+		"companyInfo": {
+			"description": "Nền tảng của bạn để đặt vé xem phim. Tận hưởng việc đặt vé dễ dàng và thông tin phim mới nhất ngay tại đầu ngón tay bạn."
+		},
+		"quickLinks": {
+			"title": "Liên Kết Nhanh",
+			"home": "Trang Chủ",
+			"about": "Giới Thiệu",
+			"contact": "Liên Hệ",
+			"terms": "Điều Khoản Dịch Vụ",
+			"privacy": "Chính Sách Bảo Mật"
+		},
+		"theaterSystem": {
+			"title": "Theater System 1",
+			"theaters": [
+				{ "name": "CinemaGo District 1" },
+				{ "name": "CinemaGo District 2" },
+				{ "name": "CinemaGo District 3" },
+				{ "name": "CinemaGo District 4" },
+				{ "name": "CinemaGo District 5" }
+			]
+		},
+		"contactInfo": {
+			"title": "Liên Hệ",
+			"address": "123 Đường Phim",
+			"city": "Thành Phố Cinema, CC 12345",
+			"phone": "Điện Thoại: (123) 456-7890",
+			"email": "Email: support@moviebooking.com"
+		},
+		"followUs": {
+			"title": "Theo Dõi Chúng Tôi",
+			"facebook": "Facebook",
+			"instagram": "Instagram",
+			"youtube": "YouTube"
+		},
+		"copyright": "© {year} Đặt Vé Phim. Tất cả quyền được bảo lưu."
+	}
 }
