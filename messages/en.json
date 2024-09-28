@@ -1,4 +1,55 @@
 {
-    "greeting": "Hello",
-    "farewell": "Goodbye"
+	"LayoutHeader": {
+		"home": "Home",
+		"movies": "Movies",
+		"schedule": "Schedule",
+		"tickets": "Tickets",
+		"profile": "My Account",
+		"orderHistory": "Order History",
+		"admin": "Admin",
+		"logout": "Logout",
+		"login": "Login",
+		"register": "Register",
+		"noNotifications": "No new notifications!",
+		"searchPlaceholder": "Enter movie name",
+		"tooltipSearch": "Search",
+		"darkMode": "Dark Mode"
+	},
+	"LayoutFooter": {
+		"companyInfo": {
+			"description": "Your go-to platform for booking movie tickets. Enjoy seamless booking and the latest movie information at your fingertips."
+		},
+		"quickLinks": {
+			"title": "Quick Links",
+			"home": "Home",
+			"about": "About Us",
+			"contact": "Contact",
+			"terms": "Terms of Service",
+			"privacy": "Privacy Policy"
+		},
+		"theaterSystem": {
+			"title": "Theater System",
+			"theaters": [
+				{ "name": "CinemaGo District 1" },
+				{ "name": "CinemaGo District 2" },
+				{ "name": "CinemaGo District 3" },
+				{ "name": "CinemaGo District 4" },
+				{ "name": "CinemaGo District 5" }
+			]
+		},
+		"contactInfo": {
+			"title": "Contact Us",
+			"address": "123 Movie Lane",
+			"city": "Cinema City, CC 12345",
+			"phone": "Phone: (123) 456-7890",
+			"email": "Email: support@moviebooking.com"
+		},
+		"followUs": {
+			"title": "Follow Us",
+			"facebook": "Facebook",
+			"instagram": "Instagram",
+			"youtube": "YouTube"
+		},
+		"copyright": "© {year} Movie Booking. All rights reserved."
+	}
 }

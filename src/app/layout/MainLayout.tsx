@@ -6,11 +6,11 @@ import Footer from './Footer';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // import SidebarProfile from './SidebarProfile';
-// import ScrollToTop from '../components/ScrollToTop';
+import ScrollToTop from '../components/ScrollToTop';
 import ClientOnly from '../components/ClientOnly'; // Import thành phần client-only
 import { usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
-// import AdminGuard from '../components/AdminGuard';
+import AdminGuard from '../components/AdminGuard';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 // import SidebarAdmin from './SidebarAdmin';
 
@@ -20,23 +20,23 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 	return (
 		<div className='flex min-h-screen flex-col'>
 			{pathname.startsWith(`/${locale}/admin`) ? (
-				// <AdminGuard>
-				<div className=''>
-					<PanelGroup direction='horizontal'>
-						<Panel defaultSize={15} className='shadow-md' minSize={10}>
-							{/* <SidebarAdmin /> */}
-						</Panel>
-						<PanelResizeHandle />
-						<Panel defaultSize={70}>
-							{/* <main className=''> */}
-							<div className='p-5'>{children}</div>
-							{/* </main> */}
-						</Panel>
-						<PanelResizeHandle />
-					</PanelGroup>
-				</div>
+				<AdminGuard>
+					<div className=''>
+						<PanelGroup direction='horizontal'>
+							<Panel defaultSize={15} className='shadow-md' minSize={10}>
+								{/* <SidebarAdmin /> */}
+							</Panel>
+							<PanelResizeHandle />
+							<Panel defaultSize={70}>
+								{/* <main className=''> */}
+								<div className='p-5'>{children}</div>
+								{/* </main> */}
+							</Panel>
+							<PanelResizeHandle />
+						</PanelGroup>
+					</div>
+				</AdminGuard>
 			) : (
-				// </AdminGuard>
 				<>
 					<Header />
 					<main className='flex-grow pt-16'>
@@ -48,7 +48,7 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 								</div>
 							) : (
 								<main className='flex-grow'>
-									{/* <ScrollToTop /> */}
+									<ScrollToTop />
 									{children}
 								</main>
 							)}
