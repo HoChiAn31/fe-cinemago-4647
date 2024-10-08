@@ -8,7 +8,7 @@ import { useTheme } from '../context/ThemeContext';
 
 export default function LocaleSwitcher() {
 	const [isPending, startTransition] = useTransition();
-	const { darkMode } = useTheme();
+	const { isDarkMode } = useTheme();
 	const router = useRouter();
 	const localeActive = useLocale();
 	const pathname = usePathname();
@@ -65,7 +65,7 @@ export default function LocaleSwitcher() {
 									radius='none'
 								/>
 								<p
-									className={`${selectedLocale === 'vi' ? `text-primary` : darkMode ? `text-white` : `text-black`} hover:text-primary`}
+									className={`${selectedLocale === 'vi' ? `text-primary` : isDarkMode ? `text-white` : `text-black`} hover:text-primary`}
 								>
 									VietNam
 								</p>
@@ -83,7 +83,7 @@ export default function LocaleSwitcher() {
 									className='mr-2'
 								/>
 								<p
-									className={`${selectedLocale === 'en' ? `text-primary` : darkMode ? `text-white` : `text-black`} hover:text-primary`}
+									className={`${selectedLocale === 'en' ? `text-primary` : isDarkMode ? `text-white` : `text-black`} hover:text-primary`}
 								>
 									English
 								</p>
@@ -109,7 +109,7 @@ export default function LocaleSwitcher() {
 				{isMobile &&
 					isDropdownOpen && ( // Render dropdown if mobile and open
 						<div
-							className={`absolute z-50 mt-2 rounded shadow-lg ${darkMode ? `bg-black` : `bg-white`}`}
+							className={`absolute z-50 mt-2 rounded shadow-lg ${isDarkMode ? `bg-black` : `bg-white`}`}
 						>
 							<div
 								onClick={() => onSelectChange('vi')}
@@ -124,7 +124,7 @@ export default function LocaleSwitcher() {
 									radius='none'
 								/>
 								<p
-									className={`${selectedLocale === 'vi' ? `text-primary` : darkMode ? `text-white` : `text-black`} hover:text-primary`}
+									className={`${selectedLocale === 'vi' ? `text-primary` : isDarkMode ? `text-white` : `text-black`} hover:text-primary`}
 								>
 									VietNam
 								</p>
@@ -142,7 +142,7 @@ export default function LocaleSwitcher() {
 									className='mr-2'
 								/>
 								<p
-									className={`${selectedLocale === 'en' ? `text-primary` : darkMode ? `text-white` : `text-black`} hover:text-primary`}
+									className={`${selectedLocale === 'en' ? `text-primary` : isDarkMode ? `text-white` : `text-black`} hover:text-primary`}
 								>
 									English
 								</p>

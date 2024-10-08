@@ -34,7 +34,7 @@ const Header: FC = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // New state for mobile menu
 	const t = useTranslations('LayoutHeader');
 	const router = useRouter();
-	const { darkMode, toggleDarkMode } = useTheme();
+	const { isDarkMode, toggleDarkMode } = useTheme();
 
 	const handleLogout = () => {
 		setIsLogin(false);
@@ -58,7 +58,8 @@ const Header: FC = () => {
 		};
 	}, []);
 	return (
-		<header className='fixed left-0 right-0 top-0 z-[48] bg-dark text-white'>
+		<header className='fixed left-0 right-0 top-0 z-[48] overflow-hidden bg-dark text-white'>
+			{/* Added overflow-hidden */}
 			<MaxWidth className='px-2'>
 				<div className='flex items-center justify-between'>
 					{/* Logo */}
@@ -186,7 +187,7 @@ const Header: FC = () => {
 						<LocaleSwitcher />
 						<Tooltip closeDelay={100} content={t('darkMode')} showArrow>
 							<div>
-								<DarkModeSwitch onChange={toggleDarkMode} checked={darkMode ?? false} size={20} />
+								<DarkModeSwitch onChange={toggleDarkMode} checked={isDarkMode ?? false} size={20} />
 							</div>
 						</Tooltip>
 					</div>
@@ -284,7 +285,11 @@ const Header: FC = () => {
 							<Tooltip closeDelay={100} content={t('darkMode')} showArrow>
 								<div className='my-2 flex items-center gap-4'>
 									<p>DarkMode:</p>
-									<DarkModeSwitch onChange={toggleDarkMode} checked={darkMode ?? false} size={20} />
+									<DarkModeSwitch
+										onChange={toggleDarkMode}
+										checked={isDarkMode ?? false}
+										size={20}
+									/>
 								</div>
 							</Tooltip>
 						</div>

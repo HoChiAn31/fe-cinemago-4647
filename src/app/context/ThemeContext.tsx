@@ -4,7 +4,9 @@ import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useStat
 
 interface ThemeContextType {
 	url?: string;
-	darkMode?: boolean;
+	isDarkMode?: boolean;
+	isCollapsedAdmin?: boolean;
+	setIsCollapsedAdmin?: (value: boolean) => void;
 	toggleDarkMode: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -12,13 +14,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [url, setUrl] = useState<string>('http://localhost:8080');
-	const [darkMode, setDarkMode] = useState(() => {
+	const [isDarkMode, setIsDarkMode] = useState(() => {
 		// Read initial value from localStorage
 		const savedMode = localStorage.getItem('darkMode');
 		return savedMode === 'true';
 	});
+	const [isCollapsedAdmin, setIsCollapsedAdmin] = useState<boolean>(false);
+
 	const toggleDarkMode = () => {
-		setDarkMode((prev) => {
+		setIsDarkMode((prev) => {
 			const newMode = !prev;
 			localStorage.setItem('darkMode', JSON.stringify(newMode)); // Convert boolean to string
 			document.documentElement.classList.toggle('dark', newMode);
@@ -26,13 +30,16 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 		});
 	};
 	return (
-		<ThemeContext.Provider value={{ url, darkMode, toggleDarkMode }}>
+		<ThemeContext.Provider
+			value={{ url, isDarkMode, toggleDarkMode, isCollapsedAdmin, setIsCollapsedAdmin }}
+		>
 			{children}
 		</ThemeContext.Provider>
 	);
 };
 
-export const useTheme = () => {
+export const useTheme: () => ThemeContextType = () => {
+	// Specify the return type
 	const context = useContext(ThemeContext);
 	if (context === undefined) {
 		throw new Error('useTheme must be used within a ThemeProvider');
