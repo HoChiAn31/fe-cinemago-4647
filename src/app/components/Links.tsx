@@ -12,7 +12,6 @@ interface LinksProps extends LinkProps {
 
 const Links: FC<LinksProps> = ({ href, hover, className, children, ...props }) => {
 	const locale = useLocale();
-
 	// Ensure the path is correctly formatted, avoiding double slashes
 	const localizedHref = `/${locale}/${href}`;
 

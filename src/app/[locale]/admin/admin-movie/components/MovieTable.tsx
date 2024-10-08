@@ -49,7 +49,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
 			>
 				<thead>
 					<tr className='border-b border-gray'>
-						<th className='border-r border-gray p-3'>{t('order')}</th> {/* New order column */}
+						<th className='border-r border-gray p-3'>{t('order')}</th>
 						<th className='border-r border-gray p-3'>{t('id')}</th>
 						<th className='border-r border-gray p-3'>{t('name')}</th>
 						<th className='border-r border-gray p-3'>{t('director')}</th>

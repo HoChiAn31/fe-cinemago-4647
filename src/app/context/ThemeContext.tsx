@@ -1,10 +1,19 @@
 'use client';
 
-import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
+import {
+	Dispatch,
+	ReactNode,
+	SetStateAction,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
 
 interface ThemeContextType {
 	url?: string;
 	isDarkMode?: boolean;
+	setIsDarkMode?: (value: boolean) => void;
 	isCollapsedAdmin?: boolean;
 	setIsCollapsedAdmin?: (value: boolean) => void;
 	toggleDarkMode: Dispatch<SetStateAction<boolean>>;
@@ -29,6 +38,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 			return newMode;
 		});
 	};
+	useEffect(() => {
+		toggleDarkMode();
+	}, []);
 	return (
 		<ThemeContext.Provider
 			value={{ url, isDarkMode, toggleDarkMode, isCollapsedAdmin, setIsCollapsedAdmin }}
