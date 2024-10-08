@@ -51,5 +51,73 @@
 			"youtube": "YouTube"
 		},
 		"copyright": "© {year} Movie Booking. All rights reserved."
+	},
+	"LayoutSideBarAdmin": {
+		"title": "CINEMAGO",
+		"home": "Home",
+		"customerCare": "Customer Care",
+		"chat": "Chat",
+		"supportRequests": "Support Requests",
+		"faq": "Frequently Asked Questions",
+		"movieManagement": "Manage Movies",
+		"statisticsReports": "Statistics and Reports",
+		"categoryManagement": "Manage Categories",
+		"branchManagement": "Manage Branches",
+		"revenueManagement": "Revenue Management",
+		"userManagement": "Manage Users",
+		"commentsReviews": "Manage Comments and Reviews",
+		"promotionManagement": "Manage Promotions"
+	},
+	"LayoutHeaderAdmin": {
+		"logout": "Log Out"
+	},
+	"AdminSearchAndFilter": {
+		"searchPlaceholder": "Enter movie name...",
+		"itemsPerPageLabel": "Items per page",
+		"selectLanguageLabel": "Select Language Code"
+	},
+	"AdminTable": {
+		"order": "Number",
+		"select": "Select",
+		"id": "ID",
+		"name": "Name",
+		"director": "Director",
+		"releaseDate": "Release Date",
+		"language": "Language",
+		"actions": "Actions",
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"AdminMovieAdd": {
+		"title": "Add New Movie",
+		"director": "Director",
+		"cast": "Cast",
+		"releaseDate": "Release Date",
+		"duration": "Duration (minutes)",
+		"language": "Language",
+		"country": "Country",
+		"rating": "Rating",
+		"poster_url": "Poster URL",
+		"trailer_url": "Trailer URL",
+		"name_vi": "Name (Vietnamese)",
+		"description_vi": "Description (Vietnamese)",
+		"name_en": "Name (English)",
+		"description_en": "Description (English)",
+		"genres": "Genres",
+		"addMovie": "Add",
+		"editMovie": "Edit",
+		"success": "The new movie has been successfully added.",
+		"error": "An error occurred while adding the movie. Please try again."
+	},
+	"ComponentPaginationControls": {
+		"previous": "Previous",
+		"next": "Next",
+		"page": "Page {currentPage} of {lastPage}"
+	},
+	"AdminToast": {
+		"Loading": "Loading",
+		"updateSuccess": "Added successfully.",
+		"updateFailed": "Add failed! Please try again.",
+		"updateError": "An error occurred! Please try again."
 	}
 }

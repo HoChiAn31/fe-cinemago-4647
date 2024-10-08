@@ -51,5 +51,74 @@
 			"youtube": "YouTube"
 		},
 		"copyright": "© {year} Đặt Vé Phim. Tất cả quyền được bảo lưu."
+	},
+	"LayoutSideBarAdmin": {
+		"title": "CINEMAGO",
+		"home": "Trang chủ",
+		"customerCare": "Chăm sóc khách hàng",
+		"chat": "Trò chuyện",
+		"supportRequests": "Yêu cầu hỗ trợ",
+		"faq": "Câu hỏi thường gặp",
+		"movieManagement": "Quản lý phim",
+		"statisticsReports": "Thống kê và báo cáo",
+		"categoryManagement": "Quản lý thể loại",
+		"branchManagement": "Quản lý rạp",
+		"revenueManagement": "Quản lý doanh thu",
+		"userManagement": "Quản lý người dùng",
+		"commentsReviews": "Quản lý bình luận và đánh giá",
+		"promotionManagement": "Quản lý khuyến mãi",
+		"logout": "Đăng xuất"
+	},
+	"LayoutHeaderAdmin": {
+		"logout": "Đăng xuất"
+	},
+	"AdminSearchAndFilter": {
+		"searchPlaceholder": "Nhập tên phim...",
+		"itemsPerPageLabel": "Số lượng mỗi trang",
+		"selectLanguageLabel": "Chọn mã ngôn ngữ"
+	},
+	"AdminTable": {
+		"order": "STT",
+		"select": "Chọn",
+		"id": "ID",
+		"name": "Tên",
+		"director": "Tác giả",
+		"releaseDate": "Ngày phát hành",
+		"language": "Ngôn ngữ",
+		"actions": "Thao tác",
+		"edit": "Sửa",
+		"delete": "Xóa"
+	},
+	"AdminMovieAdd": {
+		"title": "Thêm Phim Mới",
+		"director": "Đạo diễn",
+		"cast": "Diễn viên",
+		"releaseDate": "Ngày phát hành",
+		"duration": "Thời gian (phút)",
+		"language": "Ngôn ngữ",
+		"country": "Quốc gia",
+		"rating": "Đánh giá",
+		"poster_url": "URL Áo phim",
+		"trailer_url": "URL Trailer",
+		"name_vi": "Tên (Tiếng Việt)",
+		"description_vi": "Mô tả (Tiếng Việt)",
+		"name_en": "Tên (Tiếng Anh)",
+		"description_en": "Mô tả (Tiếng Anh)",
+		"genres": "Thể loại",
+		"addMovie": "Thêm",
+		"editMovie": "Cập nhật",
+		"success": "Phim mới đã được thêm thành công.",
+		"error": "Đã xảy ra lỗi khi thêm phim. Vui lòng thử lại."
+	},
+	"ComponentPaginationControls": {
+		"previous": "Trước",
+		"next": "Tiếp theo",
+		"page": "Trang {currentPage} trong {lastPage}"
+	},
+	"AdminToast": {
+		"Loading": "Đang xử lý",
+		"updateSuccess": "Cập nhật thành công",
+		"updateFailed": "Lỗi! Hãy thử lại.",
+		"updateError": "Có lỗi xảy ra! Hãy thử lại."
 	}
 }
