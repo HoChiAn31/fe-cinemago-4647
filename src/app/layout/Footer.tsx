@@ -5,19 +5,17 @@ import MaxWidth from '../components/MaxWidth';
 import Links from '../components/Links';
 import { useTranslations } from 'next-intl';
 import { Image } from '@nextui-org/react';
+import { useTheme } from '../context/ThemeContext';
 
 const Footer: FC = () => {
 	const t = useTranslations('LayoutFooter');
-	// // Ensure returnObjects is working, or cast it explicitly to an array
-	// const theaters = t('theaterSystem.theaters', { returnObjects: true }) as unknown as {
-	// 	name: string;
-	// }[];
-
-	// // If theaters is still a string, manually parse it if needed (in case t() returns a JSON string)
-	// const parsedTheaters = typeof theaters === 'string' ? JSON.parse(theaters) : theaters;
+	const { isDarkMode } = useTheme();
+	const theaters = t.raw('theaterSystem.theaters') as { name: string }[];
 
 	return (
-		<div className='bg-gray-900 py-10 text-white'>
+		<div
+			className={`bg-gray-900 py-10 ${isDarkMode ? 'bg-dark text-white' : 'border-t border-t-gray1 bg-white text-black'}`}
+		>
 			<MaxWidth>
 				<div className='container mx-auto px-6'>
 					<div className='flex flex-wrap justify-between space-y-8 md:space-y-0'>
@@ -26,32 +24,26 @@ const Footer: FC = () => {
 							<div className='flex items-center justify-center'>
 								<Image src='/images/logo1.png' width={200} height={100} alt='Logo' />
 							</div>
-							<p className='mt-4 text-sm text-gray-400'>{t('companyInfo.description')}</p>
+							<p className='text-gray-400 mt-4 text-sm'>{t('companyInfo.description')}</p>
 						</div>
 
 						{/* Links */}
 						<div className='mb-6 w-full sm:w-1/2 md:w-1/5'>
 							<h3 className='mb-4 text-xl font-semibold'>{t('quickLinks.title')}</h3>
-							<ul className='flex flex-col gap-2 text-base text-gray-400'>
+							<ul className='text-gray-400 flex flex-col gap-2 text-base'>
 								<li>
-									<Links hover='white' href='/'>
+									<Links href='/' className='text-red-400'>
 										{t('quickLinks.home')}
 									</Links>
 								</li>
 								<li>
-									<Links hover='white' href='/about'>
-										{t('quickLinks.about')}
-									</Links>
+									<Links href='/about'>{t('quickLinks.about')}</Links>
 								</li>
 								<li>
-									<Links hover='white' href='/contact'>
-										{t('quickLinks.contact')}
-									</Links>
+									<Links href='/contact'>{t('quickLinks.contact')}</Links>
 								</li>
 								<li>
-									<Links hover='white' href='/terms'>
-										{t('quickLinks.terms')}
-									</Links>
+									<Links href='/terms'>{t('quickLinks.terms')}</Links>
 								</li>
 								<li>
 									<Links hover='white' href='/privacy'>
@@ -63,49 +55,26 @@ const Footer: FC = () => {
 						{/* Links */}
 						<div className='mb-6 w-full sm:w-1/2 md:w-1/5'>
 							<h3 className='mb-4 text-xl font-semibold'>{t('theaterSystem.title')}</h3>
-							<ul className='flex flex-col gap-2 text-base text-gray-400'>
-								{/* {parsedTheaters.map((theater: { name: string }) => (
-									<li key={theater.name}>
-										<p>{theater.name}</p>
-									</li>
-								))} */}
-
-								<li>
-									<Links hover='white' href='/'>
-										{t('theater.t1')}
-									</Links>
-								</li>
-								<li>
-									<Links hover='white' href='/about'>
-										CinemaGO Quận 3
-									</Links>
-								</li>
-								<li>
-									<Links hover='white' href='/contact'>
-										CinemaGO Thủ Đức
-									</Links>
-								</li>
-								<li>
-									<Links hover='white' href='/terms'>
-										CinemaGO Gò vấp
-									</Links>
-								</li>
-								<li>
-									<Links hover='white' href='/privacy'>
-										CinemaGO Tân Phú
-									</Links>
-								</li>
+							<ul className='text-gray-400 flex flex-col gap-2 text-base'>
+								{Array.isArray(theaters)
+									? theaters.map((theater, index) => (
+											<li key={index}>
+												<Links hover='white' href='/'>
+													{theater.name}
+												</Links>
+											</li>
+										))
+									: null}
 							</ul>
 						</div>
-
 						{/* Contact Info */}
 						<div className='mb-6 w-full sm:w-1/2 md:w-1/5'>
 							<h3 className='mb-4 text-xl font-semibold'>{t('contactInfo.title')}</h3>
 							<div className='flex flex-col gap-2'>
-								<p className='text-base text-gray-400'>{t('contactInfo.address')}</p>
-								<p className='text-base text-gray-400'>{t('contactInfo.city')}</p>
-								<p className='text-base text-gray-400'>{t('contactInfo.phone')}</p>
-								<p className='text-base text-gray-400'>{t('contactInfo.email')}</p>
+								<p className='text-gray-400 text-base'>{t('contactInfo.address')}</p>
+								<p className='text-gray-400 text-base'>{t('contactInfo.city')}</p>
+								<p className='text-gray-400 text-base'>{t('contactInfo.phone')}</p>
+								<p className='text-gray-400 text-base'>{t('contactInfo.email')}</p>
 							</div>
 							<div>
 								<div className='my-4 grid grid-cols-4 gap-4'>
@@ -162,7 +131,7 @@ const Footer: FC = () => {
 						</div>
 					</div>
 
-					<div className='mt-8 text-center text-sm text-gray-400'>
+					<div className='text-gray-400 text-re mt-8 text-center text-sm'>
 						<p>{t('copyright', { year: new Date().getFullYear() })}</p>
 					</div>
 				</div>

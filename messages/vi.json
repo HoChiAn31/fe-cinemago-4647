@@ -28,13 +28,13 @@
 			"privacy": "Chính Sách Bảo Mật"
 		},
 		"theaterSystem": {
-			"title": "Theater System 1",
+			"title": "Chi nhánh",
 			"theaters": [
-				{ "name": "CinemaGo District 1" },
-				{ "name": "CinemaGo District 2" },
-				{ "name": "CinemaGo District 3" },
-				{ "name": "CinemaGo District 4" },
-				{ "name": "CinemaGo District 5" }
+				{ "name": "CinemaGo Quận 1" },
+				{ "name": "CinemaGo Quận 2" },
+				{ "name": "CinemaGo Quận 3" },
+				{ "name": "CinemaGo Quận 4" },
+				{ "name": "CinemaGo Quận 5" }
 			]
 		},
 		"contactInfo": {

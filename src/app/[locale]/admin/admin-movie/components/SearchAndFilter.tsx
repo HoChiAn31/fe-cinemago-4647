@@ -37,7 +37,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 						label={t('searchPlaceholder')}
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						className='h-14 text-lg'
+						className='h-14 text-lg focus:outline-none'
 						variant='bordered'
 					/>
 				</div>

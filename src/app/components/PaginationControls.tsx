@@ -21,11 +21,19 @@ const PaginationControls: FC<PaginationControlsProps> = ({
 	return (
 		<div className='py-4 text-center'>
 			<div className=''>
-				<Button disabled={prevPage === null} onPress={() => onPageChange(prevPage || currentPage)}>
+				<Button
+					className='bg-white shadow-md'
+					disabled={prevPage === null}
+					onPress={() => onPageChange(prevPage || currentPage)}
+				>
 					{t('previous')}
 				</Button>
 				<span className='mx-2'>{t('page', { currentPage, lastPage })}</span>
-				<Button disabled={nextPage === null} onPress={() => onPageChange(nextPage || currentPage)}>
+				<Button
+					className='bg-white shadow-md'
+					disabled={nextPage === null}
+					onPress={() => onPageChange(nextPage || currentPage)}
+				>
 					{t('next')}
 				</Button>
 			</div>

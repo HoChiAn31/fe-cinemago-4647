@@ -9,9 +9,6 @@ import {
 	Input,
 	Image,
 	Button,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
 } from '@nextui-org/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
@@ -23,6 +20,7 @@ import LocaleSwitcher from '../components/local-switcher';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import logo1 from '../Image/logo1.png';
 import { useTheme } from '../context/ThemeContext';
+import LinkUser from '../components/Header/LinkUser';
 
 const Header: FC = () => {
 	const pathname = usePathname();
@@ -134,48 +132,30 @@ const Header: FC = () => {
 						<Tooltip
 							closeDelay={100}
 							content={
-								<div className='flex flex-col'>
+								<div className={`flex flex-col ${isDarkMode ? 'text-white' : 'text-black'}`}>
 									{isLogin ? (
 										<>
-											<Links
-												href={`/admin`}
-												className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-											>
+											<LinkUser href={`/admin`}>
 												<p>{t('admin')}</p>
-											</Links>
-											<Links
-												href={`/profile`}
-												className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-											>
+											</LinkUser>
+											<LinkUser href={`/profile`}>
 												<p>{t('profile')}</p>
-											</Links>
-											<Links
-												href={`/profile/order`}
-												className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-											>
+											</LinkUser>
+											<LinkUser href={`/profile/order`}>
 												<p>{t('orderHistory')}</p>
-											</Links>
-											<Button
-												onClick={handleLogout}
-												className='w-[200px] bg-transparent py-3 text-left text-base text-black hover:text-primary'
-											>
+											</LinkUser>
+											<Button onClick={handleLogout}>
 												<p>{t('logout')}</p>
 											</Button>
 										</>
 									) : (
 										<>
-											<Links
-												href={`/login`}
-												className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-											>
+											<LinkUser href={`/login`}>
 												<p>{t('login')}</p>
-											</Links>
-											<Links
-												href={`/register`}
-												className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
-											>
+											</LinkUser>
+											<LinkUser href={`/register`} isNotBorderBottom>
 												<p>{t('register')}</p>
-											</Links>
+											</LinkUser>
 										</>
 									)}
 								</div>
