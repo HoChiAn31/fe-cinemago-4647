@@ -120,5 +120,28 @@
 		"updateSuccess": "Cập nhật thành công",
 		"updateFailed": "Lỗi! Hãy thử lại.",
 		"updateError": "Có lỗi xảy ra! Hãy thử lại."
+	},
+	"PageForgotPassword": {
+		"title": "Quên Mật Khẩu",
+		"description": "Nhập địa chỉ email của bạn để đặt lại mật khẩu.",
+		"emailLabel": "Địa chỉ Email",
+		"emailPlaceholder": "Nhập email của bạn",
+		"resetPasswordButton": "Đặt lại Mật Khẩu"
+	},
+	"PageOtp": {
+		"title": "Xác minh mã OTP của bạn",
+		"description": "Vui lòng nhập mã OTP đã được gửi đến email của bạn để xác minh tài khoản.",
+		"otpLabel": "Nhập mã OTP",
+		"otpPlaceholder": "123456",
+		"verifyOtpButton": "Xác minh OTP"
+	},
+	"PageResetPassword": {
+		"title": "Thiết Lập Lại Mật Khẩu",
+		"description": "Vui lòng nhập mật khẩu mới của bạn để thiết lập lại mật khẩu tài khoản.",
+		"newPasswordLabel": "Mật Khẩu Mới",
+		"newPasswordPlaceholder": "Nhập mật khẩu mới",
+		"confirmPasswordLabel": "Xác Nhận Mật Khẩu",
+		"confirmPasswordPlaceholder": "Xác nhận mật khẩu mới của bạn",
+		"resetPasswordButton": "Thiết Lập Lại Mật Khẩu"
 	}
 }

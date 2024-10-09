@@ -8,9 +8,10 @@ interface LinksProps extends LinkProps {
 	children: React.ReactNode;
 	className?: string;
 	hover?: string;
+	size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
 }
 
-const Links: FC<LinksProps> = ({ href, hover, className, children, ...props }) => {
+const Links: FC<LinksProps> = ({ href, hover, className, size, children, ...props }) => {
 	const locale = useLocale();
 	// Ensure the path is correctly formatted, avoiding double slashes
 	const localizedHref = `/${locale}/${href}`;
@@ -19,7 +20,7 @@ const Links: FC<LinksProps> = ({ href, hover, className, children, ...props }) =
 		<Link
 			href={localizedHref}
 			{...props}
-			className={`${hover ? `hover:text-${hover}` : ''} ${className} `}
+			className={`${hover ? `hover:text-${hover}` : ''} text-${size} ${className} `}
 		>
 			{children}
 		</Link>
