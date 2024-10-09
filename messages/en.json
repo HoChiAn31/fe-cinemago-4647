@@ -119,5 +119,28 @@
 		"updateSuccess": "Added successfully.",
 		"updateFailed": "Add failed! Please try again.",
 		"updateError": "An error occurred! Please try again."
+	},
+	"PageForgotPassword": {
+		"title": "Forgot Password",
+		"description": "Enter your email address to reset your password.",
+		"emailLabel": "Email Address",
+		"emailPlaceholder": "Enter your email",
+		"resetPasswordButton": "Reset Password"
+	},
+	"PageOtp": {
+		"title": "Verify Your OTP",
+		"description": "Please enter the OTP sent to your email to verify your account.",
+		"otpLabel": "Enter OTP",
+		"otpPlaceholder": "123456",
+		"verifyOtpButton": "Verify OTP"
+	},
+	"PageResetPassword": {
+		"title": "Reset Your Password",
+		"description": "Please enter your new password to reset your account password.",
+		"newPasswordLabel": "New Password",
+		"newPasswordPlaceholder": "Enter new password",
+		"confirmPasswordLabel": "Confirm Password",
+		"confirmPasswordPlaceholder": "Confirm your new password",
+		"resetPasswordButton": "Reset Password"
 	}
 }

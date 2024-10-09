@@ -1,6 +1,6 @@
 'use client';
 import { FC, useEffect, useRef, useState } from 'react';
-import { CircleUserRound, Search, Menu, X } from 'lucide-react';
+import { CircleUserRound, Search, Menu, X, LogOut } from 'lucide-react';
 import {
 	Tooltip,
 	Modal,
@@ -24,7 +24,7 @@ import LinkUser from '../components/Header/LinkUser';
 
 const Header: FC = () => {
 	const pathname = usePathname();
-	const { isLogin, setIsLogin, setRole } = useUser();
+	const { isLogin, setIsLogin, setRole, role } = useUser();
 
 	const locale = useLocale();
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -135,18 +135,38 @@ const Header: FC = () => {
 								<div className={`flex flex-col ${isDarkMode ? 'text-white' : 'text-black'}`}>
 									{isLogin ? (
 										<>
-											<LinkUser href={`/admin`}>
-												<p>{t('admin')}</p>
-											</LinkUser>
-											<LinkUser href={`/profile`}>
-												<p>{t('profile')}</p>
-											</LinkUser>
-											<LinkUser href={`/profile/order`}>
-												<p>{t('orderHistory')}</p>
-											</LinkUser>
-											<Button onClick={handleLogout}>
-												<p>{t('logout')}</p>
-											</Button>
+											<>
+												{role === 'admin' && (
+													<>
+														<Links
+															href={`/admin`}
+															className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
+														>
+															<p>{t('admin')}</p>
+														</Links>
+													</>
+												)}
+												<Links
+													href={`/profile`}
+													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
+												>
+													<p>{t('profile')}</p>
+												</Links>
+												<Links
+													href={`/profile/order`}
+													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
+												>
+													<p>{t('orderHistory')}</p>
+												</Links>
+												<button
+													onClick={handleLogout}
+													className='flex w-[200px] items-center gap-2 bg-transparent py-3 text-left text-base text-black hover:text-primary'
+													// startContent={}
+												>
+													<LogOut height={16} width={16} />
+													<p>{t('logout')}</p>
+												</button>
+											</>
 										</>
 									) : (
 										<>
@@ -211,12 +231,16 @@ const Header: FC = () => {
 									<div className='flex flex-col'>
 										{isLogin ? (
 											<>
-												<Links
-													href={`/admin`}
-													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-												>
-													<p>{t('admin')}</p>
-												</Links>
+												{role === 'admin' && (
+													<>
+														<Links
+															href={`/admin`}
+															className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
+														>
+															<p>{t('admin')}</p>
+														</Links>
+													</>
+												)}
 												<Links
 													href={`/profile`}
 													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
@@ -229,12 +253,12 @@ const Header: FC = () => {
 												>
 													<p>{t('orderHistory')}</p>
 												</Links>
-												<Button
+												<button
 													onClick={handleLogout}
 													className='w-[200px] bg-transparent py-3 text-left text-base text-black hover:text-primary'
 												>
 													<p>{t('logout')}</p>
-												</Button>
+												</button>
 											</>
 										) : (
 											<>

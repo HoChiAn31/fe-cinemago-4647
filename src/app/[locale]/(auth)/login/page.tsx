@@ -1,47 +1,53 @@
 'use client';
-import Links from '@/app/components/Links';
-import MaxWidth from '@/app/components/MaxWidth';
-import { useUser } from '@/app/context/UserContext';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Image, Input } from '@nextui-org/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
-import toast, { Toaster } from 'react-hot-toast'; // Assuming you're using react-hot-toast for notifications
+import toast, { Toaster } from 'react-hot-toast';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+
+import Links from '@/app/components/Links';
+import MaxWidth from '@/app/components/MaxWidth';
+import { useUser } from '@/app/context/UserContext';
 import ErrorMessage from '@/app/components/ErrorMessage';
 import { useTheme } from '@/app/context/ThemeContext';
-import { useEffect } from 'react'; // Optional, if you need to handle effects
+import { EyeFilledIcon, EyeSlashFilledIcon } from '@/app/services/icon';
 
 interface CustomJwtPayload extends JwtPayload {
 	role: string;
 }
+
 const loginValidationSchema = Yup.object({
 	email: Yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
 	password: Yup.string().required('Mật khẩu là bắt buộc'),
 });
+
 const initialLoginValues = {
 	email: '',
 	password: '',
 };
+
 const LoginPage: FC = () => {
 	const { setIsLogin, setRole } = useUser();
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
 	const [isLoginEmail, setIsLoginEmail] = useState(false);
 	const [isAnimate, setIsAnimate] = useState(0);
 	const router = useRouter();
 	const locale = useLocale();
 	const [errorMessage, setErrorMessage] = useState('');
 	const { isDarkMode } = useTheme();
+	const [isVisible, setIsVisible] = useState<boolean>(false);
+
+	const toggleVisibility = () => setIsVisible(!isVisible);
+
 	const handleLogin = async (values: typeof initialLoginValues) => {
-		// e.preventDefault();
+		// values.preventDefault();
+		console.log(values);
 		try {
-			setErrorMessage(''); // Clear previous error messages
+			setErrorMessage('');
 			const response = await axios.post('http://localhost:5000/auth/login', values);
 			const { access_token, refreshToken } = response.data;
 
@@ -62,7 +68,7 @@ const LoginPage: FC = () => {
 					if (status === 401 && data.message === 'Password incorrect') {
 						toast.error('Mật khẩu không chính xác');
 					} else if (status === 400 && Array.isArray(data.message)) {
-						toast.error(data.message[0]); // Display the first error message
+						toast.error(data.message[0]);
 					} else {
 						toast.error('Tài khoản không tồn tại! Vui lòng thử lại.');
 					}
@@ -72,7 +78,6 @@ const LoginPage: FC = () => {
 			} else {
 				toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
 			}
-			// toast.error(errorMessage);
 		}
 	};
 
@@ -103,44 +108,49 @@ const LoginPage: FC = () => {
 							/>
 						</div>
 
-						<Button className='bg-second w-full py-6 text-lg text-white'>Đăng nhập</Button>
+						<Button className='w-full bg-second py-6 text-lg text-white'>Đăng nhập</Button>
 					</div>
 				</div>
 			</MaxWidth>
 		);
 	}
+
 	return (
-		<MaxWidth>
+		<MaxWidth className=''>
 			<div className={`${isAnimate > 0 && 'animate-fade-right'} `}>
 				<h3 className='my-5 text-center text-2xl font-bold'>ĐĂNG NHẬP</h3>
-				<div className='mx-auto max-w-xl rounded-lg p-8 shadow-lg'>
+				<div className='mx-auto my-4 max-w-lg rounded-lg px-8 py-4'>
 					<Formik
 						initialValues={initialLoginValues}
 						validationSchema={loginValidationSchema}
 						onSubmit={handleLogin}
 					>
-						{({ errors, touched }) => (
-							<Form>
+						{({ values, errors, touched, handleChange, handleBlur, isValid, dirty }) => (
+							<Form className='space-y-6'>
 								{/* Email Input */}
-								<div className='my-10'>
+								<div className=''>
 									<label htmlFor='email' className={`${isDarkMode ? 'text-white' : 'text-black'}`}>
 										Email
 									</label>
 									<Input
 										id='email'
+										name='email'
+										type='email'
 										fullWidth
 										placeholder='Nhập email của bạn'
 										labelPlacement='outside'
-										name='email'
-										radius='md'
+										radius='sm'
 										variant='bordered'
-										className={`${isDarkMode ? 'text-white' : 'text-black'}`} // Set text color and background based on dark mode
+										className={`${isDarkMode ? 'text-white' : 'text-black'} `}
+										value={values.email}
+										onChange={handleChange}
+										onBlur={handleBlur}
 									/>
 									<ErrorMessage error={errors.email} touched={touched.email} />
 								</div>
 
 								{/* Password Input */}
-								<div className={`${isDarkMode ? 'text-white' : 'text-black'} my-10`}>
+								<div className={`${isDarkMode ? 'text-white' : 'text-black'} `}>
 									<label
 										htmlFor='password'
 										className={`${isDarkMode ? 'text-white' : 'text-black'}`}
@@ -149,28 +159,90 @@ const LoginPage: FC = () => {
 									</label>
 									<Input
 										id='password'
-										type='password'
+										name='password'
+										type={isVisible ? 'text' : 'password'}
 										fullWidth
 										placeholder='Nhập mật khẩu'
 										labelPlacement='outside'
-										name='password'
-										radius='md'
+										radius='sm'
 										variant='bordered'
-										className={`${isDarkMode ? 'text-white' : 'bg-white text-black'}`} // Set text color and background based on dark mode
+										className={`${isDarkMode ? 'text-white' : 'bg-white text-black'}`}
+										value={values.password}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										endContent={
+											<button
+												className='focus:outline-none'
+												type='button'
+												onClick={toggleVisibility}
+												aria-label='toggle password visibility'
+											>
+												{isVisible ? (
+													<EyeSlashFilledIcon className='pointer-events-none text-2xl text-default-400' />
+												) : (
+													<EyeFilledIcon className='pointer-events-none text-2xl text-default-400' />
+												)}
+											</button>
+										}
 									/>
 									<ErrorMessage error={errors.password} touched={touched.password} />
 								</div>
-
+								<div>
+									<Links
+										className='flex items-center justify-end hover:text-second hover:opacity-80'
+										href='/forgot-password'
+										size='sm'
+									>
+										Forgot Password?
+									</Links>
+								</div>
 								<Button
-									className='w-full bg-primary py-7 text-lg text-white'
+									className='w-full cursor-pointer bg-primary py-6 text-lg text-white'
 									type='submit'
-									disabled={!email || !password} // Disable button if email or password is empty
+									disabled={!(isValid && dirty)} // Disable button if form is invalid or untouched
+									radius='sm'
 								>
 									Đăng nhập
 								</Button>
 							</Form>
 						)}
 					</Formik>
+					<div className='mt-4 space-y-4'>
+						<div className='flex items-center'>
+							<div className='mx-4 flex-grow'>
+								<hr className='border-gray-300 border-t' />
+							</div>
+							<p className='mx-4 text-center'>or login with</p>
+							<div className='mx-4 flex-grow'>
+								<hr className='border-gray-300 border-t' />
+							</div>
+						</div>
+						<div className='flex items-center justify-center'>
+							<div className='flex gap-8'>
+								<Image
+									src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/800px-Facebook_Logo_%282019%29.png'
+									alt='facebook'
+									height={24}
+									width={24}
+								/>
+								<Image
+									src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png'
+									alt='gmail'
+									height={24}
+									width={24}
+								/>
+							</div>
+						</div>
+
+						<div className='flex items-center justify-center'>
+							<div className='flex items-center'>
+								<p>Tạo tài khoản?</p>
+								<Links href={`/register`} className='text-second hover:underline'>
+									Đăng ký
+								</Links>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<Toaster />

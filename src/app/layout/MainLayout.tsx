@@ -57,7 +57,17 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 			) : (
 				<>
 					<Header />
-					<main className={`flex-grow pt-16 ${isDarkMode ? 'bg-bgDark text-white' : ``}`}>
+					<main
+						className={`flex-grow ${
+							pathname.startsWith(`/${locale}/login`) ||
+							pathname.startsWith(`/${locale}/register`) ||
+							pathname.startsWith(`/${locale}/forgot-password`) ||
+							pathname.startsWith(`/${locale}/otp`) ||
+							pathname.startsWith(`/${locale}/reset-password`)
+								? 'flex items-center justify-center'
+								: 'pt-16'
+						} ${isDarkMode ? 'bg-bgDark text-white' : ``}`}
+					>
 						<ClientOnly>
 							{pathname.startsWith(`/${locale}/profile`) ? (
 								<div className='mx-auto my-5 flex max-w-[1200px] gap-4'>
@@ -65,14 +75,20 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 									<div className='w-[80%]'>{children}</div>
 								</div>
 							) : (
-								<main className='flex-grow overflow-hidden'>
+								<main className={`flex-grow overflow-hidden`}>
 									<ScrollToTop />
 									{children}
 								</main>
 							)}
 						</ClientOnly>
 					</main>
-					<Footer />
+					{!(
+						pathname.startsWith(`/${locale}/login`) ||
+						pathname.startsWith(`/${locale}/register`) ||
+						pathname.startsWith(`/${locale}/forgot-password`) ||
+						pathname.startsWith(`/${locale}/otp`) ||
+						pathname.startsWith(`/${locale}/reset-password`)
+					) && <Footer />}
 				</>
 			)}
 		</div>
