@@ -29,7 +29,7 @@ const Header: FC = () => {
 	const locale = useLocale();
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const [valueSearch, setValueSearch] = useState<string>('');
-	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // New state for mobile menu
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true); // New state for mobile menu
 	const t = useTranslations('LayoutHeader');
 	const router = useRouter();
 	const { isDarkMode, toggleDarkMode } = useTheme();
@@ -56,7 +56,9 @@ const Header: FC = () => {
 		};
 	}, []);
 	return (
-		<header className='fixed left-0 right-0 top-0 z-[48] overflow-hidden bg-dark text-white'>
+		<header
+			className={`fixed left-0 right-0 top-0 z-[48] overflow-hidden shadow ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}
+		>
 			{/* Added overflow-hidden */}
 			<MaxWidth className='px-2'>
 				<div className='flex items-center justify-between'>
@@ -197,7 +199,7 @@ const Header: FC = () => {
 				{isMenuOpen && (
 					<div ref={menuRef}>
 						<nav className='lg:hidden'>
-							<ul className='flex flex-col items-center space-y-4'>
+							<ul className='flex flex-col space-y-4'>
 								<NavItem
 									type='navHeader'
 									href='/'
@@ -224,70 +226,70 @@ const Header: FC = () => {
 								/>
 							</ul>
 						</nav>
-						<div className='mx-2 flex flex-col gap-4 border-t py-2 lg:hidden'>
-							<Tooltip
+						<div className='mx-2 flex flex-col gap-4 py-2 lg:hidden'>
+							{/* <Tooltip
 								closeDelay={100}
-								content={
-									<div className='flex flex-col'>
-										{isLogin ? (
-											<>
-												{role === 'admin' && (
-													<>
-														<Links
-															href={`/admin`}
-															className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-														>
-															<p>{t('admin')}</p>
-														</Links>
-													</>
-												)}
-												<Links
-													href={`/profile`}
-													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-												>
-													<p>{t('profile')}</p>
-												</Links>
-												<Links
-													href={`/profile/order`}
-													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-												>
-													<p>{t('orderHistory')}</p>
-												</Links>
-												<button
-													onClick={handleLogout}
-													className='w-[200px] bg-transparent py-3 text-left text-base text-black hover:text-primary'
-												>
-													<p>{t('logout')}</p>
-												</button>
-											</>
-										) : (
+								content={ */}
+							<div className='flex flex-col px-2'>
+								{isLogin ? (
+									<>
+										{role === 'admin' && (
 											<>
 												<Links
-													href={`/login`}
-													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-												>
-													<p>{t('login')}</p>
-												</Links>
-												<Links
-													href={`/register`}
+													href={`/admin`}
 													className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
 												>
-													<p>{t('register')}</p>
+													<p>{t('admin')}</p>
 												</Links>
 											</>
 										)}
-									</div>
-								}
+										<Links
+											href={`/profile`}
+											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+										>
+											<p>{t('profile')}</p>
+										</Links>
+										<Links
+											href={`/profile/order`}
+											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+										>
+											<p>{t('orderHistory')}</p>
+										</Links>
+										<button
+											onClick={handleLogout}
+											className='w-[200px] bg-transparent py-3 text-left text-base text-black hover:text-primary'
+										>
+											<p>{t('logout')}</p>
+										</button>
+									</>
+								) : (
+									<>
+										<Links
+											href={`/login`}
+											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+										>
+											<p>{t('login')}</p>
+										</Links>
+										<Links
+											href={`/register`}
+											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+										>
+											<p>{t('register')}</p>
+										</Links>
+									</>
+								)}
+							</div>
+							{/* }
 								showArrow
 							>
 								<CircleUserRound className='cursor-pointer' />
-							</Tooltip>
-							<div className='flex items-center gap-4'>
+							</Tooltip> */}
+							<div className='flex items-center gap-4 px-2'>
 								<p>Ngôn ngữ:</p>
 								<LocaleSwitcher />
 							</div>
 							<Tooltip closeDelay={100} content={t('darkMode')} showArrow>
-								<div className='my-2 flex items-center gap-4'>
+								<div className='my-2 flex items-center gap-4 px-2'>
 									<p>DarkMode:</p>
 									<DarkModeSwitch
 										onChange={toggleDarkMode}

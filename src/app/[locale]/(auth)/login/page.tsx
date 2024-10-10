@@ -32,7 +32,7 @@ const initialLoginValues = {
 };
 
 const LoginPage: FC = () => {
-	const { setIsLogin, setRole } = useUser();
+	const { setIsLogin, setRole, login } = useUser();
 	const [isLoginEmail, setIsLoginEmail] = useState(false);
 	const [isAnimate, setIsAnimate] = useState(0);
 	const router = useRouter();
@@ -45,22 +45,9 @@ const LoginPage: FC = () => {
 
 	const handleLogin = async (values: typeof initialLoginValues) => {
 		// values.preventDefault();
-		console.log(values);
 		try {
-			setErrorMessage('');
-			const response = await axios.post('http://localhost:5000/auth/login', values);
-			const { access_token, refreshToken } = response.data;
-
-			localStorage.setItem('accessToken', access_token);
-			localStorage.setItem('refreshToken', refreshToken);
-
-			const decodedToken = jwtDecode<CustomJwtPayload>(refreshToken);
-			console.log(decodedToken.role);
-			setRole(decodedToken.role);
-			setIsLogin(true);
-			localStorage.setItem('isLogin', 'true');
-			router.push(`/${locale}/`);
-			toast.success('Đăng nhập thành công!');
+			await login(values.email, values.password);
+			router.push(`/${locale}`);
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {

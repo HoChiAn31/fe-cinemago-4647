@@ -2519,6 +2519,11 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
+"@types/js-cookie@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.npmjs.org/@types/js-cookie/-/js-cookie-3.0.6.tgz#a04ca19e877687bd449f5ad37d33b104b71fdf95"
+  integrity sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
@@ -3814,8 +3819,9 @@ fsevents@~2.3.2:
     file-saver "^2.0.5"
     formik "^2.4.6"
     framer-motion "^11.5.4"
-    ft-movie-booking "file:C:/Users/ASUS/AppData/Local/Yarn/Cache/v6/npm-ft-movie-booking-0.1.0-c4bc47cf-ae01-484d-acd1-3290f8ba3f8b-1728296759617/node_modules/ft-movie-booking"
+    ft-movie-booking "file:C:/Users/ASUS/AppData/Local/Yarn/Cache/v6/npm-ft-movie-booking-0.1.0-ffc65e84-ed4e-4160-9552-6bac7ac86311-1728568845449/node_modules/ft-movie-booking"
     i18next "^23.15.1"
+    js-cookie "^3.0.5"
     jwt-decode "^4.0.0"
     lucide-react "^0.445.0"
     next "14.2.5"
@@ -3826,6 +3832,7 @@ fsevents@~2.3.2:
     react-dom "^18"
     react-hot-toast "^2.4.1"
     react-i18next "^15.0.1"
+    react-pro-sidebar "^1.1.0"
     react-qr-code "^2.0.15"
     react-resizable-panels "^2.1.3"
     react-slick "^0.30.2"
@@ -4363,6 +4370,11 @@ jiti@^1.21.0:
   version "1.21.6"
   resolved "https://registry.npmjs.org/jiti/-/jiti-1.21.6.tgz"
   integrity sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==
+
+js-cookie@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.5.tgz#0b7e2fd0c01552c58ba86e0841f94dc2557dcdbc"
+  integrity sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

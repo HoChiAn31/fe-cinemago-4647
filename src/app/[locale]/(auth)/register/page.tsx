@@ -287,7 +287,8 @@ import { EyeFilledIcon, EyeSlashFilledIcon } from '@/app/services/icon';
 import { useLocale } from 'next-intl';
 
 interface RegisterValues {
-	fullName: string;
+	firstName: string;
+	lastName: string;
 	email: string;
 	phone: string;
 	password: string;
@@ -296,7 +297,8 @@ interface RegisterValues {
 
 // Validation schema
 const validationSchema = Yup.object({
-	fullName: Yup.string().required('Họ và tên là bắt buộc'),
+	firstName: Yup.string().required('Họ là bắt buộc'),
+	lastName: Yup.string().required('Tên là bắt buộc'),
 	email: Yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
 	phone: Yup.string().required('Số điện thoại là bắt buộc'),
 	password: Yup.string()
@@ -309,7 +311,8 @@ const validationSchema = Yup.object({
 
 // Initial values
 const initialValues: RegisterValues = {
-	fullName: '',
+	firstName: '',
+	lastName: '',
 	email: '',
 	phone: '',
 	password: '',
@@ -335,7 +338,7 @@ const RegisterPage: FC = () => {
 			// Xử lý phản hồi thành công
 			toast.success('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
 			resetForm();
-			router.push(`${locale}/login`);
+			router.push(`/${locale}/login`);
 		} catch (error: any) {
 			// Xử lý lỗi từ API
 			if (axios.isAxiosError(error)) {
@@ -355,6 +358,12 @@ const RegisterPage: FC = () => {
 		} finally {
 			setSubmitting(false);
 		}
+		// try {
+		// 	await axios.post('http://localhost:5000/auth/register', values);
+		// 	router.push(`/${locale}/login`);
+		// } catch (err: any) {
+		// 	toast.error(err.response?.data?.message || 'Đăng ký không thành công');
+		// }
 	};
 
 	return (
@@ -390,24 +399,51 @@ const RegisterPage: FC = () => {
 							}}
 						>
 							{/* Họ và Tên */}
-							<div>
-								<label htmlFor='fullName' className={`${isDarkMode ? 'text-white' : 'text-black'}`}>
-									Họ và Tên:
-								</label>
-								<Input
-									id='fullName'
-									name='fullName'
-									type='text'
-									fullWidth
-									placeholder='Nhập họ và tên'
-									className={`mt-1 rounded-xl ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
-									radius='sm'
-									variant='bordered'
-									value={values.fullName}
-									onChange={handleChange}
-									onBlur={handleBlur}
-								/>
-								<ErrorMessage error={errors.fullName} touched={touched.fullName} />
+							<div className='flex w-full items-center justify-between'>
+								<div>
+									<label
+										htmlFor='firstName'
+										className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+									>
+										Họ:
+									</label>
+									<Input
+										id='firstName'
+										name='firstName'
+										type='text'
+										fullWidth
+										placeholder='Nhập họ và tên'
+										className={`mt-1 rounded-xl ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
+										radius='sm'
+										variant='bordered'
+										value={values.firstName}
+										onChange={handleChange}
+										onBlur={handleBlur}
+									/>
+									<ErrorMessage error={errors.firstName} touched={touched.firstName} />
+								</div>
+								<div>
+									<label
+										htmlFor='lastName'
+										className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+									>
+										Tên:
+									</label>
+									<Input
+										id='lastName'
+										name='lastName'
+										type='text'
+										fullWidth
+										placeholder='Nhập họ và tên'
+										className={`mt-1 rounded-xl ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
+										radius='sm'
+										variant='bordered'
+										value={values.lastName}
+										onChange={handleChange}
+										onBlur={handleBlur}
+									/>
+									<ErrorMessage error={errors.lastName} touched={touched.lastName} />
+								</div>
 							</div>
 
 							{/* Email */}
