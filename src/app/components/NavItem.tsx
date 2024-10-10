@@ -9,6 +9,7 @@ interface NavItemProps {
 	isActive?: boolean;
 	label?: string;
 	onClick?: React.MouseEventHandler<HTMLParagraphElement>;
+	className?: string;
 }
 
 const sizeClassMap = {
@@ -27,6 +28,7 @@ const NavItem: React.FC<NavItemProps> = ({
 	type,
 	onClick,
 	size = 'base',
+	className,
 }) => {
 	const sizeClass = sizeClassMap[size];
 	const locale = useLocale();
@@ -36,7 +38,7 @@ const NavItem: React.FC<NavItemProps> = ({
 			{type === 'sortingfilter' ? (
 				<p
 					onClick={onClick}
-					className={`${isActive ? 'border-primary text-primary' : 'border-transparent hover:border-primary hover:text-primary'} ${sizeClass} cursor-pointer border-b-2 px-4 pb-3`}
+					className={`${isActive ? 'border-primary text-primary' : 'border-transparent hover:border-primary hover:text-primary'} ${sizeClass} cursor-pointer border-b-2 px-4 pb-3 ${className}`}
 				>
 					{label}
 				</p>
@@ -44,7 +46,7 @@ const NavItem: React.FC<NavItemProps> = ({
 				<li>
 					<Link href={localizedHref || '#'}>
 						<p
-							className={`${isActive ? 'cursor-default rounded-full text-primary' : 'text-gray-500 hover:text-primary'} ${sizeClass} px-4 py-1`}
+							className={`${isActive ? 'cursor-default rounded-full text-primary' : 'text-gray-500 hover:text-primary'} ${sizeClass} px-4 py-1 ${className}`}
 						>
 							{label}
 						</p>
