@@ -72,15 +72,18 @@
 		"logout": "Log Out"
 	},
 	"AdminSearchAndFilter": {
-		"searchPlaceholder": "Enter movie name...",
+		"searchPlaceholder": "Enter name...",
 		"itemsPerPageLabel": "Items per page",
-		"selectLanguageLabel": "Select Language Code"
+		"selectLanguageLabel": "Select Language Code",
+		"roleLabel": "Select role"
 	},
 	"AdminTable": {
 		"order": "Number",
 		"select": "Select",
 		"id": "ID",
+		"email": "Email",
 		"name": "Name",
+		"role": "Role",
 		"director": "Director",
 		"releaseDate": "Release Date",
 		"language": "Language",
@@ -142,5 +145,13 @@
 		"confirmPasswordLabel": "Confirm Password",
 		"confirmPasswordPlaceholder": "Confirm your new password",
 		"resetPasswordButton": "Reset Password"
+	},
+	"AdminUserAdd": {
+		"firstName": "First Name",
+		"lastName": "Last Name",
+		"password": "Password",
+		"email": "Email",
+		"role": "Role",
+		"addUser": "Add User"
 	}
 }

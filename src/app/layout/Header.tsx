@@ -24,7 +24,7 @@ import LinkUser from '../components/Header/LinkUser';
 
 const Header: FC = () => {
 	const pathname = usePathname();
-	const { isLogin, setIsLogin, setRole, role } = useUser();
+	const { isLogin, setIsLogin, setRole, role, logout } = useUser();
 
 	const locale = useLocale();
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -161,7 +161,7 @@ const Header: FC = () => {
 													<p>{t('orderHistory')}</p>
 												</Links>
 												<button
-													onClick={handleLogout}
+													onClick={logout}
 													className='flex w-[200px] items-center gap-2 bg-transparent py-3 text-left text-base text-black hover:text-primary'
 													// startContent={}
 												>
@@ -256,7 +256,7 @@ const Header: FC = () => {
 											<p>{t('orderHistory')}</p>
 										</Links>
 										<button
-											onClick={handleLogout}
+											onClick={logout}
 											className='w-[200px] bg-transparent py-3 text-left text-base text-black hover:text-primary'
 										>
 											<p>{t('logout')}</p>

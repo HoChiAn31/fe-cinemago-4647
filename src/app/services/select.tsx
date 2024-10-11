@@ -16,3 +16,14 @@ export const selectItem = [
 		value: '50',
 	},
 ];
+
+export const selectRole = [
+	{
+		key: 'admin',
+		value: 'admin',
+	},
+	{
+		key: 'user',
+		value: 'user',
+	},
+];
