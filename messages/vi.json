@@ -73,15 +73,18 @@
 		"logout": "Đăng xuất"
 	},
 	"AdminSearchAndFilter": {
-		"searchPlaceholder": "Nhập tên phim...",
+		"searchPlaceholder": "Nhập tên...",
 		"itemsPerPageLabel": "Số lượng mỗi trang",
-		"selectLanguageLabel": "Chọn mã ngôn ngữ"
+		"selectLanguageLabel": "Chọn mã ngôn ngữ",
+		"roleLabel": "Chọn vai trò"
 	},
 	"AdminTable": {
 		"order": "STT",
 		"select": "Chọn",
 		"id": "ID",
 		"name": "Tên",
+		"email": "Email",
+		"role": "Vai trò",
 		"director": "Tác giả",
 		"releaseDate": "Ngày phát hành",
 		"language": "Ngôn ngữ",
@@ -143,5 +146,13 @@
 		"confirmPasswordLabel": "Xác Nhận Mật Khẩu",
 		"confirmPasswordPlaceholder": "Xác nhận mật khẩu mới của bạn",
 		"resetPasswordButton": "Thiết Lập Lại Mật Khẩu"
+	},
+	"AdminUserAdd": {
+		"firstName": "Họ",
+		"lastName": "Tên",
+		"password": "Mật khẩu",
+		"email": "Email",
+		"role": "Vai trò",
+		"addUser": "Thêm người dùng"
 	}
 }

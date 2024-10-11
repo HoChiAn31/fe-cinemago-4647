@@ -59,56 +59,51 @@ const MovieTable: React.FC<MovieTableProps> = ({
 					</tr>
 				</thead>
 				<tbody>
-					{movies.map(
-						(
-							movie,
-							index, // Add index to the map function
-						) => (
-							<tr key={movie.id} className='border-b border-gray'>
-								<td className='border-r border-gray p-3 text-center'>{index + 1}</td>{' '}
-								{/* Display order number */}
-								<td className='border-r border-gray p-3 text-center'>{movie.id}</td>
-								<td className='border-r border-gray p-3 text-center'>
-									{movie.translations &&
-										movie.translations.length > 0 &&
-										(() => {
-											const translation = movie.translations.find(
-												(t) => t.categoryLanguage && t.categoryLanguage.languageCode === 'en',
-											);
-											return translation ? translation.name : movie.translations[0].name;
-										})()}
-								</td>
-								<td className='border-r border-gray p-3 text-center'>{movie.director}</td>
-								<td className='border-r border-gray p-3 text-center'>{movie.releaseDate}</td>
-								<td className='border-r border-gray p-3 text-center'>{movie.language}</td>
-								<td className='grid grid-cols-2 gap-2 p-3'>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='warning'
-											onPress={() => {
-												router.push(`/${locale}/admin/admin-movie/${movie.id}`);
-											}}
-											isIconOnly
-										>
-											<Pencil className='text-white' />
-										</Button>
-									</div>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='danger'
-											onPress={() => {
-												setMovieToDelete(movie);
-												onDeleteOpen();
-											}}
-											isIconOnly
-										>
-											<Trash2 />
-										</Button>
-									</div>
-								</td>
-							</tr>
-						),
-					)}
+					{movies.map((movie, index) => (
+						<tr key={movie.id} className='border-b border-gray'>
+							<td className='border-r border-gray p-3 text-center'>{index + 1}</td>{' '}
+							{/* Display order number */}
+							<td className='border-r border-gray p-3 text-center'>{movie.id}</td>
+							<td className='border-r border-gray p-3 text-center'>
+								{movie.translations &&
+									movie.translations.length > 0 &&
+									(() => {
+										const translation = movie.translations.find(
+											(t) => t.categoryLanguage && t.categoryLanguage.languageCode === 'en',
+										);
+										return translation ? translation.name : movie.translations[0].name;
+									})()}
+							</td>
+							<td className='border-r border-gray p-3 text-center'>{movie.director}</td>
+							<td className='border-r border-gray p-3 text-center'>{movie.releaseDate}</td>
+							<td className='border-r border-gray p-3 text-center'>{movie.language}</td>
+							<td className='grid grid-cols-2 gap-2 p-3'>
+								<div className='flex items-center justify-center'>
+									<Button
+										color='warning'
+										onPress={() => {
+											router.push(`/${locale}/admin/admin-movie/${movie.id}`);
+										}}
+										isIconOnly
+									>
+										<Pencil className='text-white' />
+									</Button>
+								</div>
+								<div className='flex items-center justify-center'>
+									<Button
+										color='danger'
+										onPress={() => {
+											setMovieToDelete(movie);
+											onDeleteOpen();
+										}}
+										isIconOnly
+									>
+										<Trash2 />
+									</Button>
+								</div>
+							</td>
+						</tr>
+					))}
 				</tbody>
 			</table>
 		</div>

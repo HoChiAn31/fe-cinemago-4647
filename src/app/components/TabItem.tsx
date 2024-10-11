@@ -36,40 +36,6 @@ const TabItem: FC<TabItemProps> = ({
 	const hasSubItems = subItems && subItems.length > 0;
 	const { isCollapsedAdmin } = useTheme();
 
-	const divWidth = useRef<HTMLDivElement>(null);
-	const [clientWidth, setClientWidth] = useState(0);
-	// console.log(clientWidth);
-	useEffect(() => {
-		// Hàm callback sẽ được gọi khi kích thước của div thay đổi
-		const resizeObserver = new ResizeObserver((entries) => {
-			for (let entry of entries) {
-				// Lấy clientWidth mới
-				setClientWidth(entry.contentRect.width);
-			}
-		});
-
-		if (divWidth.current) {
-			resizeObserver.observe(divWidth.current); // Theo dõi div
-			// Lấy clientWidth ban đầu
-			setClientWidth(divWidth.current.clientWidth);
-		}
-
-		// Dọn dẹp khi component unmount
-		return () => {
-			if (divWidth.current) {
-				resizeObserver.unobserve(divWidth.current);
-			}
-		};
-	}, []);
-	useEffect(() => {
-		if (clientWidth < 220) {
-			setIsMobileView(true);
-		} else {
-			setIsMobileView(false);
-		}
-	}, [clientWidth]);
-	// Thêm một useEffect để cập nhật trạng thái khi window.innerWidth thay đổi
-
 	useEffect(() => {
 		if (isCollapsedAdmin) {
 			setIsMobileView(true);
@@ -88,7 +54,7 @@ const TabItem: FC<TabItemProps> = ({
 	};
 
 	return (
-		<div ref={divWidth} className={`${isCollapsedAdmin && 'w-28'}`}>
+		<div className={`${isCollapsedAdmin && 'w-28'}`}>
 			<li
 				className={`flex cursor-pointer items-center gap-3 rounded-lg ${
 					// isActive ? 'text-second bg-[#e250502b]' : 'hover:text-orange hover:opacity-80'
@@ -148,7 +114,7 @@ const TabItem: FC<TabItemProps> = ({
 							))}
 						</ul>
 					) : (
-						<div className='absolute left-[6%] top-[21%]'>
+						<div className='absolute left-[64%] top-[16.5%]'>
 							<ul className='ml-10 mt-2 space-y-2 rounded-lg bg-white py-2 shadow-md'>
 								{subItems.map((subItem) => (
 									<li
@@ -165,7 +131,7 @@ const TabItem: FC<TabItemProps> = ({
 											className='flex items-center gap-2 px-2 py-2 text-sm'
 										>
 											{subItem.icon}
-											{subItem.label}
+											{!isMobileView && subItem.label}
 										</Link>
 									</li>
 								))}

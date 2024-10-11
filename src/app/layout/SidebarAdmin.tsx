@@ -303,9 +303,10 @@ const SidebarAdmin: FC = () => {
 	return (
 		<div
 			ref={divWidth}
-			className={`fixed bottom-0 left-0 top-0 min-h-screen bg-white shadow ${isCollapsedAdmin ? 'w-[112px]' : 'w-[320px]'}`}
+			// className={`fixed bottom-0 left-0 top-0 min-h-screen bg-white shadow ${isCollapsedAdmin ? 'w-[112px]' : 'w-[320px]'}`}
+			className={`fixed bottom-0 left-0 top-0 min-h-screen bg-white shadow transition-all duration-500 ${isCollapsedAdmin ? 'w-[112px]' : 'w-[320px]'}`}
 		>
-			<div>
+			<div className=''>
 				<div className='flex items-center justify-center'>
 					{/* {t('title')}  */}
 					<Image src='/images/logo1.png' width={80} height={60} alt='Logo' />
@@ -402,7 +403,7 @@ const SidebarAdmin: FC = () => {
 						setActiveMainTab={setActiveMainTab}
 						activeSubTab={activeSubTab}
 						setActiveSubTab={setActiveSubTab}
-						tabName='AdminUserPage'
+						tabName='admin-user'
 						title={t('userManagement')}
 						icon={UserRound}
 					/>

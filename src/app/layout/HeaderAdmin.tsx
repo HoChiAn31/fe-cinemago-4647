@@ -28,7 +28,7 @@ const HeaderAdmin: FC = () => {
 	};
 	return (
 		<div
-			className={`fixed ${isCollapsedAdmin ? 'left-[112px]' : 'left-[320px]'} right-0 top-0 z-[100] bg-white p-5 shadow`}
+			className={`fixed transition-all duration-500 ${isCollapsedAdmin ? 'left-[112px]' : 'left-[320px]'} right-0 top-0 z-[100] bg-white p-5 shadow`}
 		>
 			<div className='flex items-center justify-between'>
 				<div onClick={handleChangeCollapsedAdmin} className='cursor-pointer'>

@@ -42,7 +42,9 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 						{/* <PanelResizeHandle /> */}
 						{/* <Panel defaultSize={70} className={`${isCollapsedAdmin && 'w-[80%]'}`}> */}
 						{/* <main className=''> */}
-						<div className={`${isCollapsedAdmin ? 'pl-[112px]' : 'pl-[320px]'} w-full`}>
+						<div
+							className={`transition-all duration-500 ${isCollapsedAdmin ? 'pl-[112px]' : 'pl-[320px]'} w-full`}
+						>
 							<HeaderAdmin />
 							<div className='pt-16'>
 								<div className='p-5'>{children}</div>
