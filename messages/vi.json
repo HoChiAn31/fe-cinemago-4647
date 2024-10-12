@@ -155,6 +155,7 @@
 		"role": "Vai trò",
 		"addUser": "Thêm người dùng"
 	},
+
 	"AdminBranchAdd": {
 		"email": "Email",
 		"phone": "Điện thoại",
@@ -165,5 +166,36 @@
 		"addBranch": "Thêm Chi nhánh",
 		"translation": "Bản dịch",
 		"addTranslation": "Thêm Bản dịch"
+
+	"HomePage": {
+		"button": {
+			"book": "Đặt vé",
+			"see": "Xem thêm",
+			"all": "Tất cả ưu đãi",
+			"learn": "Tìm hiểu thêm",
+			"trailer": "Xem Trailer",
+			"showTime": "Xem tất cả lịch chiếu",
+			"buyNow": "Đặt vé ngay"
+    	},
+		"rating": {
+        	"t13": "Phim dành cho khán giả từ đủ 13 tuổi trở lên (13+)",
+        	"t16": "Phim dành cho khán giả từ đủ 16 tuổi trở lên (16+)",
+        	"t18": "Phim dành cho khán giả từ đủ 18 tuổi trở lên (18+)",
+        	"k": "Phim dành cho khán giả từ dưới 13 tuổi với điều kiện xem cùng cha, mẹ hoặc người giám hộ"
+    	},
+		"label": {
+			"onGoing": "Phim đang chiếu",
+			"upComing": "Phim sắp chiếu",
+			"discount": "Khuyến mãi",
+			"program": "Chương trình thành viên",
+			"cFriend": "Thành viên C'Friend",
+			"cFriendDes": "Thẻ C'Friend nhiều ưu đãi cho thành viên mới",
+			"cVip": "Thành viên C'Vip",
+			"cVipDes": "Thẻ VIP CineStar mang đến sự ưu đãi độc quyền",
+			"option": "Tất cả các giải trí",
+			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinestar còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
+			"date": "Khởi chiếu"
+		}
+
 	}
 }
