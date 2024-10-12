@@ -154,6 +154,18 @@
 		"role": "Role",
 		"addUser": "Add User"
 	},
+
+	"AdminBranchAdd": {
+		"email": "Email",
+		"phone": "Phone",
+		"languageCode": "Language Code",
+		"name": "Name",
+		"address": "Address",
+		"description": "Description",
+		"addBranch": "Add Branch",
+		"translation": "Translation",
+		"addTranslation": "Add Translation"
+
 	"HomePage": {
 		"button": {
 			"book": "Buy Tickets",
@@ -183,5 +195,6 @@
 			"optionDes": "In addition to the high-quality cinema system, Cinestar also provides you with many other great types of entertainment.",
 			"date": "Premiere"
 		}
+
 	}
 }

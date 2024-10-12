@@ -2,28 +2,26 @@
 import { FC, useEffect, useState } from 'react';
 import { Button, useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
-import { Movie } from './types';
-import MovieTable from './components/MovieTable';
+import { Branch } from './types'; // Adjust the import based on your types
+import BranchTable from './components/BranchTable'; // Create this component
 import SearchAndFilter from './components/SearchAndFilter';
-import AddMovieModal from './components/AddMovie';
-import EditMovieModal from './components/EditMovieModal';
-import DeleteMovieModal from './components/DeleteMovieModal';
+import AddBranchModal from './components/AddBranch'; // Create this component
+// Create this component
+import DeleteBranchModal from './components/DeleteBranch'; // Create this component
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
 
-const AdminMoviePage: FC = () => {
-	const [movies, setMovies] = useState<Movie[]>([]);
+const AdminBranchPage: FC = () => {
+	const [branches, setBranches] = useState<Branch[]>([]);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 	const [searchQuery, setSearchQuery] = useState<string>('');
-	const [selectedGenre, setSelectedGenre] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
 	const [nextPage, setNextPage] = useState<number | null>(null);
 	const [prevPage, setPrevPage] = useState<number | null>(null);
 	const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
-	// const { isOpen: isAddOpen, onOpen: onAddOpen, onOpenChange: onAddOpenChange } = useDisclosure();
 	const {
 		isOpen: isDeleteOpen,
 		onOpen: onDeleteOpen,
@@ -35,52 +33,50 @@ const AdminMoviePage: FC = () => {
 		onOpenChange: onEditOpenChange,
 	} = useDisclosure();
 
-	const [movieToDelete, setMovieToDelete] = useState<Movie | null>(null);
-	const [movieToEdit, setMovieToEdit] = useState<Movie | null>(null);
-	const [selectedMovies, setSelectedMovies] = useState<Set<string>>(new Set());
+	const [branchToDelete, setBranchToDelete] = useState<Branch | null>(null);
+	const [branchToEdit, setBranchToEdit] = useState<Branch | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 700);
 	useEffect(() => {
-		fetchMovies();
-	}, [currentPage, debouncedSearchQuery, selectedGenre, itemsPerPage]);
+		fetchBranches();
+	}, [currentPage, debouncedSearchQuery, itemsPerPage]);
 
-	const fetchMovies = async () => {
+	const fetchBranches = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/movies', {
+			const response = await axios.get('http://localhost:5000/branch', {
+				// Adjust the endpoint
 				params: {
 					page: currentPage.toString(),
 					items_per_page: itemsPerPage.toString(),
 					search: searchQuery,
-					genre: selectedGenre === 'all' ? '' : selectedGenre,
 				},
 			});
-			setMovies(response.data.data);
+			setBranches(response.data.data);
 			setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
 		} catch (error) {
-			console.error('Error fetching movies:', error);
+			console.error('Error fetching branches:', error);
 		}
 	};
-
-	const handleAddMovie = () => {
-		// onAddOpenChange();
-		fetchMovies();
+	console.log(branches);
+	const handleAddBranch = () => {
+		fetchBranches();
 	};
 
-	const handleDeleteMovie = () => {
-		if (movieToDelete) {
-			setMovies(movies.filter((movie) => movie.id !== movieToDelete.id));
-			setMovieToDelete(null);
+	const handleDeleteBranch = () => {
+		if (branchToDelete) {
+			setBranches(branches.filter((branch) => branch.id !== branchToDelete.id));
+			setBranchToDelete(null);
 			onDeleteOpenChange();
-			fetchMovies();
+			fetchBranches();
 		}
 	};
 
-	const handleEditMovie = () => {
-		setMovieToEdit(null);
+	const handleEditBranch = () => {
+		setBranchToEdit(null);
 		onEditOpenChange();
-		fetchMovies();
+		fetchBranches();
 	};
 
 	const handlePageChange = (newPage: number) => {
@@ -90,45 +86,42 @@ const AdminMoviePage: FC = () => {
 	};
 
 	const handleFinishAdding = () => {
-		fetchMovies();
-		// onAddOpenChange();
+		fetchBranches();
 		setIsAddOpen(false);
 	};
 
 	const handleFinishDeleting = () => {
-		fetchMovies();
+		fetchBranches();
 		onDeleteOpenChange();
 	};
-	const handleOpenAddMovie = () => {
+
+	const handleOpenAddBranch = () => {
 		setIsAddOpen(!isAddOpen);
 	};
+
 	return (
 		<div>
 			<ManagementHeader
-				isAddOpen={isAddOpen}
-				onChangeAdd={handleOpenAddMovie}
-				title='Quản lý phim'
-				buttonText='Thêm phim'
+				isOpen={isAddOpen}
+				onChange={handleOpenAddBranch}
+				title='Quản lý chi nhánh' // Adjust the title
+				buttonText='Thêm chi nhánh' // Adjust the button text
 			/>
 			{!isAddOpen ? (
 				<>
 					<SearchAndFilter
 						searchQuery={searchQuery}
 						setSearchQuery={setSearchQuery}
-						selectedGenre={selectedGenre}
-						setSelectedGenre={setSelectedGenre}
 						itemsPerPage={itemsPerPage}
 						setItemsPerPage={setItemsPerPage}
 						setCurrentPage={setCurrentPage}
 					/>
-					<MovieTable
-						movies={movies}
-						selectedMovies={selectedMovies}
-						setSelectedMovies={setSelectedMovies}
+					<BranchTable
+						branches={branches} // Adjust the prop name
 						onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}
-						setMovieToEdit={setMovieToEdit}
-						setMovieToDelete={setMovieToDelete}
+						setBranchToEdit={setBranchToEdit} // Adjust the prop name
+						setBranchToDelete={setBranchToDelete} // Adjust the prop name
 					/>
 
 					<PaginationControls
@@ -138,35 +131,28 @@ const AdminMoviePage: FC = () => {
 						nextPage={nextPage}
 						onPageChange={handlePageChange}
 					/>
-					<AddMovieModal
+					<AddBranchModal
 						isOpen={isAddOpen}
-						// onOpenChange={onAddOpenChange}
-						onAddMovie={handleAddMovie}
+						onAddBranch={handleAddBranch} // Adjust the prop name
 						onFinishAdding={handleFinishAdding}
-						onReloadData={fetchMovies}
+						onReloadData={fetchBranches}
 					/>
-					<EditMovieModal
-						isOpen={isEditOpen}
-						onOpenChange={onEditOpenChange}
-						movieToEdit={movieToEdit}
-						onEditMovie={handleEditMovie}
-					/>
-					<DeleteMovieModal
+
+					<DeleteBranchModal
 						isOpen={isDeleteOpen}
 						onOpenChange={onDeleteOpenChange}
-						movieToDelete={movieToDelete}
-						onDeleteMovie={handleDeleteMovie}
+						branchToDelete={branchToDelete} // Adjust the prop name
+						onDeleteBranch={handleDeleteBranch} // Adjust the prop name
 						onFinishDeleting={handleFinishDeleting}
 					/>
 				</>
 			) : (
 				<>
-					<AddMovieModal
+					<AddBranchModal
 						isOpen={isAddOpen}
-						// onOpenChange={onAddOpenChange}
-						onAddMovie={handleAddMovie}
+						onAddBranch={handleAddBranch} // Adjust the prop name
 						onFinishAdding={handleFinishAdding}
-						onReloadData={fetchMovies}
+						onReloadData={fetchBranches}
 					/>
 				</>
 			)}
@@ -174,4 +160,4 @@ const AdminMoviePage: FC = () => {
 	);
 };
 
-export default AdminMoviePage;
+export default AdminBranchPage;

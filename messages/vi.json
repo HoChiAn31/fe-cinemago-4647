@@ -155,6 +155,18 @@
 		"role": "Vai trò",
 		"addUser": "Thêm người dùng"
 	},
+
+	"AdminBranchAdd": {
+		"email": "Email",
+		"phone": "Điện thoại",
+		"languageCode": "Mã ngôn ngữ",
+		"name": "Tên",
+		"address": "Địa chỉ",
+		"description": "Mô tả",
+		"addBranch": "Thêm Chi nhánh",
+		"translation": "Bản dịch",
+		"addTranslation": "Thêm Bản dịch"
+
 	"HomePage": {
 		"button": {
 			"book": "Đặt vé",
@@ -184,5 +196,6 @@
 			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinestar còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
 			"date": "Khởi chiếu"
 		}
+
 	}
 }
