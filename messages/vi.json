@@ -154,5 +154,16 @@
 		"email": "Email",
 		"role": "Vai trò",
 		"addUser": "Thêm người dùng"
+	},
+	"AdminBranchAdd": {
+		"email": "Email",
+		"phone": "Điện thoại",
+		"languageCode": "Mã ngôn ngữ",
+		"name": "Tên",
+		"address": "Địa chỉ",
+		"description": "Mô tả",
+		"addBranch": "Thêm Chi nhánh",
+		"translation": "Bản dịch",
+		"addTranslation": "Thêm Bản dịch"
 	}
 }

@@ -1,5 +1,5 @@
 'use client';
-import { Eye, Store } from 'lucide-react';
+import { Clapperboard, Eye, ShoppingBag, Store } from 'lucide-react';
 import { FC, useEffect, useState } from 'react';
 
 import LineChart from '@/app/components/Charts/LineChart';
@@ -10,10 +10,6 @@ import { getStatistics } from '@/app/services/api';
 import '@/app/utils/chartSetup';
 import Doughnut from '@/app/components/Charts/Doughnut';
 import { useTheme } from '@/app/context/ThemeContext';
-import PolarAreaChart from '@/app/components/Charts/PolarArea';
-import BubbleChart from '@/app/components/Charts/Bubble';
-import ScatterChart from '@/app/components/Charts/Scatter';
-import { Image } from '@nextui-org/react';
 
 const AdminPage: FC = () => {
 	const [topSellingDishes, setTopSellingDishes] = useState<any>(null);
@@ -91,7 +87,7 @@ const AdminPage: FC = () => {
 							className={`${isDarkMode ? '' : ''} flex items-center gap-x-6 rounded-md bg-white p-8 text-gray`}
 						>
 							<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#9694FF] p-2'>
-								<Eye className='text-white' />
+								<Clapperboard className='text-white' />
 							</div>
 							<div className='h-12'>
 								<div className='flex items-center justify-between'>
@@ -106,7 +102,7 @@ const AdminPage: FC = () => {
 							className={`${isDarkMode ? '' : ''} flex items-center gap-x-6 rounded-md bg-white p-8 text-gray`}
 						>
 							<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#9694FF] p-2'>
-								<Eye className='text-white' />
+								<ShoppingBag className='text-white' />
 							</div>
 							<div className='h-12'>
 								<div className='flex items-center justify-between'>
@@ -135,89 +131,14 @@ const AdminPage: FC = () => {
 					</div>
 				</div>
 				{/* end: item parameter */}
-			</div>
-			<div className='grid grid-cols-3 gap-8'>
-				{visitStats && (
-					<div className='mb-8 h-[44vh] rounded-md bg-white p-2'>
-						<h3 className='mb-2 text-xl font-semibold'>Thống Kê Lượt Truy Cập</h3>
-						<div className='h-full'>
-							<BarChart data={visitStats.data} options={visitStats.options} />
-						</div>
-					</div>
-				)}
-
-				{dishRatings && (
-					<div className='mb-8 flex h-[44vh] flex-col items-center justify-center rounded-md bg-white p-2'>
+				{/* {dishRatings && (
+					<div className='bg-darkGreen mb-8 flex h-96 w-[30%] flex-col items-center justify-center rounded-md'>
 						<h3 className='mb-2 text-xl font-semibold'>Người sử dụng web</h3>
-						<div style={{ width: '280px', height: '280px' }}>
+						<div style={{ width: '280px', height: '280px' }} className=''>
 							<Doughnut data={dishRatings.data} options={dishRatings.options} />
 						</div>
 					</div>
-				)}
-
-				<div className='h-[44vh] rounded-md bg-white p-4'>
-					<p className='text-2xl font-bold'>Top user</p>
-					<div className='py-2'>
-						<div className='flex items-center gap-2'>
-							<Image
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png'
-								height={56}
-								width={56}
-								radius='full'
-								className='shadow-md'
-							/>
-							<div>
-								<strong className='text-xl'>User1</strong>
-								<p className='text-xs text-gray'>@User 1</p>
-							</div>
-						</div>
-					</div>
-					<div className='py-2'>
-						<div className='flex items-center gap-2'>
-							<Image
-								src='https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/09/hinh-nen-ronaldo-23.jpg'
-								height={56}
-								width={56}
-								radius='full'
-								className='shadow-md'
-							/>
-							<div>
-								<strong className='text-xl'>User1</strong>
-								<p>@User 1</p>
-							</div>
-						</div>
-					</div>
-					<div className='py-2'>
-						<div className='flex items-center gap-2'>
-							<Image
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png'
-								height={56}
-								width={56}
-								radius='full'
-								className='shadow-md'
-							/>
-							<div>
-								<strong className='text-xl'>User1</strong>
-								<p>@User 1</p>
-							</div>
-						</div>
-					</div>
-					<div className='py-2'>
-						<div className='flex items-center gap-2'>
-							<Image
-								src='https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/09/hinh-nen-ronaldo-23.jpg'
-								height={56}
-								width={56}
-								radius='full'
-								className='shadow-md'
-							/>
-							<div>
-								<strong className='text-xl'>User1</strong>
-								<p>@User 1</p>
-							</div>
-						</div>
-					</div>
-				</div>
+				)} */}
 			</div>
 			<div className='flex items-center gap-4'>
 				{dishRevenue && (

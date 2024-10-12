@@ -153,5 +153,16 @@
 		"email": "Email",
 		"role": "Role",
 		"addUser": "Add User"
+	},
+	"AdminBranchAdd": {
+		"email": "Email",
+		"phone": "Phone",
+		"languageCode": "Language Code",
+		"name": "Name",
+		"address": "Address",
+		"description": "Description",
+		"addBranch": "Add Branch",
+		"translation": "Translation",
+		"addTranslation": "Add Translation"
 	}
 }
