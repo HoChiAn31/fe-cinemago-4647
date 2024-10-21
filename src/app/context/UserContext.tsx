@@ -225,8 +225,8 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [user, setUser] = useState<User | null>(null);
 
-	console.log('Access token:', getCookie('access_token'));
-	console.log('Refresh token:', getCookie('refresh_token'));
+	// console.log('Access token:', getCookie('access_token'));
+	// console.log('Refresh token:', getCookie('refresh_token'));
 	// Check token and fetch user data on page load
 	useEffect(() => {
 		const initializeAuth = async () => {

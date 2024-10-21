@@ -24,6 +24,7 @@ const config: Config = {
 				skyblue: '#F2F7FF',
 				gray: '#7C8DB5',
 				gray1: '#F2F2F2',
+				gray2: '#DFE0E1',
 				darkBlue: '#25396F',
 			},
 			boxShadow: {
