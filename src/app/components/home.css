@@ -1,0 +1,21 @@
+.slick-prev, .slick-next {
+    top: 40%;
+    background-color: transparent;
+}
+
+.slick-prev::before, .slick-next::before {
+    font-size: 40px;
+    color: #F0284A;
+}
+
+.slick-prev {
+    left: -40px;
+}
+
+.slick-dots {
+    bottom: -40px !important;
+}
+
+.darkmode .slick-dots li button::before {
+    color: white !important;
+}

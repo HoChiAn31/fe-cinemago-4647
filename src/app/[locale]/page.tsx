@@ -11,7 +11,6 @@ const HomePage: FC = () => {
 				<Banner />
 				<OnGoing />
 				<UpComing />
-				<UpComing />
 			</div>
 		</MaxWidth>
 	);

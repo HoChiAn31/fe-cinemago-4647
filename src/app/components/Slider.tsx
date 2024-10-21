@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from './Image';
+import { useTheme } from '../context/ThemeContext';
 
 interface SliderProps {
     images?: string[];
@@ -12,6 +13,7 @@ interface SliderProps {
 const Slider: React.FC<SliderProps> = ({ images, titles, showNavigation = true, children }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const slides = children ? React.Children.toArray(children) : images || [];
+    const {isDarkMode} = useTheme();
 
     const prevSlide = () => {
         setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : slides.length - 1);
@@ -54,13 +56,13 @@ const Slider: React.FC<SliderProps> = ({ images, titles, showNavigation = true, 
                 <>
                     <button
                         onClick={prevSlide}
-                        className="absolute left-[-50px] top-1/2 transform -translate-y-1/2 text-black p-2 hover:hover-color text-4xl"
+                        className={`absolute left-[-50px] top-1/2 transform -translate-y-1/2 p-2 hover:hover-color text-4xl hover:text-primary ${isDarkMode? 'text-white' : 'text-black'}`}
                     >
                         &lt;
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="absolute right-[-50px] top-1/2 transform -translate-y-1/2 text-black p-2 hover:hover-color text-4xl"
+                        className={`absolute right-[-50px] top-1/2 transform -translate-y-1/2 p-2 hover:hover-color text-4xl hover:text-primary ${isDarkMode? 'text-white' : 'text-black'}`}
                     >
                         &gt;
                     </button>
