@@ -6,6 +6,7 @@ import Image from "./Image";
 import { iconTags } from "../contracts/IconTag.contract";
 import { formatDate } from "../utils/format.utils";
 import { useTranslations } from 'next-intl';
+import { useTheme } from "../context/ThemeContext";
 
 interface MovieProps {
     movie: {
@@ -34,14 +35,15 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
   };
 
   const ageRating = getAgeRating(movie.rating);
+  const {isDarkMode} = useTheme();
 
   return (
-    <div className="flex flex-col relative group w-full max-w-xs overflow-hidden rounded-sm shadow-lg mt-4">
+    <div className={`flex flex-col relative group w-full max-w-xs overflow-hidden rounded-sm shadow-lg mt-4 ${isDarkMode? 'bg-white':''}`}>
       <a className="relative block flex-1 min-h-[200px] rounded-sm" href="#">
         <Image
           src={movie.image}
           alt={movie.title}
-          className="w-full lg:h-[451.98px] object-cover transition-transform duration-500 group-hover:scale-100 border border-gray-400 min-h-full rounded-sm"
+          className={`w-full lg:h-[451.98px] object-cover transition-transform duration-500 group-hover:scale-100 min-h-full border-2 ${isDarkMode? 'border-second ':'border-gray-400'}`}
           sizes="(max-width: 768px) 135px, 280px"
         />
         <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center px-3">
@@ -89,11 +91,11 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
       <div className="mt-2 flex justify-between items-end">
         <a className="text-primary text-md ml-3 flex gap-1 items-center p-2">
           <Image src={`images/icons/icon-play-vid.svg`} className="border border-gray-100 rounded-full" width="23" height="23"/>
-          <div className="underline-position-under text-center text-xs font-bold ml-1">
+          <div className={`underline-position-under text-center text-xs font-bold ml-1 ${isDarkMode? 'text-dark hover:text-primary':'text-dark hover:text-primary'}`}>
             {t('button.trailer')}
           </div>
         </a>
-        <Button href="#" className="hover:text-primary px-9 py-3 text-sm text-nowrap">
+        <Button href="#" className={`hover:text-primary px-9 py-3 text-sm text-nowrap ${isDarkMode? 'text-dark':''}`}>
           {t('button.book')}  
         </Button>
       </div>
