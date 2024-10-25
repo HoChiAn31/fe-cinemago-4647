@@ -43,28 +43,28 @@ const MovieTable: React.FC<MovieTableProps> = ({
 	};
 
 	return (
-		<div className='bg-darkGreen border-gray2 overflow-hidden rounded-md border-x border-t'>
+		<div className='bg-darkGreen overflow-hidden rounded-md border-x border-t border-gray2'>
 			<table
 				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
 			>
 				<thead>
-					<tr className='border-gray2 border-b'>
-						<th className='border-gray2 border-r p-3'>{t('order')}</th>
-						<th className='border-gray2 border-r p-3'>{t('id')}</th>
-						<th className='border-gray2 border-r p-3'>{t('name')}</th>
-						<th className='border-gray2 border-r p-3'>{t('director')}</th>
-						<th className='border-gray2 border-r p-3'>{t('releaseDate')}</th>
-						<th className='border-gray2 border-r p-3'>{t('language')}</th>
+					<tr className='border-b border-gray2'>
+						<th className='border-r border-gray2 p-3'>{t('order')}</th>
+						<th className='border-r border-gray2 p-3'>{t('id')}</th>
+						<th className='border-r border-gray2 p-3'>{t('name')}</th>
+						<th className='border-r border-gray2 p-3'>{t('director')}</th>
+						<th className='border-r border-gray2 p-3'>{t('releaseDate')}</th>
+						<th className='border-r border-gray2 p-3'>{t('language')}</th>
 						<th className='p-3'>{t('actions')}</th>
 					</tr>
 				</thead>
 				<tbody>
 					{movies.map((movie, index) => (
-						<tr key={movie.id} className='border-gray2 border-b'>
-							<td className='border-gray2 border-r p-3 text-center'>{index + 1}</td>{' '}
+						<tr key={movie.id} className='border-b border-gray2'>
+							<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>{' '}
 							{/* Display order number */}
-							<td className='border-gray2 border-r p-3 text-center'>{movie.id}</td>
-							<td className='border-gray2 border-r p-3 text-center'>
+							<td className='border-r border-gray2 p-3 text-center'>{movie.id}</td>
+							<td className='border-r border-gray2 p-3 text-center'>
 								{movie.translations &&
 									movie.translations.length > 0 &&
 									(() => {
@@ -74,9 +74,9 @@ const MovieTable: React.FC<MovieTableProps> = ({
 										return translation ? translation.name : movie.translations[0].name;
 									})()}
 							</td>
-							<td className='border-gray2 border-r p-3 text-center'>{movie.director}</td>
-							<td className='border-gray2 border-r p-3 text-center'>{movie.releaseDate}</td>
-							<td className='border-gray2 border-r p-3 text-center'>{movie.language}</td>
+							<td className='border-r border-gray2 p-3 text-center'>{movie.director}</td>
+							<td className='border-r border-gray2 p-3 text-center'>{movie.releaseDate}</td>
+							<td className='border-r border-gray2 p-3 text-center'>{movie.language}</td>
 							<td className='grid grid-cols-2 gap-2 p-3'>
 								<div className='flex items-center justify-center'>
 									<Button

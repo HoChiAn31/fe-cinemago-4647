@@ -15,6 +15,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { useTheme } from '../context/ThemeContext';
 import SidebarAdmin from './SidebarAdmin';
 import HeaderAdmin from './HeaderAdmin';
+import SidebarUser from './SidebarUser';
 // import SidebarAdmin from './SidebarAdmin';
 
 const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
@@ -67,13 +68,14 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 							pathname.startsWith(`/${locale}/otp`) ||
 							pathname.startsWith(`/${locale}/reset-password`)
 								? 'flex items-center justify-center'
-								: 'pt-16'
+								: 'pt-[60px]'
 						} ${isDarkMode ? 'bg-bgDark text-white' : ``}`}
 					>
 						<ClientOnly>
 							{pathname.startsWith(`/${locale}/profile`) ? (
-								<div className='mx-auto my-5 flex max-w-[1200px] gap-4'>
+								<div className='mx-auto flex gap-4'>
 									{/* <SidebarProfile /> */}
+									<SidebarUser />
 									<div className='w-[80%]'>{children}</div>
 								</div>
 							) : (
