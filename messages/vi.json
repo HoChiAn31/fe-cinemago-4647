@@ -166,6 +166,7 @@
 		"addBranch": "Thêm Chi nhánh",
 		"translation": "Bản dịch",
 		"addTranslation": "Thêm Bản dịch"
+	},
 
 	"HomePage": {
 		"button": {
@@ -176,13 +177,13 @@
 			"trailer": "Xem Trailer",
 			"showTime": "Xem tất cả lịch chiếu",
 			"buyNow": "Đặt vé ngay"
-    	},
+		},
 		"rating": {
-        	"t13": "Phim dành cho khán giả từ đủ 13 tuổi trở lên (13+)",
-        	"t16": "Phim dành cho khán giả từ đủ 16 tuổi trở lên (16+)",
-        	"t18": "Phim dành cho khán giả từ đủ 18 tuổi trở lên (18+)",
-        	"k": "Phim dành cho khán giả từ dưới 13 tuổi với điều kiện xem cùng cha, mẹ hoặc người giám hộ"
-    	},
+			"t13": "Phim dành cho khán giả từ đủ 13 tuổi trở lên (13+)",
+			"t16": "Phim dành cho khán giả từ đủ 16 tuổi trở lên (16+)",
+			"t18": "Phim dành cho khán giả từ đủ 18 tuổi trở lên (18+)",
+			"k": "Phim dành cho khán giả từ dưới 13 tuổi với điều kiện xem cùng cha, mẹ hoặc người giám hộ"
+		},
 		"label": {
 			"onGoing": "Phim đang chiếu",
 			"upComing": "Phim sắp chiếu",
@@ -196,6 +197,5 @@
 			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinestar còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
 			"date": "Khởi chiếu"
 		}
-
 	}
 }
