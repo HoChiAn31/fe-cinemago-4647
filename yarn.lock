@@ -4079,6 +4079,7 @@ fsevents@~2.3.2:
     formik "^2.4.6"
     framer-motion "^11.5.4"
     ft-movie-booking "file:C:/Users/ADMIN/AppData/Local/Yarn/Cache/v6/npm-ft-movie-booking-0.1.0-b1facd7d-8d60-40e7-8fb8-a5eeca4ee821-1729523506560/node_modules/ft-movie-booking"
+    ft-movie-booking "file:C:/Users/ADMIN/AppData/Local/Yarn/Cache/v6/npm-ft-movie-booking-0.1.0-c249a613-495b-47d2-bbaa-f76724edd283-1728704438355/node_modules/ft-movie-booking"
     i18next "^23.15.1"
     js-cookie "^3.0.5"
     jwt-decode "^4.0.0"
