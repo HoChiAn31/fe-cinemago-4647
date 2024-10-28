@@ -7,7 +7,7 @@ import { Button, Input } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import ErrorMessage from '@/app/components/ErrorMessage';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const otpValidationSchema = Yup.object({
 	otp: Yup.string().required('Mã OTP là bắt buộc').length(6, 'Mã OTP phải gồm 6 ký tự'),
@@ -22,34 +22,44 @@ const OtpPage: FC = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const router = useRouter();
 	const locale = useLocale();
+	const searchParams = useSearchParams();
+	const email = searchParams.get('email');
 	const handleVerifyOtp = async (values: typeof initialOtpValues) => {
-		// try {
-		// 	setErrorMessage('');
-		// 	await axios.post('http://localhost:5000/auth/verify-otp', values);
-		// 	toast.success('Mã OTP xác nhận thành công!');
-		// 	// Chuyển hướng hoặc thực hiện hành động tiếp theo sau khi xác thực thành công
-		// } catch (error) {
-		// 	if (axios.isAxiosError(error)) {
-		// 		if (error.response) {
-		// 			const { status, data } = error.response;
-		// 			if (status === 400 && Array.isArray(data.message)) {
-		// 				toast.error(data.message[0]);
-		// 			} else {
-		// 				toast.error('Có lỗi xảy ra. Vui lòng thử lại.');
-		// 			}
-		// 		} else {
-		// 			toast.error('Lỗi kết nối. Vui lòng thử lại sau.');
-		// 		}
-		// 	} else {
-		// 		toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
-		// 	}
-		// }
-		router.push(`/${locale}/reset-password`);
+		try {
+			setErrorMessage('');
+			const res = await axios.post('http://localhost:5000/auth/verify-otp', {
+				otp: values.otp,
+				email,
+			});
+			if (res.data === 'OTP201') {
+				toast.success(t('otpVerifiedSuccess'));
+				router.push(`/${locale}/reset-password/?otp=${values.otp}&email=${email}`);
+			} else {
+				toast.error(t('otpInvalidError'));
+			}
+			// toast.success('Mã OTP xác nhận thành công!');
+			// Chuyển hướng hoặc thực hiện hành động tiếp theo sau khi xác thực thành công
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					const { status, data } = error.response;
+					if (status === 400 && Array.isArray(data.message)) {
+						toast.error(data.message[0]);
+					} else {
+						toast.error(t('genericError'));
+					}
+				} else {
+					toast.error(t('connectionError'));
+				}
+			} else {
+				toast.error(t('genericError'));
+			}
+		}
 	};
 
 	return (
 		<div className='flex items-center justify-center'>
-			<div className='w-full max-w-md space-y-8'>
+			<div className='w-full max-w-md space-y-8 p-8'>
 				<div>
 					<h2 className='text-gray-900 mt-6 text-center text-3xl font-extrabold'>{t('title')}</h2>
 					<p className='text-gray-600 mt-2 text-center text-sm'>{t('description')}</p>

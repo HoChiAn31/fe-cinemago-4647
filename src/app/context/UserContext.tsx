@@ -200,6 +200,7 @@ import { getCookie, setCookie, deleteCookie } from 'cookies-next'; // Import coo
 
 // Define custom JWT payload interface
 interface CustomJwtPayload extends JwtPayload {
+	id: string;
 	role: string;
 }
 
@@ -213,6 +214,7 @@ export const AuthContext = createContext<UserContextType>({
 	setIsLoading: () => {},
 	login: async () => {},
 	logout: () => {},
+	user: null,
 });
 
 interface AuthProviderProps {
@@ -241,7 +243,12 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 				try {
 					setIsLoading(true);
 					const response = jwtDecode<CustomJwtPayload>(token);
-					// setUser(response.data);
+
+					const userData: User = {
+						id: response.id, // Ensure these properties exist in your decoded token
+						role: response.role,
+					};
+					setUser(userData);
 					setIsLogin(true);
 					setRole(response.role);
 				} catch (error) {
@@ -249,7 +256,7 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 					// Remove cookies on error
 					deleteCookie('access_token');
 					deleteCookie('refresh_token');
-					setUser(null);
+					// setUser(null);
 					setIsLogin(false);
 					setRole('');
 				}
@@ -308,6 +315,7 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	return (
 		<AuthContext.Provider
 			value={{
+				user,
 				isLogin,
 				setIsLogin,
 				role,

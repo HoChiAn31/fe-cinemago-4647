@@ -25,35 +25,41 @@ const ForgotPasswordPage: FC = () => {
 		values: typeof initialForgotPasswordValues,
 		{ setSubmitting, resetForm, setTouched }: any,
 	) => {
-		// try {
-		// 	setErrorMessage('');
-		// 	await axios.post('http://localhost:5000/auth/forgot-password', values);
-		// 	toast.success('Yêu cầu đặt lại mật khẩu đã được gửi!');
-		// 	resetForm();
-		// } catch (error) {
-		// 	if (axios.isAxiosError(error)) {
-		// 		if (error.response) {
-		// 			const { status, data } = error.response;
-		// 			if (status === 400 && Array.isArray(data.message)) {
-		// 				toast.error(data.message[0]);
-		// 			} else {
-		// 				toast.error('Có lỗi xảy ra. Vui lòng thử lại.');
-		// 			}
-		// 		} else {
-		// 			toast.error('Lỗi kết nối. Vui lòng thử lại sau.');
-		// 		}
-		// 	} else {
-		// 		toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
-		// 	}
-		// } finally {
-		// 	setSubmitting(false);
-		// }
-		router.push(`/${locale}/otp`);
+		try {
+			// setErrorMessage('');
+			const res = await axios.post('http://localhost:5000/auth/send-otp', values);
+			if (res.data === 'OTP has been sent to your email') {
+				toast.success(t('otpSentSuccess'));
+				router.push(`/${locale}/otp?email=${values.email}`);
+				localStorage.setItem('emailReset', values.email);
+			} else {
+				toast.error(t('otpSentError'));
+			}
+			// toast.success('Yêu cầu đặt lại mật khẩu đã được gửi!');
+			resetForm();
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					const { status, data } = error.response;
+					if (status === 400 && Array.isArray(data.message)) {
+						toast.error(data.message[0]);
+					} else {
+						toast.error(t('genericError'));
+					}
+				} else {
+					toast.error(t('connectionError'));
+				}
+			} else {
+				toast.error(t('genericError'));
+			}
+		} finally {
+			setSubmitting(false);
+		}
 	};
 
 	return (
 		<div className='flex items-center justify-center'>
-			<div className='w-full max-w-md space-y-8'>
+			<div className='w-full max-w-md space-y-8 p-8'>
 				<div>
 					<h2 className='text-gray-900 mt-6 text-center text-3xl font-extrabold'>{t('title')}</h2>
 					<p className='text-gray-600 mt-2 text-center text-sm'>{t('description')}</p>

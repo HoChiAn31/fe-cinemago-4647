@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Button } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from '../context/ThemeContext';
 
 interface PaginationControlsProps {
 	currentPage: number;
@@ -18,11 +19,12 @@ const PaginationControls: FC<PaginationControlsProps> = ({
 	onPageChange,
 }) => {
 	const t = useTranslations('ComponentPaginationControls');
+	const { isDarkMode } = useTheme();
 	return (
 		<div className='py-4 text-center'>
 			<div className=''>
 				<Button
-					className='bg-white shadow-md'
+					className={`shadow-md ${isDarkMode ? 'bg-dark' : 'bg-white'}`}
 					disabled={prevPage === null}
 					onPress={() => onPageChange(prevPage || currentPage)}
 				>
@@ -30,7 +32,7 @@ const PaginationControls: FC<PaginationControlsProps> = ({
 				</Button>
 				<span className='mx-2'>{t('page', { currentPage, lastPage })}</span>
 				<Button
-					className='bg-white shadow-md'
+					className={`shadow-md ${isDarkMode ? 'bg-dark' : 'bg-white'}`}
 					disabled={nextPage === null}
 					onPress={() => onPageChange(nextPage || currentPage)}
 				>

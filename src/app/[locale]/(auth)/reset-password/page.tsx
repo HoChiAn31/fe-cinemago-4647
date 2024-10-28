@@ -9,6 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import ErrorMessage from '@/app/components/ErrorMessage';
 import { useSearchParams } from 'next/navigation';
+import { useTheme } from '@/app/context/ThemeContext';
 
 const resetPasswordValidationSchema = Yup.object({
 	newPassword: Yup.string()
@@ -29,48 +30,48 @@ const initialResetPasswordValues = {
 
 const ResetPasswordPage: FC = () => {
 	const t = useTranslations('PageResetPassword');
-	const [errorMessage, setErrorMessage] = useState('');
 	const router = useRouter();
 	const locale = useLocale();
 	const searchParams = useSearchParams();
-	const token = searchParams.get('token'); // Lấy token từ query params
-
+	const otp = searchParams.get('otp');
+	const email = searchParams.get('email'); // Lấy token từ query params
 	const handleResetPassword = async (values: typeof initialResetPasswordValues) => {
-		// if (!token) {
-		// 	toast.error('Token xác thực không hợp lệ.');
-		// 	return;
-		// }
-		// try {
-		// 	setErrorMessage('');
-		// 	await axios.post('http://localhost:5000/auth/reset-password', {
-		// 		token,
-		// 		newPassword: values.newPassword,
-		// 	});
-		// 	toast.success('Mật khẩu đã được thiết lập lại thành công!');
-		// 	// Chuyển hướng đến trang đăng nhập hoặc trang khác
-		// 	router.push('/login');
-		// } catch (error) {
-		// 	if (axios.isAxiosError(error)) {
-		// 		if (error.response) {
-		// 			const { status, data } = error.response;
-		// 			if (status === 400 && Array.isArray(data.message)) {
-		// 				toast.error(data.message[0]);
-		// 			} else {
-		// 				toast.error('Có lỗi xảy ra. Vui lòng thử lại.');
-		// 			}
-		// 		} else {
-		// 			toast.error('Lỗi kết nối. Vui lòng thử lại sau.');
-		// 		}
-		// 	} else {
-		// 		toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
-		// 	}
-		// }
-		router.push(`/${locale}/`);
+		try {
+			const res = await axios.post('http://localhost:5000/auth/reset-password', {
+				email,
+				otp,
+				newPassword: values.newPassword,
+			});
+			if (res.data === 'Password001') {
+				toast.success(t('passwordResetSuccess'));
+				setTimeout(() => {
+					router.push(`/${locale}/login`);
+				}, 3000);
+			} else {
+				toast.error(t('genericError'));
+			}
+			// Chuyển hướng đến trang đăng nhập hoặc trang khác
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					const { status, data } = error.response;
+					if (status === 400 && Array.isArray(data.message)) {
+						toast.error(data.message[0]);
+					} else {
+						toast.error(t('genericError'));
+					}
+				} else {
+					toast.error(t('connectionError'));
+				}
+			} else {
+				toast.error(t('genericError'));
+			}
+		}
 	};
 
 	return (
 		<div className='bg-gray-50 flex min-h-screen items-center justify-center'>
-			<div className='w-full max-w-md space-y-8 bg-white p-8'>
+			<div className={`w-full max-w-md space-y-8 p-8`}>
 				<div>
 					<h2 className='text-gray-900 mt-6 text-center text-3xl font-extrabold'>{t('title')}</h2>
 					<p className='text-gray-600 mt-2 text-center text-sm'>{t('description')}</p>

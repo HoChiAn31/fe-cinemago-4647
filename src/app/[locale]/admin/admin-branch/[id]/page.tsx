@@ -76,12 +76,9 @@ const EditBranchPage = () => {
 		// Your logic to handle the translation change
 	};
 
-	const handleBack = () => {
-		router.back();
-	};
 	return (
-		<div className='bg-white p-4'>
-			<ManagementHeader isOpen={true} onChange={handleBack} />
+		<div className='p-4'>
+			<ManagementHeader isOpen={true} onChange={() => router.back()} />
 			<div className='space-y-4'>
 				<Input
 					fullWidth

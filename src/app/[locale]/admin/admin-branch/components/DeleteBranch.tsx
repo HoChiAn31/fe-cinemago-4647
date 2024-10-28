@@ -63,8 +63,8 @@ const DeleteBranchModal: React.FC<DeleteBranchModalProps> = ({
 			<ModalContent>
 				{(onClose) => (
 					<>
-						<ModalHeader className='flex flex-col gap-1 text-black'>Delete Branch</ModalHeader>
-						<ModalBody className='text-black'>
+						<ModalHeader className='flex flex-col gap-1'>Delete Branch</ModalHeader>
+						<ModalBody className=''>
 							<p>Are you sure you want to delete the branch? This action cannot be undone.</p>
 						</ModalBody>
 						<ModalFooter>
