@@ -81,7 +81,7 @@ const EditUserModal = () => {
 		return null;
 	}
 	return (
-		<div className='bg-white p-4'>
+		<div className='p-4'>
 			<div className='space-y-4'>
 				<Input
 					fullWidth

@@ -138,31 +138,32 @@ const Header: FC = () => {
 									{isLogin ? (
 										<>
 											<>
-												{role === 'admin' && (
-													<>
-														<Links
-															href={`/admin`}
-															className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
-														>
-															<p>{t('admin')}</p>
-														</Links>
-													</>
-												)}
+												{role === 'admin' ||
+													(role === 'staff' && (
+														<>
+															<Links
+																href={`/admin`}
+																className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
+															>
+																<p>{t('admin')}</p>
+															</Links>
+														</>
+													))}
 												<Links
 													href={`/profile`}
-													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
+													className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
 												>
 													<p>{t('profile')}</p>
 												</Links>
 												<Links
 													href={`/profile/order`}
-													className='w-[200px] border-b bg-transparent py-3 text-base text-black hover:text-primary'
+													className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
 												>
 													<p>{t('orderHistory')}</p>
 												</Links>
 												<button
 													onClick={logout}
-													className='flex w-[200px] items-center gap-2 bg-transparent py-3 text-left text-base text-black hover:text-primary'
+													className='flex w-[200px] items-center gap-2 bg-transparent py-3 text-left text-base hover:text-primary'
 													// startContent={}
 												>
 													<LogOut height={16} width={16} />
@@ -233,16 +234,17 @@ const Header: FC = () => {
 							<div className='flex flex-col px-2'>
 								{isLogin ? (
 									<>
-										{role === 'admin' && (
-											<>
-												<Links
-													href={`/admin`}
-													className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
-												>
-													<p>{t('admin')}</p>
-												</Links>
-											</>
-										)}
+										{role === 'admin' ||
+											(role === 'staff' && (
+												<>
+													<Links
+														href={`/admin`}
+														className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+													>
+														<p>{t('admin')}</p>
+													</Links>
+												</>
+											))}
 										<Links
 											href={`/profile`}
 											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'

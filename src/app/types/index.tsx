@@ -2,8 +2,9 @@
 
 export interface User {
 	id: string;
-	name: string;
-	email: string;
+	firstName?: string;
+	lastName?: string;
+	email?: string;
 	role: string;
 }
 
@@ -35,6 +36,7 @@ export interface TokenResponse {
 	refreshToken: string;
 }
 export interface UserContextType {
+	user: User | null;
 	isLogin: boolean;
 	setIsLogin: (value: boolean) => void;
 	role: string;

@@ -62,8 +62,8 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({
 			<ModalContent>
 				{(onClose) => (
 					<>
-						<ModalHeader className='flex flex-col gap-1 text-black'>Delete User</ModalHeader>
-						<ModalBody className='text-black'>
+						<ModalHeader className='flex flex-col gap-1'>Delete User</ModalHeader>
+						<ModalBody className=''>
 							<p>
 								Are you sure you want to delete the user "{userToDelete?.lastName}"? This action
 								cannot be undone.

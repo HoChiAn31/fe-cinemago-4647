@@ -38,16 +38,38 @@ export interface Movie {
 export interface MovieData {
 	director: string;
 	cast: string;
-	releaseDate: string;
+	releaseDate: Date;
 	duration: number;
 	language: string;
 	country: string;
 	rating: number;
-	poster_url: string;
+	poster_url: File | string;
 	trailer_url: string;
 	is_showing: boolean;
 	translations: Translation[];
-	genres: Genre[];
+	genres: {
+		id: string;
+	}[];
+}
+export interface MovieAdd {
+	director: string;
+	cast: string;
+	releaseDate: Date;
+	duration: number;
+	language: string;
+	country: string;
+	rating: number;
+	poster_url: File | string;
+	trailer_url: string;
+	is_showing: boolean;
+
+	translations: {
+		categoryLanguageId: string;
+		name: string;
+		description: string;
+	}[];
+
+	genres: { id: string }[];
 }
 
 export interface Translation {
@@ -58,19 +80,26 @@ export interface Translation {
 
 export interface Genre {
 	id: string;
-	name: string;
+	movieGenreTranslation: {
+		id: string;
+		name: string;
+		categoryLanguage: {
+			languageCode: string;
+		};
+	}[];
 }
 
 export interface Movies {
 	id: string;
 	cast: string;
 	director: string;
-	releaseDate: number;
+	releaseDate: Date;
 	duration: string;
 	language: string;
 	country: string;
 	rating: string;
-	poster_url: string;
+	poster_url: File | string;
+
 	trailer_url: string;
 	createdAt: Date;
 	updatedAt: Date;
@@ -83,12 +112,6 @@ export interface Movies {
 	genres: [
 		{
 			id: string;
-			name: string;
-			description: string;
-			categoryLanguage: {
-				id: string;
-				languageCode: string;
-			};
 		},
 	];
 }

@@ -7,12 +7,20 @@ import { Button, Tooltip } from '@nextui-org/react';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 const HeaderAdmin: FC = () => {
 	const t = useTranslations('LayoutHeaderAdmin');
 	const [notificationCount, setNotificationCount] = useState(5);
-	const { isCollapsedAdmin, setIsCollapsedAdmin } = useTheme();
+	const {
+		isCollapsedAdmin,
+		setIsCollapsedAdmin,
+		toggleCollapsedAdmin,
+		isDarkMode,
+		toggleDarkMode,
+	} = useTheme();
 	const { isLogin, setIsLogin, setRole } = useUser();
+
 	const router = useRouter();
 	const locale = useLocale();
 	const handleChangeCollapsedAdmin = () => {
@@ -28,10 +36,10 @@ const HeaderAdmin: FC = () => {
 	};
 	return (
 		<div
-			className={`fixed transition-all duration-500 ${isCollapsedAdmin ? 'left-[112px]' : 'left-[320px]'} right-0 top-0 z-[100] bg-white p-5 shadow`}
+			className={`fixed transition-all duration-500 ${isCollapsedAdmin ? 'left-[112px]' : 'left-[320px]'} right-0 top-0 z-[100] p-5 shadow ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}
 		>
 			<div className='flex items-center justify-between'>
-				<div onClick={handleChangeCollapsedAdmin} className='cursor-pointer'>
+				<div onClick={toggleCollapsedAdmin} className='cursor-pointer'>
 					<Menu />
 				</div>
 				<div className='flex gap-6'>
@@ -73,6 +81,11 @@ const HeaderAdmin: FC = () => {
 						</div>
 					</Tooltip>
 					<LocaleSwitcher />
+					<Tooltip closeDelay={100} content={t('darkMode')} showArrow>
+						<div>
+							<DarkModeSwitch onChange={toggleDarkMode} checked={isDarkMode ?? false} size={20} />
+						</div>
+					</Tooltip>
 				</div>
 			</div>
 		</div>

@@ -1,3 +1,4 @@
+import { useTheme } from '@/app/context/ThemeContext';
 import { selectItem } from '@/app/services/select'; // Assuming this is the same service for branch filtering
 import { Input, Select, SelectItem } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -19,13 +20,14 @@ const BranchSearchAndFilter: React.FC<BranchSearchAndFilterProps> = ({
 	setCurrentPage,
 }) => {
 	const t = useTranslations('AdminSearchAndFilter');
+	const { isDarkMode } = useTheme();
 	const handleItemsPerPageChange = (value: string) => {
 		setItemsPerPage(Number(value));
 		setCurrentPage(1);
 	};
 
 	return (
-		<div className='mb-6 rounded-lg bg-white p-4'>
+		<div className='mb-6 rounded-lg p-4'>
 			<div className='flex items-center gap-4'>
 				<div className='w-full'>
 					<Input
@@ -34,6 +36,7 @@ const BranchSearchAndFilter: React.FC<BranchSearchAndFilterProps> = ({
 						onChange={(e) => setSearchQuery(e.target.value)}
 						className='h-14 text-lg focus:outline-none'
 						variant='bordered'
+						radius='sm'
 					/>
 				</div>
 				<div className='w-full'>
@@ -43,9 +46,14 @@ const BranchSearchAndFilter: React.FC<BranchSearchAndFilterProps> = ({
 						onChange={(e) => handleItemsPerPageChange(e.target.value)}
 						className='h-14 text-lg text-red-500'
 						variant='bordered'
+						radius='sm'
 					>
 						{selectItem.map((item) => (
-							<SelectItem key={item.key} value={item.key} className='text-black'>
+							<SelectItem
+								key={item.key}
+								value={item.key}
+								className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+							>
 								{item.value}
 							</SelectItem>
 						))}

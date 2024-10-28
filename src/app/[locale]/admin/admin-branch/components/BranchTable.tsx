@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTheme } from '@/app/context/ThemeContext';
+import Loading from '@/app/components/Loading';
 
 interface BranchTableProps {
 	branches: Branch[]; // Adjust the prop type
@@ -14,6 +15,7 @@ interface BranchTableProps {
 	onDeleteOpen: () => void;
 	setBranchToEdit: React.Dispatch<React.SetStateAction<Branch | null>>;
 	setBranchToDelete: React.Dispatch<React.SetStateAction<Branch | null>>;
+	isLoading: boolean;
 }
 
 const BranchTable: React.FC<BranchTableProps> = ({
@@ -24,6 +26,7 @@ const BranchTable: React.FC<BranchTableProps> = ({
 	onDeleteOpen,
 	setBranchToEdit,
 	setBranchToDelete,
+	isLoading,
 }) => {
 	const { isDarkMode } = useTheme();
 	const router = useRouter();
@@ -47,7 +50,12 @@ const BranchTable: React.FC<BranchTableProps> = ({
 				<thead>
 					<tr className='border-b border-gray2'>
 						<th className='border-r border-gray2 p-3'>Order</th>
+					</tr>
+					<tr className='border-b border-gray2'>
+						<th className='border-r border-gray2 p-3'>Order</th>
 						{/* <th className='border-r border-gray p-3'>ID</th> */}
+						<th className='border-r border-gray2 p-3'>Name</th>
+						<th className='border-r border-gray2 p-3'>Location</th> {/* Adjust as needed */}
 						<th className='border-r border-gray2 p-3'>Name</th>
 						<th className='border-r border-gray2 p-3'>Location</th> {/* Adjust as needed */}
 						<th className='p-3'>Actions</th>
@@ -78,6 +86,7 @@ const BranchTable: React.FC<BranchTableProps> = ({
 											router.push(`/${locale}/admin/admin-branch/${branch.id}`);
 										}}
 										isIconOnly
+										radius='sm'
 									>
 										<Pencil className='text-white' />
 									</Button>
@@ -90,6 +99,7 @@ const BranchTable: React.FC<BranchTableProps> = ({
 											onDeleteOpen();
 										}}
 										isIconOnly
+										radius='sm'
 									>
 										<Trash2 />
 									</Button>

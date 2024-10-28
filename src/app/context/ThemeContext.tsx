@@ -14,16 +14,17 @@ interface ThemeContextType {
 	url?: string;
 	isDarkMode?: boolean;
 	setIsDarkMode?: (value: boolean) => void;
+	toggleDarkMode: () => void;
 	isCollapsedAdmin?: boolean;
 	setIsCollapsedAdmin?: (value: boolean) => void;
-	toggleDarkMode: Dispatch<SetStateAction<boolean>>;
+	toggleCollapsedAdmin: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [url, setUrl] = useState<string>('http://localhost:8080');
-	const [isDarkMode, setIsDarkMode] = useState(() => {
+	const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
 		// Read initial value from localStorage
 		const savedMode = localStorage.getItem('darkMode');
 		return savedMode === 'true';
@@ -33,17 +34,35 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 	const toggleDarkMode = () => {
 		setIsDarkMode((prev) => {
 			const newMode = !prev;
-			localStorage.setItem('darkMode', JSON.stringify(newMode)); // Convert boolean to string
+			localStorage.setItem('darkMode', JSON.stringify(newMode));
 			document.documentElement.classList.toggle('dark', newMode);
 			return newMode;
 		});
 	};
+
+	const toggleCollapsedAdmin = () => {
+		setIsCollapsedAdmin((prev) => {
+			const newMode = !prev;
+			localStorage.setItem('isCollapsedAdmin', JSON.stringify(newMode));
+			return newMode;
+		});
+	};
 	useEffect(() => {
+		const localIsCollapsedAdmin = localStorage.getItem('isCollapsedAdmin');
+		setIsCollapsedAdmin(localIsCollapsedAdmin === 'true');
+
 		toggleDarkMode();
 	}, []);
 	return (
 		<ThemeContext.Provider
-			value={{ url, isDarkMode, toggleDarkMode, isCollapsedAdmin, setIsCollapsedAdmin }}
+			value={{
+				url,
+				isDarkMode,
+				toggleDarkMode,
+				isCollapsedAdmin,
+				setIsCollapsedAdmin,
+				toggleCollapsedAdmin,
+			}}
 		>
 			{children}
 		</ThemeContext.Provider>

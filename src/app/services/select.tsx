@@ -26,4 +26,8 @@ export const selectRole = [
 		key: 'user',
 		value: 'user',
 	},
+	{
+		key: 'staff',
+		value: 'staff',
+	},
 ];
