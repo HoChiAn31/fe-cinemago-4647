@@ -1,7 +1,7 @@
 import { Button, Input, Spacer, Spinner } from '@nextui-org/react';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import axios from '@/app/utils/axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { Branch, BranchAdd } from '../types'; // Điều chỉnh import dựa trên định nghĩa của bạn
 import { useTranslations } from 'next-intl';
 
@@ -61,7 +61,10 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 		console.log(newBranch);
 		// setIsAdding(true);
 		try {
-			const response = await axios.post('http://localhost:5000/branch', newBranch);
+			const response = await axios.post(
+				'https://be-book-movie-ticket-012124-snp6-hochian31s-projects.vercel.app',
+				newBranch,
+			);
 			if (response.data && response.data.success) {
 				onAddBranch(response.data.data);
 				onFinishAdding();
@@ -103,7 +106,7 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 	}
 
 	return (
-		<div className='container mx-auto rounded-lg bg-white p-4'>
+		<div className='container mx-auto rounded-lg p-4'>
 			<h1 className='mb-4 text-2xl font-bold'>Add New Branch</h1>
 			<form
 				onSubmit={(e) => {
@@ -192,6 +195,7 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 					{isAdding ? <Spinner size='sm' /> : t('addBranch')}
 				</Button>
 			</form>
+			<Toaster />
 		</div>
 	);
 };

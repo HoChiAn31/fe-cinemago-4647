@@ -63,8 +63,8 @@ const DeleteMovieModal: React.FC<DeleteMovieModalProps> = ({
 			<ModalContent>
 				{(onClose) => (
 					<>
-						<ModalHeader className='flex flex-col gap-1 text-black'>Delete Movie</ModalHeader>
-						<ModalBody className='text-black'>
+						<ModalHeader className='flex flex-col gap-1'>Delete Movie</ModalHeader>
+						<ModalBody className=''>
 							<p>
 								Are you sure you want to delete the movie "{movieToDelete?.translations[0]?.name}"?
 								This action cannot be undone.

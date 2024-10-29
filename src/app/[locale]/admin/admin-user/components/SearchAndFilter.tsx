@@ -1,3 +1,4 @@
+import { useTheme } from '@/app/context/ThemeContext';
 import { selectItem } from '@/app/services/select'; // Assuming this is the same service for user filtering
 import { Input, Select, SelectItem } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -23,6 +24,7 @@ const UserSearchAndFilter: React.FC<UserSearchAndFilterProps> = ({
 	setCurrentPage,
 }) => {
 	const t = useTranslations('AdminSearchAndFilter');
+	const { isDarkMode } = useTheme();
 	const handleItemsPerPageChange = (value: string) => {
 		setItemsPerPage(Number(value));
 		setCurrentPage(1);
@@ -34,7 +36,7 @@ const UserSearchAndFilter: React.FC<UserSearchAndFilterProps> = ({
 		setSelectedRole(String(value));
 	};
 	return (
-		<div className='mb-6 rounded-lg bg-white p-4'>
+		<div className='mb-6 rounded-lg p-4'>
 			<div className='flex items-center gap-4'>
 				<div className='w-full'>
 					<Input
@@ -43,6 +45,7 @@ const UserSearchAndFilter: React.FC<UserSearchAndFilterProps> = ({
 						onChange={(e) => setSearchQuery(e.target.value)}
 						className='h-14 text-lg focus:outline-none'
 						variant='bordered'
+						radius='sm'
 					/>
 				</div>
 				<div className='flex w-full flex-col items-center justify-between'>
@@ -51,17 +54,21 @@ const UserSearchAndFilter: React.FC<UserSearchAndFilterProps> = ({
 							label={t('itemsPerPageLabel')}
 							value={itemsPerPage.toString()}
 							onChange={(e) => handleItemsPerPageChange(e.target.value)}
-							className='h-14 text-lg text-red-500'
+							className='h-14 text-lg'
 							variant='bordered'
+							radius='sm'
 						>
 							{selectItem.map((item) => (
-								<SelectItem key={item.key} value={item.key} className='text-black'>
+								<SelectItem
+									key={item.key}
+									value={item.key}
+									className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+								>
 									{item.value}
 								</SelectItem>
 							))}
 						</Select>
 					</div>
-					{/* Add a role filter if needed */}
 				</div>
 				<div className='w-full'>
 					<Select
@@ -71,13 +78,21 @@ const UserSearchAndFilter: React.FC<UserSearchAndFilterProps> = ({
 						className='h-14 text-lg text-red-500'
 						variant='bordered'
 					>
-						<SelectItem key='' value='' className='text-black'>
+						<SelectItem key='' value='' className={`${isDarkMode ? 'text-white' : 'text-black'}`}>
 							Tất cả
 						</SelectItem>
-						<SelectItem key='admin' value='admin' className='text-black'>
+						<SelectItem
+							key='admin'
+							value='admin'
+							className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+						>
 							Admin
 						</SelectItem>
-						<SelectItem key='user' value='user' className='text-black'>
+						<SelectItem
+							key='user'
+							value='user'
+							className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+						>
 							User
 						</SelectItem>
 						{/* <SelectItem key='guest' value='guest' className='text-black'>

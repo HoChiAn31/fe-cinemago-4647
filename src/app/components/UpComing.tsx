@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Movie from './Movie';
+
 import Button from './Button';
 import Slider from 'react-slick';
 import { useTranslations } from 'next-intl';

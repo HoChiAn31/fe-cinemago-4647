@@ -1,217 +1,3 @@
-// 'use client';
-// import { Button } from '@nextui-org/react';
-// import {
-// 	Bell,
-// 	ChartBarStacked,
-// 	CirclePercent,
-// 	Clapperboard,
-// 	ClipboardList,
-// 	FileQuestion,
-// 	House,
-// 	LogOut,
-// 	MessageCircleMore,
-// 	NotebookTabs,
-// 	NotepadText,
-// 	Phone,
-// 	Star,
-// 	Store,
-// 	Ticket,
-// 	UserRound,
-// } from 'lucide-react';
-// import Link from 'next/link';
-// import { FC, useEffect, useRef, useState } from 'react';
-// import { Panel } from 'react-resizable-panels';
-// import { useUser } from '../context/UserContext';
-// import { useRouter } from 'next/navigation';
-// import { useLocale } from 'next-intl';
-// import TabItem from '../components/TabItem';
-// import { useTheme } from '../context/ThemeContext';
-
-// const SidebarAdmin: FC = () => {
-// 	const [activeMainTab, setActiveMainTab] = useState<string>('');
-// 	const [activeSubTab, setActiveSubTab] = useState<string>('');
-// 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
-// 	const { isLogin, setIsLogin, setRole } = useUser();
-// 	const { isCollapsedAdmin, setIsCollapsedAdmin } = useTheme();
-
-// 	const divWidth = useRef<HTMLDivElement>(null);
-
-// 	const [clientWidth, setClientWidth] = useState<number>(0);
-// 	console.log('clientWidth', clientWidth);
-// 	useEffect(() => {
-// 		const resizeObserver = new ResizeObserver((entries) => {
-// 			for (let entry of entries) {
-// 				setClientWidth(entry.contentRect.width);
-// 			}
-// 		});
-
-// 		if (divWidth.current) {
-// 			resizeObserver.observe(divWidth.current);
-// 			setClientWidth(divWidth.current.clientWidth);
-// 		}
-
-// 		return () => {
-// 			if (divWidth.current) {
-// 				resizeObserver.unobserve(divWidth.current);
-// 			}
-// 		};
-// 	}, []);
-
-// 	const router = useRouter();
-// 	const locale = useLocale();
-// 	useEffect(() => {
-// 		// Load active tabs from local storage
-// 		const storedMainTab = localStorage.getItem('activeMainTab');
-// 		const storedSubTab = localStorage.getItem('activeSubTab');
-// 		if (storedMainTab) setActiveMainTab(storedMainTab);
-// 		if (storedSubTab) setActiveSubTab(storedSubTab);
-// 		setIsLoaded(true); // Mark as loaded after state is initialized
-// 	}, []);
-
-// 	useEffect(() => {
-// 		if (isLoaded) {
-// 			// Save active tabs to local storage
-// 			localStorage.setItem('activeMainTab', activeMainTab);
-// 			localStorage.setItem('activeSubTab', activeSubTab);
-// 		}
-// 	}, [activeMainTab, activeSubTab, isLoaded]);
-
-// 	if (!isLoaded) {
-// 		return null;
-// 	}
-// 	const handleLogOutAdmin = () => {
-// 		setRole('dXNlcg');
-// 		setIsLogin(false);
-// 		router.push(`/${locale}/`);
-// 		// window.location.reload();
-// 	};
-// 	return (
-// 		<div ref={divWidth} className={`bg-darkGreen min-h-screen ${isCollapsedAdmin ? 'w-12' : ''}`}>
-// 			<div>
-// 				<div ref={divWidth} className='px-3 py-3 text-3xl font-bold text-primary'>
-// 					MOVIE
-// 				</div>
-
-// 				<ul className='space-y-2 py-3'>
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='/'
-// 						title='Trang chủ'
-// 						// icon={<House height={20} width={20} />}
-// 						icon={House}
-// 					/>
-
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='AdminCustomerCare'
-// 						title='Chăm sóc khách hàng'
-// 						icon={NotebookTabs}
-// 						subItems={[
-// 							{
-// 								name: 'chat',
-// 								label: 'Trò chuyện',
-// 								icon: <MessageCircleMore height={20} width={20} />,
-// 							},
-// 							{
-// 								name: 'tickets',
-// 								label: 'Yêu cầu hỗ trợ',
-// 								icon: <Phone height={20} width={20} />,
-// 							},
-// 							{
-// 								name: 'faq',
-// 								label: 'Câu hỏi thường gặp',
-// 								icon: <FileQuestion height={20} width={20} />,
-// 							},
-// 						]}
-// 					/>
-
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='admin-movie'
-// 						title='Quản lý phim'
-// 						icon={Clapperboard}
-// 					/>
-
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='adminReport'
-// 						title='Thống kê và báo cáo'
-// 						icon={NotepadText}
-// 					/>
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='adminRestaurant'
-// 						title='Quản lý thể loại'
-// 						icon={ChartBarStacked}
-// 					/>
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='admin-branch'
-// 						title='Quản lý rạp'
-// 						icon={Store}
-// 					/>
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='AdminUserPage'
-// 						title='Quản lý người dùng'
-// 						icon={UserRound}
-// 					/>
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='adminInteract'
-// 						title='Quản lý bình luận và đánh giá'
-// 						icon={Star}
-// 					/>
-// 					<TabItem
-// 						activeMainTab={activeMainTab}
-// 						setActiveMainTab={setActiveMainTab}
-// 						activeSubTab={activeSubTab}
-// 						setActiveSubTab={setActiveSubTab}
-// 						tabName='adminVoucher'
-// 						title='Quản lý khuyến mãi'
-// 						icon={CirclePercent}
-// 					/>
-// 				</ul>
-// 				{/* <div className='w-full'>
-// 					<Button
-// 						color='danger'
-// 						className='w-full'
-// 						startContent={<LogOut />}
-// 						onClick={handleLogOutAdmin}
-// 					>
-// 						Đăng xuất
-// 					</Button>
-// 				</div> */}
-// 			</div>
-// 		</div>
-// 	);
-// };
-
-// export default SidebarAdmin;
 'use client';
 import { Button, Image } from '@nextui-org/react';
 import {
@@ -227,6 +13,7 @@ import {
 	NotebookTabs,
 	NotepadText,
 	Phone,
+	Popcorn,
 	ShoppingBag,
 	Star,
 	Store,
@@ -249,31 +36,10 @@ const SidebarAdmin: FC = () => {
 	const [activeSubTab, setActiveSubTab] = useState<string>('');
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
 	const { isLogin, setIsLogin, setRole } = useUser();
-	const { isCollapsedAdmin, setIsCollapsedAdmin } = useTheme();
+	const { isCollapsedAdmin, isDarkMode } = useTheme();
 	const router = useRouter();
 	const locale = useLocale();
 	const divWidth = useRef<HTMLDivElement>(null);
-	const [clientWidth, setClientWidth] = useState<number>(0);
-	console.log('clientWidth', clientWidth);
-	const [collapsed, setCollapsed] = useState<boolean>(false);
-	useEffect(() => {
-		const resizeObserver = new ResizeObserver((entries) => {
-			for (let entry of entries) {
-				setClientWidth(entry.contentRect.width);
-			}
-		});
-
-		if (divWidth.current) {
-			resizeObserver.observe(divWidth.current);
-			setClientWidth(divWidth.current.clientWidth);
-		}
-
-		return () => {
-			if (divWidth.current) {
-				resizeObserver.unobserve(divWidth.current);
-			}
-		};
-	}, []);
 
 	useEffect(() => {
 		const storedMainTab = localStorage.getItem('activeMainTab');
@@ -287,6 +53,22 @@ const SidebarAdmin: FC = () => {
 		if (isLoaded) {
 			localStorage.setItem('activeMainTab', activeMainTab);
 			localStorage.setItem('activeSubTab', activeSubTab);
+		}
+	}, [activeMainTab, activeSubTab, isLoaded]);
+
+	useEffect(() => {
+		// console.log(1);
+		// console.log('activeMainTab', localStorage.setItem('activeMainTab', activeMainTab));
+		// console.log('activeSubTab', localStorage.setItem('activeSubTab', activeSubTab));
+
+		if (isLoaded) {
+			// Use a timeout to ensure the states are fully updated before storing in localStorage
+			const timeoutId = setTimeout(() => {
+				localStorage.setItem('activeMainTab', activeMainTab);
+				localStorage.setItem('activeSubTab', activeSubTab);
+			}); // You can adjust the delay if needed
+
+			return () => clearTimeout(timeoutId); // Clean up the timeout
 		}
 	}, [activeMainTab, activeSubTab, isLoaded]);
 
@@ -304,7 +86,7 @@ const SidebarAdmin: FC = () => {
 		<div
 			ref={divWidth}
 			// className={`fixed bottom-0 left-0 top-0 min-h-screen bg-white shadow ${isCollapsedAdmin ? 'w-[112px]' : 'w-[320px]'}`}
-			className={`fixed bottom-0 left-0 top-0 min-h-screen bg-white shadow transition-all duration-500 ${isCollapsedAdmin ? 'w-[112px]' : 'w-[320px]'}`}
+			className={`fixed bottom-0 left-0 top-0 min-h-screen shadow transition-all duration-500 ${isCollapsedAdmin ? 'w-[112px]' : 'w-[320px]'} ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}
 		>
 			<div className=''>
 				<div className='flex items-center justify-center'>
@@ -378,15 +160,6 @@ const SidebarAdmin: FC = () => {
 						title={t('revenueManagement')}
 						icon={ShoppingBag}
 					/>
-					<TabItem
-						activeMainTab={activeMainTab}
-						setActiveMainTab={setActiveMainTab}
-						activeSubTab={activeSubTab}
-						setActiveSubTab={setActiveSubTab}
-						tabName='adminRestaurant'
-						title={t('categoryManagement')}
-						icon={ChartBarStacked}
-					/>
 
 					<TabItem
 						activeMainTab={activeMainTab}
@@ -397,7 +170,25 @@ const SidebarAdmin: FC = () => {
 						title={t('branchManagement')}
 						icon={Store}
 					/>
+					<TabItem
+						activeMainTab={activeMainTab}
+						setActiveMainTab={setActiveMainTab}
+						activeSubTab={activeSubTab}
+						setActiveSubTab={setActiveSubTab}
+						tabName='admin-room'
+						title={t('roomManagement')}
+						icon={ChartBarStacked}
+					/>
 
+					<TabItem
+						activeMainTab={activeMainTab}
+						setActiveMainTab={setActiveMainTab}
+						activeSubTab={activeSubTab}
+						setActiveSubTab={setActiveSubTab}
+						tabName='admin-food-drink'
+						title={t('foodDrinkManagement')}
+						icon={Popcorn}
+					/>
 					<TabItem
 						activeMainTab={activeMainTab}
 						setActiveMainTab={setActiveMainTab}
@@ -423,7 +214,7 @@ const SidebarAdmin: FC = () => {
 						setActiveMainTab={setActiveMainTab}
 						activeSubTab={activeSubTab}
 						setActiveSubTab={setActiveSubTab}
-						tabName='adminVoucher'
+						tabName='admin-voucher'
 						title={t('promotionManagement')}
 						icon={CirclePercent}
 					/>

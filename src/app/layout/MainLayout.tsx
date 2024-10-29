@@ -24,11 +24,11 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 	const { isDarkMode, isCollapsedAdmin } = useTheme();
 	return (
 		<div
-			className={`flex min-h-screen flex-col overflow-hidden ${pathname.startsWith(`/${locale}/admin`) ? 'bg-[#F2F7FF]' : ``} `}
+			className={`flex min-h-screen flex-col overflow-hidden ${pathname.startsWith(`/${locale}/admin`) ? '' : ``} ${isDarkMode ? 'bg-[#18191A] text-white' : 'bg-white text-black'} `}
 		>
 			{pathname.startsWith(`/${locale}/admin`) ? (
 				<AdminGuard>
-					<div className=''>
+					<div className={``}>
 						{/* <PanelGroup direction='horizontal'> */}
 						{/* <Panel
 								defaultSize={15}
@@ -47,7 +47,7 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 							className={`transition-all duration-500 ${isCollapsedAdmin ? 'pl-[112px]' : 'pl-[320px]'} w-full`}
 						>
 							<HeaderAdmin />
-							<div className='pt-16'>
+							<div className={`pt-16`}>
 								<div className='p-5'>{children}</div>
 							</div>
 						</div>

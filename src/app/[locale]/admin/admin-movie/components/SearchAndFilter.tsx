@@ -1,3 +1,4 @@
+import { useTheme } from '@/app/context/ThemeContext';
 import { selectItem } from '@/app/services/select';
 import { Input, Select, SelectItem } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -24,13 +25,14 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 	setCurrentPage,
 }) => {
 	const t = useTranslations('AdminSearchAndFilter');
+	const { isDarkMode } = useTheme();
 	const handleItemsPerPageChange = (value: string) => {
 		setItemsPerPage(Number(value));
 		setCurrentPage(1);
 	};
 
 	return (
-		<div className='mb-6 rounded-lg bg-white p-4'>
+		<div className='mb-6 rounded-lg p-4'>
 			<div className='flex items-center gap-4'>
 				<div className='w-full'>
 					<Input
@@ -52,7 +54,11 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 							// Increased height and font size
 						>
 							{selectItem.map((item) => (
-								<SelectItem key={item.key} value={item.key} className='text-black'>
+								<SelectItem
+									key={item.key}
+									value={item.key}
+									className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+								>
 									{item.value}
 								</SelectItem>
 							))}

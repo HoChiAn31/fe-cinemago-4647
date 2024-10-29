@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import ManagementHeader from '@/app/components/ManagementHeader';
 
 const EditMoviePage = () => {
 	// Accept movie prop
@@ -122,7 +123,8 @@ const EditMoviePage = () => {
 	// ... existing code ...
 
 	return (
-		<div className='bg-white p-4'>
+		<div className='p-4'>
+			<ManagementHeader isOpen={true} onChange={() => router.back()} />
 			<div className='space-y-4'>
 				<Image src={movie?.poster_url} alt={movie?.director} height={120} width={120} />
 

@@ -69,13 +69,13 @@ const AdminPage: FC = () => {
 				<div className='flex flex-col gap-4'>
 					<div className='grid grid-cols-4 gap-4'>
 						<div
-							className={`${isDarkMode ? '' : ''} flex items-center gap-x-6 rounded-md bg-white p-8 text-gray`}
+							className={`${isDarkMode ? 'bg-dark text-white' : 'text-black'} flex items-center gap-x-6 rounded-md p-8`}
 						>
 							<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#9694FF] p-2'>
 								<Store className='text-white' />
 							</div>
 							<div className='h-12'>
-								<div className='flex items-center justify-between'>
+								<div className='flex items-center justify-between text-gray'>
 									<strong className=''>Branch</strong>
 								</div>
 								<div className=''>
@@ -84,13 +84,13 @@ const AdminPage: FC = () => {
 							</div>
 						</div>
 						<div
-							className={`${isDarkMode ? '' : ''} flex items-center gap-x-6 rounded-md bg-white p-8 text-gray`}
+							className={`${isDarkMode ? 'bg-dark text-white' : 'text-black'} flex items-center gap-x-6 rounded-md p-8`}
 						>
 							<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#9694FF] p-2'>
 								<Clapperboard className='text-white' />
 							</div>
 							<div className='h-12'>
-								<div className='flex items-center justify-between'>
+								<div className='flex items-center justify-between text-gray'>
 									<strong className=''>Movie</strong>
 								</div>
 								<div className=''>
@@ -99,13 +99,13 @@ const AdminPage: FC = () => {
 							</div>
 						</div>
 						<div
-							className={`${isDarkMode ? '' : ''} flex items-center gap-x-6 rounded-md bg-white p-8 text-gray`}
+							className={`${isDarkMode ? 'bg-dark text-white' : 'text-black'} flex items-center gap-x-6 rounded-md p-8`}
 						>
 							<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#9694FF] p-2'>
 								<ShoppingBag className='text-white' />
 							</div>
 							<div className='h-12'>
-								<div className='flex items-center justify-between'>
+								<div className='flex items-center justify-between text-gray'>
 									<strong className=''>Order</strong>
 								</div>
 								<div className=''>
@@ -114,13 +114,13 @@ const AdminPage: FC = () => {
 							</div>
 						</div>
 						<div
-							className={`${isDarkMode ? '' : ''} flex items-center gap-x-6 rounded-md bg-white p-8 text-gray`}
+							className={`${isDarkMode ? 'bg-dark text-white' : 'text-black'} flex items-center gap-x-6 rounded-md p-8`}
 						>
 							<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#9694FF] p-2'>
 								<Eye className='text-white' />
 							</div>
 							<div className='h-12'>
-								<div className='flex items-center justify-between'>
+								<div className='flex items-center justify-between text-gray'>
 									<strong className=''>Total Revenue</strong>
 								</div>
 								<div className=''>

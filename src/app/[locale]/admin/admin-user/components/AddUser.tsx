@@ -74,7 +74,7 @@ const UserAddMovieModal: React.FC<UserAddMovieModalProps> = ({
 	}
 
 	return (
-		<div className='container mx-auto rounded-lg bg-white p-4'>
+		<div className='container mx-auto rounded-lg p-4'>
 			<h1 className='mb-4 text-2xl font-bold'>Add New User</h1>
 			<form
 				onSubmit={(e) => {

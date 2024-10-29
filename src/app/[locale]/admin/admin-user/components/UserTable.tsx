@@ -64,6 +64,7 @@ const UserTable: React.FC<UserTableProps> = ({
 											router.push(`/${locale}/admin/admin-user/${user.id}`);
 										}}
 										isIconOnly
+										radius='sm'
 									>
 										<Pencil className='text-white' />
 									</Button>
@@ -76,6 +77,7 @@ const UserTable: React.FC<UserTableProps> = ({
 											onDeleteOpen();
 										}}
 										isIconOnly
+										radius='sm'
 									>
 										<Trash2 />
 									</Button>

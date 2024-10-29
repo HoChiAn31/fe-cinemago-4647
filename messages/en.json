@@ -62,6 +62,8 @@
 		"movieManagement": "Manage Movies",
 		"statisticsReports": "Statistics and Reports",
 		"categoryManagement": "Manage Categories",
+		"roomManagement": "Manage Room",
+		"foodDrinkManagement": "Manage FoodDrinks",
 		"branchManagement": "Manage Branches",
 		"revenueManagement": "Revenue Management",
 		"userManagement": "Manage Users",
@@ -69,7 +71,8 @@
 		"promotionManagement": "Manage Promotions"
 	},
 	"LayoutHeaderAdmin": {
-		"logout": "Log Out"
+		"logout": "Log Out",
+		"darkMode": "Dark Mode"
 	},
 	"AdminSearchAndFilter": {
 		"searchPlaceholder": "Enter name...",
@@ -102,8 +105,8 @@
 		"rating": "Rating",
 		"poster_url": "Poster URL",
 		"trailer_url": "Trailer URL",
-		"name_vi": "Name (Vietnamese)",
-		"description_vi": "Description (Vietnamese)",
+		"name": "Name (Vietnamese)",
+		"description": "Description (Vietnamese)",
 		"name_en": "Name (English)",
 		"description_en": "Description (English)",
 		"genres": "Genres",
@@ -128,14 +131,22 @@
 		"description": "Enter your email address to reset your password.",
 		"emailLabel": "Email Address",
 		"emailPlaceholder": "Enter your email",
-		"resetPasswordButton": "Reset Password"
+		"resetPasswordButton": "Reset Password",
+		"otpSentSuccess": "OTP has been sent to your email.",
+		"otpSentError": "Error occurred while sending OTP.",
+		"connectionError": "Connection error. Please try again later.",
+		"genericError": "An error occurred. Please try again."
 	},
 	"PageOtp": {
 		"title": "Verify Your OTP",
 		"description": "Please enter the OTP sent to your email to verify your account.",
 		"otpLabel": "Enter OTP",
 		"otpPlaceholder": "123456",
-		"verifyOtpButton": "Verify OTP"
+		"verifyOtpButton": "Verify OTP",
+		"otpVerifiedSuccess": "OTP verified successfully!",
+		"otpInvalidError": "Invalid OTP.",
+		"genericError": "An error occurred. Please try again.",
+		"connectionError": "Connection error. Please try again later."
 	},
 	"PageResetPassword": {
 		"title": "Reset Your Password",
@@ -144,7 +155,11 @@
 		"newPasswordPlaceholder": "Enter new password",
 		"confirmPasswordLabel": "Confirm Password",
 		"confirmPasswordPlaceholder": "Confirm your new password",
-		"resetPasswordButton": "Reset Password"
+		"resetPasswordButton": "Reset Password",
+		"passwordResetSuccess": "Your password has been successfully reset!",
+		"passwordMismatchError": "Passwords do not match.",
+		"genericError": "An error occurred. Please try again.",
+		"connectionError": "Connection error. Please try again later."
 	},
 	"AdminUserAdd": {
 		"firstName": "First Name",

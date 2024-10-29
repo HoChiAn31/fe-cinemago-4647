@@ -11,6 +11,9 @@ import DeleteUserModal from './components/DeleteUserModal'; // Create this compo
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
+import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdminUserPage: FC = () => {
 	const [users, setUsers] = useState<User[]>([]);
@@ -18,25 +21,21 @@ const AdminUserPage: FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [lastPage, setLastPage] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
-
+	const router = useRouter();
+	const locale = useLocale();
 	const [nextPage, setNextPage] = useState<number | null>(null);
 	const [prevPage, setPrevPage] = useState<number | null>(null);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [selectedRole, setSelectedRole] = useState<string>('');
 	const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
+	const [errorHandled, setErrorHandled] = useState<boolean>(false); // New flag
 	const {
 		isOpen: isDeleteOpen,
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
 
 	const [userToDelete, setUserToDelete] = useState<User | null>(null);
-	const [userToEdit, setUserToEdit] = useState<User | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 500);
 	useEffect(() => {
 		console.log('debouncedSearchQuery');
@@ -49,7 +48,7 @@ const AdminUserPage: FC = () => {
 			setUserFilterRole(filter);
 		}
 	}, [selectedRole]);
-	console.log(selectedRole);
+
 	const fetchUsers = async () => {
 		try {
 			const response = await axios.get('http://localhost:5000/users', {
@@ -59,6 +58,7 @@ const AdminUserPage: FC = () => {
 					search: searchQuery,
 				},
 			});
+			console.log(response);
 			setUsers(response.data.data);
 			setLastPage(response.data.total);
 			setLastPage(response.data.lastPage);
@@ -66,8 +66,20 @@ const AdminUserPage: FC = () => {
 			setPrevPage(response.data.prevPage);
 		} catch (error) {
 			console.error('Error fetching users:', (error as Error).message);
+
 			if ((error as Error).message === 'Request failed with status code 401') {
-				console.log('leu leu');
+				// console.log('leu leu');
+			}
+			if ((error as Error).message === 'Request failed with status code 403' && !errorHandled) {
+				// Ensure this block runs only once
+				setErrorHandled(true);
+				toast.error('You do not have permission to access this resource.', {
+					duration: 3000,
+				});
+				setTimeout(() => {
+					router.push(`/${locale}/admin`);
+					setErrorHandled(false); // Reset the flag after navigation
+				}, 3000);
 			}
 		}
 	};
@@ -113,8 +125,8 @@ const AdminUserPage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isAddOpen={isAddOpen}
-				onChangeAdd={handleOpenAddUser}
+				isOpen={isAddOpen}
+				onChange={handleOpenAddUser}
 				title='Quản lý người dùng'
 				buttonText='Thêm người dùng'
 			/>
@@ -131,7 +143,6 @@ const AdminUserPage: FC = () => {
 					/>
 					<UserTable
 						users={selectedRole ? userFilterRole : users}
-						onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}
 						// setUserToEdit={setUserToEdit}
 						setUserToDelete={setUserToDelete}
@@ -165,6 +176,7 @@ const AdminUserPage: FC = () => {
 					onReloadData={fetchUsers}
 				/>
 			)}
+			<Toaster />
 		</div>
 	);
 };

@@ -14,6 +14,7 @@ import ManagementHeader from '@/app/components/ManagementHeader';
 
 const AdminBranchPage: FC = () => {
 	const [branches, setBranches] = useState<Branch[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
@@ -42,14 +43,18 @@ const AdminBranchPage: FC = () => {
 
 	const fetchBranches = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/branch', {
-				// Adjust the endpoint
-				params: {
-					page: currentPage.toString(),
-					items_per_page: itemsPerPage.toString(),
-					search: searchQuery,
+			const response = await axios.get(
+				'https://be-book-movie-ticket-012124-snp6-hochian31s-projects.vercel.app/branch',
+				{
+					// Adjust the endpoint
+					params: {
+						page: currentPage.toString(),
+						items_per_page: itemsPerPage.toString(),
+						search: searchQuery,
+					},
 				},
-			});
+			);
+			setIsLoading(true);
 			setBranches(response.data.data);
 			setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
@@ -117,6 +122,7 @@ const AdminBranchPage: FC = () => {
 						setCurrentPage={setCurrentPage}
 					/>
 					<BranchTable
+						isLoading={isLoading}
 						branches={branches} // Adjust the prop name
 						onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}

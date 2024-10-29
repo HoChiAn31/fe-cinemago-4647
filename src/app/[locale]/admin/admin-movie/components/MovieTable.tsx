@@ -85,6 +85,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
 											router.push(`/${locale}/admin/admin-movie/${movie.id}`);
 										}}
 										isIconOnly
+										radius='sm'
 									>
 										<Pencil className='text-white' />
 									</Button>
@@ -97,6 +98,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
 											onDeleteOpen();
 										}}
 										isIconOnly
+										radius='sm'
 									>
 										<Trash2 />
 									</Button>

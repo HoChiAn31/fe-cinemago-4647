@@ -62,6 +62,8 @@
 		"movieManagement": "Quản lý phim",
 		"statisticsReports": "Thống kê và báo cáo",
 		"categoryManagement": "Quản lý thể loại",
+		"roomManagement": "Quản lý phòng",
+		"foodDrinkManagement": "Quản lý đồ ăn/thức uống",
 		"branchManagement": "Quản lý rạp",
 		"revenueManagement": "Quản lý doanh thu",
 		"userManagement": "Quản lý người dùng",
@@ -70,7 +72,8 @@
 		"logout": "Đăng xuất"
 	},
 	"LayoutHeaderAdmin": {
-		"logout": "Đăng xuất"
+		"logout": "Đăng xuất",
+		"darkMode": "Chế độ tối"
 	},
 	"AdminSearchAndFilter": {
 		"searchPlaceholder": "Nhập tên...",
@@ -104,8 +107,8 @@
 		"poster_url": "URL Áo phim",
 		"trailer_url": "URL Trailer",
 		"name_vi": "Tên (Tiếng Việt)",
-		"description_vi": "Mô tả (Tiếng Việt)",
-		"name_en": "Tên (Tiếng Anh)",
+		"description": "Mô tả (Tiếng Việt)",
+		"name": "Tên (Tiếng Anh)",
 		"description_en": "Mô tả (Tiếng Anh)",
 		"genres": "Thể loại",
 		"addMovie": "Thêm",
@@ -129,14 +132,22 @@
 		"description": "Nhập địa chỉ email của bạn để đặt lại mật khẩu.",
 		"emailLabel": "Địa chỉ Email",
 		"emailPlaceholder": "Nhập email của bạn",
-		"resetPasswordButton": "Đặt lại Mật Khẩu"
+		"resetPasswordButton": "Đặt lại Mật Khẩu",
+		"otpSentSuccess": "Mã OTP đã được gửi đến email của bạn.",
+		"otpSentError": "Có lỗi xảy ra khi gửi mã OTP.",
+		"connectionError": "Lỗi kết nối. Vui lòng thử lại sau.",
+		"genericError": "Có lỗi xảy ra. Vui lòng thử lại."
 	},
 	"PageOtp": {
 		"title": "Xác minh mã OTP của bạn",
 		"description": "Vui lòng nhập mã OTP đã được gửi đến email của bạn để xác minh tài khoản.",
 		"otpLabel": "Nhập mã OTP",
 		"otpPlaceholder": "123456",
-		"verifyOtpButton": "Xác minh OTP"
+		"verifyOtpButton": "Xác minh OTP",
+		"otpVerifiedSuccess": "Mã OTP xác minh thành công!",
+		"otpInvalidError": "Mã OTP không hợp lệ.",
+		"genericError": "Có lỗi xảy ra. Vui lòng thử lại.",
+		"connectionError": "Lỗi kết nối. Vui lòng thử lại sau."
 	},
 	"PageResetPassword": {
 		"title": "Thiết Lập Lại Mật Khẩu",
@@ -145,7 +156,11 @@
 		"newPasswordPlaceholder": "Nhập mật khẩu mới",
 		"confirmPasswordLabel": "Xác Nhận Mật Khẩu",
 		"confirmPasswordPlaceholder": "Xác nhận mật khẩu mới của bạn",
-		"resetPasswordButton": "Thiết Lập Lại Mật Khẩu"
+		"resetPasswordButton": "Thiết Lập Lại Mật Khẩu",
+		"passwordResetSuccess": "Mật khẩu của bạn đã được thiết lập lại thành công!",
+		"passwordMismatchError": "Mật khẩu không khớp.",
+		"genericError": "Đã xảy ra lỗi. Vui lòng thử lại.",
+		"connectionError": "Lỗi kết nối. Vui lòng thử lại sau."
 	},
 	"AdminUserAdd": {
 		"firstName": "Họ",
@@ -167,7 +182,6 @@
 		"translation": "Bản dịch",
 		"addTranslation": "Thêm Bản dịch"
 	},
-
 	"HomePage": {
 		"button": {
 			"book": "Đặt vé",

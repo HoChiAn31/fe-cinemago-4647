@@ -105,8 +105,8 @@ const AdminMoviePage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isAddOpen={isAddOpen}
-				onChangeAdd={handleOpenAddMovie}
+				isOpen={isAddOpen}
+				onChange={handleOpenAddMovie}
 				title='Quản lý phim'
 				buttonText='Thêm phim'
 			/>
@@ -145,12 +145,7 @@ const AdminMoviePage: FC = () => {
 						onFinishAdding={handleFinishAdding}
 						onReloadData={fetchMovies}
 					/>
-					<EditMovieModal
-						isOpen={isEditOpen}
-						onOpenChange={onEditOpenChange}
-						movieToEdit={movieToEdit}
-						onEditMovie={handleEditMovie}
-					/>
+
 					<DeleteMovieModal
 						isOpen={isDeleteOpen}
 						onOpenChange={onDeleteOpenChange}
