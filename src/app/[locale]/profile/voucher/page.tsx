@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { data } from './voucher';
-import { Card, Input } from 'antd';
+import { Card } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
 import { Tickets } from 'lucide-react';
 import { useRouter } from 'next/navigation';
