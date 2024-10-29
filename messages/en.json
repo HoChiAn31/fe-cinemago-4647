@@ -211,5 +211,60 @@
 			"optionDes": "In addition to the high-quality cinema system, Cinestar also provides you with many other great types of entertainment.",
 			"date": "Premiere"
 		}
+	},
+
+	"UserProfile": {
+		"profile": {
+			"validate": {
+				"firstName": "Please enter First Name",
+				"lastName": "Please enter Last Name",
+				"email": "Please enter Email",
+				"phone": "Please enter Phone Number"
+			},
+			"save": {
+				"alert": "Information has been saved!",
+				"button": "Save"
+			},
+			"title": "My Profile",
+			"subTitle": "Manage your profile information to secure your account",
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"email": "Email",
+			"phone": "Phone Number",
+			"change": "Change"
+		},
+		"voucher": {
+			"voucherUsed": "Used Voucher",
+			"voucherStore": "Voucher Store",
+			"used": "Used",
+			"expirationDate": "Valid Till",
+			"useNow": "Use",
+			"t&c": "T&C",
+			"modal": {
+				"valid": "Valid Period",
+				"reward": "Reward",
+				"applicable": "Applicable Movie",
+				"payment": "Terms of Use",
+				"to": "To",
+				"upto": "VND and above",
+				"used": "Quantity Used",
+				"max": "Maximum Quantity"
+			}
+		}
+	},
+
+	"UserSideBar": {
+		"profile": {
+			"user": "My Account",
+			"profile": "Proflie",
+			"reset": "Change Password"
+		},
+		"cart": "My Purchase",
+		"notif": {
+			"notif": "Notifications",
+			"update": "Order Updates",
+			"promotion": "Promotions"
+		},
+		"voucher": "My Vouchers"
 	}
 }
