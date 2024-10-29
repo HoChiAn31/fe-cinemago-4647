@@ -1,290 +1,218 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Card, Input, Avatar, Row, Col, Button, Upload, message, notification } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import './style.css';
+import React, { useState } from 'react';
+import { data } from './voucher';
+import { Card, Input } from 'antd';
+import { useLocale, useTranslations } from 'next-intl';
+import { Tickets } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import {
+	Modal,
+	ModalContent,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Button,
+	useDisclosure,
+} from '@nextui-org/react';
 
-const userData = {
-	id: '1',
-	firstName: 'Nguyễn',
-	lastName: 'Văn A',
-	email: 'nguyenvana@example.com',
-	password: 'hashed_password',
-	phone: '123456789',
-	refreshToken: null,
-	role: 'user',
-	avatar: 'https://example.com/avatar.jpg',
-	status: 1,
-	createdAt: new Date().toISOString(),
-	updatedAt: new Date().toISOString(),
-};
-
-const getBase64 = (img: File, callback: (url: string) => void) => {
-	const reader = new FileReader();
-	reader.addEventListener('load', () => callback(reader.result as string));
-	reader.readAsDataURL(img);
-};
-
-const beforeUpload = (file: File) => {
-	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-	if (!isJpgOrPng) {
-		notification.error({
-			message: 'Tải ảnh thất bại',
-			description: 'Bạn chỉ có thể tải lên tệp JPG/PNG!',
-			className: 'error-message-custom',
-		});
-	}
-	const isLt2M = file.size / 1024 / 1024 < 2;
-	if (!isLt2M) {
-		notification.error({
-			message: 'Tải ảnh thất bại',
-			description: 'Hình ảnh phải nhỏ hơn 2MB!',
-			className: 'error-message-custom',
-		});
-	}
-	return isJpgOrPng && isLt2M;
-};
+interface Translation {
+	id: string;
+	name: string;
+	description: string;
+	categoryLanguage: {
+		id: string;
+		languageCode: string;
+	};
+}
 
 const App: React.FC = () => {
-	const [firstname, setFirstname] = useState(userData.firstName);
-	const [lastname, setLastname] = useState(userData.lastName);
-	const [email, setEmail] = useState(userData.email);
-	const [phone, setPhone] = useState(userData.phone);
-	const [avatar, setAvatar] = useState(userData.avatar);
-	const [loading, setLoading] = useState(false);
-	const [imageUrl, setImageUrl] = useState<string>();
+	const [selectedTranslation, setSelectedTranslation] = useState<any | null>(null);
+	const [selectedVoucher, setSelectedVoucher] = useState<any | null>(null);
+	const [selectedMovies, setSelectedMovies] = useState<string[]>([]);
+	const t = useTranslations('UserProfile.voucher');
+	const locale = useLocale();
+	const router = useRouter();
+	const { isOpen, onOpenChange } = useDisclosure();
 
-	const [editEmail, setEditEmail] = useState(false);
-	const [editPhone, setEditPhone] = useState(false);
-
-	// Error states for validation
-	const [firstnameError, setFirstnameError] = useState('');
-	const [lastnameError, setLastnameError] = useState('');
-	const [emailError, setEmailError] = useState('');
-	const [phoneError, setPhoneError] = useState('');
-
-	// Track if data has changed
-	const [isChanged, setIsChanged] = useState(false);
-
-	// Validation functions
-	const validateFirstname = () => {
-		if (!firstname) setFirstnameError('Vui lòng nhập Họ');
-		else setFirstnameError('');
+	const formatDateForDisplay = (dateString: string) => {
+		const date = new Date(dateString);
+		const day = String(date.getDate()).padStart(2, '0');
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const year = date.getFullYear();
+		return `${day}/${month}/${year}`;
 	};
 
-	const validateLastname = () => {
-		if (!lastname) setLastnameError('Vui lòng nhập Tên');
-		else setLastnameError('');
+	const handleUseNow = () => {
+		router.push(`/${locale}/movies`);
 	};
 
-	const validateEmail = () => {
-		if (!email) setEmailError('Vui lòng nhập Email');
-		else setEmailError('');
+	const openModal = (value: Translation, voucher: any) => {
+		onOpenChange();
+		setSelectedTranslation(value);
+		setSelectedVoucher(voucher);
+		setSelectedMovies(voucher.applicableMovies.movieIds);
 	};
-
-	const validatePhone = () => {
-		if (!phone) setPhoneError('Vui lòng nhập Số điện thoại');
-		else setPhoneError('');
-	};
-
-	// Function to mask email
-	const maskEmail = (email: string) => {
-		const [localPart, domainPart] = email.split('@');
-		const maskedLocal = localPart.slice(0, 2) + '*'.repeat(localPart.length - 2);
-		return `${maskedLocal}@${domainPart}`;
-	};
-
-	// Function to mask phone
-	const maskPhone = (phone: string) => {
-		return `*****${phone.slice(-2)}`;
-	};
-
-	// Save handler
-	const handleSave = () => {
-		// Add save logic here
-		alert('Thông tin đã được lưu!');
-	};
-
-	// Check if any data has changed
-	useEffect(() => {
-		const hasChanges =
-			firstname !== userData.firstName ||
-			lastname !== userData.lastName ||
-			email !== userData.email ||
-			phone !== userData.phone ||
-			avatar !== userData.avatar;
-
-		const isAllFieldsFilled = !!(firstname && lastname && email && phone);
-
-		setIsChanged(hasChanges && isAllFieldsFilled);
-	}, [firstname, lastname, email, phone, avatar]);
-
-	const handleChange: UploadProps['onChange'] = (info) => {
-		console.log(info.file.status);
-		if (info.file.status === 'uploading') {
-			setLoading(true);
-		}
-
-		if (info.file.status === 'done' && info.file.originFileObj) {
-			getBase64(info.file.originFileObj as File, (url) => {
-				setLoading(false);
-				setAvatar(url);
-				setImageUrl(url);
-				notification.success({
-					message: 'Tải lên thành công!',
-					description: 'Hình ảnh của bạn đã được tải lên.',
-				});
-			});
-		} else if (info.file.status === 'error') {
-			notification.error({
-				message: 'Tải ảnh thất bại',
-				description: 'Tải lên không thành công. Vui lòng thử lại.',
-				className: 'error-message-custom',
-			});
-			setLoading(false);
-		}
-	};
-
-	const uploadButton = (
-		<div>
-			{loading ? <LoadingOutlined /> : <PlusOutlined />}
-			<div className='mt-2'>Tải lên</div>
-		</div>
-	);
 
 	return (
 		<div>
-			<Card className='w-[90%] p-3 pb-10'>
-				<div className='mx-4 border-b-1 border-gray2 pb-4 text-sm'>
-					<span className='text-xl font-bold'>Hồ Sơ Của Tôi</span> <br />
-					Quản lý thông tin hồ sơ để bảo mật tài khoản
+			<Card
+				className='mb-5 w-[90%] p-3 pb-10'
+				extra={
+					<a href='#' className='font-semibold text-primary'>
+						{t('voucherUsed')}
+					</a>
+				}
+				title={<span className='text-xl font-bold'>{t('voucherStore')}</span>}
+			>
+				<div className='-mx-2 flex flex-wrap'>
+					{data.map((voucher) => {
+						const translation = voucher.translations.find(
+							(t) => t.categoryLanguage.languageCode === locale,
+						)!;
+
+						const usagePercentage =
+							voucher.usageLimit > 0
+								? ((voucher.usageCount / voucher.usageLimit) * 100).toFixed(0)
+								: '0';
+
+						return (
+							<div key={voucher.id} className='mt-4 w-1/2'>
+								<Card className='mx-1 rounded-sm'>
+									<div className='flex'>
+										<div className='flex aspect-[1/1] h-auto w-1/4 flex-col items-center justify-center rounded-sm bg-orange-600 px-2 py-5 text-white'>
+											<Tickets className='h-full' size={50} />
+											<div className='bg-gray-200 flex items-end justify-center'>
+												<h3 className='h-fit text-nowrap text-center text-[11px] text-xs font-semibold'>
+													{translation.name}
+												</h3>
+											</div>
+										</div>
+										<div className='flex w-[60%] flex-col justify-between px-3 py-3'>
+											<p>{translation.description}</p>
+											<div>
+												<div
+													className='bg-gray-200 relative h-1 w-4/5 rounded-full'
+													style={{
+														background: `linear-gradient(90deg, transparent ${usagePercentage}%, #e8e8e8 0), linear-gradient(90deg, #eb1717, #ffb000)`,
+													}}
+												></div>
+												<div className='mt-2 flex gap-3 text-xs'>
+													<p>
+														{t('used')}: {usagePercentage}%
+													</p>
+													<p>
+														{t('expirationDate')}: {formatDateForDisplay(voucher.endDate)}
+													</p>
+													<a
+														className='text-green1'
+														onClick={() => openModal(translation, voucher)}
+													>
+														{t('t&c')}
+													</a>
+												</div>
+											</div>
+										</div>
+										<div className='flex w-[15%] items-center justify-center pr-3'>
+											<Button
+												className='text-nowrap rounded-sm border border-orange-600 bg-transparent text-orange-600 hover:bg-orange-600 hover:text-white'
+												onClick={handleUseNow}
+											>
+												{t('useNow')}
+											</Button>
+										</div>
+									</div>
+								</Card>
+							</div>
+						);
+					})}
 				</div>
-				<Row className='mt-4 flex h-fit flex-nowrap items-center justify-center gap-4'>
-					<Col span={16} className='ml-3 flex h-fit flex-col gap-9'>
-						{/* Name Fields */}
-						<div className='grid h-fit grid-cols-2'>
-							<Col className='grid h-fit grid-cols-2 items-center justify-center gap-2'>
-								<span className='col-span-1 flex h-full items-center justify-end text-nowrap pr-2'>
-									Họ
-								</span>
-								<div className='col-span-1 h-10'>
-									<Input
-										className={`h-10 rounded-sm px-3 ${firstnameError ? 'border-2 border-primary bg-red-50' : ''}`}
-										value={firstname}
-										onChange={(e) => setFirstname(e.target.value)}
-										onBlur={validateFirstname}
-										placeholder='Họ'
-									/>
-									{firstnameError && <div className='text-primary'>{firstnameError}</div>}
-								</div>
-							</Col>
-							<Col className='grid h-fit grid-cols-4 items-center justify-center gap-4'>
-								<span className='col-span-1 flex h-10 items-center justify-end text-nowrap'>
-									Tên
-								</span>
-								<div className='col-span-3 h-10'>
-									<Input
-										className={`h-10 rounded-sm px-3 ${lastnameError ? 'border-2 border-primary bg-red-50' : ''}`}
-										value={lastname}
-										onChange={(e) => setLastname(e.target.value)}
-										onBlur={validateLastname}
-										placeholder='Tên'
-									/>
-									{lastnameError && <div className='text-primary'>{lastnameError}</div>}
-								</div>
-							</Col>
-						</div>
-
-						{/* Email Field */}
-						<div className='h-fit'>
-							<Col className='grid h-fit grid-cols-4 items-center justify-center gap-4'>
-								<span className='col-span-1 flex h-10 items-center justify-end text-nowrap'>
-									Email
-								</span>
-								<div className='col-span-3 h-10'>
-									{editEmail ? (
-										<Input
-											className={`h-10 rounded-sm px-3 ${emailError ? 'border-2 border-primary bg-red-50' : ''}`}
-											value={email}
-											onChange={(e) => setEmail(e.target.value)}
-											onBlur={validateEmail}
-											placeholder='Email'
-										/>
-									) : (
-										<span className='h-10 rounded-sm'>
-											{maskEmail(email)}{' '}
-											<Button className='ml-5 h-10' type='link' onClick={() => setEditEmail(true)}>
-												Thay đổi
-											</Button>
-										</span>
-									)}
-									{emailError && <div className='text-primary'>{emailError}</div>}
-								</div>
-							</Col>
-						</div>
-
-						{/* Phone Field */}
-						<div className='h-fit'>
-							<Col className='grid h-fit grid-cols-4 items-center justify-center gap-4'>
-								<span className='col-span-1 flex h-10 items-center justify-end text-nowrap'>
-									Số điện thoại
-								</span>
-								<div className='col-span-3 h-10'>
-									{editPhone ? (
-										<Input
-											className={`h-10 rounded-sm px-3 ${phoneError ? 'border-2 border-primary bg-red-50' : ''}`}
-											value={phone}
-											onChange={(e) => setPhone(e.target.value)}
-											onBlur={validatePhone}
-											placeholder='Số điện thoại'
-										/>
-									) : (
-										<span className='h-10 rounded-sm'>
-											{maskPhone(phone)}{' '}
-											<Button className='ml-5 h-10' type='link' onClick={() => setEditPhone(true)}>
-												Thay đổi
-											</Button>
-										</span>
-									)}
-									{phoneError && <div className='text-primary'>{phoneError}</div>}
-								</div>
-							</Col>
-						</div>
-					</Col>
-					<Col span={8} className='flex items-center justify-center border-l-1 border-gray2'>
-						<div className='flex flex-col items-center justify-center gap-8 py-10'>
-							<Upload
-								name='avatar'
-								listType='picture-circle'
-								className='avatar-uploader'
-								showUploadList={false}
-								action={undefined}
-								// beforeUpload={beforeUpload}
-								onChange={handleChange}
-								accept='.jpg, .jpeg, .png'
-							>
-								{imageUrl ? <Avatar size={128} src={imageUrl} /> : uploadButton}
-							</Upload>
-						</div>
-					</Col>
-				</Row>
-				{/* Save Button */}
-				<Row className='ml-[170px] mt-10 w-fit'>
-					<Col>
-						<Button
-							type='primary'
-							onClick={handleSave}
-							className={`rounded-sm border-none px-5 py-5 text-base text-white ${isChanged ? 'pointer bg-[#ee4d2d]' : 'not-allowed bg-[#facac0]'}`}
-							disabled={!isChanged}
-						>
-							Lưu
-						</Button>
-						<div></div>
-					</Col>
-				</Row>
 			</Card>
+			<Modal isOpen={isOpen} onOpenChange={onOpenChange} hideCloseButton={true}>
+				<ModalContent className='rounded-sm bg-white'>
+					{(onClose) => (
+						<>
+							<ModalHeader className='flex h-20 w-full flex-col items-center justify-center gap-1 rounded-sm bg-gradient-to-r from-[#f69113] from-10% via-[#ff7337] via-30% to-[#ee4d2d] to-90%'>
+								{selectedTranslation ? <p>{selectedTranslation.name}</p> : <p></p>}
+							</ModalHeader>
+							<ModalBody className='rounded-sm p-5 text-medium'>
+								<div className='flex flex-col gap-4'>
+									<div className='flex flex-col gap-2 text-xs text-black'>
+										<p className='text-medium font-semibold'>{t('modal.valid')}</p>
+										<div className='pl-2'>
+											{selectedVoucher ? (
+												`${formatDateForDisplay(selectedVoucher.startDate)} - ${formatDateForDisplay(selectedVoucher.endDate)}`
+											) : (
+												<p></p>
+											)}
+										</div>
+									</div>
+									<div className='flex flex-col gap-2 text-xs text-black'>
+										<p className='text-medium font-semibold'>{t('modal.reward')}</p>
+										{selectedTranslation ? (
+											<p className='pl-2'>{selectedTranslation.description}</p>
+										) : (
+											<p></p>
+										)}
+									</div>
+									<div className='flex flex-col gap-2 text-xs text-black'>
+										<p className='text-medium font-semibold'>{t('modal.applicable')}</p>
+										<div className='pl-2'>
+											{selectedMovies.map((movieId) => (
+												<li key={movieId}>{movieId}</li>
+											))}
+										</div>
+									</div>
+									<div className='flex flex-nowrap items-end gap-4 text-black'>
+										<p className='font-semibold'>
+											{t('modal.payment')}{' '}
+											{selectedVoucher ? (
+												<span className='pl-2 text-xs font-normal'>
+													{t('modal.to')} {selectedVoucher.minimumPurchase} {t('modal.upto')}
+												</span>
+											) : (
+												<p></p>
+											)}
+										</p>
+									</div>
+									<div className='flex flex-nowrap items-end gap-4 text-black'>
+										<p className='font-semibold'>
+											{t('modal.used')}{' '}
+											{selectedVoucher ? (
+												<span className='pl-2 text-xs font-normal'>
+													{selectedVoucher.usageCount}
+												</span>
+											) : (
+												<p></p>
+											)}
+										</p>
+									</div>
+									<div className='gap-4 text-black'>
+										<p className='font-semibold'>
+											{t('modal.max')}{' '}
+											{selectedVoucher ? (
+												<span className='pl-2 text-xs font-normal'>
+													{selectedVoucher.usageLimit}
+												</span>
+											) : (
+												<span></span>
+											)}
+										</p>
+									</div>
+								</div>
+							</ModalBody>
+							<ModalFooter className='flex items-center justify-center rounded-b-sm'>
+								<Button
+									onClick={handleUseNow}
+									className='text-nowrap rounded-sm border border-orange-600 bg-transparent text-orange-600 hover:bg-orange-600 hover:text-white'
+								>
+									{t('useNow')}
+								</Button>
+							</ModalFooter>
+						</>
+					)}
+				</ModalContent>
+			</Modal>
 		</div>
 	);
 };

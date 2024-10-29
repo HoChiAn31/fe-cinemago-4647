@@ -73,10 +73,13 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 					>
 						<ClientOnly>
 							{pathname.startsWith(`/${locale}/profile`) ? (
-								<div className='mx-auto flex gap-4'>
-									{/* <SidebarProfile /> */}
-									<SidebarUser />
-									<div className='w-[80%]'>{children}</div>
+								<div className='mx-auto flex flex-col gap-4 md:flex-row'>
+									{/* Sidebar User */}
+									<div className='w-full md:w-[35%]'>
+										<SidebarUser />
+									</div>
+									{/* Nội dung chính */}
+									<div className='w-full overflow-hidden md:w-3/4'>{children}</div>
 								</div>
 							) : (
 								<main className={`flex-grow overflow-hidden`}>

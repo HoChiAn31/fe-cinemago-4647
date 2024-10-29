@@ -197,5 +197,60 @@
 			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinestar còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
 			"date": "Khởi chiếu"
 		}
+	},
+
+	"UserProfile": {
+		"profile": {
+			"validate": {
+				"firstName": "Vui lòng nhập Họ",
+				"lastName": "Vui lòng nhập Tên",
+				"email": "Vui lòng nhập Email",
+				"phone": "Vui lòng nhập Số điện thoại"
+			},
+			"save": {
+				"alert": "Thông tin đã được lưu!",
+				"button": "Lưu"
+			},
+			"title": "Hồ Sơ Của Tôi",
+			"subTitle": "Quản lý thông tin hồ sơ để bảo mật tài khoản",
+			"firstName": "Họ",
+			"lastName": "Tên",
+			"email": "Email",
+			"phone": "Số điện thoại",
+			"change": "Thay đổi"
+		},
+		"voucher": {
+			"voucherUsed": "Voucher đã sử dụng",
+			"voucherStore": "Kho Voucher",
+			"used": "Đã dùng",
+			"expirationDate": "HSD",
+			"useNow": "Dùng Ngay",
+			"t&c": "Điều kiện",
+			"modal": {
+				"valid": "Hạn sử dụng mã",
+				"reward": "Ưu đãi",
+				"applicable": "Phim áp dụng",
+				"payment": "Điều kiện sử dụng",
+				"to": "Từ",
+				"upto": "VND trở lên",
+				"used": "Số lượng đã sử dụng",
+				"max": "Số lượng tối đa"
+			}
+		}
+	},
+
+	"UserSideBar": {
+		"profile": {
+			"user": "Tài Khoản Của Tôi",
+			"profile": "Hồ Sơ Cá Nhân",
+			"reset": "Đổi mật khẩu"
+		},
+		"cart": "Đơn Mua",
+		"notif": {
+			"notif": "Thông báo",
+			"update": "Cập nhật đơn hàng",
+			"promotion": "Khuyến mãi"
+		},
+		"voucher": "Kho Voucher"
 	}
 }
