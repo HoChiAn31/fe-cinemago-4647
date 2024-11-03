@@ -27,6 +27,7 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 						startContent={<ChevronLeft />}
 						color='primary'
 						onClick={onChange}
+						radius='sm'
 					>
 						Quay lại
 					</Button>

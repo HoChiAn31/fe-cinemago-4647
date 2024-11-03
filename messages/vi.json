@@ -266,5 +266,14 @@
 			"promotion": "Khuyến mãi"
 		},
 		"voucher": "Kho Voucher"
+	},
+	"AdminRoom": {
+		"AdminRoomGeneral": {
+			"name": "Tên",
+			"screeningType": "Loại ghế",
+			"seat": "Số ghế",
+			"editMovie": "Cập nhật",
+			"addRoom": "Thêm"
+		}
 	}
 }
