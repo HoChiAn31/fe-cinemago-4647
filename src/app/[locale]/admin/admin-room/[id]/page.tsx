@@ -1,106 +1,154 @@
 'use client';
-import { Button, Input, Spinner } from '@nextui-org/react';
+import { Button, Input, Spinner, useDisclosure } from '@nextui-org/react';
 import { Room } from '../types'; // Import the Room type
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import ManagementHeader from '@/app/components/ManagementHeader';
+import AdminRoomTable from '../components/RoomTable';
+import { useTheme } from '@/app/context/ThemeContext';
+import ManagementHeaderUpdate from '@/app/components/ManagementHeaderUpdate';
+import AddRoom from '../components/AddRoom';
+import DeleteRoomModal from '../components/DeleteRoom';
+import PaginationControls from '@/app/components/PaginationControls';
+import SearchAndFilter from '../components/SearchAndFilter';
+import useDebounce from '@/app/hook/useDebounce';
 
 const EditRoomPage = () => {
 	const t = useTranslations('AdminRoomEdit');
+	const { url } = useTheme();
 	const toastT = useTranslations('AdminToast');
 	const params = useParams();
 	const id = params.id as string;
-	const [room, setRoom] = useState<Room | null>(null);
-	const [isEditing, setIsEditing] = useState(false);
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+
+	const [searchQuery, setSearchQuery] = useState<string>('');
+	const [lastPage, setLastPage] = useState<number>(1);
+	const [nextPage, setNextPage] = useState<number | null>(null);
+	const [prevPage, setPrevPage] = useState<number | null>(null);
+	const [rooms, setRooms] = useState<Room[]>([]);
 	const router = useRouter();
 	const locale = useLocale();
+	const [isLoading, setIsLoading] = useState(false);
+	const {
+		isOpen: isDeleteOpen,
+		onOpen: onDeleteOpen,
+		onOpenChange: onDeleteOpenChange,
+	} = useDisclosure();
+	const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
+	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const [roomToDelete, setRoomToDelete] = useState<Room | null>(null);
 
 	useEffect(() => {
-		const fetchRoom = async () => {
-			const response = await fetch(`http://localhost:5000/room/${id}`);
-			const data = await response.json();
-			setRoom(data);
-		};
-		fetchRoom();
+		fetchRooms();
+	}, [currentPage, debouncedSearchQuery, itemsPerPage]);
+
+	const fetchRooms = async () => {
+		axios
+			.get(`${url}/rooms/branch/${id}`, {
+				params: {
+					page: currentPage.toString(),
+					items_per_page: itemsPerPage.toString(),
+					search: searchQuery,
+				},
+			})
+			.then((res) => {
+				setRooms(res.data.data);
+				setIsLoading(true);
+				// setTotalPages(response.data.total);
+				setLastPage(res.data.lastPage);
+				setNextPage(res.data.nextPage);
+				setPrevPage(res.data.prevPage);
+			})
+			.catch((error) => {
+				console.error('Error fetching rooms:', error);
+			});
+	};
+	useEffect(() => {
+		fetchRooms();
 	}, [id]);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setRoom((prevState) => {
-			if (!prevState) return null;
-			return {
-				...prevState,
-				[name]: value,
-			};
-		});
+	const handleAddRoom = () => {
+		fetchRooms();
+	};
+	const handleFinishAdding = () => {
+		fetchRooms();
+		setIsAddOpen(false);
 	};
 
-	const handleEditRoom = async () => {
-		setIsEditing(true);
-		const updatePromise = axios.put(`http://localhost:5000/rooms/${id}`, room);
-
-		toast.promise(
-			updatePromise,
-			{
-				loading: toastT('updating'),
-				success: (response) => {
-					if (response.data.affected === 1) {
-						setTimeout(() => {
-							router.push(`/${locale}/admin/admin-room/`);
-						}, 3000);
-						return toastT('updateSuccess');
-					} else {
-						throw new Error(toastT('updateFailed'));
-					}
-				},
-				error: toastT('updateError'),
-			},
-			{
-				duration: 3000,
-			},
-		);
-
-		try {
-			await updatePromise;
-		} catch (error) {
-			console.error('Error updating room:', error);
-		} finally {
-			setIsEditing(false);
+	const handleDeleteRoom = () => {
+		if (roomToDelete) {
+			setRooms(rooms.filter((room) => room.id !== roomToDelete.id));
+			setRoomToDelete(null);
+			onDeleteOpenChange();
+			fetchRooms();
 		}
 	};
-
+	const handleFinishDeleteting = () => {
+		fetchRooms();
+		onDeleteOpenChange();
+	};
+	const handlePageChange = (newPage: number) => {
+		if (newPage >= 1 && newPage <= lastPage) {
+			setCurrentPage(newPage);
+		}
+	};
 	return (
 		<div className='p-4'>
-			<ManagementHeader isOpen={true} onChange={() => router.back()} />
-			<div className='space-y-4'>
-				<Input
-					fullWidth
-					type='text'
-					name='name'
-					value={room?.name}
-					onChange={handleInputChange}
-					label={t('name')}
-					required
-					variant='bordered'
-				/>
-				{/* <Input
-					fullWidth
-					type='text'
-					name='capacity'
-					value={room?.capacity}
-					onChange={handleInputChange}
-					label={t('capacity')}
-					required
-					variant='bordered'
-				/> */}
-				{/* Add more fields as necessary */}
-			</div>
-			<Button onClick={handleEditRoom} type='submit' color='primary' disabled={isEditing} fullWidth>
-				{isEditing ? <Spinner size='sm' /> : t('editRoom')}
-			</Button>
+			<ManagementHeaderUpdate
+				isOpen={!isAddOpen}
+				isBack
+				title={isAddOpen ? '' : 'Danh sách phòng'}
+				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
+				titleOpen='Thêm phòng'
+				onChange={() => setIsAddOpen(true)}
+			/>
+
+			{!isAddOpen ? (
+				<>
+					<SearchAndFilter
+						searchQuery={searchQuery}
+						setSearchQuery={setSearchQuery}
+						itemsPerPage={itemsPerPage}
+						setItemsPerPage={setItemsPerPage}
+						setCurrentPage={setCurrentPage}
+					/>
+					<AdminRoomTable
+						rooms={rooms} // Adjust the prop name
+						onDeleteOpen={onDeleteOpen}
+						setRoomToDelete={setRoomToDelete} // Adjust the prop name
+						isLoading={isLoading}
+						idBranch={id}
+					/>
+					<DeleteRoomModal
+						isOpen={isDeleteOpen}
+						onOpenChange={onDeleteOpenChange}
+						roomToDelete={roomToDelete} // Adjust the prop name
+						onDeleteRoom={handleDeleteRoom}
+						onFinishDeleting={handleFinishDeleteting}
+					/>
+					<PaginationControls
+						currentPage={currentPage}
+						lastPage={lastPage}
+						prevPage={prevPage}
+						nextPage={nextPage}
+						onPageChange={handlePageChange}
+					/>
+				</>
+			) : (
+				<>
+					<AddRoom
+						isOpen={isAddOpen}
+						onAddRoom={handleAddRoom} // Adjust the prop name
+						onFinishAdding={handleFinishAdding}
+						onReloadData={fetchRooms}
+						idBranch={id}
+					/>
+				</>
+			)}
+
 			<Toaster />
 		</div>
 	);

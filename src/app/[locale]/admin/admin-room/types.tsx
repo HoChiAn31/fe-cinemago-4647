@@ -19,3 +19,10 @@ export interface RoomAdd {
 	totalSeats: number;
 	branch: string;
 }
+
+export interface RoomEdit {
+	name: string;
+	screeningType: string;
+	totalSeats: number;
+	branch: string;
+}

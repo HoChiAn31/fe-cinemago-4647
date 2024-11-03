@@ -21,37 +21,42 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 	const { isDarkMode } = useTheme();
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchQuery(event.target.value);
-		setCurrentPage(1); // Reset to first page on search
+		setCurrentPage(1);
 	};
 
 	const handleItemsPerPageChange = (value: number) => {
 		setItemsPerPage(value);
-		setCurrentPage(1); // Reset to first page on items per page change
+		setCurrentPage(1);
 	};
 
 	return (
-		<div>
-			<Input
-				placeholder='Search...'
-				value={searchQuery}
-				onChange={handleSearchChange}
-				radius='sm'
-			/>
-			<Select
-				value={itemsPerPage.toString()}
-				onChange={(value) => handleItemsPerPageChange(Number(value))}
-				radius='sm'
-			>
-				{selectItem.map((item) => (
-					<SelectItem
-						key={item.key}
-						value={item.key}
-						className={`${isDarkMode ? 'text-white' : 'text-black'}`}
-					>
-						{item.value}
-					</SelectItem>
-				))}
-			</Select>
+		<div className='mb-6 rounded-lg py-4'>
+			<div className='flex items-center gap-4'>
+				<Input
+					placeholder='Search...'
+					value={searchQuery}
+					onChange={handleSearchChange}
+					radius='sm'
+				/>
+				<Select
+					value={itemsPerPage.toString()}
+					onChange={(value) => {
+						handleItemsPerPageChange(Number(value.target.value));
+					}}
+					radius='sm'
+					defaultSelectedKeys={['5']}
+				>
+					{selectItem.map((item) => (
+						<SelectItem
+							key={item.key}
+							value={item.key}
+							className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+						>
+							{item.value}
+						</SelectItem>
+					))}
+				</Select>
+			</div>
 		</div>
 	);
 };

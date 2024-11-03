@@ -4106,7 +4106,7 @@ fsevents@~2.3.2:
     file-saver "^2.0.5"
     formik "^2.4.6"
     framer-motion "^11.5.4"
-    ft-movie-booking "file:C:/Users/ASUS/AppData/Local/Yarn/Cache/v6/npm-ft-movie-booking-0.1.0-f173f628-052e-4522-968a-5549ff9ae7c2-1729839257574/node_modules/ft-movie-booking"
+    ft-movie-booking "file:C:/Users/ASUS/AppData/Local/Yarn/Cache/v6/npm-ft-movie-booking-0.1.0-19921d67-2e20-4233-b319-deb60169c2ae-1730636734657/node_modules/ft-movie-booking"
     i18next "^23.15.1"
     js-cookie "^3.0.5"
     jwt-decode "^4.0.0"

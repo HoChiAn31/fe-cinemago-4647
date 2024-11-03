@@ -266,5 +266,14 @@
 			"promotion": "Promotions"
 		},
 		"voucher": "My Vouchers"
+	},
+	"AdminRoom": {
+		"AdminRoomGeneral": {
+			"name": "Name",
+			"screeningType": "Screen Type",
+			"seat": "Total Seat",
+			"editMovie": "Update",
+			"addRoom": "Add"
+		}
 	}
 }
