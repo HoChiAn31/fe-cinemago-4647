@@ -24,16 +24,16 @@ const VoucherTable: React.FC<VoucherTableProps> = ({
 	const router = useRouter();
 	const locale = useLocale();
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-sm border-x border-t border-gray2'>
+		<div className='bg-darkGreen overflow-hidden rounded-sm border-x border-t border-gray1'>
 			<table
 				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
 			>
 				<thead>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>Order</th>
-						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Discount</th>
-						<th className='border-r border-gray2 p-3'>Expiration Date</th>
+					<tr className='border-b border-gray1'>
+						<th className='border-r border-gray1 p-3'>Order</th>
+						<th className='border-r border-gray1 p-3'>Name</th>
+						<th className='border-r border-gray1 p-3'>Discount</th>
+						<th className='border-r border-gray1 p-3'>Expiration Date</th>
 						<th className='p-3'>Actions</th>
 					</tr>
 				</thead>
@@ -41,15 +41,15 @@ const VoucherTable: React.FC<VoucherTableProps> = ({
 					{isLoading ? (
 						<>
 							{vouchers.map((voucher, index) => (
-								<tr key={voucher.id} className='border-b border-gray2'>
-									<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>
-									<td className='border-r border-gray2 p-3 text-center'>
+								<tr key={voucher.id} className='border-b border-gray1'>
+									<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
+									<td className='border-r border-gray1 p-3 text-center'>
 										{voucher.translations
 											.filter((translation) => translation.categoryLanguage.languageCode === locale)
 											.map((traslation) => traslation.name)}
 									</td>
-									<td className='border-r border-gray2 p-3 text-center'>{voucher.discountType}%</td>
-									<td className='border-r border-gray2 p-3 text-center'>{voucher.discountValue}</td>
+									<td className='border-r border-gray1 p-3 text-center'>{voucher.discountType}%</td>
+									<td className='border-r border-gray1 p-3 text-center'>{voucher.discountValue}</td>
 									<td className='grid grid-cols-2 gap-2 p-3'>
 										<div className='flex items-center justify-center'>
 											<Button
@@ -82,7 +82,7 @@ const VoucherTable: React.FC<VoucherTableProps> = ({
 						</>
 					) : (
 						<tr>
-							<td colSpan={5} className='overflow-hidden border-b border-gray2 p-3 text-center'>
+							<td colSpan={5} className='overflow-hidden border-b border-gray1 p-3 text-center'>
 								<Loading />
 							</td>
 						</tr>

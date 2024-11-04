@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import ManagementHeader from '@/app/components/ManagementHeader';
-import ManagementHeaderUpdate from '@/app/components/ManagementHeaderUpdate';
+import ManagementHeaderUpdate from '@/app/components/ManagementHeader';
 
 const EditRoomPage = () => {
 	const t = useTranslations('AdminRoom.AdminRoomGeneral');

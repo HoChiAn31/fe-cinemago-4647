@@ -4,7 +4,7 @@ import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Voucher } from './types'; // Import Voucher type
 import VoucherTable from './components/TableVoucher'; // Create VoucherTable component
-import SearchAndFilter from './components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddVoucherModal from './components/AddVoucher'; // Create AddVoucherModal component
 import DeleteVoucherModal from './components/DeleteVoucher'; // Create DeleteVoucherModal component
 import useDebounce from '@/app/hook/useDebounce';

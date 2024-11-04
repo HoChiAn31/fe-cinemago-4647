@@ -28,35 +28,35 @@ const BranchTable: React.FC<AdminBranchTableProps> = ({
 	const locale = useLocale();
 
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-sm border-x border-t border-gray2'>
+		<div className='overflow-hidden rounded-sm border-x border-t border-gray1'>
 			<table
-				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
+				className={`w-full ${isDarkMode ? 'text-white' : 'bg-white text-black'} border-collapse`}
 			>
 				<thead>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>Order</th>
-						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Phone</th>
+					<tr className='border-b border-gray1'>
+						<th className='border-r border-gray1 p-3'>Order</th>
+						<th className='border-r border-gray1 p-3'>Name</th>
+						<th className='border-r border-gray1 p-3'>Phone</th>
 						<th className='p-3'>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{!isLoading ? (
 						<tr>
-							<td colSpan={4} className='overflow-hidden border-b border-gray2 p-3 text-center'>
+							<td colSpan={4} className='overflow-hidden border-b border-gray1 p-3 text-center'>
 								<Loading />
 							</td>
 						</tr>
 					) : (
 						branches?.map((branch, index) => (
-							<tr key={branch.id} className='border-b border-gray2'>
-								<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>
-								<td className='border-r border-gray2 p-3 text-center'>
+							<tr key={branch.id} className='border-b border-gray1'>
+								<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
+								<td className='border-r border-gray1 p-3 text-center'>
 									{branch.translations
 										.filter((translation) => translation.languageCode === locale)
 										.map((translation) => translation.name)}
 								</td>
-								<td className='border-r border-gray2 p-3 text-center'>{branch.phone}</td>
+								<td className='border-r border-gray1 p-3 text-center'>{branch.phone}</td>
 								<td className='grid grid-cols-1 gap-2 p-3'>
 									<div className='flex items-center justify-center'>
 										<Button
