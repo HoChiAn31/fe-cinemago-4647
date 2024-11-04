@@ -8,11 +8,11 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import AdminRoomTable from '../components/RoomTable';
 import { useTheme } from '@/app/context/ThemeContext';
-import ManagementHeaderUpdate from '@/app/components/ManagementHeaderUpdate';
+import ManagementHeader from '@/app/components/ManagementHeader';
 import AddRoom from '../components/AddRoom';
 import DeleteRoomModal from '../components/DeleteRoom';
 import PaginationControls from '@/app/components/PaginationControls';
-import SearchAndFilter from '../components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import useDebounce from '@/app/hook/useDebounce';
 
 const EditRoomPage = () => {
@@ -97,7 +97,7 @@ const EditRoomPage = () => {
 	};
 	return (
 		<div className='p-4'>
-			<ManagementHeaderUpdate
+			<ManagementHeader
 				isOpen={!isAddOpen}
 				isBack
 				title={isAddOpen ? '' : 'Danh sách phòng'}

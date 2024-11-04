@@ -8,7 +8,7 @@ import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
 import { MovieGenre } from './types';
 import AddMovieGenresModal from './components/AddMovieGenres';
-import SearchAndFilter from './components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import MovieGenreTable from './components/MovieGenreTable';
 import DeleteMovieGenreModal from './components/DeleteMovieGenres';
 

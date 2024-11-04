@@ -31,63 +31,60 @@ const UserTable: React.FC<UserTableProps> = ({
 	const locale = useLocale();
 
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-md border-x border-t border-gray'>
-			<table
-				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
-			>
-				<thead>
-					<tr className='border-b border-gray'>
-						<th className='border-r border-gray p-3'>{t('order')}</th>
-						{/* <th className='border-r border-gray p-3'>{t('id')}</th> */}
-						<th className='border-r border-gray p-3'>{t('name')}</th>
-						<th className='border-r border-gray p-3'>{t('email')}</th>
-						<th className='border-r border-gray p-3'>{t('role')}</th>
-						<th className='p-3'>{t('actions')}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{users.map((user, index) => (
-						<tr key={user.id} className='border-b border-gray'>
-							<td className='border-r border-gray p-3 text-center'>{index + 1}</td>
-							{/* Display order number */}
-							{/* <td className='border-r border-gray p-3 text-center'>{user.id}</td> */}
-							<td className='border-r border-gray p-3 text-center'>
-								{user.firstName + user.lastName}
-							</td>
-							<td className='border-r border-gray p-3 text-center'>{user.email}</td>
-							<td className='border-r border-gray p-3 text-center'>{user.role}</td>
-							<td className='grid grid-cols-2 gap-2 p-3'>
-								<div className='flex items-center justify-center'>
-									<Button
-										color='warning'
-										onPress={() => {
-											router.push(`/${locale}/admin/admin-user/${user.id}`);
-										}}
-										isIconOnly
-										radius='sm'
-									>
-										<Pencil className='text-white' />
-									</Button>
-								</div>
-								<div className='flex items-center justify-center'>
-									<Button
-										color='danger'
-										onPress={() => {
-											setUserToDelete(user);
-											onDeleteOpen();
-										}}
-										isIconOnly
-										radius='sm'
-									>
-										<Trash2 />
-									</Button>
-								</div>
-							</td>
+		<>
+			<div className='overflow-hidden rounded-md border border-gray1'>
+				<table className={`w-full ${isDarkMode ? 'text-white' : 'text-black'} `}>
+					<thead className=''>
+						<tr className='border-b border-gray1'>
+							<th className='border-gray1 p-3'>{t('order')}</th>
+							<th className='border-l border-gray1 p-3'>{t('name')}</th>
+							<th className='border-l border-gray1 p-3'>{t('email')}</th>
+							<th className='border-l border-gray1 p-3'>{t('role')}</th>
+							<th className='border-l border-gray1 p-3'>{t('actions')}</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
-		</div>
+					</thead>
+					<tbody>
+						{users.map((user, index) => (
+							<tr key={user.id} className='border-t border-gray1'>
+								<td className='border-gray1 p-3 text-center'>{index + 1}</td>
+								<td className='border-l border-gray1 p-3 text-center'>
+									{user.firstName + user.lastName}
+								</td>
+								<td className='border-l border-gray1 p-3 text-center'>{user.email}</td>
+								<td className='border-l border-gray1 p-3 text-center'>{user.role}</td>
+								<td className='grid grid-cols-2 gap-2 border-l border-gray1 p-3'>
+									<div className='flex items-center justify-center'>
+										<Button
+											color='warning'
+											onPress={() => {
+												router.push(`/${locale}/admin/admin-user/${user.id}`);
+											}}
+											isIconOnly
+											radius='sm'
+										>
+											<Pencil className='text-white' />
+										</Button>
+									</div>
+									<div className='flex items-center justify-center'>
+										<Button
+											color='danger'
+											onPress={() => {
+												setUserToDelete(user);
+												onDeleteOpen();
+											}}
+											isIconOnly
+											radius='sm'
+										>
+											<Trash2 />
+										</Button>
+									</div>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</>
 	);
 };
 

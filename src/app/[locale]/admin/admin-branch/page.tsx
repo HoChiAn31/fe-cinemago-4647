@@ -4,7 +4,7 @@ import { Button, useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Branch } from './types'; // Adjust the import based on your types
 import BranchTable from './components/BranchTable'; // Create this component
-import SearchAndFilter from './components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddBranchModal from './components/AddBranch'; // Create this component
 // Create this component
 import DeleteBranchModal from './components/DeleteBranch'; // Create this component

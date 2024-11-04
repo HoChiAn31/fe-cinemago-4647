@@ -4,7 +4,7 @@ import { Button, useDisclosure } from '@nextui-org/react';
 import axios from '@/app/utils/axios';
 import { User } from './types'; // Assuming you have a User type defined
 import UserTable from './components/UserTable'; // Create this component
-import SearchAndFilter from './components/SearchAndFilter'; // Reuse if applicable
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddUserModal from './components/AddUser'; // Create this component
 // import EditUserModal from './components/'; // Create this component
 import DeleteUserModal from './components/DeleteUserModal'; // Create this component
@@ -135,6 +135,7 @@ const AdminUserPage: FC = () => {
 					<SearchAndFilter
 						searchQuery={searchQuery}
 						setSearchQuery={setSearchQuery}
+						isSelectedRole
 						selectedRole={selectedRole}
 						setSelectedRole={setSelectedRole}
 						itemsPerPage={itemsPerPage}

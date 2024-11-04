@@ -4,7 +4,7 @@ import { Button, useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Room } from './types'; // Adjust the import based on your types
 import RoomTable from './components/RoomTable'; // Create this component
-import SearchAndFilter from './components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddRoomModal from './components/AddRoom'; // Create this component
 import DeleteRoomModal from './components/DeleteRoom'; // Create this component
 import useDebounce from '@/app/hook/useDebounce';
@@ -13,7 +13,7 @@ import ManagementHeader from '@/app/components/ManagementHeader';
 import { Branch } from '../admin-branch/types';
 import { useTheme } from '@/app/context/ThemeContext';
 import BranchTable from './components/BranchTable';
-import ManagementHeaderUpdate from '@/app/components/ManagementHeaderUpdate';
+import ManagementHeaderUpdate from '@/app/components/ManagementHeader';
 
 const AdminRoomPage: FC = () => {
 	const { url } = useTheme();

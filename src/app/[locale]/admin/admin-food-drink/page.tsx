@@ -4,7 +4,7 @@ import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { FoodDrink } from './types';
 import FoodDrinkTable from './components/TableFoodDrink';
-import SearchAndFilter from './components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddFoodDrinkModal from './components/AddFoodDrink';
 import DeleteFoodDrinkModal from './components/DeleteFoodDrink';
 import useDebounce from '@/app/hook/useDebounce';

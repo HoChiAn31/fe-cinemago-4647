@@ -32,47 +32,30 @@ const BranchTable: React.FC<BranchTableProps> = ({
 	const router = useRouter();
 	const locale = useLocale();
 
-	// const handleSelectBranch = (id: string) => {
-	// 	const newSelectedBranches = new Set(selectedBranches);
-	// 	if (newSelectedBranches.has(id)) {
-	// 		newSelectedBranches.delete(id);
-	// 	} else {
-	// 		newSelectedBranches.add(id);
-	// 	}
-	// 	setSelectedBranches(newSelectedBranches);
-	// };
-
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-md border-x border-t border-gray2'>
+		<div className='overflow-hidden rounded-md border-x border-t border-gray1'>
 			<table
-				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
+				className={`w-full ${isDarkMode ? 'text-white' : 'bg-white text-black'} border-collapse`}
 			>
 				<thead>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>Order</th>
-					</tr>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>Order</th>
-						{/* <th className='border-r border-gray p-3'>ID</th> */}
-						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Location</th> {/* Adjust as needed */}
-						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Location</th> {/* Adjust as needed */}
+					<tr className='border-b border-gray1'>
+						<th className='border-r border-gray1 p-3'>Order</th>
+						<th className='border-r border-gray1 p-3'>Name</th>
+						<th className='border-r border-gray1 p-3'>Location</th> {/* Adjust as needed */}
 						<th className='p-3'>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{branches.map((branch, index) => (
-						<tr key={branch.id} className='border-b border-gray2'>
-							<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>
-							{/* <td className='border-r border-gray p-3 text-center'>{branch.id}</td> */}
-							<td className='border-r border-gray2 p-3 text-center'>
+						<tr key={branch.id} className='border-b border-gray1'>
+							<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
+							<td className='border-r border-gray1 p-3 text-center'>
 								{branch.translations
 									.filter((translation) => translation.languageCode === locale)
 									.map((translation) => translation.name)}
 							</td>
 
-							<td className='border-r border-gray2 p-3 text-center'>
+							<td className='border-r border-gray1 p-3 text-center'>
 								{branch.translations
 									.filter((translation) => translation.languageCode === locale)
 									.map((translation) => translation.address)}

@@ -138,17 +138,16 @@ const Header: FC = () => {
 									{isLogin ? (
 										<>
 											<>
-												{role === 'admin' ||
-													(role === 'staff' && (
-														<>
-															<Links
-																href={`/admin`}
-																className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
-															>
-																<p>{t('admin')}</p>
-															</Links>
-														</>
-													))}
+												{(role === 'admin' || role === 'staff') && (
+													<>
+														<Links
+															href={`/admin`}
+															className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
+														>
+															<p>{t('admin')}</p>
+														</Links>
+													</>
+												)}
 												<Links
 													href={`/profile`}
 													className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
@@ -234,17 +233,16 @@ const Header: FC = () => {
 							<div className='flex flex-col px-2'>
 								{isLogin ? (
 									<>
-										{role === 'admin' ||
-											(role === 'staff' && (
-												<>
-													<Links
-														href={`/admin`}
-														className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
-													>
-														<p>{t('admin')}</p>
-													</Links>
-												</>
-											))}
+										{(role === 'admin' || role === 'staff') && (
+											<>
+												<Links
+													href={`/admin`}
+													className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+												>
+													<p>{t('admin')}</p>
+												</Links>
+											</>
+										)}
 										<Links
 											href={`/profile`}
 											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'

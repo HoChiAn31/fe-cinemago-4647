@@ -33,15 +33,13 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 	const locale = useLocale();
 
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-sm border-x border-t border-gray2'>
-			<table
-				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
-			>
+		<div className='overflow-hidden rounded-md border-x border-t border-gray1'>
+			<table className={`w-full ${isDarkMode ? 'text-white' : 'text-black'} border-collapse`}>
 				<thead>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>Order</th>
-						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Price</th>
+					<tr className='border-b border-gray1'>
+						<th className='border-r border-gray1 p-3'>Order</th>
+						<th className='border-r border-gray1 p-3'>Name</th>
+						<th className='border-r border-gray1 p-3'>Price</th>
 						<th className='p-3'>Actions</th>
 					</tr>
 				</thead>
@@ -49,14 +47,14 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 					{isLoading ? (
 						<>
 							{foodDrinks.map((foodDrink, index) => (
-								<tr key={foodDrink.id} className='border-b border-gray2'>
-									<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>
-									<td className='border-r border-gray2 p-3 text-center'>
+								<tr key={foodDrink.id} className='border-b border-gray1'>
+									<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
+									<td className='border-r border-gray1 p-3 text-center'>
 										{foodDrink.translations // Access translations from foodDrink
 											.filter((translation) => translation.categoryLanguage.languageCode === locale)
 											.map((translation) => translation.name)}
 									</td>
-									<td className='border-r border-gray2 p-3 text-center'>{foodDrink.price}</td>
+									<td className='border-r border-gray1 p-3 text-center'>{foodDrink.price}</td>
 									<td className='grid grid-cols-2 gap-2 p-3'>
 										<div className='flex items-center justify-center'>
 											<Button
@@ -89,7 +87,7 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 						</>
 					) : (
 						<tr>
-							<td colSpan={4} className='overflow-hidden border-b border-gray2 p-3 text-center'>
+							<td colSpan={4} className='overflow-hidden border-b border-gray1 p-3 text-center'>
 								<Loading />
 							</td>
 						</tr>
