@@ -109,7 +109,7 @@ export default function LocaleSwitcher() {
 				{isMobile &&
 					isDropdownOpen && ( // Render dropdown if mobile and open
 						<div
-							className={`absolute z-50 mt-2 rounded shadow-lg ${isDarkMode ? `bg-black` : `bg-white`}`}
+							className={`absolute z-50 -mt-28 rounded shadow-lg ${isDarkMode ? `bg-black` : `bg-white`}`}
 						>
 							<div
 								onClick={() => onSelectChange('vi')}

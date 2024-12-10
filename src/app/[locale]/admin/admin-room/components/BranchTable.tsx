@@ -34,10 +34,10 @@ const BranchTable: React.FC<AdminBranchTableProps> = ({
 			>
 				<thead>
 					<tr className='border-b border-gray1'>
-						<th className='border-r border-gray1 p-3'>Order</th>
-						<th className='border-r border-gray1 p-3'>Name</th>
-						<th className='border-r border-gray1 p-3'>Phone</th>
-						<th className='p-3'>Actions</th>
+						<th className='w-[5%] border-r border-gray1 p-3'>Order</th>
+						<th className='border-r border-gray1 p-3 text-left'>Name</th>
+						<th className='border-r border-gray1 p-3 text-left'>Phone</th>
+						<th className='p-3'></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,12 +51,12 @@ const BranchTable: React.FC<AdminBranchTableProps> = ({
 						branches?.map((branch, index) => (
 							<tr key={branch.id} className='border-b border-gray1'>
 								<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
-								<td className='border-r border-gray1 p-3 text-center'>
+								<td className='border-r border-gray1 p-3'>
 									{branch.translations
 										.filter((translation) => translation.languageCode === locale)
 										.map((translation) => translation.name)}
 								</td>
-								<td className='border-r border-gray1 p-3 text-center'>{branch.phone}</td>
+								<td className='border-r border-gray1 p-3'>{branch.phone}</td>
 								<td className='grid grid-cols-1 gap-2 p-3'>
 									<div className='flex items-center justify-center'>
 										<Button
@@ -67,8 +67,9 @@ const BranchTable: React.FC<AdminBranchTableProps> = ({
 											}}
 											isIconOnly
 											radius='sm'
+											size='sm'
 										>
-											<Eye className='text-white' />
+											<Eye className='text-white' height={20} width={20} />
 										</Button>
 									</div>
 								</td>

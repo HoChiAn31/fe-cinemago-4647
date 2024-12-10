@@ -125,10 +125,12 @@ const AdminUserPage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isOpen={isAddOpen}
-				onChange={handleOpenAddUser}
-				title='Quản lý người dùng'
-				buttonText='Thêm người dùng'
+				isOpen={!isAddOpen}
+				isBack={isAddOpen}
+				title={isAddOpen ? '' : 'Quản lý người dùng'}
+				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
+				titleOpen='Thêm người dùng'
+				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (
 				<>

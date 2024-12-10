@@ -40,7 +40,7 @@ const UserTable: React.FC<UserTableProps> = ({
 							<th className='border-l border-gray1 p-3'>{t('name')}</th>
 							<th className='border-l border-gray1 p-3'>{t('email')}</th>
 							<th className='border-l border-gray1 p-3'>{t('role')}</th>
-							<th className='border-l border-gray1 p-3'>{t('actions')}</th>
+							<th className='border-l border-gray1 p-3'></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -51,32 +51,36 @@ const UserTable: React.FC<UserTableProps> = ({
 									{user.firstName + user.lastName}
 								</td>
 								<td className='border-l border-gray1 p-3 text-center'>{user.email}</td>
-								<td className='border-l border-gray1 p-3 text-center'>{user.role}</td>
-								<td className='grid grid-cols-2 gap-2 border-l border-gray1 p-3'>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='warning'
-											onPress={() => {
-												router.push(`/${locale}/admin/admin-user/${user.id}`);
-											}}
-											isIconOnly
-											radius='sm'
-										>
-											<Pencil className='text-white' />
-										</Button>
-									</div>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='danger'
-											onPress={() => {
-												setUserToDelete(user);
-												onDeleteOpen();
-											}}
-											isIconOnly
-											radius='sm'
-										>
-											<Trash2 />
-										</Button>
+								<td className='border-x border-gray1 p-3 text-center'>{user.role}</td>
+								<td>
+									<div className='flex items-center justify-center gap-2'>
+										<div className='flex items-center justify-center'>
+											<Button
+												color='warning'
+												onPress={() => {
+													router.push(`/${locale}/admin/admin-user/${user.id}`);
+												}}
+												isIconOnly
+												radius='sm'
+											>
+												<Pencil className='text-white' height={20} width={20} />
+											</Button>
+										</div>
+										<div className='flex items-center justify-center'>
+											<Button
+												color='danger'
+												onPress={() => {
+													setUserToDelete(user);
+													onDeleteOpen();
+												}}
+												isIconOnly
+												radius='sm'
+												variant='bordered'
+												className='border'
+											>
+												<Trash2 height={20} width={20} />
+											</Button>
+										</div>
 									</div>
 								</td>
 							</tr>

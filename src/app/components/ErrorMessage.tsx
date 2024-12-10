@@ -10,7 +10,7 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ error, touched }) => {
 	return (
 		<>
 			{error && touched ? (
-				<div className='absolute flex items-center gap-1 text-red-600'>
+				<div className='absolute flex items-center gap-1 text-xs text-red-600'>
 					<CircleAlert height={16} width={16} />
 					{error}
 				</div>

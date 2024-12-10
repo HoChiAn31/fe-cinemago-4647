@@ -25,7 +25,6 @@ import LinkUser from '../components/Header/LinkUser';
 const Header: FC = () => {
 	const pathname = usePathname();
 	const { isLogin, setIsLogin, setRole, role, logout } = useUser();
-
 	const locale = useLocale();
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const [valueSearch, setValueSearch] = useState<string>('');
@@ -106,19 +105,19 @@ const Header: FC = () => {
 								type='navHeader'
 								href={`/movies`}
 								label={t('movies')}
-								isActive={pathname === `${locale}/movies`}
+								isActive={pathname === `/${locale}/movies`}
 							/>
 							<NavItem
 								type='navHeader'
 								href='/schedule'
 								label={t('schedule')}
-								isActive={pathname === `${locale}/schedule`}
+								isActive={pathname === `/${locale}/schedule`}
 							/>
 							<NavItem
 								type='navHeader'
 								href='/tickets'
 								label={t('tickets')}
-								isActive={pathname === `${locale}/tickets`}
+								isActive={pathname === `/${locale}/tickets`}
 							/>
 						</ul>
 					</nav>
@@ -210,19 +209,19 @@ const Header: FC = () => {
 									type='navHeader'
 									href={`/movies`}
 									label={t('movies')}
-									isActive={pathname === `${locale}/movies`}
+									isActive={pathname === `/${locale}/movies`}
 								/>
 								<NavItem
 									type='navHeader'
 									href='/schedule'
 									label={t('schedule')}
-									isActive={pathname === `${locale}/schedule`}
+									isActive={pathname === `/${locale}/schedule`}
 								/>
 								<NavItem
 									type='navHeader'
 									href='/tickets'
 									label={t('tickets')}
-									isActive={pathname === `${locale}/tickets`}
+									isActive={pathname === `/${locale}/tickets`}
 								/>
 							</ul>
 						</nav>
@@ -245,37 +244,43 @@ const Header: FC = () => {
 										)}
 										<Links
 											href={`/profile`}
-											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+											className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
 										>
 											<p>{t('profile')}</p>
 										</Links>
 										<Links
 											href={`/profile/order`}
-											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
+											className='w-[200px] border-b bg-transparent py-3 text-base hover:text-primary'
 										>
 											<p>{t('orderHistory')}</p>
 										</Links>
 										<button
 											onClick={logout}
-											className='w-[200px] bg-transparent py-3 text-left text-base text-black hover:text-primary'
+											className='flex w-[200px] items-center gap-2 bg-transparent py-3 text-left text-base hover:text-primary'
+											// startContent={}
 										>
+											<LogOut height={16} width={16} />
 											<p>{t('logout')}</p>
 										</button>
 									</>
 								) : (
 									<>
-										<Links
-											href={`/login`}
-											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
-										>
-											<p>{t('login')}</p>
-										</Links>
-										<Links
-											href={`/register`}
-											className='w-[200px] bg-transparent py-3 text-base text-black hover:text-primary'
-										>
-											<p>{t('register')}</p>
-										</Links>
+										<>
+											<LinkUser
+												href={`/login`}
+												isNotBorderBottom
+												isActive={pathname === `/${locale}/login`}
+											>
+												<p>{t('login')}</p>
+											</LinkUser>
+											<LinkUser
+												href={`/register`}
+												isNotBorderBottom
+												isActive={pathname === `/${locale}/register`}
+											>
+												<p>{t('register')}</p>
+											</LinkUser>
+										</>
 									</>
 								)}
 							</div>

@@ -1,6 +1,6 @@
 'use client';
 import { Bell, ChevronDown, CircleUserRound, LogOut, Mail, Menu, UserRoundCog } from 'lucide-react';
-import React, { FC, useState } from 'react'; // {{ edit_1 }}
+import React, { FC, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import LocaleSwitcher from '../components/local-switcher';
 import { Button, Tooltip } from '@nextui-org/react';
@@ -19,7 +19,7 @@ const HeaderAdmin: FC = () => {
 		isDarkMode,
 		toggleDarkMode,
 	} = useTheme();
-	const { isLogin, setIsLogin, setRole } = useUser();
+	const { isLogin, setIsLogin, setRole, logout } = useUser();
 
 	const router = useRouter();
 	const locale = useLocale();
@@ -29,7 +29,7 @@ const HeaderAdmin: FC = () => {
 		}
 	};
 	const handleLogOutAdmin = () => {
-		setRole('dXNlcg');
+		setRole('');
 		setIsLogin(false);
 		router.push(`/${locale}/`);
 		// window.location.reload();
@@ -64,7 +64,7 @@ const HeaderAdmin: FC = () => {
 									<Button
 										className='w-full bg-transparent'
 										startContent={<LogOut />}
-										onClick={handleLogOutAdmin}
+										onClick={logout}
 									>
 										{t('logout')}
 									</Button>
