@@ -10,6 +10,7 @@ import DeleteFoodDrinkModal from './components/DeleteFoodDrink';
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
+import { useRouter } from 'next/navigation';
 
 const AdminFoodDrinkPage: FC = () => {
 	const [foodDrinks, setFoodDrinks] = useState<FoodDrink[]>([]);
@@ -35,7 +36,9 @@ const AdminFoodDrinkPage: FC = () => {
 
 	const [foodDrinkToDelete, setFoodDrinkToDelete] = useState<FoodDrink | null>(null);
 	const [foodDrinkToEdit, setFoodDrinkToEdit] = useState<FoodDrink | null>(null);
-	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const debouncedSearchQuery = useDebounce(searchQuery, 300);
+	const router = useRouter();
+
 	useEffect(() => {
 		fetchFoodDrinks();
 	}, [currentPage, debouncedSearchQuery, itemsPerPage]);
@@ -97,10 +100,12 @@ const AdminFoodDrinkPage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isOpen={isAddOpen}
-				onChange={handleOpenAddFoodDrink}
-				title='Quản lý thực phẩm và đồ uống'
-				buttonText='Thêm thực phẩm và đồ uống'
+				isOpen={!isAddOpen}
+				isBack={isAddOpen}
+				title={isAddOpen ? '' : 'Quản lý thực phẩm và đồ uống'}
+				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
+				titleOpen='Thêm thực phẩm và đồ uống'
+				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (
 				<>

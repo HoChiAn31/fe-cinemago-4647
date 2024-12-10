@@ -14,6 +14,8 @@ import SearchAndFilter from '@/app/components/SearchAndFilter';
 
 const AdminMoviePage: FC = () => {
 	const [movies, setMovies] = useState<Movie[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
@@ -58,6 +60,7 @@ const AdminMoviePage: FC = () => {
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
+			setIsLoading(true);
 		} catch (error) {
 			console.error('Error fetching movies:', error);
 		}
@@ -127,6 +130,7 @@ const AdminMoviePage: FC = () => {
 						onDeleteOpen={onDeleteOpen}
 						setMovieToEdit={setMovieToEdit}
 						setMovieToDelete={setMovieToDelete}
+						isLoading={isLoading}
 					/>
 
 					<PaginationControls

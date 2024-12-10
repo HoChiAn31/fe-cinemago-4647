@@ -211,18 +211,20 @@ const LoginPage: FC = () => {
 									alt='facebook'
 									height={24}
 									width={24}
+									shadow='sm'
 								/>
 								<Image
 									src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png'
 									alt='gmail'
 									height={24}
 									width={24}
+									shadow='sm'
 								/>
 							</div>
 						</div>
 
 						<div className='flex items-center justify-center'>
-							<div className='flex items-center'>
+							<div className='flex items-center text-sm'>
 								<p>Tạo tài khoản?</p>
 								<Links href={`/register`} className='text-second hover:underline'>
 									Đăng ký

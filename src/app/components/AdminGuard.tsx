@@ -13,7 +13,7 @@ const AdminGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const router = useRouter();
 	const locale = useLocale();
 	const [isAuthorized, setIsAuthorized] = useState(false);
-	console.log(isLoading);
+
 	useEffect(() => {
 		if (!isLoading) {
 			if (isLogin && (role === 'admin' || role === 'staff')) {

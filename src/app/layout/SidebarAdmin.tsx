@@ -24,12 +24,11 @@ import Link from 'next/link';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Panel } from 'react-resizable-panels';
 import { useUser } from '../context/UserContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import TabItem from '../components/TabItem';
 import { useTheme } from '../context/ThemeContext';
-import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
 const SidebarAdmin: FC = () => {
 	const t = useTranslations('LayoutSideBarAdmin'); // Initialize translations
 	const [activeMainTab, setActiveMainTab] = useState<string>('');
@@ -44,8 +43,15 @@ const SidebarAdmin: FC = () => {
 	useEffect(() => {
 		const storedMainTab = localStorage.getItem('activeMainTab');
 		const storedSubTab = localStorage.getItem('activeSubTab');
-		if (storedMainTab) setActiveMainTab(storedMainTab);
-		if (storedSubTab) setActiveSubTab(storedSubTab);
+		if (storedMainTab) {
+			setActiveMainTab(storedMainTab);
+			if (storedSubTab) {
+				setActiveSubTab(storedSubTab);
+				router.push(`/${locale}/admin/${storedMainTab}/${storedSubTab}`);
+			} else {
+				router.push(`/${locale}/admin/${storedMainTab}`);
+			}
+		}
 		setIsLoaded(true);
 	}, []);
 
@@ -57,10 +63,6 @@ const SidebarAdmin: FC = () => {
 	}, [activeMainTab, activeSubTab, isLoaded]);
 
 	useEffect(() => {
-		// console.log(1);
-		// console.log('activeMainTab', localStorage.setItem('activeMainTab', activeMainTab));
-		// console.log('activeSubTab', localStorage.setItem('activeSubTab', activeSubTab));
-
 		if (isLoaded) {
 			// Use a timeout to ensure the states are fully updated before storing in localStorage
 			const timeoutId = setTimeout(() => {
@@ -137,18 +139,8 @@ const SidebarAdmin: FC = () => {
 						setActiveMainTab={setActiveMainTab}
 						activeSubTab={activeSubTab}
 						setActiveSubTab={setActiveSubTab}
-						tabName='admin-movie'
-						title={t('movieManagement')}
-						icon={Clapperboard}
-					/>
-
-					<TabItem
-						activeMainTab={activeMainTab}
-						setActiveMainTab={setActiveMainTab}
-						activeSubTab={activeSubTab}
-						setActiveSubTab={setActiveSubTab}
-						tabName='adminReport'
-						title={t('statisticsReports')}
+						tabName='admin-order'
+						title={t('orderManagement')}
 						icon={NotepadText}
 					/>
 					<TabItem
@@ -156,11 +148,36 @@ const SidebarAdmin: FC = () => {
 						setActiveMainTab={setActiveMainTab}
 						activeSubTab={activeSubTab}
 						setActiveSubTab={setActiveSubTab}
-						tabName='adminOrder'
+						tabName='admin-revenue'
 						title={t('revenueManagement')}
-						icon={ShoppingBag}
+						icon={NotepadText}
+						subItems={[
+							{
+								name: 'revenueBranch',
+								label: t('revenueBranch'), // Use translation for chat
+								icon: <Store height={20} width={20} />,
+							},
+							{
+								name: 'revenueMovie',
+								label: t('revenueMovie'), // Use translation for support requests
+								icon: <Clapperboard height={20} width={20} />,
+							},
+							{
+								name: 'revenueFood',
+								label: t('revenueFood'), // Use translation for FAQ
+								icon: <Popcorn height={20} width={20} />,
+							},
+						]}
 					/>
-
+					<TabItem
+						activeMainTab={activeMainTab}
+						setActiveMainTab={setActiveMainTab}
+						activeSubTab={activeSubTab}
+						setActiveSubTab={setActiveSubTab}
+						tabName='admin-movie'
+						title={t('movieManagement')}
+						icon={Clapperboard}
+					/>
 					<TabItem
 						activeMainTab={activeMainTab}
 						setActiveMainTab={setActiveMainTab}
@@ -199,7 +216,7 @@ const SidebarAdmin: FC = () => {
 						icon={UserRound}
 					/>
 
-					<TabItem
+					{/* <TabItem
 						activeMainTab={activeMainTab}
 						setActiveMainTab={setActiveMainTab}
 						activeSubTab={activeSubTab}
@@ -207,7 +224,7 @@ const SidebarAdmin: FC = () => {
 						tabName='adminInteract'
 						title={t('commentsReviews')}
 						icon={Star}
-					/>
+					/> */}
 
 					<TabItem
 						activeMainTab={activeMainTab}

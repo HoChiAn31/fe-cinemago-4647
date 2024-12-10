@@ -22,7 +22,7 @@ const EditRoomPage = () => {
 	const params = useParams();
 	const id = params.id as string;
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
@@ -38,7 +38,7 @@ const EditRoomPage = () => {
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
 	const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
-	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const debouncedSearchQuery = useDebounce(searchQuery, 300);
 	const [roomToDelete, setRoomToDelete] = useState<Room | null>(null);
 
 	useEffect(() => {

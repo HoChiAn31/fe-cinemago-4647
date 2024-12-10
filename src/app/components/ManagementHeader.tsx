@@ -1,5 +1,5 @@
 import { Button } from '@nextui-org/react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Plus } from 'lucide-react';
 import React from 'react';
 
 interface ManagementHeaderProps {
@@ -33,13 +33,12 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 			{isBack && (
 				<>
 					<Button
-						className='border bg-transparent text-base'
+						className='border text-base'
 						variant='bordered'
-						startContent={<ChevronLeft />}
+						startContent={<ChevronLeft height={20} width={20} />}
 						color='primary'
 						onClick={onChangeBack}
 						radius='sm'
-						size='sm'
 					>
 						Quay lại
 					</Button>
@@ -53,9 +52,10 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 			{isOpen && (
 				<>
 					<Button
-						className='bg-transparent text-base'
-						variant='faded'
+						className='border text-base'
+						variant='bordered'
 						color='primary'
+						startContent={<Plus height={20} width={20} />}
 						onClick={onChange}
 						radius='sm'
 					>

@@ -38,9 +38,9 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 				<thead>
 					<tr className='border-b border-gray1'>
 						<th className='border-r border-gray1 p-3'>Order</th>
-						<th className='border-r border-gray1 p-3'>Name</th>
+						<th className='border-r border-gray1 p-3 text-left'>Name</th>
 						<th className='border-r border-gray1 p-3'>Price</th>
-						<th className='p-3'>Actions</th>
+						<th className='p-3'></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -48,38 +48,42 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 						<>
 							{foodDrinks.map((foodDrink, index) => (
 								<tr key={foodDrink.id} className='border-b border-gray1'>
-									<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
-									<td className='border-r border-gray1 p-3 text-center'>
+									<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>
+									<td className='border-r border-gray1 p-3'>
 										{foodDrink.translations // Access translations from foodDrink
 											.filter((translation) => translation.categoryLanguage.languageCode === locale)
 											.map((translation) => translation.name)}
 									</td>
 									<td className='border-r border-gray1 p-3 text-center'>{foodDrink.price}</td>
-									<td className='grid grid-cols-2 gap-2 p-3'>
-										<div className='flex items-center justify-center'>
-											<Button
-												color='warning'
-												onPress={() => {
-													router.push(`/${locale}/admin/admin-food-drink/${foodDrink.id}`);
-												}}
-												isIconOnly
-												radius='sm'
-											>
-												<Pencil className='text-white' />
-											</Button>
-										</div>
-										<div className='flex items-center justify-center'>
-											<Button
-												color='danger'
-												onPress={() => {
-													setFoodDrinkToDelete(foodDrink);
-													onDeleteOpen();
-												}}
-												isIconOnly
-												radius='sm'
-											>
-												<Trash2 />
-											</Button>
+									<td className=''>
+										<div className='flex items-center justify-center gap-2'>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='warning'
+													onPress={() => {
+														router.push(`/${locale}/admin/admin-food-drink/${foodDrink.id}`);
+													}}
+													isIconOnly
+													radius='sm'
+												>
+													<Pencil className='text-white' height={20} width={20} />
+												</Button>
+											</div>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='danger'
+													onPress={() => {
+														setFoodDrinkToDelete(foodDrink);
+														onDeleteOpen();
+													}}
+													isIconOnly
+													radius='sm'
+													variant='bordered'
+													className='border'
+												>
+													<Trash2 height={20} width={20} />
+												</Button>
+											</div>
 										</div>
 									</td>
 								</tr>

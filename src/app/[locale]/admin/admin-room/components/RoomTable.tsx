@@ -56,39 +56,45 @@ const AdminRoomTable: React.FC<AdminRoomTableProps> = ({
 					) : (
 						rooms.map((room, index) => (
 							<tr key={room.id} className='border-b border-gray2'>
-								<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>
+								<td className='w-[5%] border-r border-gray2 p-3 text-center'>{index + 1}</td>
 								<td className='border-r border-gray2 p-3 text-center'>{room.name}</td>
 								<td className='border-r border-gray2 p-3 text-center'>{room.screeningType}</td>
 								<td className='border-r border-gray2 p-3 text-center'>{room.totalSeats}</td>
 								<td className='border-r border-gray2 p-3 text-center'>{room.branch.phone}</td>
-								<td className='grid grid-cols-2 gap-2 p-3'>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='warning'
-											onPress={() => {
-												// if (setRoomToEdit) setRoomToEdit(room);
-												// if (onEditOpen) onEditOpen();
-												console.log(room.id);
-												router.push(`/${locale}/admin/admin-room/${idBranch}/${room.id}`);
-											}}
-											isIconOnly
-											radius='sm'
-										>
-											<Pencil className='text-white' />
-										</Button>
-									</div>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='danger'
-											onPress={() => {
-												setRoomToDelete(room);
-												if (onDeleteOpen) onDeleteOpen();
-											}}
-											isIconOnly
-											radius='sm'
-										>
-											<Trash2 className='text-white' />
-										</Button>
+								<td className=''>
+									<div className='flex items-center justify-center gap-2'>
+										<div className='flex items-center justify-center'>
+											<Button
+												color='warning'
+												onPress={() => {
+													// if (setRoomToEdit) setRoomToEdit(room);
+													// if (onEditOpen) onEditOpen();
+													console.log(room.id);
+													router.push(`/${locale}/admin/admin-room/${idBranch}/${room.id}`);
+												}}
+												isIconOnly
+												radius='sm'
+												size='sm'
+											>
+												<Pencil className='text-white' height={20} width={20} />
+											</Button>
+										</div>
+										<div className='flex items-center justify-center'>
+											<Button
+												color='danger'
+												onPress={() => {
+													setRoomToDelete(room);
+													if (onDeleteOpen) onDeleteOpen();
+												}}
+												isIconOnly
+												radius='sm'
+												size='sm'
+												variant='bordered'
+												className='border'
+											>
+												<Trash2 height={20} width={20} />
+											</Button>
+										</div>
 									</div>
 								</td>
 							</tr>
