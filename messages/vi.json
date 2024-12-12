@@ -250,6 +250,29 @@
 				"used": "Số lượng đã sử dụng",
 				"max": "Số lượng tối đa"
 			}
+		},
+		"reset": {
+			"title": "Đổi mật khẩu",
+			"subTitle": "Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác",
+			"oldPass": "Mật khẩu cũ",
+			"newPass": "Mật khẩu mới",
+			"confirm": "Xác nhận mật khẩu mới",
+			"button": "Xác nhận",
+			"validate": {
+				"oldPass": "Mật khẩu cũ không chính xác",
+				"newPass": {
+					"none": "Vui lòng nhập mật khẩu mới",
+					"same": "Mật khẩu mới không được trùng với mật khẩu cũ"
+				},
+				"confirm": "Mật khẩu xác nhận không khớp"
+			},
+			"modal": {
+				"otp": "Nhập mã OTP",
+				"sendOtp": "Mã OTP đã được gửi đến email của bạn",
+				"sendError": "Vui lòng kiểm tra lại thông tin!",
+				"success": "Mật khẩu đã được thay đổi thành công!",
+				"error": "Mã OTP không chính xác. Vui lòng thử lại."
+			}
 		}
 	},
 
@@ -266,5 +289,33 @@
 			"promotion": "Khuyến mãi"
 		},
 		"voucher": "Kho Voucher"
+	},
+
+	"Detail": {
+		"labels": {
+			"director": "Đạo diễn",
+			"cast": "Diễn viên",
+			"releaseDate": "Ngày khởi chiếu",
+			"duration": "Thời lượng",
+			"minutes": "phút",
+			"language": "Ngôn ngữ",
+			"description": "Nội dung",
+			"comment": "Bình luận",
+			"update": "Chỉnh sửa",
+			"delete": "Xóa",
+			"dayAgo": "ngày trước",
+			"today": "Hôm nay"
+		},
+
+		"button": {
+			"order": "Đặt vé",
+			"submit": "Đăng tải",
+			"update": "Cập nhật"
+		},
+
+		"form": {
+			"comment": "Hãy cho chúng tôi biết cảm nhận của bạn!",
+			"rate": "Đánh giá"
+		}
 	}
 }
