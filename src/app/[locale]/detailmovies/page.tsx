@@ -72,7 +72,7 @@ const movieData: MovieData = {
 	],
 };
 
-const currentUserEmail = '20522047@gm.uit.edu.vn';
+const currentUserEmail = 'a';
 
 const MovieDetailPage: React.FC = () => {
 	const t = useTranslations('Detail');
@@ -130,15 +130,15 @@ const MovieDetailPage: React.FC = () => {
 
 	return (
 		<div className='min-h-screen text-white'>
-			<div className='container mx-auto flex w-[60%] flex-col gap-6 bg-neutral-900 p-4'>
+			<div className='container mx-auto flex w-full flex-col gap-6 bg-neutral-900 p-4 lg:w-[60%]'>
 				{/* Header Section */}
-				<div className='flex gap-10'>
+				<div className='flex h-fit flex-col items-center gap-10 lg:flex-row lg:items-start'>
 					<img
 						src={movieData.poster_url}
 						alt={translation?.name || 'No title available'}
-						className='w-2/5 rounded-lg'
+						className='max-h-96 w-fit rounded-lg md:max-h-[450px] lg:max-h-[500px] lg:w-2/5'
 					/>
-					<div className='flex w-3/5 flex-col gap-5'>
+					<div className='flex w-full flex-col gap-5 lg:max-h-[500px] lg:w-3/5'>
 						<h1 className='text-3xl font-bold text-yellow-500'>
 							{translation?.name || 'No title available'}
 						</h1>
@@ -161,7 +161,7 @@ const MovieDetailPage: React.FC = () => {
 							<div className='mb-2 mt-5 flex items-center justify-center'>
 								<Button
 									href='#'
-									className={`text-nowrap rounded bg-red-500 px-9 py-3 hover:bg-red-600 ${isDarkMode ? '' : 'text-dark'}`}
+									className={`text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white ${isDarkMode ? 'text-white hover:text-second' : 'text-dark'}`}
 								>
 									{t('button.order')}
 								</Button>
@@ -199,28 +199,27 @@ const MovieDetailPage: React.FC = () => {
 					<div className='flex items-start gap-2 rounded bg-white p-2'>
 						<Image
 							src='https://icon-library.com/images/admin-user-icon/admin-user-icon-4.jpg'
-							width='56px'
-							height='56px'
 							alt='name'
+							className='h-10 w-10 lg:h-14 lg:w-14'
 						/>
 						<div className='w-full'>
 							<form className='flex flex-col gap-2'>
 								<input
-									className='w-full rounded bg-slate-100 p-3 px-5 text-black hover:bg-slate-200'
+									className='w-full rounded bg-slate-100 p-1 px-2 text-xs text-black hover:bg-slate-200 md:p-3 md:px-5 md:text-base'
 									placeholder={t('form.comment')}
 								></input>
 								<div className='flex items-center gap-1'>
 									<input
-										className='w-20 rounded bg-slate-100 px-1 py-2 text-black hover:bg-slate-200'
+										className='w-16 rounded bg-slate-100 px-1 py-2 text-xs text-black hover:bg-slate-200 md:w-20 md:text-base'
 										placeholder={t('form.rate')}
 									></input>
-									<p className='text-xl font-bold text-black'>/10</p>
+									<p className='font-bold text-black md:text-xl'>/10</p>
 								</div>
 							</form>
 						</div>
 						<Button
 							href='#'
-							className={`text-nowrap rounded-full bg-red-500 px-7 py-2 text-xs hover:bg-red-600 ${isDarkMode ? '' : 'text-dark'}`}
+							className={`text-nowrap rounded-full bg-red-500 px-3 py-1 text-xs font-normal transition duration-200 hover:bg-red-400 md:px-7 md:py-2 md:text-base ${isDarkMode ? 'text-white' : 'text-dark'}`}
 						>
 							{t('button.submit')}
 						</Button>
@@ -240,12 +239,11 @@ const MovieDetailPage: React.FC = () => {
 													comment.user.avatar ||
 													'https://icon-library.com/images/admin-user-icon/admin-user-icon-4.jpg'
 												}
-												width='56px'
-												height='56px'
+												className='h-10 w-10 lg:h-14 lg:w-14'
 												alt={`${comment.user.firstName} ${comment.user.lastName}`}
 											/>
 										</div>
-										<div className='text-xl font-bold text-[#e2a400]'>
+										<div className='text-base font-bold text-[#e2a400] md:text-xl'>
 											{`${comment.user.firstName} ${comment.user.lastName}`}
 										</div>
 									</div>
@@ -286,7 +284,7 @@ const MovieDetailPage: React.FC = () => {
 								{/* Popup for Edit/Delete */}
 								{isPopupOpen === comment.id && popupPosition && (
 									<div
-										className='absolute z-10 flex w-48 flex-col gap-3 rounded bg-white p-3 text-black'
+										className='absolute z-10 flex w-48 flex-col rounded bg-white text-black'
 										style={{
 											top: `${popupPosition.top}px`,
 											left: `${popupPosition.left}px`,
@@ -294,13 +292,13 @@ const MovieDetailPage: React.FC = () => {
 										onBlur={() => setIsPopupOpen(null)}
 									>
 										<p
-											className='hover:font-bold hover:text-red-500'
+											className='rounded-t border-b-2 border-red-600 p-3 hover:bg-red-400 hover:font-bold hover:text-white'
 											onClick={() => handleEdit(comment.id, comment.comment, comment.rating)}
 										>
 											{t('labels.update')}
 										</p>
 										<p
-											className='hover:font-bold hover:text-red-500'
+											className='rounded-b p-3 hover:bg-red-400 hover:font-bold hover:text-white'
 											onClick={() => handleDelete(comment.id)}
 										>
 											{t('labels.delete')}
@@ -335,7 +333,7 @@ const MovieDetailPage: React.FC = () => {
 										<div className='flex items-end justify-end'>
 											<Button
 												onClick={handleUpdate}
-												className={`text-nowrap rounded-full bg-green-500 px-7 py-2 text-xs hover:bg-green-600 ${isDarkMode ? '' : 'text-dark'}`}
+												className={`text-nowrap rounded-full bg-green-500 px-7 py-2 text-xs transition duration-200 hover:bg-green-400 ${isDarkMode ? 'text-white' : 'text-dark'}`}
 											>
 												{t('button.update')}
 											</Button>
