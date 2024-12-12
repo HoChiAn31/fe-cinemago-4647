@@ -13,6 +13,7 @@ import {
 	useDisclosure,
 } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 const userData = {
 	id: '1',
@@ -43,10 +44,11 @@ const App: React.FC = () => {
 	const [otp, setOtp] = useState('');
 	const [otpError, setOtpError] = useState('');
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
+	const t = useTranslations('UserProfile.reset');
 
 	const validateOldPassword = () => {
 		if (oldPassword !== userData.password) {
-			setPasswordError('Mật khẩu cũ không chính xác');
+			setPasswordError(`${t('validate.oldPass')}`);
 			setIsOldPasswordValid(false);
 		} else {
 			setPasswordError('');
@@ -56,9 +58,9 @@ const App: React.FC = () => {
 
 	const validateNewPassword = () => {
 		if (!newPassword) {
-			setNewPasswordError('Vui lòng nhập mật khẩu mới');
+			setNewPasswordError(`${t('validate.newPass.none')}`);
 		} else if (newPassword === oldPassword) {
-			setNewPasswordError('Mật khẩu mới không được trùng với mật khẩu cũ');
+			setNewPasswordError(`${t('validate.newPass.same')}`);
 		} else {
 			setNewPasswordError('');
 		}
@@ -66,7 +68,7 @@ const App: React.FC = () => {
 
 	const validateConfirmPassword = () => {
 		if (newPassword !== confirmPassword) {
-			setConfirmPasswordError('Mật khẩu xác nhận không khớp');
+			setConfirmPasswordError(`${t('validate.confirm')}`);
 			setIsConfirmPasswordValid(false);
 		} else {
 			setConfirmPasswordError('');
@@ -84,20 +86,20 @@ const App: React.FC = () => {
 
 	const handlePasswordChange = () => {
 		if (isChanged) {
-			toast.success(`Mã OTP đã được gửi đến email của bạn`);
+			toast.success(`${t('modal.sendOtp')}`);
 			setTimeout(() => {
 				setIsModalVisible(true);
 				onOpen();
 			}, 1000);
 		} else {
-			toast.error('Vui lòng kiểm tra lại thông tin!');
+			toast.error(`${t('modal.sendError')}`);
 		}
 	};
 
 	const handleOtpSubmit = () => {
 		if (otp === '') {
 			// Giả định mã OTP đúng là '123456'
-			toast.success('Mật khẩu đã được thay đổi thành công!');
+			toast.success(`${t('modal.success')}`);
 			setTimeout(() => {
 				setIsModalVisible(false);
 				onOpenChange();
@@ -106,114 +108,124 @@ const App: React.FC = () => {
 				setConfirmPassword('');
 			}, 1500);
 		} else {
-			setOtpError('Mã OTP không chính xác. Vui lòng thử lại.');
+			setOtpError(`${t('modal.error')}`);
 		}
 	};
 
 	return (
-		<div>
-			<Card className='w-[90%] p-3 pb-10'>
-				<div className='mx-4 border-b-1 border-gray2 pb-4 text-sm'>
-					<span className='text-xl font-bold'>Hồ Sơ Của Tôi</span> <br />
-					Quản lý thông tin hồ sơ để bảo mật tài khoản
+		<div className='flex justify-center'>
+			<Card className='w-full pb-10 lg:w-[90%]'>
+				<div className='p-3'>
+					<div className='mx-4 border-b-1 border-gray2 pb-4 text-sm'>
+						<span className='text-xl font-bold'>{t('title')}</span> <br />
+						{t('subTitle')}
+					</div>
 				</div>
-				<Row className='mr-44 mt-4 flex items-center justify-center'>
-					<div className='flex h-fit flex-col gap-9'>
-						{/* Mật khẩu cũ */}
-						<Col className='flex h-fit items-center justify-center gap-4'>
-							<span className='flex h-10 w-32 items-center justify-end text-nowrap'>
-								Mật khẩu cũ
-							</span>
-							<div className='relative h-10 w-80'>
-								<div className='relative flex items-center justify-center'>
-									<Input.Password
-										className={`h-10 rounded-sm px-3 ${passwordError ? 'border-2 border-primary bg-red-50' : isOldPasswordValid ? 'border-2 border-green-500 bg-green-50' : ''}`}
-										value={oldPassword}
-										onChange={(e) => {
-											setOldPassword(e.target.value);
-											setPasswordError('');
-											setIsOldPasswordValid(false);
-										}}
-										onBlur={validateOldPassword}
-									/>
-									{isOldPasswordValid && (
-										<CheckCircleOutlined className='absolute -right-5 text-green-500' />
-									)}
+				<div className=''>
+					<Row className='mr-auto mt-4 flex items-center px-4 md:mr-10 lg:items-center lg:justify-center'>
+						<div className='mx-3 flex h-fit w-full flex-col gap-9 lg:items-start lg:justify-center'>
+							{/* Mật khẩu cũ */}
+							<Col className='flex h-fit flex-col items-center justify-center gap-2 md:w-full md:flex-row md:gap-4'>
+								<span className='flex h-10 w-full items-center justify-start text-nowrap font-bold md:min-w-40'>
+									{t('oldPass')}
+								</span>
+								<div className='relative h-10 w-full'>
+									<div className='relative flex items-center justify-center'>
+										<Input.Password
+											className={`h-10 rounded-sm px-3 ${passwordError ? 'border-2 border-primary bg-red-50' : isOldPasswordValid ? 'border-2 border-green-500 bg-green-50' : ''}`}
+											value={oldPassword}
+											onChange={(e) => {
+												setOldPassword(e.target.value);
+												setPasswordError('');
+												setIsOldPasswordValid(false);
+											}}
+											onBlur={validateOldPassword}
+										/>
+										{isOldPasswordValid && (
+											<CheckCircleOutlined className='absolute -right-5 text-green-500' />
+										)}
+									</div>
+									{passwordError && <div className='text-xs text-primary'>{passwordError}</div>}
 								</div>
-								{passwordError && <div className='text-primary'>{passwordError}</div>}
-							</div>
-						</Col>
+							</Col>
 
-						{/* Mật khẩu mới */}
-						<Col className='flex h-fit items-center justify-center gap-4'>
-							<span className='flex h-10 w-32 items-center justify-end text-nowrap'>
-								Mật khẩu mới
-							</span>
-							<div className='relative h-10 w-80'>
-								<Input.Password
-									className={`h-10 w-full rounded-sm px-3 ${newPasswordError ? 'border-2 border-primary bg-red-50' : ''}`}
-									value={newPassword}
-									onChange={(e) => {
-										setNewPassword(e.target.value);
-										setConfirmPassword('');
-										setIsConfirmPasswordValid(false);
-									}}
-									onBlur={validateNewPassword}
-									disabled={!isOldPasswordValid}
-								/>
-								{newPasswordError && <div className='text-primary'>{newPasswordError}</div>}
-							</div>
-						</Col>
-
-						{/* Xác nhận mật khẩu mới */}
-						<Col className='flex h-fit items-center justify-center gap-4'>
-							<span className='flex h-10 w-32 items-center justify-end text-nowrap'>
-								Xác nhận mật khẩu mới
-							</span>
-							<div className='relative h-10 w-80'>
-								<div className='relative flex items-center justify-center'>
+							{/* Mật khẩu mới */}
+							<Col className='flex h-fit flex-col items-center justify-center gap-2 md:w-full md:flex-row md:gap-4'>
+								<span className='flex h-10 w-full items-center justify-start text-nowrap font-bold md:min-w-40'>
+									{t('newPass')}
+								</span>
+								<div className='relative h-10 w-full'>
 									<Input.Password
-										className={`h-10 w-full rounded-sm px-3 ${confirmPasswordError ? 'border-2 border-primary bg-red-50' : isConfirmPasswordValid ? 'border-2 border-green-500 bg-green-50' : ''}`}
-										value={confirmPassword}
+										className={`h-10 w-full rounded-sm px-3 ${newPasswordError ? 'border-2 border-primary bg-red-50' : ''}`}
+										value={newPassword}
 										onChange={(e) => {
-											setConfirmPassword(e.target.value);
-											setConfirmPasswordError('');
+											setNewPassword(e.target.value);
+											setConfirmPassword('');
 											setIsConfirmPasswordValid(false);
 										}}
-										onBlur={validateConfirmPassword}
+										onBlur={validateNewPassword}
 										disabled={!isOldPasswordValid}
 									/>
-									{isConfirmPasswordValid && (
-										<CheckCircleOutlined className='absolute -right-5 text-green-500' />
+									{newPasswordError && (
+										<div className='text-xs text-primary'>{newPasswordError}</div>
 									)}
 								</div>
-								{confirmPasswordError && <div className='text-primary'>{confirmPasswordError}</div>}
-							</div>
-						</Col>
+							</Col>
 
-						{/* Nút xác nhận */}
-						<Col className='flex h-10 items-center justify-center'>
-							<Button
-								onClick={handlePasswordChange}
-								className={`rounded-sm border-none px-5 py-5 text-base text-white ${isChanged ? 'pointer bg-[#ee4d2d]' : 'not-allowed bg-[#facac0]'}`}
-							>
-								Xác nhận
-							</Button>
-						</Col>
-					</div>
-				</Row>
+							{/* Xác nhận mật khẩu mới */}
+							<Col className='flex h-fit flex-col items-center justify-center gap-2 md:w-full md:flex-row md:gap-4'>
+								<span className='flex h-10 w-full items-center justify-start text-nowrap font-bold md:min-w-40'>
+									{t('confirm')}
+								</span>
+								<div className='relative h-10 w-full'>
+									<div className='relative flex w-full items-center justify-center'>
+										<Input.Password
+											className={`h-10 w-full rounded-sm px-3 ${confirmPasswordError ? 'border-2 border-primary bg-red-50' : isConfirmPasswordValid ? 'border-2 border-green-500 bg-green-50' : ''}`}
+											value={confirmPassword}
+											onChange={(e) => {
+												setConfirmPassword(e.target.value);
+												setConfirmPasswordError('');
+												setIsConfirmPasswordValid(false);
+											}}
+											onBlur={validateConfirmPassword}
+											disabled={!isOldPasswordValid}
+										/>
+										{isConfirmPasswordValid && (
+											<CheckCircleOutlined className='absolute -right-5 text-green-500' />
+										)}
+									</div>
+									{confirmPasswordError && (
+										<div className='text-xs text-primary'>{confirmPasswordError}</div>
+									)}
+								</div>
+							</Col>
+
+							{/* Nút xác nhận */}
+							<div className='flex w-full items-center justify-center'>
+								<Col className='flex h-10 items-center justify-center'>
+									<Button
+										onClick={handlePasswordChange}
+										className={`rounded-sm border-none px-5 py-5 text-base text-white ${isChanged ? 'pointer bg-[#ee4d2d]' : 'not-allowed bg-[#facac0]'}`}
+									>
+										{t('button')}
+									</Button>
+								</Col>
+							</div>
+						</div>
+					</Row>
+				</div>
 			</Card>
 
 			{/* Modal nhập OTP */}
-			<Modal isOpen={isOpen} onOpenChange={onOpenChange} className='mt-10'>
+			<Modal isOpen={isOpen} onOpenChange={onOpenChange} className='pt-0 md:mt-10'>
 				<ModalContent>
 					{(onClose) => (
 						<>
-							<ModalHeader className='flex flex-col gap-1'>Nhập mã OTP</ModalHeader>
+							<ModalHeader className='flex flex-col gap-1'>{t('modal.otp')}</ModalHeader>
 							<ModalBody>
 								<Input
 									className='mb-4 flex h-10 w-full flex-col items-center justify-center rounded-sm px-3'
-									placeholder='Nhập mã OTP'
+									placeholder={t('modal.otp')}
 									value={otp}
 									onChange={(e) => {
 										setOtp(e.target.value);
@@ -224,7 +236,7 @@ const App: React.FC = () => {
 							</ModalBody>
 							<ModalFooter className='flex items-center justify-center'>
 								<Button color='primary' onPress={handleOtpSubmit} className='rounded-sm'>
-									Xác nhận
+									{t('button')}
 								</Button>
 							</ModalFooter>
 						</>

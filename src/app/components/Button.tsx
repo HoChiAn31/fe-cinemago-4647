@@ -3,14 +3,14 @@ import React, { AnchorHTMLAttributes, ReactNode } from 'react';
 interface LinkButtonProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
 	icon?: string;
 	children?: ReactNode;
-	href: string;
+	href?: string;
 }
 
 const Button: React.FC<LinkButtonProps> = ({ icon, children, href, className, ...props }) => {
 	return (
 		<a
 			{...props}
-			className={`btn relative z-10 font-bold transition-all duration-300 ease-in-out ${className}`}
+			className={`btn font-bold transition-all duration-300 ease-in-out ${className}`}
 			href={href}
 		>
 			{icon && <img src={icon} className='h-auto w-5 font-bold transition-all duration-200' />}

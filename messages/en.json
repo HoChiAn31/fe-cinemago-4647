@@ -254,6 +254,29 @@
 				"used": "Quantity Used",
 				"max": "Maximum Quantity"
 			}
+		},
+		"reset": {
+			"title": "Reset Password",
+			"subTitle": "For account security, please do not share your password with others",
+			"oldPass": "Old Password",
+			"newPass": "New Password",
+			"confirm": "Confirm New Password",
+			"button": "Confirm",
+			"validate": {
+				"oldPass": "Old password is incorrect",
+				"newPass": {
+					"none": "Please enter a new password",
+					"same": "The new password cannot be the same as the old password"
+				},
+				"confirm": "Confirmation password does not match"
+			},
+			"modal": {
+				"otp": "Enter OTP",
+				"sendOtp": "The OTP has been sent to your email",
+				"sendError": "Please check your information!",
+				"success": "Password changed successfully!",
+				"error": "The OTP is incorrect. Please try again."
+			}
 		}
 	},
 
@@ -271,6 +294,35 @@
 		},
 		"voucher": "My Vouchers"
 	},
+
+	"Detail": {
+		"labels": {
+			"director": "Director",
+			"cast": "Cast",
+			"releaseDate": "Release Date",
+			"duration": "Duration",
+			"minutes": "minutes",
+			"language": "Language",
+			"description": "Description",
+			"comment": "Comments",
+			"update": "Update",
+			"delete": "Delete",
+			"dayAgo": "days ago",
+			"today": "Today"
+		},
+
+		"button": {
+			"order": "Get Ticket",
+			"submit": "Post",
+			"update": "Update"
+		},
+
+		"form": {
+			"comment": "Let us know how you feel!",
+			"rate": "Rate"
+    }
+  },
+
 	"AdminRoom": {
 		"AdminRoomGeneral": {
 			"name": "Name",

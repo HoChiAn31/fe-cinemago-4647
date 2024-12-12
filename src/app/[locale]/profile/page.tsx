@@ -122,13 +122,13 @@ const App: React.FC = () => {
 					<Row className='mt-4 flex h-fit flex-col flex-nowrap items-center justify-center gap-4 lg:flex-row'>
 						<Col span={16} className='order-2 ml-3 flex h-fit flex-col gap-9 lg:order-1'>
 							{/* Name Fields */}
-							<div className='grid h-fit grid-cols-1 gap-4 pl-4 md:pl-0 lg:grid-cols-2'>
+							<div className='flex h-fit w-full flex-col gap-4 pl-4 md:pl-0 lg:flex-row'>
 								{/* First Name and Last Name */}
-								<Col className='flex items-center justify-between gap-4 lg:gap-2'>
-									<span className='flex h-full items-center justify-end text-nowrap lg:pr-2'>
+								<Col className='flex w-full flex-1 items-center justify-between gap-4 lg:gap-4'>
+									<span className='flex h-full w-32 items-center justify-start text-nowrap lg:min-w-6 lg:justify-end'>
 										{t('firstName')}
 									</span>
-									<div className='h-10 flex-1'>
+									<div className='h-10 w-full'>
 										<Input
 											className={`h-10 rounded-sm px-3 ${firstnameError ? 'border-2 border-primary bg-red-50' : ''}`}
 											value={firstname}
@@ -139,11 +139,11 @@ const App: React.FC = () => {
 										{firstnameError && <div className='text-primary'>{firstnameError}</div>}
 									</div>
 								</Col>
-								<Col className='flex items-center justify-between gap-4 lg:gap-2'>
-									<span className='flex h-10 items-center justify-end text-nowrap lg:pr-2'>
+								<Col className='flex w-full flex-1 items-center justify-between gap-4 lg:gap-2'>
+									<span className='flex h-10 w-32 items-center justify-start text-nowrap lg:min-w-6 lg:justify-end'>
 										{t('lastName')}
 									</span>
-									<div className='h-10 flex-1'>
+									<div className='h-10 w-full'>
 										<Input
 											className={`h-10 rounded-sm px-3 ${lastnameError ? 'border-2 border-primary bg-red-50' : ''}`}
 											value={lastname}
@@ -157,12 +157,12 @@ const App: React.FC = () => {
 							</div>
 
 							{/* Email Field */}
-							<div className='h-fit'>
-								<Col className='grid h-fit grid-cols-4 items-center justify-center gap-4'>
-									<span className='col-span-1 flex h-10 items-center justify-end text-nowrap'>
+							<div className='h-fit w-full'>
+								<Col className='flex h-fit w-full items-center justify-center gap-4'>
+									<span className='flex h-10 w-32 items-center justify-end text-nowrap'>
 										{t('email')}
 									</span>
-									<div className='col-span-3 flex h-10 flex-nowrap'>
+									<div className='flex h-10 w-full flex-nowrap'>
 										{editEmail ? (
 											<Input
 												className={`h-10 rounded-sm px-3 ${emailError ? 'border-2 border-primary bg-red-50' : ''}`}
@@ -189,12 +189,12 @@ const App: React.FC = () => {
 							</div>
 
 							{/* Phone Field */}
-							<div className='h-fit'>
-								<Col className='grid h-fit grid-cols-4 items-center justify-center gap-4'>
-									<span className='col-span-1 flex h-10 items-center justify-end text-nowrap'>
+							<div className='h-fit w-full'>
+								<Col className='flex h-fit w-full items-center justify-center gap-4'>
+									<span className='flex h-10 w-32 items-center justify-end text-nowrap'>
 										{t('phone')}
 									</span>
-									<div className='col-span-3 flex h-10 flex-nowrap'>
+									<div className='flex h-10 w-full flex-nowrap'>
 										{editPhone ? (
 											<Input
 												className={`flex h-10 rounded-sm px-3 ${phoneError ? 'border-2 border-primary bg-red-50' : ''}`}
