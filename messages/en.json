@@ -61,11 +61,15 @@
 		"faq": "Frequently Asked Questions",
 		"movieManagement": "Manage Movies",
 		"statisticsReports": "Statistics and Reports",
+		"orderManagement": "Manage Order",
 		"categoryManagement": "Manage Categories",
 		"roomManagement": "Manage Room",
 		"foodDrinkManagement": "Manage FoodDrinks",
 		"branchManagement": "Manage Branches",
 		"revenueManagement": "Revenue Management",
+		"revenueBranch": "Revenue Branch",
+		"revenueMovie": "Revenue Day",
+		"revenueFood": "Revenue Food&Drink",
 		"userManagement": "Manage Users",
 		"commentsReviews": "Manage Comments and Reviews",
 		"promotionManagement": "Manage Promotions"
@@ -316,6 +320,16 @@
 		"form": {
 			"comment": "Let us know how you feel!",
 			"rate": "Rate"
+    }
+  },
+
+	"AdminRoom": {
+		"AdminRoomGeneral": {
+			"name": "Name",
+			"screeningType": "Screen Type",
+			"seat": "Total Seat",
+			"editMovie": "Update",
+			"addRoom": "Add"
 		}
 	}
 }

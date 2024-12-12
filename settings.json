@@ -6,5 +6,9 @@
 	},
 	"editor.quickSuggestions": {
 		"strings": true
-	}
+	},
+	"colorize.languages": [
+		"javascript"
+		// ...
+	]
 }

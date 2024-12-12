@@ -61,11 +61,15 @@
 		"faq": "Câu hỏi thường gặp",
 		"movieManagement": "Quản lý phim",
 		"statisticsReports": "Thống kê và báo cáo",
+		"orderManagement": "Quản lý đơn hàng",
 		"categoryManagement": "Quản lý thể loại",
 		"roomManagement": "Quản lý phòng",
 		"foodDrinkManagement": "Quản lý đồ ăn/thức uống",
-		"branchManagement": "Quản lý rạp",
+		"branchManagement": "Quản lý rạp phim",
 		"revenueManagement": "Quản lý doanh thu",
+		"revenueBranch": "Doanh thu theo rạp",
+		"revenueMovie": "Doanh thu theo phim",
+		"revenueFood": "Doanh thu theo đồ ăn",
 		"userManagement": "Quản lý người dùng",
 		"commentsReviews": "Quản lý bình luận và đánh giá",
 		"promotionManagement": "Quản lý khuyến mãi",
@@ -290,7 +294,7 @@
 		},
 		"voucher": "Kho Voucher"
 	},
-
+  
 	"Detail": {
 		"labels": {
 			"director": "Đạo diễn",
@@ -316,6 +320,16 @@
 		"form": {
 			"comment": "Hãy cho chúng tôi biết cảm nhận của bạn!",
 			"rate": "Đánh giá"
+    }
+  },
+
+	"AdminRoom": {
+		"AdminRoomGeneral": {
+			"name": "Tên",
+			"screeningType": "Loại ghế",
+			"seat": "Số ghế",
+			"editMovie": "Cập nhật",
+			"addRoom": "Thêm"
 		}
 	}
 }

@@ -4,7 +4,7 @@ import { Button, useDisclosure } from '@nextui-org/react';
 import axios from '@/app/utils/axios';
 import { User } from './types'; // Assuming you have a User type defined
 import UserTable from './components/UserTable'; // Create this component
-import SearchAndFilter from './components/SearchAndFilter'; // Reuse if applicable
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddUserModal from './components/AddUser'; // Create this component
 // import EditUserModal from './components/'; // Create this component
 import DeleteUserModal from './components/DeleteUserModal'; // Create this component
@@ -125,16 +125,19 @@ const AdminUserPage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isOpen={isAddOpen}
-				onChange={handleOpenAddUser}
-				title='Quản lý người dùng'
-				buttonText='Thêm người dùng'
+				isOpen={!isAddOpen}
+				isBack={isAddOpen}
+				title={isAddOpen ? '' : 'Quản lý người dùng'}
+				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
+				titleOpen='Thêm người dùng'
+				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (
 				<>
 					<SearchAndFilter
 						searchQuery={searchQuery}
 						setSearchQuery={setSearchQuery}
+						isSelectedRole
 						selectedRole={selectedRole}
 						setSelectedRole={setSelectedRole}
 						itemsPerPage={itemsPerPage}

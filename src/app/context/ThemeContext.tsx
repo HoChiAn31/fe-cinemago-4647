@@ -23,7 +23,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-	const [url, setUrl] = useState<string>('http://localhost:8080');
+	const [url, setUrl] = useState<string>(process.env.NEXT_PUBLIC_API || 'http://localhost:5000');
 	const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
 		// Read initial value from localStorage
 		const savedMode = localStorage.getItem('darkMode');

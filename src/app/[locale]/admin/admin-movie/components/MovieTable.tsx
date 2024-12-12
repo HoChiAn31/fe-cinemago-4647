@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/app/context/ThemeContext';
 import { Pencil, Trash2 } from 'lucide-react';
+import Loading from '@/app/components/Loading';
 
 interface MovieTableProps {
 	movies: Movie[];
@@ -16,6 +17,7 @@ interface MovieTableProps {
 	onDeleteOpen: () => void;
 	setMovieToEdit: React.Dispatch<React.SetStateAction<Movie | null>>;
 	setMovieToDelete: React.Dispatch<React.SetStateAction<Movie | null>>;
+	isLoading: boolean;
 }
 
 const MovieTable: React.FC<MovieTableProps> = ({
@@ -26,6 +28,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
 	onDeleteOpen,
 	setMovieToEdit,
 	setMovieToDelete,
+	isLoading,
 }) => {
 	const t = useTranslations('AdminTable');
 	const { isDarkMode } = useTheme();
@@ -43,69 +46,84 @@ const MovieTable: React.FC<MovieTableProps> = ({
 	};
 
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-md border-x border-t border-gray2'>
+		<div className='overflow-hidden rounded-md border-x border-t border-gray1'>
 			<table
-				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
+				className={`w-full ${isDarkMode ? 'text-white' : 'bg-white text-black'} border-collapse`}
 			>
 				<thead>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>{t('order')}</th>
-						<th className='border-r border-gray2 p-3'>{t('id')}</th>
-						<th className='border-r border-gray2 p-3'>{t('name')}</th>
-						<th className='border-r border-gray2 p-3'>{t('director')}</th>
-						<th className='border-r border-gray2 p-3'>{t('releaseDate')}</th>
-						<th className='border-r border-gray2 p-3'>{t('language')}</th>
-						<th className='p-3'>{t('actions')}</th>
+					<tr className='border-b border-gray1'>
+						<th className='border-r border-gray1 p-3'>{t('order')}</th>
+						<th className='border-r border-gray1 p-3 text-left'>{t('name')}</th>
+						<th className='border-r border-gray1 p-3 text-left'>{t('director')}</th>
+						<th className='border-r border-gray1 p-3 text-left'>{t('releaseDate')}</th>
+						{/* <th className='border-r border-gray1 p-3'>{t('language')}</th> */}
+						<th className='p-3'></th>
 					</tr>
 				</thead>
 				<tbody>
-					{movies.map((movie, index) => (
-						<tr key={movie.id} className='border-b border-gray2'>
-							<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>{' '}
-							{/* Display order number */}
-							<td className='border-r border-gray2 p-3 text-center'>{movie.id}</td>
-							<td className='border-r border-gray2 p-3 text-center'>
-								{movie.translations &&
-									movie.translations.length > 0 &&
-									(() => {
-										const translation = movie.translations.find(
-											(t) => t.categoryLanguage && t.categoryLanguage.languageCode === 'en',
-										);
-										return translation ? translation.name : movie.translations[0].name;
-									})()}
-							</td>
-							<td className='border-r border-gray2 p-3 text-center'>{movie.director}</td>
-							<td className='border-r border-gray2 p-3 text-center'>{movie.releaseDate}</td>
-							<td className='border-r border-gray2 p-3 text-center'>{movie.language}</td>
-							<td className='grid grid-cols-2 gap-2 p-3'>
-								<div className='flex items-center justify-center'>
-									<Button
-										color='warning'
-										onPress={() => {
-											router.push(`/${locale}/admin/admin-movie/${movie.id}`);
-										}}
-										isIconOnly
-										radius='sm'
-									>
-										<Pencil className='text-white' />
-									</Button>
-								</div>
-								<div className='flex items-center justify-center'>
-									<Button
-										color='danger'
-										onPress={() => {
-											setMovieToDelete(movie);
-											onDeleteOpen();
-										}}
-										isIconOnly
-										radius='sm'
-									>
-										<Trash2 />
-									</Button>
-								</div>
+					{isLoading ? (
+						<>
+							{movies.map((movie, index) => (
+								<tr key={movie.id} className='border-b border-gray1'>
+									<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>{' '}
+									{/* Display order number */}
+									{/* <td className='border-r border-gray1 p-3 text-center'>{movie.id}</td> */}
+									<td className='border-r border-gray1 p-3'>
+										{movie.translations &&
+											movie.translations.length > 0 &&
+											(() => {
+												const translation = movie.translations.find(
+													(t) => t.categoryLanguage && t.categoryLanguage.languageCode === 'en',
+												);
+												return translation ? translation.name : movie.translations[0].name;
+											})()}
+									</td>
+									<td className='border-r border-gray1 p-3'>{movie.director}</td>
+									<td className='border-r border-gray1 p-3'>{movie.releaseDate}</td>
+									{/* <td className='w-[8%] border-r border-gray1 p-3 text-center'>{movie.language}</td> */}
+									<td className=''>
+										<div className='flex items-center justify-center gap-2'>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='warning'
+													onPress={() => {
+														router.push(`/${locale}/admin/admin-movie/${movie.id}`);
+													}}
+													isIconOnly
+													radius='sm'
+													size='sm'
+												>
+													<Pencil className='text-white' height={20} width={20} />
+												</Button>
+											</div>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='danger'
+													onPress={() => {
+														setMovieToDelete(movie);
+														onDeleteOpen();
+													}}
+													isIconOnly
+													radius='sm'
+													variant='bordered'
+													className='border'
+													size='sm'
+												>
+													<Trash2 height={20} width={20} />
+												</Button>
+											</div>
+										</div>
+									</td>
+								</tr>
+							))}
+						</>
+					) : (
+						<tr>
+							<td colSpan={5} className='overflow-hidden border-b border-gray1 p-3 text-center'>
+								<Loading />
 							</td>
 						</tr>
-					))}
+					)}
 				</tbody>
 			</table>
 		</div>

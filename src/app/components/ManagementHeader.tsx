@@ -1,13 +1,17 @@
 import { Button } from '@nextui-org/react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Plus } from 'lucide-react';
 import React from 'react';
 
 interface ManagementHeaderProps {
 	title?: string;
 	buttonText?: string;
 	onPress?: () => void;
-	isOpen: boolean;
+	isOpen?: boolean;
 	onChange?: () => void;
+	titleOpen?: string;
+	isBack?: boolean;
+	onChangeBack?: () => void;
+	isHidden?: boolean;
 }
 
 const ManagementHeader: React.FC<ManagementHeaderProps> = ({
@@ -16,29 +20,47 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 	onPress,
 	isOpen,
 	onChange,
+	titleOpen,
+	isBack,
+	onChangeBack,
+	isHidden,
 }) => {
+	if (isHidden) {
+		return null;
+	}
 	return (
 		<div className='flex items-center justify-between pb-6'>
-			{isOpen ? (
+			{isBack && (
 				<>
 					<Button
-						className='bg-transparent text-base'
+						className='border text-base'
 						variant='bordered'
-						startContent={<ChevronLeft />}
+						startContent={<ChevronLeft height={20} width={20} />}
 						color='primary'
-						onClick={onChange}
+						onClick={onChangeBack}
+						radius='sm'
 					>
 						Quay lại
 					</Button>
 				</>
-			) : (
-				<>
+			)}
+			{title && (
+				<div className='flex items-center justify-center'>
 					<h3 className='text-3xl font-bold text-second'>{title}</h3>
-					<div>
-						<Button className='bg-primary px-8 text-lg text-white' onPress={onChange}>
-							{buttonText}
-						</Button>
-					</div>
+				</div>
+			)}
+			{isOpen && (
+				<>
+					<Button
+						className='border text-base'
+						variant='bordered'
+						color='primary'
+						startContent={<Plus height={20} width={20} />}
+						onClick={onChange}
+						radius='sm'
+					>
+						{titleOpen}
+					</Button>
 				</>
 			)}
 		</div>

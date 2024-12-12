@@ -46,7 +46,7 @@ const NavItem: React.FC<NavItemProps> = ({
 				<li>
 					<Link href={localizedHref || '#'}>
 						<p
-							className={`${isActive ? 'cursor-default rounded-full text-primary' : 'text-gray-500 hover:text-primary'} ${sizeClass} px-4 py-1 ${className}`}
+							className={`${isActive ? 'cursor-default rounded-full text-primary' : 'hover:text-primary'} ${sizeClass} px-4 py-1 ${className}`}
 						>
 							{label}
 						</p>

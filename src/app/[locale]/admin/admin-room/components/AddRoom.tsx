@@ -1,39 +1,57 @@
-import { Button, Input, Spacer, Spinner } from '@nextui-org/react';
-import React, { useState } from 'react';
+'use client';
+import { Button, Input, Select, SelectItem, Selection, Spacer, Spinner } from '@nextui-org/react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Room, RoomAdd } from '../types'; // Adjust import based on your definitions
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { Branch } from '../../admin-branch/types';
+import { useTheme } from '@/app/context/ThemeContext';
 
-interface AddRoomModalProps {
+interface AddRoomProps {
 	isOpen: boolean;
 	onOpenChange?: () => void;
 	onAddRoom: (room: Room) => void;
 	onFinishAdding: () => void;
 	onReloadData: () => void;
+	idBranch: string;
 }
 
-const AddRoomModal: React.FC<AddRoomModalProps> = ({
+const AddRoom: React.FC<AddRoomProps> = ({
 	isOpen,
 	onOpenChange,
 	onAddRoom,
 	onFinishAdding,
 	onReloadData,
+	idBranch,
 }) => {
 	const [isAdding, setIsAdding] = useState(false);
-	const t = useTranslations('AdminRoomAdd');
-	// const [newRoom, setNewRoom] = useState<RoomAdd>({
-	// 	name: ''
-
-	// });
+	const t = useTranslations('AdminRoom.AdminRoomGeneral');
+	const [dataBranches, setDataBranches] = useState<Branch[]>([]);
+	const { url } = useTheme();
 	const [newRoom, setNewRoom] = useState<RoomAdd>({
 		name: '',
 		screeningType: '',
 		totalSeats: 0, // Add default value for totalSeats
-		branch: '', // Add default value for branch
+		branch: idBranch, // Add default value for branch
 	});
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const fetchDataBranches = async () => {
+		axios
+			.get(`${url}/branch`)
+			.then((res) => {
+				setDataBranches(res.data.data);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+	useEffect(() => {
+		fetchDataBranches();
+	}, []);
+	const handleInputChange = (
+		e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
+	) => {
 		const { name, value } = e.target;
 		setNewRoom((prevState) => ({
 			...prevState,
@@ -41,35 +59,32 @@ const AddRoomModal: React.FC<AddRoomModalProps> = ({
 		}));
 	};
 
-	const handleAddRoom = async () => {
+	const handleAddRoom = () => {
 		console.log(newRoom);
 		setIsAdding(true);
-		try {
-			const response = await axios.post('http://localhost:5000/room', newRoom);
-			if (response.data && response.data.success) {
-				onAddRoom(response.data.data);
-				onFinishAdding();
-				onReloadData();
-				// Reset form
-				// setNewRoom({ name: '' });
-				onOpenChange && onOpenChange(); // Close modal
+
+		axios
+			.post('http://localhost:5000/rooms', newRoom)
+			.then((response) => {
+				setTimeout(() => {
+					onAddRoom(response.data.data);
+					onFinishAdding();
+					onReloadData();
+					onOpenChange && onOpenChange();
+				}, 1500);
 				toast.success('The new room has been successfully added.', {
 					duration: 3000,
 				});
-			} else {
-				console.error('Failed to add room. Response:', response.data);
-				toast.error('Failed to add room. Please try again.', {
+			})
+			.catch((error) => {
+				console.error('Error adding room:', error);
+				toast.error('An error occurred while adding the room. Please try again.', {
 					duration: 3000,
 				});
-			}
-		} catch (error) {
-			console.error('Error adding room:', error);
-			toast.error('An error occurred while adding the room. Please try again.', {
-				duration: 3000,
+			})
+			.finally(() => {
+				setIsAdding(false);
 			});
-		} finally {
-			setIsAdding(false);
-		}
 	};
 
 	if (!isOpen) {
@@ -96,25 +111,28 @@ const AddRoomModal: React.FC<AddRoomModalProps> = ({
 					required
 					variant='bordered'
 				/>
-				{/* <Input
-					fullWidth
-					type='number'
-					name='capacity'
-					value={newRoom.capacity}
-					onChange={handleInputChange}
-					label={t('capacity')}
-					required
-					variant='bordered'
-				/> */}
-				{/* <Input
+				<Input
 					fullWidth
 					type='text'
-					name='features'
-					value={newRoom.features}
+					name='screeningType'
+					value={newRoom.screeningType}
 					onChange={handleInputChange}
-					label={t('features')}
+					label={t('screeningType')}
+					required
 					variant='bordered'
-				/> */}
+					radius='sm'
+				/>
+				<Input
+					fullWidth
+					type='number'
+					name='totalSeats'
+					value={newRoom.totalSeats.toString()}
+					onChange={handleInputChange}
+					label={t('screeningType')}
+					required
+					variant='bordered'
+					radius='sm'
+				/>
 
 				<Spacer y={2} />
 				<Button onClick={handleAddRoom} type='submit' color='primary' disabled={isAdding} fullWidth>
@@ -125,4 +143,4 @@ const AddRoomModal: React.FC<AddRoomModalProps> = ({
 	);
 };
 
-export default AddRoomModal;
+export default AddRoom;

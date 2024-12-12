@@ -11,6 +11,7 @@ import {
 import axios from 'axios';
 import { Room } from '../types'; // Adjust the import based on your types
 import toast, { Toaster } from 'react-hot-toast';
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface DeleteRoomModalProps {
 	isOpen: boolean;
@@ -27,38 +28,35 @@ const DeleteRoomModal: React.FC<DeleteRoomModalProps> = ({
 	onDeleteRoom, // Change from onDeleteBranch to onDeleteRoom
 	onFinishDeleting,
 }) => {
+	const { url } = useTheme();
 	const [isDeleting, setIsDeleting] = useState(false);
 
 	const handleDeleteRoom = async () => {
 		// Change from handleDeleteBranch to handleDeleteRoom
 		if (!roomToDelete) return;
-
 		setIsDeleting(true);
-		try {
-			const response = await axios.delete(`http://localhost:5000/rooms/${roomToDelete.id}`); // Change URL to rooms
+		console.log(roomToDelete.id);
+		axios
+			.delete(`${url}/rooms/${roomToDelete.id}`)
+			.then((response) => {
+				setTimeout(() => {
+					onDeleteRoom(roomToDelete.id); // Change from onDeleteBranch to onDeleteRoom
 
-			onDeleteRoom(roomToDelete.id); // Change from onDeleteBranch to onDeleteRoom
-			toast.success('The room has been successfully deleted.', {
-				duration: 3000,
+					setIsDeleting(false);
+					onFinishDeleting();
+					onOpenChange();
+				}, 1500);
+				toast.success('The room has been successfully deleted.', {
+					duration: 3000,
+				});
+			})
+			.catch((error) => {
+				console.error('Error deleting room:', error);
+				toast.error(`Error deleting room: ${error}`, {
+					// Change from branch to room
+					duration: 3000,
+				});
 			});
-		} catch (error) {
-			console.error('Error deleting room:', error); // Change from branch to room
-			if (axios.isAxiosError(error)) {
-				toast.error(`Error deleting room: ${error.response?.data?.message || error.message}`, {
-					// Change from branch to room
-					duration: 3000,
-				});
-			} else {
-				toast.error('An unexpected error occurred while deleting the room', {
-					// Change from branch to room
-					duration: 3000,
-				});
-			}
-		} finally {
-			setIsDeleting(false);
-			onFinishDeleting();
-			onOpenChange();
-		}
 	};
 
 	return (
@@ -69,7 +67,10 @@ const DeleteRoomModal: React.FC<DeleteRoomModalProps> = ({
 						<ModalHeader className='flex flex-col gap-1'>Delete Room</ModalHeader>{' '}
 						{/* Change from Branch to Room */}
 						<ModalBody className=''>
-							<p>Are you sure you want to delete the room? This action cannot be undone.</p>{' '}
+							<p>
+								Are you sure you want to delete the room {roomToDelete?.name}? This action cannot be
+								undone.
+							</p>{' '}
 							{/* Change from branch to room */}
 						</ModalBody>
 						<ModalFooter>

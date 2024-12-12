@@ -4,16 +4,18 @@ import { Button, useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Movie } from './types';
 import MovieTable from './components/MovieTable';
-import SearchAndFilter from './components/SearchAndFilter';
+// import SearchAndFilter from './components/SearchAndFilter';
 import AddMovieModal from './components/AddMovie';
-import EditMovieModal from './components/EditMovieModal';
 import DeleteMovieModal from './components/DeleteMovieModal';
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 
 const AdminMoviePage: FC = () => {
 	const [movies, setMovies] = useState<Movie[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
@@ -38,7 +40,7 @@ const AdminMoviePage: FC = () => {
 	const [movieToDelete, setMovieToDelete] = useState<Movie | null>(null);
 	const [movieToEdit, setMovieToEdit] = useState<Movie | null>(null);
 	const [selectedMovies, setSelectedMovies] = useState<Set<string>>(new Set());
-	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const debouncedSearchQuery = useDebounce(searchQuery, 200);
 	useEffect(() => {
 		fetchMovies();
 	}, [currentPage, debouncedSearchQuery, selectedGenre, itemsPerPage]);
@@ -58,6 +60,7 @@ const AdminMoviePage: FC = () => {
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
+			setIsLoading(true);
 		} catch (error) {
 			console.error('Error fetching movies:', error);
 		}
@@ -99,16 +102,14 @@ const AdminMoviePage: FC = () => {
 		fetchMovies();
 		onDeleteOpenChange();
 	};
-	const handleOpenAddMovie = () => {
-		setIsAddOpen(!isAddOpen);
-	};
+
 	return (
 		<div>
 			<ManagementHeader
-				isOpen={isAddOpen}
-				onChange={handleOpenAddMovie}
-				title='Quản lý phim'
-				buttonText='Thêm phim'
+				isOpen={!isAddOpen}
+				title={isAddOpen ? '' : 'Quản lý phim'}
+				titleOpen='Thêm phim'
+				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (
 				<>
@@ -129,6 +130,7 @@ const AdminMoviePage: FC = () => {
 						onDeleteOpen={onDeleteOpen}
 						setMovieToEdit={setMovieToEdit}
 						setMovieToDelete={setMovieToDelete}
+						isLoading={isLoading}
 					/>
 
 					<PaginationControls

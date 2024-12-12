@@ -4,13 +4,14 @@ import { Button, useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Branch } from './types'; // Adjust the import based on your types
 import BranchTable from './components/BranchTable'; // Create this component
-import SearchAndFilter from './components/SearchAndFilter';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import AddBranchModal from './components/AddBranch'; // Create this component
 // Create this component
 import DeleteBranchModal from './components/DeleteBranch'; // Create this component
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
+import { useRouter } from 'next/navigation';
 
 const AdminBranchPage: FC = () => {
 	const [branches, setBranches] = useState<Branch[]>([]);
@@ -37,6 +38,7 @@ const AdminBranchPage: FC = () => {
 	const [branchToDelete, setBranchToDelete] = useState<Branch | null>(null);
 	const [branchToEdit, setBranchToEdit] = useState<Branch | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const router = useRouter();
 	useEffect(() => {
 		fetchBranches();
 	}, [currentPage, debouncedSearchQuery, itemsPerPage]);
@@ -107,10 +109,12 @@ const AdminBranchPage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isOpen={isAddOpen}
-				onChange={handleOpenAddBranch}
-				title='Quản lý chi nhánh' // Adjust the title
-				buttonText='Thêm chi nhánh' // Adjust the button text
+				isOpen={!isAddOpen}
+				isBack={isAddOpen}
+				title={isAddOpen ? '' : 'Quản lý rạp phim'}
+				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
+				titleOpen='Thêm rạp'
+				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (
 				<>

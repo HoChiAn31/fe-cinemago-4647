@@ -33,55 +33,57 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 	const locale = useLocale();
 
 	return (
-		<div className='bg-darkGreen overflow-hidden rounded-sm border-x border-t border-gray2'>
-			<table
-				className={`w-full ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-collapse`}
-			>
+		<div className='overflow-hidden rounded-md border-x border-t border-gray1'>
+			<table className={`w-full ${isDarkMode ? 'text-white' : 'text-black'} border-collapse`}>
 				<thead>
-					<tr className='border-b border-gray2'>
-						<th className='border-r border-gray2 p-3'>Order</th>
-						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Price</th>
-						<th className='p-3'>Actions</th>
+					<tr className='border-b border-gray1'>
+						<th className='border-r border-gray1 p-3'>Order</th>
+						<th className='border-r border-gray1 p-3 text-left'>Name</th>
+						<th className='border-r border-gray1 p-3'>Price</th>
+						<th className='p-3'></th>
 					</tr>
 				</thead>
 				<tbody>
 					{isLoading ? (
 						<>
 							{foodDrinks.map((foodDrink, index) => (
-								<tr key={foodDrink.id} className='border-b border-gray2'>
-									<td className='border-r border-gray2 p-3 text-center'>{index + 1}</td>
-									<td className='border-r border-gray2 p-3 text-center'>
+								<tr key={foodDrink.id} className='border-b border-gray1'>
+									<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>
+									<td className='border-r border-gray1 p-3'>
 										{foodDrink.translations // Access translations from foodDrink
 											.filter((translation) => translation.categoryLanguage.languageCode === locale)
 											.map((translation) => translation.name)}
 									</td>
-									<td className='border-r border-gray2 p-3 text-center'>{foodDrink.price}</td>
-									<td className='grid grid-cols-2 gap-2 p-3'>
-										<div className='flex items-center justify-center'>
-											<Button
-												color='warning'
-												onPress={() => {
-													router.push(`/${locale}/admin/admin-food-drink/${foodDrink.id}`);
-												}}
-												isIconOnly
-												radius='sm'
-											>
-												<Pencil className='text-white' />
-											</Button>
-										</div>
-										<div className='flex items-center justify-center'>
-											<Button
-												color='danger'
-												onPress={() => {
-													setFoodDrinkToDelete(foodDrink);
-													onDeleteOpen();
-												}}
-												isIconOnly
-												radius='sm'
-											>
-												<Trash2 />
-											</Button>
+									<td className='border-r border-gray1 p-3 text-center'>{foodDrink.price}</td>
+									<td className=''>
+										<div className='flex items-center justify-center gap-2'>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='warning'
+													onPress={() => {
+														router.push(`/${locale}/admin/admin-food-drink/${foodDrink.id}`);
+													}}
+													isIconOnly
+													radius='sm'
+												>
+													<Pencil className='text-white' height={20} width={20} />
+												</Button>
+											</div>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='danger'
+													onPress={() => {
+														setFoodDrinkToDelete(foodDrink);
+														onDeleteOpen();
+													}}
+													isIconOnly
+													radius='sm'
+													variant='bordered'
+													className='border'
+												>
+													<Trash2 height={20} width={20} />
+												</Button>
+											</div>
 										</div>
 									</td>
 								</tr>
@@ -89,7 +91,7 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 						</>
 					) : (
 						<tr>
-							<td colSpan={4} className='overflow-hidden border-b border-gray2 p-3 text-center'>
+							<td colSpan={4} className='overflow-hidden border-b border-gray1 p-3 text-center'>
 								<Loading />
 							</td>
 						</tr>
