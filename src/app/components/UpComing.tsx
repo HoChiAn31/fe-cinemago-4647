@@ -9,18 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
 import './home.css';
 import { moviesData } from '@/app/modules/data';
-
-interface MovieProps {
-	movie: {
-		image: string;
-		title: string;
-		tags: string[];
-		rating: string;
-		url: string;
-		releaseDate?: string;
-		onGoing: boolean;
-	};
-}
+import { MovieProps } from '../types/Movie.type';
 
 const UpComing: React.FC = () => {
 	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);

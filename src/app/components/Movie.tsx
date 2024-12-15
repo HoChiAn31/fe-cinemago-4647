@@ -7,21 +7,12 @@ import { iconTags } from '@/app/contracts/IconTag.contract';
 import { formatDate } from '@/app/utils/format.utils';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface MovieProps {
-	movie: {
-		image: string;
-		title: string;
-		tags: string[];
-		rating: string;
-		url: string;
-		releaseDate?: string;
-		onGoing: boolean;
-	};
-}
+import { MovieProps } from '../types/Movie.type';
+import { useModal } from '../context/ModalContext';
 
 const Movie: React.FC<MovieProps> = ({ movie }) => {
 	const t = useTranslations('HomePage');
+	const { openModal } = useModal();
 
 	const getAgeRating = (rating: string): string => {
 		if (rating.includes('T13') || rating.includes('T16')) {
@@ -89,7 +80,10 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 			</div>
 
 			<div className='mt-2 flex items-end justify-between'>
-				<a className='text-md ml-3 flex items-center gap-1 p-2 text-primary'>
+				<a
+					className='text-md ml-3 flex items-center gap-1 p-2 text-primary'
+					onClick={() => openModal(movie.url)}
+				>
 					<Image
 						src={`../images/icons/icon-play-vid.svg`}
 						className='border-gray-100 rounded-full border'
