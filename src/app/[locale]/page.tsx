@@ -4,6 +4,7 @@ import MaxWidth from '../components/MaxWidth';
 import Banner from '../components/Banner';
 import OnGoing from '../components/OnGoing';
 import UpComing from '../components/UpComing';
+import TrailerModal from '../components/TrailerModal';
 
 const HomePage: FC = () => {
 	return (
@@ -12,6 +13,7 @@ const HomePage: FC = () => {
 				<Banner />
 				<OnGoing />
 				<UpComing />
+				<TrailerModal />
 			</div>
 		</MaxWidth>
 	);
