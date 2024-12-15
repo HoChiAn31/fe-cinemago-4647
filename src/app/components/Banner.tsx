@@ -23,7 +23,7 @@ const Banner: React.FC = () => {
 
 	return (
 		<div className='pt-5'>
-			<Slider images={images} />
+			<Slider images={images} autoSlideInterval={3000} />
 		</div>
 	);
 };

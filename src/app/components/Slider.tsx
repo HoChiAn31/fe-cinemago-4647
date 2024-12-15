@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from './Image';
 import { useTheme } from '../context/ThemeContext';
+import { SliderProps } from '../types/Slider.type';
 
-interface SliderProps {
-	images?: string[];
-	titles?: string[];
-	showNavigation?: boolean;
-	children?: React.ReactNode;
-	itemsPerPage?: number;
-}
-
-const Slider: React.FC<SliderProps> = ({ images, titles, showNavigation = true, children }) => {
+const Slider: React.FC<SliderProps> = ({
+	images,
+	titles,
+	showNavigation = true,
+	children,
+	autoSlideInterval = 0,
+}) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const slides = children ? React.Children.toArray(children) : images || [];
 	const { isDarkMode } = useTheme();
@@ -22,6 +21,13 @@ const Slider: React.FC<SliderProps> = ({ images, titles, showNavigation = true, 
 	const nextSlide = () => {
 		setCurrentIndex(currentIndex < slides.length - 1 ? currentIndex + 1 : 0);
 	};
+
+	useEffect(() => {
+		if (autoSlideInterval > 0) {
+			const interval = setInterval(nextSlide, autoSlideInterval);
+			return () => clearInterval(interval);
+		}
+	}, [autoSlideInterval, slides.length]);
 
 	return (
 		<div className='container relative mx-auto w-full'>
