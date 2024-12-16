@@ -24,7 +24,9 @@ const Slider: React.FC<SliderProps> = ({
 
 	useEffect(() => {
 		if (autoSlideInterval > 0) {
-			const interval = setInterval(nextSlide, autoSlideInterval);
+			const interval = setInterval(() => {
+				setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+			}, autoSlideInterval);
 			return () => clearInterval(interval);
 		}
 	}, [autoSlideInterval, slides.length]);
