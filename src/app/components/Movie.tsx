@@ -36,7 +36,7 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 				<Image
 					src={movie.image}
 					alt={movie.title}
-					className={`min-h-full w-full border-2 object-cover transition-transform duration-500 group-hover:scale-100 lg:h-[451.98px] ${isDarkMode ? 'border-second' : 'border-gray-400'}`}
+					className={`h-[451.98px] min-h-full w-full border-2 object-cover transition-transform duration-500 group-hover:scale-100 ${isDarkMode ? 'border-second' : 'border-gray-400'}`}
 					sizes='(max-width: 768px) 135px, 280px'
 				/>
 				<div className='absolute inset-0 flex flex-col justify-center bg-black bg-opacity-60 px-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>

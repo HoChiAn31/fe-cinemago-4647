@@ -28,7 +28,7 @@ const Header: FC = () => {
 	const locale = useLocale();
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const [valueSearch, setValueSearch] = useState<string>('');
-	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true); // New state for mobile menu
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // New state for mobile menu
 	const t = useTranslations('LayoutHeader');
 	const router = useRouter();
 	const { isDarkMode, toggleDarkMode } = useTheme();
