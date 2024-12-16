@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from './Image';
 import { useTheme } from '../context/ThemeContext';
 import { SliderProps } from '../types/Slider.type';
@@ -13,6 +13,9 @@ const Slider: React.FC<SliderProps> = ({
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const slides = children ? React.Children.toArray(children) : images || [];
 	const { isDarkMode } = useTheme();
+	const sliderRef = useRef<HTMLDivElement>(null);
+	const [startX, setStartX] = useState(0);
+	const [isSwiping, setIsSwiping] = useState(false);
 
 	const prevSlide = () => {
 		setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : slides.length - 1);
@@ -31,8 +34,39 @@ const Slider: React.FC<SliderProps> = ({
 		}
 	}, [autoSlideInterval, slides.length]);
 
+	// Swipe handlers
+	const handleTouchStart = (e: React.TouchEvent) => {
+		setStartX(e.touches[0].clientX);
+		setIsSwiping(true);
+	};
+
+	const handleTouchMove = (e: React.TouchEvent) => {
+		if (!isSwiping) return;
+		const touchX = e.touches[0].clientX;
+		const diff = startX - touchX;
+
+		if (Math.abs(diff) > 50) {
+			if (diff > 0) {
+				nextSlide();
+			} else {
+				prevSlide();
+			}
+			setIsSwiping(false);
+		}
+	};
+
+	const handleTouchEnd = () => {
+		setIsSwiping(false);
+	};
+
 	return (
-		<div className='container relative mx-auto w-full'>
+		<div
+			className='container relative mx-auto w-full px-5 lg:px-0'
+			ref={sliderRef}
+			onTouchStart={handleTouchStart}
+			onTouchMove={handleTouchMove}
+			onTouchEnd={handleTouchEnd}
+		>
 			<div className='relative overflow-hidden'>
 				<div
 					className='flex transition-transform duration-500'
@@ -64,13 +98,13 @@ const Slider: React.FC<SliderProps> = ({
 				<>
 					<button
 						onClick={prevSlide}
-						className={`hover:hover-color absolute left-[-50px] top-1/2 -translate-y-1/2 transform p-2 text-4xl hover:text-primary ${isDarkMode ? 'text-white' : 'text-black'}`}
+						className={`hover:hover-color text-normal absolute left-[-40px] top-1/2 hidden -translate-y-1/2 transform p-2 hover:text-primary md:left-[-20px] md:text-4xl lg:left-[-50px] lg:block ${isDarkMode ? 'text-white' : 'text-black'}`}
 					>
 						&lt;
 					</button>
 					<button
 						onClick={nextSlide}
-						className={`hover:hover-color absolute right-[-50px] top-1/2 -translate-y-1/2 transform p-2 text-4xl hover:text-primary ${isDarkMode ? 'text-white' : 'text-black'}`}
+						className={`hover:hover-color text-normal absolute right-[-40px] top-1/2 hidden -translate-y-1/2 transform p-2 hover:text-primary md:right-[-20px] md:text-4xl lg:right-[-50px] lg:block ${isDarkMode ? 'text-white' : 'text-black'}`}
 					>
 						&gt;
 					</button>
