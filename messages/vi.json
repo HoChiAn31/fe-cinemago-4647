@@ -210,9 +210,9 @@
 			"cFriend": "Thành viên C'Friend",
 			"cFriendDes": "Thẻ C'Friend nhiều ưu đãi cho thành viên mới",
 			"cVip": "Thành viên C'Vip",
-			"cVipDes": "Thẻ VIP CineStar mang đến sự ưu đãi độc quyền",
+			"cVipDes": "Thẻ VIP Cinemago mang đến sự ưu đãi độc quyền",
 			"option": "Tất cả các giải trí",
-			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinestar còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
+			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinemago còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
 			"date": "Khởi chiếu"
 		}
 	},
@@ -294,7 +294,7 @@
 		},
 		"voucher": "Kho Voucher"
 	},
-  
+
 	"Detail": {
 		"labels": {
 			"director": "Đạo diễn",
@@ -320,8 +320,8 @@
 		"form": {
 			"comment": "Hãy cho chúng tôi biết cảm nhận của bạn!",
 			"rate": "Đánh giá"
-    }
-  },
+		}
+	},
 
 	"AdminRoom": {
 		"AdminRoomGeneral": {
@@ -331,5 +331,19 @@
 			"editMovie": "Cập nhật",
 			"addRoom": "Thêm"
 		}
+	},
+
+	"About": {
+		"heading1": "HỆ THỐNG CỤM RẠP TRÊN TOÀN QUỐC",
+		"des1": "Cinemago là một trong những hệ thống rạp chiếu phim được yêu thích nhất tại Việt Nam, cung cấp nhiều mô hình giải trí hấp dẫn bao gồm Các Cụm Rạp Chiếu Phim hiện đại, Nhà hát, Khu vui chơi trẻ em Kidzone, Bowling, Billiards, Games, Phòng Gym và nhà hàng. Với mục tiêu trở thành điểm đến giải trí cho mọi gia đình Việt Nam, Cinemago đang được biết đến là cụm rạp ủng hộ phim Việt, góp phần phát triển điện ảnh Việt. Không chỉ chiếu các bộ phim bom tấn quốc tế, Cinemago còn đồng hành cùng các nhà làm phim Việt Nam, đưa những tác phẩm điện ảnh đặc sắc của Việt Nam đến gần hơn với khán giả.",
+		"heading2": "SỨ MỆNH",
+		"mission1": "Góp phần tăng trưởng thị phần điện ảnh, văn hóa, giải trí của người Việt Nam",
+		"mission2": "Phát triển dịch vụ xuất sắc với mức giá tối ưu, phù hợp với thu nhập người Việt Nam",
+		"mission3": "Mang nghệ thuật điện ảnh, văn hóa Việt Nam hội nhập quốc tế",
+		"heading3": "TRỤ SỞ CỦA CHÚNG TÔI",
+		"des2": "Các phòng chiếu được trang bị các thiết bị tiên tiến như hệ thống âm thanh vòm, màn hình rộng và độ phân giải cao, tạo nên hình ảnh sắc nét và âm thanh sống động.",
+		"heading4": "HỆ THỐNG CÁC CỤM RẠP",
+		"room": "phòng chiếu với",
+		"chair": "ghế"
 	}
 }

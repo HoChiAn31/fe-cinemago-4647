@@ -210,9 +210,9 @@
 			"cFriend": "C'Friend Member",
 			"cFriendDes": "C'Friend Card Offers Many Benefit for New Members",
 			"cVip": "C'Vip Member",
-			"cVipDes": "CineStar VIP Card Offers Exclusive Benefits",
+			"cVipDes": "Cinemago VIP Card Offers Exclusive Benefits",
 			"option": "Entertainment Options",
-			"optionDes": "In addition to the high-quality cinema system, Cinestar also provides you with many other great types of entertainment.",
+			"optionDes": "In addition to the high-quality cinema system, Cinemago also provides you with many other great types of entertainment.",
 			"date": "Premiere"
 		}
 	},
@@ -320,8 +320,8 @@
 		"form": {
 			"comment": "Let us know how you feel!",
 			"rate": "Rate"
-    }
-  },
+		}
+	},
 
 	"AdminRoom": {
 		"AdminRoomGeneral": {
@@ -331,5 +331,19 @@
 			"editMovie": "Update",
 			"addRoom": "Add"
 		}
+	},
+
+	"About": {
+		"heading1": "CINEMAGO",
+		"des1": "Cinemago is one of the most popular cinema systems in Vietnam, providing many attractive entertainment models including modern Cinema Complexes, Theaters, Kidzone children's play areas, Bowling, Billiards , Games, Gym, Restaurant, and C'Beer Beer Street. With the goal of becoming an entertainment destination for every Vietnamese family, Cinemago is known as a theater complex that supports Vietnamese films, contributing to the development of Vietnamese cinema. Not only does it show international blockbusters, Cinemago also accompanies Vietnamese filmmakers, bringing unique Vietnamese cinema works closer to the audience.",
+		"heading2": "MISSION",
+		"mission1": "Contribute to the growth of Vietnamese cinema, culture and entertainment market share",
+		"mission2": "Develop excellent services with optimal prices, suitable for Vietnamese people's income",
+		"mission3": "Bringing Vietnamese cinema art and culture to the international stage",
+		"heading3": "COMPANY HEADQUARTER",
+		"des2": "The projection rooms are equipped with advanced equipment such as surround sound systems, wide screens and high resolution, creating sharp images and vivid sound.",
+		"heading4": "CINEMAGO SYSTEM",
+		"room": "rooms with",
+		"chair": "chairs"
 	}
 }
