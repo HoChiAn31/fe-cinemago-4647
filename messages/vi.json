@@ -345,5 +345,20 @@
 		"heading4": "HỆ THỐNG CÁC CỤM RẠP",
 		"room": "phòng chiếu với",
 		"chair": "ghế"
+	},
+
+	"Contact": {
+		"heading1": "Liên hệ với chúng tôi",
+		"headingForm": "Thông tin liên hệ",
+		"label": {
+			"name": "Họ và tên",
+			"email": "Điền email",
+			"note": "Thông tin liên hệ hoặc phản ánh"
+		},
+		"submit": "Gửi ngay",
+		"heading2": "Các chi nhánh của chúng tôi",
+		"des": "Bạn hãy tận hưởng những trải nghiệm tuyệt vời tại Cinemago",
+		"room": "phòng chiếu với",
+		"chair": "ghế"
 	}
 }

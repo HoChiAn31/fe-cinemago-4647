@@ -345,5 +345,20 @@
 		"heading4": "CINEMAGO SYSTEM",
 		"room": "rooms with",
 		"chair": "chairs"
+	},
+
+	"Contact": {
+		"heading1": "Contact Cinemago",
+		"headingForm": "Contact Us",
+		"label": {
+			"name": "Name (Last, First)",
+			"email": "Email",
+			"note": "The message you want to convey"
+		},
+		"submit": "Send",
+		"heading2": "Our branches",
+		"des": "Enjoy wonderful experiences at Cinemago",
+		"room": "rooms with",
+		"chair": "chairs"
 	}
 }
