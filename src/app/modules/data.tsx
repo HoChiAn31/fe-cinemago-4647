@@ -386,7 +386,7 @@ export const theater = [
 		type: 'headquarter',
 		image: '/images/theater/Tru_So.jpg',
 		status: 'open',
-		mail: 'marketing.cinestar@gmail.com',
+		mail: 'marketing.cinemago@gmail.com',
 		phone: '028 7300 7279',
 	},
 ];

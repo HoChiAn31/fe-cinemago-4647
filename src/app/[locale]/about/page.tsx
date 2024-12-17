@@ -9,16 +9,10 @@ import { PhoneCall, Mail, MapPin } from 'lucide-react';
 
 const AboutPage: FC = () => {
 	const t = useTranslations('About');
-	const [openTheaters, setOpenTheaters] = useState<Theater[]>([]);
 	const [headquarters, setHeadquarters] = useState<Theater[]>([]);
 	const [theaters, setTheaters] = useState<Theater[]>([]);
 
 	useEffect(() => {
-		const filteyellowOpenTheaters = theater.filter(
-			(item) => item.type === 'theater' && item.status === 'open',
-		);
-		setOpenTheaters(filteyellowOpenTheaters);
-
 		const filteyellowHeadquarters = theater.filter((item) => item.type === 'headquarter');
 		setHeadquarters(filteyellowHeadquarters);
 
