@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import React, { FC, useState, useEffect } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 import Button from '@/app/components/Button';
 import Image from '@/app/components/Image';
 import { Theater } from '@/app/types/Theater.type';
@@ -10,15 +10,19 @@ import { PhoneCall, Mail, MapPin, ChevronDown, ChevronUp, House } from 'lucide-r
 
 const ContactPage: FC = () => {
 	const t = useTranslations('Contact');
-	const [openTheaters, setOpenTheaters] = useState<Theater[]>([]);
+	const locale = useLocale();
+	const [theaters] = useState<Theater[]>(theater);
 	const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
 	useEffect(() => {
-		const sortedAndFilteredTheaters = theater
-			.filter((item) => item.status === 'open')
-			.sort((a, b) => (a.type === 'headquarter' ? -1 : b.type === 'headquarter' ? 1 : 0));
-		setOpenTheaters(sortedAndFilteredTheaters);
-	}, []);
+		theaters.sort((a, b) => {
+			if (a.translations?.some((translation) => translation.name === 'Cinestar Hai Bà Trưng'))
+				return -1;
+			if (b.translations?.some((translation) => translation.name === 'Cinestar Hai Bà Trưng'))
+				return 1;
+			return 0;
+		});
+	}, [theaters]);
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -61,7 +65,7 @@ const ContactPage: FC = () => {
 									src='/images/icons/ct-fb.webp'
 									className='absolute left-0 w-32 lg:-left-20 lg:-top-16 lg:w-44'
 								/>
-								<span className='text-softWhite mr-5 py-1 text-2xl font-extrabold uppercase tracking-wide lg:text-4xl'>
+								<span className='mr-5 py-1 text-2xl font-extrabold uppercase tracking-wide text-softWhite lg:text-4xl'>
 									Facebook
 								</span>
 							</a>
@@ -69,7 +73,7 @@ const ContactPage: FC = () => {
 								href='#'
 								className='relative flex w-full max-w-[400px] items-center justify-start rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 p-2 pr-8 hover:from-blue-700 hover:to-purple-700 lg:p-4 lg:pr-16'
 							>
-								<span className='text-softWhite ml-5 text-nowrap py-1 text-2xl font-extrabold uppercase tracking-wide lg:text-4xl'>
+								<span className='ml-5 text-nowrap py-1 text-2xl font-extrabold uppercase tracking-wide text-softWhite lg:text-4xl'>
 									Zalo Chat
 								</span>
 								<Image
@@ -80,7 +84,7 @@ const ContactPage: FC = () => {
 						</div>
 					</div>
 					{/* Right */}
-					<div className='text-softWhite mx-5 flex flex-col gap-5 rounded bg-blue-600 bg-opacity-80 p-8 md:mx-0 md:w-1/2'>
+					<div className='mx-5 flex flex-col gap-5 rounded bg-blue-600 bg-opacity-80 p-8 text-softWhite md:mx-0 md:w-1/2'>
 						<h2 className='text-2xl font-extrabold uppercase tracking-tight'>{t('headingForm')}</h2>
 						<div className='flex flex-col gap-5'>
 							<div className='flex items-center gap-3'>
@@ -129,7 +133,7 @@ const ContactPage: FC = () => {
 								/>
 								<Button
 									type='submit'
-									className='text-softWhite hover:bg-softWhite w-fit rounded-md bg-yellow-500 p-3 px-10 hover:border-2 hover:border-yellow-500 hover:font-extrabold hover:text-yellow-500'
+									className='w-fit rounded-md bg-yellow-500 p-3 px-10 text-softWhite hover:border-2 hover:border-yellow-500 hover:bg-softWhite hover:font-extrabold hover:text-yellow-500'
 								>
 									{t('submit')}
 								</Button>
@@ -146,47 +150,57 @@ const ContactPage: FC = () => {
 						<p className='px-5 text-center'>{t('des')}</p>
 					</div>
 					<div className='mx-5 flex flex-col gap-5 lg:mx-0'>
-						{openTheaters.map((theater, index) => (
+						{theater.map((theater, index) => (
 							<div
 								key={index}
 								className='flex justify-between rounded bg-gradient-to-r from-purple-600 to-blue-500 p-4 hover:from-purple-700 hover:to-blue-700'
 							>
 								<div className='flex flex-col gap-4'>
-									<h3 className='text-2xl font-extrabold tracking-tight'>{theater.name}</h3>
+									<h3 className='text-2xl font-extrabold tracking-tight'>
+										{theater.translations?.find(
+											(translation) => translation.languageCode === locale,
+										)?.name || ''}
+									</h3>
 
 									{expandedIndex === index && (
-										<div>
-											{theater.type !== 'headquarter' && (
-												<div className='flex items-center gap-3'>
-													<House className='text-icon' />
-													<span>
-														{theater.room} {t('room')} {theater.chair} {t('chair')}
-													</span>
-												</div>
-											)}
+										<div className='flex items-center gap-3'>
+											<div className='w-6'>
+												<House className='h-6 w-6 text-icon' />
+											</div>
+											<p>
+												{theater.translations?.find(
+													(translation) => translation.languageCode === locale,
+												)?.description || ''}
+											</p>
 										</div>
 									)}
 
 									<div className='flex items-center gap-3'>
 										<MapPin className='text-icon' />
-										<span>{theater.address}</span>
+										<span>
+											{theater.translations?.find(
+												(translation) => translation.languageCode === locale,
+											)?.address || ''}
+										</span>
 									</div>
 
-									{theater.mail ? (
+									{theater.email ? (
 										<div className='flex items-center gap-3'>
 											<Mail className='text-icon' />
-											<span>{theater.mail}</span>
+											<span>{theater.email}</span>
 										</div>
 									) : (
 										''
 									)}
 
-									{theater.type !== 'headquarter' && (
-										<div className='flex items-center gap-3'>
-											<Image src='/images/icons/ic-branch-fb.svg' width='24' height='24' />
-											<span>Cinemago {theater.name}</span>
-										</div>
-									)}
+									<div className='flex items-center gap-3'>
+										<Image src='/images/icons/ic-branch-fb.svg' width='24' height='24' />
+										<span>
+											{theater.translations?.find(
+												(translation) => translation.languageCode === locale,
+											)?.name || ''}
+										</span>
+									</div>
 
 									{theater.phone ? (
 										<div className='flex items-center gap-3'>
