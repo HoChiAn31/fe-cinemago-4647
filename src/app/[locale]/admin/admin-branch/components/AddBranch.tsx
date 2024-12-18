@@ -61,12 +61,9 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 		console.log(newBranch);
 		// setIsAdding(true);
 		try {
-			const response = await axios.post(
-				'https://be-book-movie-ticket-012124-snp6-hochian31s-projects.vercel.app',
-				newBranch,
-			);
+			const response = await axios.post('http://localhost:5000/branch', newBranch);
 			if (response.data && response.data.success) {
-				onAddBranch(response.data.data);
+				// onAddBranch(response.data.data);
 				onFinishAdding();
 				onReloadData();
 				// Reset form

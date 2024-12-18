@@ -2,22 +2,22 @@
 import { FC, useEffect, useState } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
-
+import { ShowTime } from './types';
+import SearchAndFilter from '@/app/components/SearchAndFilter';
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
-import { MovieGenre } from './types';
-import AddMovieGenresModal from './components/AddMovieGenres';
-import SearchAndFilter from '@/app/components/SearchAndFilter';
-import MovieGenreTable from './components/MovieGenreTable';
-import DeleteMovieGenreModal from './components/DeleteMovieGenres';
 import { useRouter } from 'next/navigation';
+import AddShowTimeSchedule from './components/AddShowTimeSchedule';
+import DeleteShowTimeScheduleModal from './components/DeleteShowTimeScheduleModal';
+import TableShowTimeSchedule from './components/TableShowTimeSchedule';
 
-const AdminMovieGenrePage: FC = () => {
-	const [movieGenres, setMovieGenres] = useState<MovieGenre[]>([]);
+const AdminShowTimeSchedulesPage: FC = () => {
+	const [showTimes, setShowTimes] = useState<ShowTime[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
-	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
 	const [nextPage, setNextPage] = useState<number | null>(null);
@@ -33,51 +33,49 @@ const AdminMovieGenrePage: FC = () => {
 		onOpen: onEditOpen,
 		onOpenChange: onEditOpenChange,
 	} = useDisclosure();
+	const [showTimeEdit, setShowTimeEdit] = useState<ShowTime | null>(null);
 
-	const [genreToDelete, setGenreToDelete] = useState<MovieGenre | null>(null);
-	const [genreToEdit, setGenreToEdit] = useState<MovieGenre | null>(null);
-	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const [showTimeToDelete, setShowTimeToDelete] = useState<ShowTime | null>(null);
+	const debouncedSearchQuery = useDebounce(searchQuery, 300);
 	const router = useRouter();
+
 	useEffect(() => {
-		fetchMovieGenres();
+		fetchShowTimes();
 	}, [currentPage, debouncedSearchQuery, itemsPerPage]);
 
-	const fetchMovieGenres = async () => {
+	const fetchShowTimes = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/movie-genres', {
+			setIsLoading(true);
+			const response = await axios.get('http://localhost:5000/show-time-schedules', {
 				params: {
 					page: currentPage.toString(),
 					items_per_page: itemsPerPage.toString(),
 					search: searchQuery,
 				},
 			});
-			setMovieGenres(response.data.data);
+			setShowTimes(response.data.data);
 			setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
 		} catch (error) {
-			console.error('Error fetching movie genres:', error);
+			console.error('Error fetching showtimes:', error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
-	const handleAddMovieGenre = () => {
-		fetchMovieGenres();
+	const handleAddShowTime = () => {
+		fetchShowTimes();
 	};
 
-	const handleDeleteMovieGenre = () => {
-		if (genreToDelete) {
-			setMovieGenres(movieGenres.filter((genre) => genre.id !== genreToDelete.id));
-			setGenreToDelete(null);
+	const handleDeleteShowTime = () => {
+		if (showTimeToDelete) {
+			setShowTimes(showTimes.filter((showTime) => showTime.id !== showTimeToDelete.id));
+			setShowTimeToDelete(null);
 			onDeleteOpenChange();
-			fetchMovieGenres();
+			fetchShowTimes();
 		}
-	};
-
-	const handleEditMovieGenre = () => {
-		setGenreToEdit(null);
-		onEditOpenChange();
-		fetchMovieGenres();
 	};
 
 	const handlePageChange = (newPage: number) => {
@@ -87,27 +85,21 @@ const AdminMovieGenrePage: FC = () => {
 	};
 
 	const handleFinishAdding = () => {
-		fetchMovieGenres();
+		fetchShowTimes();
 		setIsAddOpen(false);
 	};
-
 	const handleFinishDeleting = () => {
-		fetchMovieGenres();
+		fetchShowTimes();
 		onDeleteOpenChange();
 	};
-
-	const handleOpenAddMovieGenre = () => {
-		setIsAddOpen(!isAddOpen);
-	};
-
 	return (
 		<div>
 			<ManagementHeader
 				isOpen={!isAddOpen}
 				isBack={isAddOpen}
-				title={isAddOpen ? '' : 'Quản lý thể loại phim'}
+				title={isAddOpen ? '' : 'Quản lý suất chiếu'}
 				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
-				titleOpen='Thêm thể loại phim'
+				titleOpen='Thêm suất chiếu'
 				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (
@@ -119,12 +111,14 @@ const AdminMovieGenrePage: FC = () => {
 						setItemsPerPage={setItemsPerPage}
 						setCurrentPage={setCurrentPage}
 					/>
-					<MovieGenreTable
-						movieGenres={movieGenres}
-						onEditOpen={onEditOpen}
+
+					<TableShowTimeSchedule
+						isLoading={isLoading}
+						showTimes={showTimes}
 						onDeleteOpen={onDeleteOpen}
-						setGenreToEdit={setGenreToEdit}
-						setGenreToDelete={setGenreToDelete}
+						setShowTimeToDelete={setShowTimeToDelete}
+						onEditOpen={onEditOpen}
+						setShowTimeToEdit={setShowTimeEdit}
 					/>
 
 					<PaginationControls
@@ -134,33 +128,32 @@ const AdminMovieGenrePage: FC = () => {
 						nextPage={nextPage}
 						onPageChange={handlePageChange}
 					/>
-					<AddMovieGenresModal
+
+					<AddShowTimeSchedule
 						isOpen={isAddOpen}
-						onAddMovieGenre={handleAddMovieGenre}
+						onAddShowTime={handleAddShowTime}
 						onFinishAdding={handleFinishAdding}
-						onReloadData={fetchMovieGenres}
+						onReloadData={fetchShowTimes}
 					/>
 
-					<DeleteMovieGenreModal
+					<DeleteShowTimeScheduleModal
 						isOpen={isDeleteOpen}
 						onOpenChange={onDeleteOpenChange}
-						movieGenreToDelete={genreToDelete}
-						onDeleteMovieGenre={handleDeleteMovieGenre}
+						showTimeToDelete={showTimeToDelete}
+						onDeleteShowTime={handleDeleteShowTime}
 						onFinishDeleting={handleFinishDeleting}
 					/>
 				</>
 			) : (
-				<>
-					<AddMovieGenresModal
-						isOpen={isAddOpen}
-						onAddMovieGenre={handleAddMovieGenre}
-						onFinishAdding={handleFinishAdding}
-						onReloadData={fetchMovieGenres}
-					/>
-				</>
+				<AddShowTimeSchedule
+					isOpen={isAddOpen}
+					onAddShowTime={handleAddShowTime}
+					onFinishAdding={handleFinishAdding}
+					onReloadData={fetchShowTimes}
+				/>
 			)}
 		</div>
 	);
 };
 
-export default AdminMovieGenrePage;
+export default AdminShowTimeSchedulesPage;

@@ -18,7 +18,7 @@ const AdminMoviePage: FC = () => {
 
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
-	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [selectedGenre, setSelectedGenre] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);

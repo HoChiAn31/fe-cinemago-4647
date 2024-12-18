@@ -20,7 +20,7 @@ interface DeleteFoodDrinkModalProps {
 	onFinishDeleting: () => void;
 }
 
-const SearchAndFilter: React.FC<DeleteFoodDrinkModalProps> = ({
+const DeleteFoodDrinkModal: React.FC<DeleteFoodDrinkModalProps> = ({
 	isOpen,
 	onOpenChange,
 	foodDrinkToDelete,
@@ -90,4 +90,4 @@ const SearchAndFilter: React.FC<DeleteFoodDrinkModalProps> = ({
 	);
 };
 
-export default SearchAndFilter;
+export default DeleteFoodDrinkModal;

@@ -65,6 +65,7 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 													}}
 													isIconOnly
 													radius='sm'
+													size='sm'
 												>
 													<Pencil className='text-white' height={20} width={20} />
 												</Button>

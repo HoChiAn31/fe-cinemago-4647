@@ -64,6 +64,7 @@
 		"orderManagement": "Manage Order",
 		"categoryManagement": "Manage Categories",
 		"roomManagement": "Manage Room",
+		"roomShowTime": "Manage Show Time",
 		"foodDrinkManagement": "Manage FoodDrinks",
 		"branchManagement": "Manage Branches",
 		"revenueManagement": "Revenue Management",
@@ -333,6 +334,25 @@
 		}
 	},
 
+
+	"AdminShowTimeSchedule": {
+		"table": {
+			"order": "Order",
+			"movie": "Movie",
+			"startTime": "Start Time",
+			"endTime": "End Time",
+			"type": "Type",
+			"edit": "Edit",
+			"delete": "Delete",
+			"loading": "Loading...",
+			"noData": "No data available"
+		},
+		"edit": {
+			"showTimeStart": "Show Time Start",
+			"showTimeEnd": "Show Time End",
+			"submit": "Update"
+		}
+  },
 	"About": {
 		"heading1": "CINEMAGO",
 		"des1": "Cinemago is one of the most popular cinema systems in Vietnam, providing many attractive entertainment models including modern Cinema Complexes, Theaters, Kidzone children's play areas, Bowling, Billiards , Games, Gym, Restaurant, and C'Beer Beer Street. With the goal of becoming an entertainment destination for every Vietnamese family, Cinemago is known as a theater complex that supports Vietnamese films, contributing to the development of Vietnamese cinema. Not only does it show international blockbusters, Cinemago also accompanies Vietnamese filmmakers, bringing unique Vietnamese cinema works closer to the audience.",
@@ -346,7 +366,6 @@
 		"room": "rooms with",
 		"chair": "chairs"
 	},
-
 	"Contact": {
 		"heading1": "Contact Cinemago",
 		"headingForm": "Contact Us",
