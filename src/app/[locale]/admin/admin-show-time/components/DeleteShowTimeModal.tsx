@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import {
 	Modal,
@@ -10,45 +9,47 @@ import {
 	Spinner,
 } from '@nextui-org/react';
 import axios from 'axios';
-import { Movie } from '../types';
+import { ShowTime } from '../types'; // Adjust the import based on your types
 import toast, { Toaster } from 'react-hot-toast';
 
-interface DeleteMovieModalProps {
+interface DeleteShowTimeModalProps {
 	isOpen: boolean;
 	onOpenChange: () => void;
-	movieToDelete: Movie | null;
-	onDeleteMovie: (movieId: string) => void;
+	showTimeToDelete: ShowTime | null;
+	onDeleteShowTime: (showTimeId: string) => void;
 	onFinishDeleting: () => void;
 }
 
-const DeleteMovieModal: React.FC<DeleteMovieModalProps> = ({
+const DeleteShowTimeModal: React.FC<DeleteShowTimeModalProps> = ({
 	isOpen,
 	onOpenChange,
-	movieToDelete,
-	onDeleteMovie,
+	showTimeToDelete,
+	onDeleteShowTime,
 	onFinishDeleting,
 }) => {
 	const [isDeleting, setIsDeleting] = useState(false);
 
-	const handleDeleteMovie = async () => {
-		if (!movieToDelete) return;
+	const handleDeleteShowTime = async () => {
+		if (!showTimeToDelete) return;
 
 		setIsDeleting(true);
 		try {
-			const response = await axios.delete(`http://localhost:5000/movies/${movieToDelete.id}`);
+			const response = await axios.delete(
+				`http://localhost:5000/show-times/${showTimeToDelete.id}`,
+			);
 
-			onDeleteMovie(movieToDelete.id);
-			toast.success('The movie has been successfully deleted.', {
+			onDeleteShowTime(showTimeToDelete.id);
+			toast.success('The showtime has been successfully deleted.', {
 				duration: 3000,
 			});
 		} catch (error) {
-			console.error('Error deleting movie:', error);
+			console.error('Error deleting showtime:', error);
 			if (axios.isAxiosError(error)) {
-				toast.error(`Error deleting movie: ${error.response?.data?.message || error.message}`, {
+				toast.error(`Error deleting showtime: ${error.response?.data?.message || error.message}`, {
 					duration: 3000,
 				});
 			} else {
-				toast.error('An unexpected error occurred while deleting the movie', {
+				toast.error('An unexpected error occurred while deleting the showtime.', {
 					duration: 3000,
 				});
 			}
@@ -64,19 +65,15 @@ const DeleteMovieModal: React.FC<DeleteMovieModalProps> = ({
 			<ModalContent>
 				{(onClose) => (
 					<>
-						<ModalHeader className='flex flex-col gap-1'>Delete Movie</ModalHeader>
-						<ModalBody className=''>
-							<p>
-								Are you sure you want to delete the movie
-								<span className='font-bold'>{movieToDelete?.translations[0]?.name}</span>? This
-								action cannot be undone.
-							</p>
+						<ModalHeader className='flex flex-col gap-1'>Delete Showtime</ModalHeader>
+						<ModalBody>
+							<p>Are you sure you want to delete this showtime? This action cannot be undone.</p>
 						</ModalBody>
 						<ModalFooter>
 							<Button color='default' variant='light' onPress={onClose} isDisabled={isDeleting}>
 								Cancel
 							</Button>
-							<Button color='danger' onPress={handleDeleteMovie} isDisabled={isDeleting}>
+							<Button color='danger' onPress={handleDeleteShowTime} isDisabled={isDeleting}>
 								{isDeleting ? <Spinner size='sm' color='white' /> : 'Delete'}
 							</Button>
 						</ModalFooter>
@@ -88,4 +85,4 @@ const DeleteMovieModal: React.FC<DeleteMovieModalProps> = ({
 	);
 };
 
-export default DeleteMovieModal;
+export default DeleteShowTimeModal;

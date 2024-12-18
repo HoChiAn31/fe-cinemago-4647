@@ -48,7 +48,13 @@ const AddMovieModal: React.FC<AddMovieModalProps> = ({
 		// Fetch categories and genres
 		const fetchData = async () => {
 			try {
-				const genreResponse = await axios.get('http://localhost:5000/movie-genres');
+				const genreResponse = await axios.get('http://localhost:5000/movie-genres', {
+					params: {
+						page: 1,
+						items_per_page: 100,
+					},
+				});
+
 				setGenres(genreResponse.data.data);
 			} catch (error) {
 				console.error('Error fetching data:', error);
@@ -177,7 +183,7 @@ const AddMovieModal: React.FC<AddMovieModalProps> = ({
 	};
 
 	if (!isOpen) return null;
-
+	console.log(newMovie.releaseDate.toString());
 	return (
 		<div className='container mx-auto rounded-lg p-4'>
 			<h1 className='mb-4 text-2xl font-bold'>Add New Movie</h1>
@@ -212,7 +218,7 @@ const AddMovieModal: React.FC<AddMovieModalProps> = ({
 					fullWidth
 					type='date'
 					name='releaseDate'
-					value={newMovie.releaseDate.toString()}
+					value={newMovie.releaseDate ? newMovie.releaseDate.toISOString().split('T')[0] : ''}
 					onChange={handleInputChange}
 					label='Release Date'
 					required

@@ -36,51 +36,58 @@ const MovieGenreTable: React.FC<TableMovieGenresProps> = ({
 			>
 				<thead>
 					<tr className='border-b border-gray1'>
-						<th className='border-r border-gray1 p-3'>Order</th>
-						<th className='border-r border-gray1 p-3'>Name</th>
-						<th className='border-r border-gray1 p-3'>Description</th> {/* Adjust as needed */}
-						<th className='p-3'>Actions</th>
+						{/* <th className='border-r border-gray1 p-3'>Order</th> */}
+						<th className='border-r border-gray1 p-3 text-left'>Name</th>
+						<th className='border-r border-gray1 p-3 text-left'>Description</th>{' '}
+						{/* Adjust as needed */}
+						<th className='p-3'></th>
 					</tr>
 				</thead>
 				<tbody>
 					{movieGenres.map((genre, index) => (
 						<tr key={genre.id} className='border-b border-gray1'>
-							<td className='border-r border-gray1 p-3 text-center'>{index + 1}</td>
-							<td className='border-r border-gray1 p-3 text-center'>
+							{/* <td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td> */}
+							<td className='border-r border-gray1 p-3'>
 								{genre.movieGenreTranslation
 									.filter((translation) => translation.categoryLanguage.languageCode === locale)
 									.map((translation) => translation.name)}
 							</td>
-							<td className='border-r border-gray1 p-3 text-center'>
+							<td className='border-r border-gray1 p-3'>
 								{genre.movieGenreTranslation
 									.filter((translation) => translation.categoryLanguage.languageCode === locale)
 									.map((translation) => translation.description)}
 							</td>
-							<td className='grid grid-cols-2 gap-2 p-3'>
-								<div className='flex items-center justify-center'>
-									<Button
-										color='warning'
-										onPress={() => {
-											router.push(`/${locale}/admin/admin-movie-genres/${genre.id}`);
-										}}
-										isIconOnly
-										radius='sm'
-									>
-										<Pencil className='text-white' />
-									</Button>
-								</div>
-								<div className='flex items-center justify-center'>
-									<Button
-										color='danger'
-										onPress={() => {
-											setGenreToDelete(genre);
-											onDeleteOpen();
-										}}
-										isIconOnly
-										radius='sm'
-									>
-										<Trash2 />
-									</Button>
+							<td>
+								<div className='flex items-center justify-center gap-2'>
+									<div className='flex items-center justify-center'>
+										<Button
+											color='warning'
+											onPress={() => {
+												router.push(`/${locale}/admin/admin-movie-genres/${genre.id}`);
+											}}
+											isIconOnly
+											radius='sm'
+											size='sm'
+										>
+											<Pencil className='text-white' height={20} width={20} />
+										</Button>
+									</div>
+									<div className='flex items-center justify-center'>
+										<Button
+											color='danger'
+											onPress={() => {
+												setGenreToDelete(genre);
+												onDeleteOpen();
+											}}
+											isIconOnly
+											radius='sm'
+											variant='bordered'
+											className='border'
+											size='sm'
+										>
+											<Trash2 height={20} width={20} />
+										</Button>
+									</div>
 								</div>
 							</td>
 						</tr>
