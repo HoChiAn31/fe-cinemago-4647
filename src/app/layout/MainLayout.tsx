@@ -75,7 +75,7 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 							{pathname.startsWith(`/${locale}/profile`) ? (
 								<div className='mx-auto flex flex-col gap-4 md:flex-row'>
 									{/* Sidebar User */}
-									<div className='w-full md:w-[35%]'>
+									<div className='w-full md:w-[35%] lg:w-fit'>
 										<SidebarUser />
 									</div>
 									{/* Nội dung chính */}

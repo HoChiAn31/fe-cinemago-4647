@@ -27,6 +27,8 @@ const config: Config = {
 				gray1: '#424242',
 				gray2: '#DFE0E1',
 				darkBlue: '#25396F',
+				softWhite: '#f8fafc',
+				icon: '#F3EA28',
 
 				purpleSeatStandard: '#712DCE',
 				redSeatVip: '#F42130',

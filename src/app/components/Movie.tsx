@@ -7,21 +7,12 @@ import { iconTags } from '@/app/contracts/IconTag.contract';
 import { formatDate } from '@/app/utils/format.utils';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface MovieProps {
-	movie: {
-		image: string;
-		title: string;
-		tags: string[];
-		rating: string;
-		url: string;
-		releaseDate?: string;
-		onGoing: boolean;
-	};
-}
+import { MovieProps } from '../types/Movie.type';
+import { useModal } from '../context/ModalContext';
 
 const Movie: React.FC<MovieProps> = ({ movie }) => {
 	const t = useTranslations('HomePage');
+	const { openModal } = useModal();
 
 	const getAgeRating = (rating: string): string => {
 		if (rating.includes('T13') || rating.includes('T16')) {
@@ -45,7 +36,7 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 				<Image
 					src={movie.image}
 					alt={movie.title}
-					className={`min-h-full w-full border-2 object-cover transition-transform duration-500 group-hover:scale-100 lg:h-[451.98px] ${isDarkMode ? 'border-second' : 'border-gray-400'}`}
+					className={`h-[451.98px] min-h-full w-full border-2 object-cover transition-transform duration-500 group-hover:scale-100 ${isDarkMode ? 'border-second' : 'border-gray-400'}`}
 					sizes='(max-width: 768px) 135px, 280px'
 				/>
 				<div className='absolute inset-0 flex flex-col justify-center bg-black bg-opacity-60 px-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
@@ -89,7 +80,10 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 			</div>
 
 			<div className='mt-2 flex items-end justify-between'>
-				<a className='text-md ml-3 flex items-center gap-1 p-2 text-primary'>
+				<a
+					className='text-md ml-3 flex items-center gap-1 p-2 text-primary'
+					onClick={() => openModal(movie.url)}
+				>
 					<Image
 						src={`../images/icons/icon-play-vid.svg`}
 						className='border-gray-100 rounded-full border'

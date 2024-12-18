@@ -92,7 +92,7 @@ export const moviesData = [
 		title: 'MA DA (T16)',
 		tags: ['Kinh Dị', "94'", 'Việt Nam', 'VN'],
 		rating: 'T16',
-		url: 'https://www.youtube.com/embed/YjWrLPr8_2A?si=ExVRjNyxkIiDMneM',
+		url: 'https://www.youtube.com/embed/69ZDBWoj5YM?si=mNUGtLgCGm51wrQs',
 		releaseDate: '2024-10-10',
 		onGoing: true,
 	},
@@ -101,7 +101,7 @@ export const moviesData = [
 		title: 'THÁM TỬ LỪNG DANH CONAN (LT) 2D: NGÔI SAO 5 CÁNH 1 TRIỆU ĐÔ (T13)',
 		tags: ['Hoạt hình', "111'", 'Nhật bản', 'Lồng Tiếng'],
 		rating: 'T13',
-		url: 'https://www.youtube.com/embed/YjWrLPr8_2A?si=ExVRjNyxkIiDMneM',
+		url: 'https://www.youtube.com/embed/69ZDBWoj5YM?si=mNUGtLgCGm51wrQs',
 		releaseDate: '2024-10-10',
 		onGoing: true,
 	},
@@ -293,5 +293,173 @@ export const moviesData = [
 		url: 'https://www.youtube.com/embed/YjWrLPr8_2A?si=ExVRjNyxkIiDMneM',
 		releaseDate: '2024-11-13',
 		onGoing: false,
+	},
+];
+
+export const theater = [
+	{
+		id: '231d7437-9ff5-4014-beae-510862d52097',
+		email: 'cinamegothuduc@gmail.com',
+		phone: '0988888888',
+		createdAt: '2024-12-18T09:56:47.065Z',
+		updatedAt: '2024-12-18T09:56:47.065Z',
+		translations: [
+			{
+				id: '29e8b2df-99d3-46a5-bd39-27610a3f14a4',
+				languageCode: 'en',
+				name: 'CinemaGo Thu Duc',
+				address: 'Thu Duc City',
+				description: 'Thu Duc City',
+			},
+			{
+				id: 'dda44710-bcd2-429d-8262-8f313ea35243',
+				languageCode: 'vi',
+				name: 'CinameGo Thủ Đức',
+				address: 'Thành phố Thủ Đức',
+				description: 'Thành phố Thủ Đức',
+			},
+		],
+	},
+	{
+		id: 'e9d9c732-252a-4d6d-a5bb-95816ac90106',
+		email: 'cinestar3@domain.com',
+		phone: '+84123456789',
+		createdAt: '2024-10-25T09:06:35.768Z',
+		updatedAt: '2024-10-25T09:06:35.768Z',
+		translations: [
+			{
+				id: 'be9e1bfe-925e-4575-a607-fbb4ed3b4760',
+				languageCode: 'vi',
+				name: 'Cinestar Quận 4',
+				address: '123 Đường CMT8, Quận 4, TP.HCM',
+				description: 'Rạp chiếu phim hàng đầu tại Quận 4 với các tiện ích hiện đại.',
+			},
+			{
+				id: 'fd4ac953-4fd8-44e0-bf3f-70365265f6fb',
+				languageCode: 'en',
+				name: 'Cinestar District 4',
+				address: '123 CMT8 Street, District 4, HCMC',
+				description: 'Top cinema in District 4 with modern facilities.',
+			},
+		],
+	},
+	{
+		id: 'ade75a9a-a018-4146-a3f7-f84377a7aa0a',
+		email: 'cinestar3@domain.com',
+		phone: '+84123456789',
+		createdAt: '2024-10-23T03:35:30.295Z',
+		updatedAt: '2024-10-23T03:35:30.295Z',
+		translations: [
+			{
+				id: '4ad1836c-c0ba-430c-b328-f3ec5e0422ff',
+				languageCode: 'en',
+				name: 'Cinestar District 7',
+				address: '123 CMT8 Street, District 7, HCMC',
+				description: 'Top cinema in District 7 with modern facilities.',
+			},
+			{
+				id: 'c891d354-bda1-4489-9499-bda54a765650',
+				languageCode: 'vi',
+				name: 'Cinestar Quận 7',
+				address: '123 Đường CMT8, Quận 7, TP.HCM',
+				description: 'Rạp chiếu phim hàng đầu tại Quận 7 với các tiện ích hiện đại.',
+			},
+		],
+	},
+	{
+		id: 'e29447d3-997c-43c2-9c76-ecad49ea1cd0',
+		email: 'cinemagobinhthanh@gmail.com',
+		phone: '0988888888',
+		createdAt: '2024-10-11T15:53:13.955Z',
+		updatedAt: '2024-10-11T15:53:13.955Z',
+		translations: [
+			{
+				id: '791c947b-6eda-4176-9737-1c367956d812',
+				languageCode: 'vi',
+				name: 'CinemaGo Bình Thạnh',
+				address: 'Quận Bình Thạnh',
+				description: 'Quận Bình Thạnh',
+			},
+			{
+				id: 'e92c765b-96c8-4241-8263-27d43d7bbc8d',
+				languageCode: 'en',
+				name: 'Binh Thanh CinemaGo ',
+				address: 'Binh Thanh District',
+				description: 'Binh Thanh District',
+			},
+		],
+	},
+	{
+		id: '517b43ed-b54c-4158-9960-8b10efa13160',
+		email: 'cinemabtn@gmail.com',
+		phone: '028 1234 5678',
+		createdAt: '2024-09-11T15:35:52.754Z',
+		updatedAt: '2024-09-11T15:35:52.754Z',
+		translations: [
+			{
+				id: '132c30ce-7963-4bba-b6c2-f5cb300ca4e7',
+				languageCode: 'en',
+				name: 'Cinestar Ben Thanh',
+				address: '123 Le Loi, District 1',
+				description:
+					'Cinestar Bến Thành is located right in the city center, near Ben Thanh Market and many famous tourist attractions. It is an ideal spot for those who want to enjoy movies in a modern and comfortable environment.',
+			},
+			{
+				id: 'f5f27d11-2e21-4e82-9cbd-3151d02366e9',
+				languageCode: 'vi',
+				name: 'Cinestar Bến Thành',
+				address: '123 Lê Lợi, Quận 1',
+				description:
+					'Cinestar Bến Thành tọa lạc ngay trung tâm thành phố, gần chợ Bến Thành và nhiều điểm du lịch nổi tiếng. Đây là một địa điểm lý tưởng cho những ai muốn thưởng thức phim trong một không gian hiện đại và thoải mái.',
+			},
+		],
+	},
+	{
+		id: 'd8c0406d-d1e9-43b6-9ea7-5386f1f261b6',
+		email: 'cinestar3@domain.com',
+		phone: '+84123456789',
+		createdAt: '2024-09-04T08:44:30.218Z',
+		updatedAt: '2024-09-04T08:44:30.218Z',
+		translations: [
+			{
+				id: '27b87d45-897d-4326-99af-1148e39e1e69',
+				languageCode: 'vi',
+				name: 'Cinestar Quận 3',
+				address: '123 Đường CMT8, Quận 3, TP.HCM',
+				description: 'Rạp chiếu phim hàng đầu tại Quận 3 với các tiện ích hiện đại.',
+			},
+			{
+				id: 'b8fd22c5-9d78-4542-8f0b-e9f51335bb0d',
+				languageCode: 'en',
+				name: 'Cinestar District 3',
+				address: '123 CMT8 Street, District 3, HCMC',
+				description: 'Top cinema in District 3 with modern facilities.',
+			},
+		],
+	},
+	{
+		id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+		email: 'cinemahbt@gmail.com',
+		phone: '028 7300 7379',
+		createdAt: '2024-08-27T11:53:10.730Z',
+		updatedAt: '2024-08-27T11:53:10.730Z',
+		translations: [
+			{
+				id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+				languageCode: 'vi',
+				name: 'Cinestar Hai Bà Trưng',
+				address: '125 Hai Bà Trưng, Quận 3',
+				description:
+					'Cinestar Hai Bà Trưng nằm tại trung tâm Quận 1, gần nhiều trường đại học, trung tâm văn hóa và thương mại. Với vị trí đắc địa này, Cinestar Hai Bà Trưng là điểm đến giải trí ưa thích của nhiều khán giả trẻ. Với cam kết mang đến những trải nghiệm điện ảnh tuyệt vời nhất cùng giá vé hấp dẫn, Cinestar Hai Bà Trưng là lựa chọn hoàn hảo cho những ai yêu thích phim màn ảnh rộng.',
+			},
+			{
+				id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+				languageCode: 'en',
+				name: 'Cinestar Hai Ba Trung',
+				address: '125 Hai Ba Trung, District 3',
+				description:
+					'Cinestar Hai Bà Trưng is located in the center of District 1, near many universities, cultural centers, and commercial areas. With this prime location, Cinestar Hai Bà Trưng is a popular entertainment destination for many young audiences. Committed to providing the best cinematic experiences with attractive ticket prices, Cinestar Hai Bà Trưng is the perfect choice for those who love wide-screen films.',
+			},
+		],
 	},
 ];
