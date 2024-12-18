@@ -1,24 +1,17 @@
 'use client';
 
-import { FC, useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import React, { FC, useState } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from '@/app/components/Image';
+import { Image as AntImage } from 'antd';
 import { Theater } from '@/app/types/Theater.type';
 import { theater } from '@/app/modules/data';
 import { PhoneCall, Mail, MapPin } from 'lucide-react';
 
 const AboutPage: FC = () => {
 	const t = useTranslations('About');
-	const [headquarters, setHeadquarters] = useState<Theater[]>([]);
-	const [theaters, setTheaters] = useState<Theater[]>([]);
-
-	useEffect(() => {
-		const filteyellowHeadquarters = theater.filter((item) => item.type === 'headquarter');
-		setHeadquarters(filteyellowHeadquarters);
-
-		const allTheaters = theater.filter((item) => item.type === 'theater');
-		setTheaters(allTheaters);
-	}, []);
+	const locale = useLocale();
+	const [theaters] = useState<Theater[]>(theater);
 
 	return (
 		<div className='container mx-auto'>
@@ -69,51 +62,73 @@ const AboutPage: FC = () => {
 							key={index}
 							className='group transform rounded-lg text-center transition-all duration-300 hover:scale-105 hover:border-4 hover:border-red-600 hover:shadow-xl'
 						>
-							<Image
+							<AntImage
 								src={
 									theater.image ||
 									'https://via.placeholder.com/600x400.png?text=Image+Not+Available'
 								}
 								className='h-auto w-full rounded-lg object-cover'
-								alt={theater.name || 'Coming Soon'}
+								alt={
+									theater.translations?.find((t) => t.languageCode === locale)?.name ||
+									'Coming Soon'
+								}
 							/>
 							<p className='mt-4 bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-300 bg-clip-text text-lg font-bold uppercase tracking-tighter text-transparent text-yellow-500 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-red-600 group-hover:via-red-500 group-hover:to-red-400 group-hover:text-red-500'>
-								{theater.name ? `Cinemago ${theater.name}` : 'Coming Soon'}
+								{theater.translations?.find((t) => t.languageCode === locale)?.name
+									? `${theater.translations.find((t) => t.languageCode === locale)?.name}`
+									: 'Coming Soon'}
 							</p>
 						</div>
 					))}
 				</div>
-				{headquarters.map((hq, index) => (
-					<div key={index} className='relative mt-16 w-full rounded'>
-						<Image
-							src={hq.image || 'https://via.placeholder.com/600x400.png?text=Image+Not+Available'}
-							className='absolute inset-0 z-[1] h-full w-full rounded object-cover'
-							alt={hq.name}
-						/>
-						<div className='absolute inset-0 z-[2] rounded bg-gradient-to-r from-red-500 via-red-400 to-transparent md:from-red-700 md:via-transparent'></div>
-						<div className='relative z-[3] rounded bg-opacity-80 p-10 md:p-20'>
-							<h2 className='text-hover-color bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-100 bg-clip-text text-xl font-bold uppercase text-transparent text-yellow-500 md:text-4xl md:font-extrabold'>
-								{hq.name}
-							</h2>
-							<div className='mt-8 flex flex-col gap-4'>
-								<div className='flex items-center gap-3'>
-									<MapPin className='text-yellow-400' />
-									<p className='text-sm text-white md:text-lg'>{hq.address}</p>
-								</div>
+				{theaters
+					.filter((theater) =>
+						theater.translations?.some(
+							(translation) => translation.name === 'Cinestar Hai Bà Trưng',
+						),
+					)
+					.map((theater, index) => (
+						<div key={index} className='relative mt-16 w-full rounded'>
+							<Image
+								src={
+									theater.image ||
+									'https://via.placeholder.com/600x400.png?text=Image+Not+Available'
+								}
+								className='absolute inset-0 z-[1] h-full w-full rounded object-cover'
+								alt={
+									theater.translations?.find((translation) => translation.languageCode === locale)
+										?.name || 'Cinestar Hai Bà Trưng'
+								}
+							/>
+							<div className='absolute inset-0 z-[2] rounded bg-gradient-to-r from-red-500 via-red-400 to-transparent md:from-red-700 md:via-transparent'></div>
+							<div className='relative z-[3] rounded bg-opacity-80 p-10 md:p-20'>
+								<h2 className='text-hover-color bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-100 bg-clip-text text-xl font-bold uppercase text-transparent text-yellow-500 md:text-4xl md:font-extrabold'>
+									{theater.translations?.find((translation) => translation.languageCode === locale)
+										?.name || 'Cinestar Hai Bà Trưng'}
+								</h2>
+								<div className='mt-8 flex flex-col gap-4'>
+									<div className='flex items-center gap-3'>
+										<MapPin className='text-yellow-400' />
+										<p className='text-sm text-white md:text-lg'>
+											{theater.translations?.find(
+												(translation) => translation.languageCode === locale,
+											)?.address || ''}
+										</p>
+									</div>
 
-								<div className='flex items-center gap-3'>
-									<Mail className='text-yellow-400' />
-									<p className='text-sm text-white md:text-lg'>{hq.mail}</p>
-								</div>
+									<div className='flex items-center gap-3'>
+										<Mail className='text-yellow-400' />
+										<p className='text-sm text-white md:text-lg'>{theater.email}</p>
+									</div>
 
-								<div className='flex items-center gap-3'>
-									<PhoneCall className='text-yellow-400' />
-									<p className='text-sm text-white md:text-lg'>{hq.phone}</p>
+									<div className='flex items-center gap-3'>
+										<PhoneCall className='text-yellow-400' />
+										<p className='text-sm text-white md:text-lg'>{theater.phone}</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				))}
+					))}
 			</div>
 		</div>
 	);

@@ -1,11 +1,17 @@
-export interface Theater {
+export interface Translation {
+	id?: string;
 	name?: string;
-	type?: string;
-	status?: string;
-	image?: string;
 	address?: string;
-	mail?: string;
+	description?: string;
+	languageCode?: string;
+}
+
+export interface Theater {
+	id?: string;
+	email?: string;
 	phone?: string;
-	room?: string;
-	chair?: string;
+	image?: string;
+	createdAt?: string;
+	updatedAt?: string;
+	translations?: Translation[];
 }
