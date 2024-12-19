@@ -40,9 +40,11 @@ const AdminRoomTable: React.FC<AdminRoomTableProps> = ({
 					<tr className='border-b border-gray2'>
 						<th className='border-r border-gray2 p-3'>Order</th>
 						<th className='border-r border-gray2 p-3'>Name</th>
-						<th className='border-r border-gray2 p-3'>Screening Type</th>
+						<th className='border-r border-gray2 p-3 text-left'>Screening Type</th>
 						<th className='border-r border-gray2 p-3'>Seats</th>
-						<th className='border-r border-gray2 p-3'>Branch Phone</th>
+						{/* <th className='border-r border-gray2 p-3'>Branch Phone</th> */}
+						<th className='border-r border-gray2 p-3'>Date</th>
+
 						<th className='p-3'>Actions</th>
 					</tr>
 				</thead>
@@ -58,9 +60,27 @@ const AdminRoomTable: React.FC<AdminRoomTableProps> = ({
 							<tr key={room.id} className='border-b border-gray2'>
 								<td className='w-[5%] border-r border-gray2 p-3 text-center'>{index + 1}</td>
 								<td className='border-r border-gray2 p-3 text-center'>{room.name}</td>
-								<td className='border-r border-gray2 p-3 text-center'>{room.screeningType}</td>
+								<td className={`border-r border-gray2 p-3 text-center`}>
+									<p
+										className={`${
+											room.screeningType === 'standard'
+												? 'border border-[#2C98F0] bg-[#2c98f021] text-[#2C98F0]'
+												: room.screeningType === '3d'
+													? 'border border-[#D52237] bg-[#d5223721] text-[#D52237]'
+													: room.screeningType === 'imax'
+														? 'border border-[#1DAF1D] bg-[#1daf1d2e] text-[#1DAF1D]'
+														: room.screeningType === 'vip'
+															? 'border border-[#E7E722] bg-[#e7e7221f] text-[#E7E722]'
+															: ''
+										} max-w-20 rounded`}
+									>
+										{room.screeningType}
+									</p>
+								</td>
 								<td className='border-r border-gray2 p-3 text-center'>{room.totalSeats}</td>
-								<td className='border-r border-gray2 p-3 text-center'>{room.branch.phone}</td>
+								{/* <td className='border-r border-gray2 p-3 text-center'>{room.branch.phone}</td> */}
+								<td className='border-r border-gray2 p-3 text-center'>{room.createdAt}</td>
+
 								<td className=''>
 									<div className='flex items-center justify-center gap-2'>
 										<div className='flex items-center justify-center'>

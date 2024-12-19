@@ -65,8 +65,9 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({
 						<ModalHeader className='flex flex-col gap-1'>Delete User</ModalHeader>
 						<ModalBody className=''>
 							<p>
-								Are you sure you want to delete the user "{userToDelete?.lastName}"? This action
-								cannot be undone.
+								Are you sure you want to delete the user{' '}
+								<span className='font-bold'>{userToDelete?.lastName}</span>? This action cannot be
+								undone.
 							</p>
 						</ModalBody>
 						<ModalFooter>

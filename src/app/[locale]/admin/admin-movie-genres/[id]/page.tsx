@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import ManagementHeader from '@/app/components/ManagementHeader';
 
 const EditMovieGenrePage = () => {
-	const t = useTranslations('AdminMovieGenreEdit');
+	const t = useTranslations('AdminMovieGenres.edit');
 	const toastT = useTranslations('AdminToast');
 	const params = useParams();
 	const id = params.id as string;
@@ -20,8 +20,9 @@ const EditMovieGenrePage = () => {
 
 	useEffect(() => {
 		const fetchMovieGenre = async () => {
-			const response = await fetch(`http://localhost:5000/movie-genre/${id}`);
+			const response = await fetch(`http://localhost:5000/movie-genres/${id}`);
 			const data = await response.json();
+			console.log(data);
 			setMovieGenre(data);
 		};
 		fetchMovieGenre();
@@ -74,38 +75,82 @@ const EditMovieGenrePage = () => {
 
 	return (
 		<div className='p-4'>
-			<ManagementHeader isOpen={true} onChange={() => router.back()} />
+			<ManagementHeader
+				isOpen
+				isBack
+				onChangeBack={() => router.back()}
+				title={'Chi tiết thể loại'}
+				titleOpen='Cập nhật'
+				onChange={handleEditMovieGenre}
+			/>
 			<div className='space-y-4'>
-				<Input
-					fullWidth
-					type='text'
-					name='name'
-					value={movieGenre?.movieGenreTranslation[0]?.name} // Assuming first translation
-					onChange={handleInputChange}
-					label={t('name')}
-					required
-					variant='bordered'
-				/>
-				<Input
-					fullWidth
-					type='text'
-					name='description'
-					value={movieGenre?.movieGenreTranslation[0]?.description} // Assuming first translation
-					onChange={handleInputChange}
-					label={t('description')}
-					required
-					variant='bordered'
-				/>
+				<div>
+					<h3>Thể loại Tiếng Anh</h3>
+					<div className='space-y-4'>
+						<Input
+							fullWidth
+							type='text'
+							name='name'
+							value={
+								movieGenre?.movieGenreTranslation.find(
+									(translation) => translation.categoryLanguage.languageCode === 'en',
+								)?.name || ''
+							} // Assuming first translation
+							onChange={handleInputChange}
+							label={t('name')}
+							required
+							variant='bordered'
+						/>
+						<Input
+							fullWidth
+							type='text'
+							name='description'
+							value={
+								movieGenre?.movieGenreTranslation.find(
+									(translation) => translation.categoryLanguage.languageCode === 'en',
+								)?.description || ''
+							}
+							onChange={handleInputChange}
+							label={t('description')}
+							required
+							variant='bordered'
+						/>
+					</div>
+				</div>
+				<div>
+					<h3>Thể loại Tiếng Việt</h3>
+					<div className='space-y-4'>
+						<Input
+							fullWidth
+							type='text'
+							name='name'
+							value={
+								movieGenre?.movieGenreTranslation.find(
+									(translation) => translation.categoryLanguage.languageCode === 'vi',
+								)?.name || ''
+							} // Assuming first translation
+							onChange={handleInputChange}
+							label={t('name')}
+							required
+							variant='bordered'
+						/>
+						<Input
+							fullWidth
+							type='text'
+							name='description'
+							value={
+								movieGenre?.movieGenreTranslation.find(
+									(translation) => translation.categoryLanguage.languageCode === 'vi',
+								)?.description || ''
+							}
+							onChange={handleInputChange}
+							label={t('description')}
+							required
+							variant='bordered'
+						/>
+					</div>
+				</div>
 			</div>
-			<Button
-				onClick={handleEditMovieGenre}
-				type='submit'
-				color='primary'
-				disabled={isEditing}
-				fullWidth
-			>
-				{isEditing ? <Spinner size='sm' /> : t('editMovieGenre')}
-			</Button>
 			<Toaster />
 		</div>
 	);

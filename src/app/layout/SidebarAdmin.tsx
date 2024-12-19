@@ -1,30 +1,22 @@
 'use client';
-import { Button, Image } from '@nextui-org/react';
+import { Image } from '@nextui-org/react';
 import {
-	Bell,
 	ChartBarStacked,
 	CirclePercent,
 	Clapperboard,
-	ClipboardList,
 	FileQuestion,
 	House,
-	LogOut,
 	MessageCircleMore,
 	NotebookTabs,
 	NotepadText,
 	Phone,
 	Popcorn,
-	ShoppingBag,
-	Star,
 	Store,
-	Ticket,
 	UserRound,
 } from 'lucide-react';
-import Link from 'next/link';
 import { FC, useEffect, useRef, useState } from 'react';
-import { Panel } from 'react-resizable-panels';
 import { useUser } from '../context/UserContext';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import TabItem from '../components/TabItem';
@@ -77,12 +69,6 @@ const SidebarAdmin: FC = () => {
 	if (!isLoaded) {
 		return null;
 	}
-
-	const handleLogOutAdmin = () => {
-		setRole('dXNlcg');
-		setIsLogin(false);
-		router.push(`/${locale}/`);
-	};
 
 	return (
 		<div
@@ -183,6 +169,15 @@ const SidebarAdmin: FC = () => {
 						setActiveMainTab={setActiveMainTab}
 						activeSubTab={activeSubTab}
 						setActiveSubTab={setActiveSubTab}
+						tabName='admin-movie-genres'
+						title={t('categoryManagement')}
+						icon={Popcorn}
+					/>
+					<TabItem
+						activeMainTab={activeMainTab}
+						setActiveMainTab={setActiveMainTab}
+						activeSubTab={activeSubTab}
+						setActiveSubTab={setActiveSubTab}
 						tabName='admin-branch'
 						title={t('branchManagement')}
 						icon={Store}
@@ -196,7 +191,24 @@ const SidebarAdmin: FC = () => {
 						title={t('roomManagement')}
 						icon={ChartBarStacked}
 					/>
-
+					<TabItem
+						activeMainTab={activeMainTab}
+						setActiveMainTab={setActiveMainTab}
+						activeSubTab={activeSubTab}
+						setActiveSubTab={setActiveSubTab}
+						tabName='admin-show-time-schedule'
+						title={t('roomShowTime')}
+						icon={ChartBarStacked}
+					/>
+					<TabItem
+						activeMainTab={activeMainTab}
+						setActiveMainTab={setActiveMainTab}
+						activeSubTab={activeSubTab}
+						setActiveSubTab={setActiveSubTab}
+						tabName='admin-show-time'
+						title={'Quản lý suất chiếu'}
+						icon={ChartBarStacked}
+					/>
 					<TabItem
 						activeMainTab={activeMainTab}
 						setActiveMainTab={setActiveMainTab}

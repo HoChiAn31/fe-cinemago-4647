@@ -5,14 +5,12 @@ import MaxWidth from '@/app/components/MaxWidth';
 import UpComing from '@/app/components/UpComing';
 import { MovieProps } from '@/app/types/Movie.type';
 import { moviesData } from '@/app/modules/data';
-import { useTheme } from '@/app/context/ThemeContext';
 import { useTranslations } from 'next-intl';
 import Movie from '@/app/components/Movie';
 
 const onGoingPage: FC = () => {
 	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
 	const t = useTranslations('HomePage');
-	const { isDarkMode } = useTheme();
 
 	useEffect(() => {
 		const ongoingMovies = moviesData.filter((movie) => movie.onGoing);

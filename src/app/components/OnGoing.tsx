@@ -9,6 +9,8 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { moviesData } from '@/app/modules/data';
 import { MovieProps } from '../types/Movie.type';
 import Links from './Links';
+import SamplePrevArrow from './SamplePrevArrow';
+import SampleNextArrow from './SampleNextArrow';
 
 const OnGoing: React.FC = () => {
 	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
@@ -52,6 +54,8 @@ const OnGoing: React.FC = () => {
 				},
 			},
 		],
+		nextArrow: <SampleNextArrow />,
+		prevArrow: <SamplePrevArrow />,
 	};
 
 	return (
