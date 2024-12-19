@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import Movie from './Movie';
-
-import Button from './Button';
 import Slider from 'react-slick';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
 import './home.css';
 import { moviesData } from '@/app/modules/data';
 import { MovieProps } from '../types/Movie.type';
+import Links from './Links';
+import SamplePrevArrow from './SamplePrevArrow';
+import SampleNextArrow from './SampleNextArrow';
 
 const UpComing: React.FC = () => {
 	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
@@ -57,6 +58,8 @@ const UpComing: React.FC = () => {
 				},
 			},
 		],
+		nextArrow: <SampleNextArrow />,
+		prevArrow: <SamplePrevArrow />,
 	};
 
 	return (
@@ -73,12 +76,12 @@ const UpComing: React.FC = () => {
 					))}
 				</Slider>
 			</div>
-			<Button
-				href={`vi/movies/upcoming/`}
+			<Links
+				href='movies/upcoming'
 				className={`rounded-md border-[0.1rem] border-second bg-primary px-20 py-3 text-white transition duration-200 hover:bg-white hover:text-second`}
 			>
 				{t('button.see')}
-			</Button>
+			</Links>
 		</div>
 	);
 };
