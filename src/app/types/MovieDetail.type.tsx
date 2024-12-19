@@ -1,5 +1,7 @@
 import { Translation } from './Translation.type';
 import { Comment } from './Comment.type';
+import { Genres } from './Genres.type';
+import { Showtime } from './Showtime.type';
 
 export interface MovieData {
 	id: string;
@@ -12,6 +14,10 @@ export interface MovieData {
 	rating: number;
 	poster_url: string;
 	trailer_url: string;
+	createdAt: string;
+	updatedAt: string;
+	genres: Genres[];
+	showTimes: Showtime[];
 	translations: Translation[];
-	comment: Comment[];
+	comments: Comment[];
 }
