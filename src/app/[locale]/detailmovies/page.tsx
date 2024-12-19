@@ -7,6 +7,7 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { MovieData } from '@/app/types/MovieDetail.type';
 import Image from '@/app/components/Image';
 import { formatCommentDate } from '@/app/utils/formatCommentDate.utils';
+import Links from '@/app/components/Links';
 
 const movieData: MovieData = {
 	id: '047c527d-7005-4609-9d21-c16e07e907ce',
@@ -130,9 +131,9 @@ const MovieDetailPage: React.FC = () => {
 
 	return (
 		<div className='min-h-screen text-white'>
-			<div className='container mx-auto flex w-full flex-col gap-6 bg-neutral-900 p-4 lg:w-[60%]'>
+			<div className='container mx-auto flex w-full flex-col gap-6 p-4 lg:w-[60%]'>
 				{/* Header Section */}
-				<div className='flex h-fit flex-col items-center gap-10 lg:flex-row lg:items-start'>
+				<div className='flex h-fit flex-col items-center gap-10 md:flex-row md:items-stretch lg:flex-row'>
 					<img
 						src={movieData.poster_url}
 						alt={translation?.name || 'No title available'}
@@ -142,29 +143,31 @@ const MovieDetailPage: React.FC = () => {
 						<h1 className='text-3xl font-bold text-yellow-500'>
 							{translation?.name || 'No title available'}
 						</h1>
-						<div className='flex flex-col gap-4 rounded border-2 border-black bg-dark px-4 py-2'>
-							<p>
-								{t('labels.director')}: {movieData.director}
-							</p>
-							<p>
-								{t('labels.cast')}: {movieData.cast}
-							</p>
-							<p>
-								{t('labels.releaseDate')}: {new Date(movieData.releaseDate).toLocaleDateString()}
-							</p>
-							<p>
-								{t('labels.duration')}: {movieData.duration} {t('labels.minutes')}
-							</p>
-							<p>
-								{t('labels.language')}: {movieData.language}
-							</p>
+						<div className='flex h-full flex-col justify-between rounded border-2 border-black bg-dark px-4 py-2'>
+							<div className='flex flex-col gap-4'>
+								<p>
+									{t('labels.director')}: {movieData.director}
+								</p>
+								<p>
+									{t('labels.cast')}: {movieData.cast}
+								</p>
+								<p>
+									{t('labels.releaseDate')}: {new Date(movieData.releaseDate).toLocaleDateString()}
+								</p>
+								<p>
+									{t('labels.duration')}: {movieData.duration} {t('labels.minutes')}
+								</p>
+								<p>
+									{t('labels.language')}: {movieData.language}
+								</p>
+							</div>
 							<div className='mb-2 mt-5 flex items-center justify-center'>
-								<Button
+								<Links
 									href='#'
 									className={`text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white ${isDarkMode ? 'text-white hover:text-second' : 'text-dark'}`}
 								>
 									{t('button.order')}
-								</Button>
+								</Links>
 							</div>
 						</div>
 					</div>
