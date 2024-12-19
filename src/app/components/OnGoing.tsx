@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import Movie from './Movie';
-import Button from './Button';
 import Slider from 'react-slick';
 import { useTranslations } from 'next-intl';
 import './home.css';
 import { useTheme } from '@/app/context/ThemeContext';
 import { moviesData } from '@/app/modules/data';
 import { MovieProps } from '../types/Movie.type';
+import Links from './Links';
 
 const OnGoing: React.FC = () => {
 	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
@@ -66,12 +66,12 @@ const OnGoing: React.FC = () => {
 					))}
 				</Slider>
 			</div>
-			<Button
-				href='vi/movies/'
+			<Links
+				href='movies/'
 				className={`rounded-md border-[0.1rem] border-second bg-primary px-20 py-3 text-white transition duration-200 hover:bg-white hover:text-second`}
 			>
 				{t('button.see')}
-			</Button>
+			</Links>
 		</div>
 	);
 };
