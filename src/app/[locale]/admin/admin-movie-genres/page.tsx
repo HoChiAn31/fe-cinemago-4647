@@ -37,6 +37,7 @@ const AdminMovieGenrePage: FC = () => {
 	const [genreToDelete, setGenreToDelete] = useState<MovieGenre | null>(null);
 	const [genreToEdit, setGenreToEdit] = useState<MovieGenre | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 700);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const router = useRouter();
 	useEffect(() => {
 		fetchMovieGenres();
@@ -51,6 +52,7 @@ const AdminMovieGenrePage: FC = () => {
 					search: searchQuery,
 				},
 			});
+			setIsLoading(true);
 			setMovieGenres(response.data.data);
 			setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
@@ -125,6 +127,7 @@ const AdminMovieGenrePage: FC = () => {
 						onDeleteOpen={onDeleteOpen}
 						setGenreToEdit={setGenreToEdit}
 						setGenreToDelete={setGenreToDelete}
+						isLoading={isLoading}
 					/>
 
 					<PaginationControls

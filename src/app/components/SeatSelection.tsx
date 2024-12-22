@@ -226,3 +226,7 @@ const SeatSelection: FC<SeatMapProps> = ({ seatMap, selectedSeats, setSelectedSe
 };
 
 export default SeatSelection;
+
+// ${
+// 															type === 'vip' ? 'bg-redSeatVip' : 'bg-purpleSeatStandard'
+// 														}

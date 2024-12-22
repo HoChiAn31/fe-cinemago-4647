@@ -115,3 +115,30 @@ export interface Movies {
 		},
 	];
 }
+
+export interface MovieDetails {
+	id: string;
+	cast: string;
+	director: string;
+	releaseDate: Date;
+	duration: string;
+	language: string;
+	country: string;
+	rating: string;
+	poster_url: string;
+
+	trailer_url: string;
+	createdAt: Date;
+	updatedAt: Date;
+	translations: Array<{
+		id: string;
+		name: string;
+		description: string;
+		categoryLanguage: { id: string; languageCode: string };
+	}>;
+	genres: [
+		{
+			id: string;
+		},
+	];
+}

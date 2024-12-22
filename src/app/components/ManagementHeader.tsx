@@ -8,7 +8,7 @@ interface ManagementHeaderProps {
 	onPress?: () => void;
 	isOpen?: boolean;
 	onChange?: () => void;
-	titleOpen?: string;
+	titleOpen?: React.ReactNode;
 	isBack?: boolean;
 	onChangeBack?: () => void;
 	isHidden?: boolean;

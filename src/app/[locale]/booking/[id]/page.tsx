@@ -19,7 +19,7 @@ const BookingPage: FC = () => {
 	const pathname = usePathname();
 	const id = param.id as string;
 	const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);
-	const [selectShowTime, setSelectShowTime] = useState<Showtime | null>(null);
+  const [selectShowTime, setSelectShowTime] = useState<Showtime | null>(null);
 	const [showTicketSelection, setShowTicketSelection] = useState(false);
 	const [price, setPrice] = useState({
 		adult: {
@@ -32,7 +32,7 @@ const BookingPage: FC = () => {
 		},
 	});
 	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-	const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
+  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
 	const totalTickets = price.adult.quantity + price.student.quantity;
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -55,7 +55,6 @@ const BookingPage: FC = () => {
 		if (!selectedBranchId || !selectShowTime || selectedSeats.length === 0) {
 			return;
 		}
-
 		const orderDetails = {
 			movie: translation?.name,
 			branch:
@@ -68,13 +67,13 @@ const BookingPage: FC = () => {
 		};
 		localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 	};
-
+  
 	const translation = movieData.translations.find(
 		(t) => t.categoryLanguage.languageCode === locale,
 	);
 
 	// Lọc danh sách các rạp (branch)
-	const branches = movie
+const branches = movie
 		? Array.from(
 				new Map(
 					movie.showTimes.map((showTime) => {
@@ -89,8 +88,8 @@ const BookingPage: FC = () => {
 	const filteredShowTimes = selectedBranchId
 		? movieData.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
 		: [];
-
-	const groupByDate = (showTimes: Showtime[]) => {
+  
+  const groupByDate = (showTimes: Showtime[]) => {
 		return showTimes.reduce(
 			(groups, showTime) => {
 				const date = new Date(showTime.show_time_start);
@@ -131,6 +130,8 @@ const BookingPage: FC = () => {
 		setSelectedDate(date);
 		setSelectShowTime(null);
 	};
+  
+  const handleSelectShowTime = (value: any) => setSelectShowTime(value);
 
 	const handleQuantityChange = (
 		type: 'adult' | 'student',
@@ -220,7 +221,7 @@ const BookingPage: FC = () => {
 			<div className='flex flex-col items-center justify-center gap-8'>
 				<h1 className='text-5xl font-extrabold uppercase'>Chọn rạp phim</h1>
 				<select
-					className='w-full rounded border px-4 py-5 text-lg'
+          className='w-full rounded border px-4 py-5 text-lg'
 					onChange={(e) => {
 						const selectedBranch = e.target.value;
 						setSelectedBranchId(selectedBranch);
@@ -232,7 +233,7 @@ const BookingPage: FC = () => {
 				>
 					<option value=''>Chọn rạp</option>
 					{branches.map(({ branch, showTimeId }) => (
-						<option key={branch?.id} value={showTimeId} className='text-lg'>
+            <option key={branch?.id} value={showTimeId} className='text-lg'>
 							{branch?.name || 'Unknown Theater'}
 						</option>
 					))}
