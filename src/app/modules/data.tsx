@@ -463,3 +463,595 @@ export const theater = [
 		],
 	},
 ];
+
+export const detailMovie = [
+	{
+		id: '047c527d-7005-4609-9d21-c16e07e907ce',
+		director: 'Võ Thanh Hòa',
+		cast: 'Hùng Anh, Nhật Linh, Phương Duyên, Ngọc Trai, Vũ Long',
+		releaseDate: '2024-12-27T00:00:00.000Z',
+		duration: 110,
+		language: 'Tiếng Việt',
+		country: 'Vietnam',
+		rating: 9,
+		poster_url:
+			'https://firebasestorage.googleapis.com/v0/b/be-cinemago-201024.appspot.com/o/movies%2F616f8c35-2d4d-4fdf-bbe1-d7180f0a30af-350x490.jpg?alt=media',
+		trailer_url: '6z1BoUbB-fs',
+		createdAt: '2024-12-10T10:56:47.251Z',
+		updatedAt: '2024-12-10T10:56:47.251Z',
+		translations: [
+			{
+				id: '1f74f803-88e2-4d8e-a3e7-47d67585fdb8',
+				name: 'Kính Vạn Hoa',
+				description:
+					'A humorous and adventurous journey of a group of young friends as they discover fascinating aspects of life through a magical kaleidoscope.',
+				categoryLanguage: {
+					id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+					languageCode: 'en',
+				},
+			},
+			{
+				id: '93c1889c-88c3-418f-a5ab-e8ba04334c54',
+				name: 'Kính Vạn Hoa',
+				description:
+					'Một hành trình hài hước và đầy phiêu lưu của nhóm bạn trẻ khi họ khám phá những điều thú vị trong cuộc sống qua một chiếc kính vạn hoa kỳ diệu.',
+				categoryLanguage: {
+					id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+					languageCode: 'vi',
+				},
+			},
+		],
+		genres: [],
+		showTimes: [
+			{
+				id: '3869adbf-8833-4889-9bd8-b645ee4ff2ec',
+				show_time_start: '2024-12-22T12:36:00.000Z',
+				show_time_end: '2024-12-22T13:36:00.000Z',
+				price: 10000,
+				room: {
+					id: '3cefc1de-d4a8-4a61-b0b4-5623de07b44e',
+					name: 'A102',
+					screeningType: 'standard',
+					totalSeats: 50,
+					branch: {
+						id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+						email: 'cinemahbt@gmail.com',
+						translations: [
+							{
+								id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+								languageCode: 'vi',
+								name: 'Cinestar Hai Bà Trưng',
+								address: '125 Hai Bà Trưng, Quận 3',
+								categoryLanguage: {
+									id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+								},
+							},
+							{
+								id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+								languageCode: 'en',
+								name: 'Cinestar Hai Ba Trung',
+								address: '125 Hai Ba Trung, District 3',
+								categoryLanguage: {
+									id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				id: '889575cd-7b99-4c4e-b065-45f7f6d6d054',
+				show_time_start: '2024-09-10T14:30:00.000Z',
+				show_time_end: '2024-09-10T17:00:00.000Z',
+				price: 150000,
+				room: {
+					id: 'a200dd9c-f7c2-4055-a8a5-2d7c3625630a',
+					name: 'A107',
+					screeningType: 'vip',
+					totalSeats: 50,
+					branch: {
+						id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+						email: 'cinemahbt@gmail.com',
+						translations: [
+							{
+								id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+								languageCode: 'vi',
+								name: 'Cinestar Hai Bà Trưng',
+								address: '125 Hai Bà Trưng, Quận 3',
+								categoryLanguage: {
+									id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+								},
+							},
+							{
+								id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+								languageCode: 'en',
+								name: 'Cinestar Hai Ba Trung',
+								address: '125 Hai Ba Trung, District 3',
+								categoryLanguage: {
+									id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				id: '9137b829-38ec-424e-8a60-00f0ed0bd856',
+				show_time_start: '2024-12-21T11:34:00.000Z',
+				show_time_end: '2024-12-21T12:34:00.000Z',
+				price: 10000,
+				room: {
+					id: '1a09985f-08fe-4d99-bd74-b7233c77e6fc',
+					name: 'A105',
+					screeningType: '3d',
+					totalSeats: 50,
+					branch: {
+						id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+						email: 'cinemahbt@gmail.com',
+						translations: [
+							{
+								id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+								languageCode: 'vi',
+								name: 'Cinestar Hai Bà Trưng',
+								address: '125 Hai Bà Trưng, Quận 3',
+								categoryLanguage: {
+									id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+								},
+							},
+							{
+								id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+								languageCode: 'en',
+								name: 'Cinestar Hai Ba Trung',
+								address: '125 Hai Ba Trung, District 3',
+								categoryLanguage: {
+									id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				id: 'a55e4322-ed0d-49ac-8f5f-61a7da49e7bf',
+				show_time_start: '2024-12-20T08:30:00.000Z',
+				show_time_end: '2024-12-20T08:30:00.000Z',
+				price: 50000,
+				room: {
+					id: 'b2dc6f7b-0863-4fed-baeb-6ea8f96097f3',
+					name: 'A103',
+					screeningType: 'imax',
+					totalSeats: 50,
+					branch: {
+						id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+						email: 'cinemahbt@gmail.com',
+						translations: [
+							{
+								id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+								languageCode: 'vi',
+								name: 'Cinestar Hai Bà Trưng',
+								address: '125 Hai Bà Trưng, Quận 3',
+								categoryLanguage: {
+									id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+								},
+							},
+							{
+								id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+								languageCode: 'en',
+								name: 'Cinestar Hai Ba Trung',
+								address: '125 Hai Ba Trung, District 3',
+								categoryLanguage: {
+									id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				id: 'a8b2df63-3c5f-462d-a095-baebd56e5b8f',
+				show_time_start: '2024-12-21T15:35:00.000Z',
+				show_time_end: '2024-12-21T16:35:00.000Z',
+				price: 10000,
+				room: {
+					id: 'f45742c5-897e-4cd2-a14a-16705169c41d',
+					name: 'A106',
+					screeningType: '3d',
+					totalSeats: 30,
+					branch: {
+						id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+						email: 'cinemahbt@gmail.com',
+						translations: [
+							{
+								id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+								languageCode: 'vi',
+								name: 'Cinestar Hai Bà Trưng',
+								address: '125 Hai Bà Trưng, Quận 3',
+								categoryLanguage: {
+									id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+								},
+							},
+							{
+								id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+								languageCode: 'en',
+								name: 'Cinestar Hai Ba Trung',
+								address: '125 Hai Ba Trung, District 3',
+								categoryLanguage: {
+									id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+								},
+							},
+						],
+					},
+				},
+			},
+		],
+		comments: [
+			{
+				id: '4e544841-158d-4997-9f63-c7726ba46453',
+				rating: 10,
+				comment: 'good',
+				createdAt: '2024-12-19T02:09:15.582Z',
+				user: {
+					id: 'a31e7721-aec5-4ec5-b65b-dd96516732d6',
+					firstName: 'Minh ',
+					lastName: 'Trí',
+					email: '20522047@gm.uit.edu.vn',
+					avatar: null,
+				},
+			},
+		],
+	},
+];
+
+export const beverage = [
+	{
+		id: '6f9c0da7-cb3d-4365-b23e-cc1e284be295',
+		price: '50000',
+		image:
+			'https://firebasestorage.googleapis.com/v0/b/be-cinemago-201024.appspot.com/o/food-drink%2F8a6d8ec8-c63f-4b35-9cfe-4fee25719d7c-pepsi.jpg?alt=media',
+		createdAt: '2024-11-07T04:22:19.520Z',
+		updatedAt: '2024-11-07T04:22:19.520Z',
+		translations: [
+			{
+				id: '3b54362d-52ad-47e6-9376-cb5b7195887a',
+				name: 'Pepsi',
+				description: 'Pepsi',
+				categoryLanguage: {
+					id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+					languageCode: 'en',
+				},
+			},
+			{
+				id: '4cd7e989-f883-42f1-9d61-2dea8c2d9270',
+				name: 'Pepsi',
+				description: 'Pepsi',
+				categoryLanguage: {
+					id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+					languageCode: 'vi',
+				},
+			},
+		],
+	},
+	{
+		id: '1b79f691-b860-400a-9c45-786ccd46b801',
+		price: '50000',
+		image:
+			'https://firebasestorage.googleapis.com/v0/b/be-cinemago-201024.appspot.com/o/food-drink%2F340e5e7e-9c0b-4503-bb2e-310d2740ea72-nuoc-ngot-7-up-vi-chanh-lon-245ml-202312281121487139.jpg?alt=media',
+		createdAt: '2024-10-26T02:16:24.365Z',
+		updatedAt: '2024-10-26T02:16:24.365Z',
+		translations: [
+			{
+				id: '41872c7d-a2b0-4ab8-8afd-da07e989a360',
+				name: '7UP',
+				description: '7UP',
+				categoryLanguage: {
+					id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+					languageCode: 'vi',
+				},
+			},
+			{
+				id: 'a03ce64a-2696-46d1-9622-b70d48c46429',
+				name: '7UP',
+				description: '7UP',
+				categoryLanguage: {
+					id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+					languageCode: 'en',
+				},
+			},
+		],
+	},
+	{
+		id: '3ce21849-19e6-456a-ac8f-51fcbc059bca',
+		price: '50000',
+		image:
+			'https://firebasestorage.googleapis.com/v0/b/be-cinemago-201024.appspot.com/o/food-drink%2F7129c6d1-df32-4339-b930-5f628c18dd0d-Coca-Cola_logo.svg.png?alt=media',
+		createdAt: '2024-10-25T09:24:33.650Z',
+		updatedAt: '2024-10-25T09:24:33.650Z',
+		translations: [
+			{
+				id: '0e3969d1-1e88-442f-9e02-54d2ef9aac41',
+				name: 'Coca Cola',
+				description: 'Coca Cola',
+				categoryLanguage: {
+					id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+					languageCode: 'en',
+				},
+			},
+			{
+				id: 'c9fafdd9-6bae-4583-a71a-100cb1ef7268',
+				name: 'Coca Cola',
+				description: 'Coca Cola',
+				categoryLanguage: {
+					id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+					languageCode: 'vi',
+				},
+			},
+		],
+	},
+];
+
+export const movieData = {
+	id: '047c527d-7005-4609-9d21-c16e07e907ce',
+	director: 'Võ Thanh Hòa',
+	cast: 'Hùng Anh, Nhật Linh, Phương Duyên, Ngọc Trai, Vũ Long',
+	releaseDate: '2024-12-27T00:00:00.000Z',
+	duration: 110,
+	language: 'Tiếng Việt',
+	country: 'Vietnam',
+	rating: 9,
+	poster_url:
+		'https://firebasestorage.googleapis.com/v0/b/be-cinemago-201024.appspot.com/o/movies%2F616f8c35-2d4d-4fdf-bbe1-d7180f0a30af-350x490.jpg?alt=media',
+	trailer_url: '6z1BoUbB-fs',
+	createdAt: '2024-12-10T10:56:47.251Z',
+	updatedAt: '2024-12-10T10:56:47.251Z',
+	translations: [
+		{
+			id: '1f74f803-88e2-4d8e-a3e7-47d67585fdb8',
+			name: 'Kính Vạn Hoa',
+			description:
+				'A humorous and adventurous journey of a group of young friends as they discover fascinating aspects of life through a magical kaleidoscope.',
+			categoryLanguage: {
+				id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+				languageCode: 'en',
+			},
+		},
+		{
+			id: '93c1889c-88c3-418f-a5ab-e8ba04334c54',
+			name: 'Kính Vạn Hoa',
+			description:
+				'Một hành trình hài hước và đầy phiêu lưu của nhóm bạn trẻ khi họ khám phá những điều thú vị trong cuộc sống qua một chiếc kính vạn hoa kỳ diệu.',
+			categoryLanguage: {
+				id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+				languageCode: 'vi',
+			},
+		},
+	],
+	genres: [],
+	showTimes: [
+		{
+			id: '3869adbf-8833-4889-9bd8-b645ee4ff2ec',
+			show_time_start: '2024-12-22T12:36:00.000Z',
+			show_time_end: '2024-12-22T13:36:00.000Z',
+			price: 10000,
+			room: {
+				id: '3cefc1de-d4a8-4a61-b0b4-5623de07b44e',
+				name: 'A102',
+				screeningType: 'standard',
+				totalSeats: 50,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
+		{
+			id: '889575cd-7b99-4c4e-b065-45f7f6d6d054',
+			show_time_start: '2024-09-10T14:30:00.000Z',
+			show_time_end: '2024-09-10T17:00:00.000Z',
+			price: 150000,
+			room: {
+				id: 'a200dd9c-f7c2-4055-a8a5-2d7c3625630a',
+				name: 'A107',
+				screeningType: 'vip',
+				totalSeats: 50,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [
+					{
+						id: '11889327-e102-42d1-87e8-0f178c35c2f6',
+						row: 'A',
+						count: 10,
+					},
+					{
+						id: '8e04e51b-bfce-438c-b6f5-b2fb4f07a44c',
+						row: 'E',
+						count: 10,
+					},
+					{
+						id: '96ea1554-677d-463d-9a6d-3c72f62684e4',
+						row: 'D',
+						count: 10,
+					},
+					{
+						id: 'bf3f1f99-f098-4c64-96bb-e175c85e547e',
+						row: 'B',
+						count: 10,
+					},
+					{
+						id: 'cbaf5568-f70d-4892-867c-32e47b53ae4c',
+						row: 'C',
+						count: 10,
+					},
+				],
+			},
+		},
+		{
+			id: '9137b829-38ec-424e-8a60-00f0ed0bd856',
+			show_time_start: '2024-12-21T11:34:00.000Z',
+			show_time_end: '2024-12-21T12:34:00.000Z',
+			price: 10000,
+			room: {
+				id: '1a09985f-08fe-4d99-bd74-b7233c77e6fc',
+				name: 'A105',
+				screeningType: '3d',
+				totalSeats: 50,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
+		{
+			id: 'a55e4322-ed0d-49ac-8f5f-61a7da49e7bf',
+			show_time_start: '2024-12-20T08:30:00.000Z',
+			show_time_end: '2024-12-20T08:30:00.000Z',
+			price: 50000,
+			room: {
+				id: 'b2dc6f7b-0863-4fed-baeb-6ea8f96097f3',
+				name: 'A103',
+				screeningType: 'imax',
+				totalSeats: 50,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
+		{
+			id: 'a8b2df63-3c5f-462d-a095-baebd56e5b8f',
+			show_time_start: '2024-12-21T15:35:00.000Z',
+			show_time_end: '2024-12-21T16:35:00.000Z',
+			price: 10000,
+			room: {
+				id: 'f45742c5-897e-4cd2-a14a-16705169c41d',
+				name: 'A106',
+				screeningType: '3d',
+				totalSeats: 30,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
+	],
+	comments: [
+		{
+			id: '4e544841-158d-4997-9f63-c7726ba46453',
+			rating: 10,
+			comment: 'good',
+			createdAt: '2024-12-19T02:09:15.582Z',
+			user: {
+				id: 'a31e7721-aec5-4ec5-b65b-dd96516732d6',
+				firstName: 'Minh ',
+				lastName: 'Trí',
+				email: '20522047@gm.uit.edu.vn',
+				avatar: null,
+			},
+		},
+	],
+};

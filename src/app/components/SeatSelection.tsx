@@ -107,20 +107,20 @@ import { io, Socket } from 'socket.io-client';
 interface SeatMaps {
 	row: string;
 	count: number;
-	type: string;
 	seatmapid: number;
 }
 
 interface SeatMapProps {
 	seatMap: SeatMaps[];
+	selectedSeats: string[]; // Update the interface to include selectedSeats
+	setSelectedSeats: React.Dispatch<React.SetStateAction<string[]>>; // Add setter for selected seats
 }
 
 const socket: Socket = io('http://localhost:5000', {
 	// You can add authentication or other options here if needed
 });
 
-const SeatSelection: FC<SeatMapProps> = ({ seatMap }) => {
-	const [selectedSeats, setSelectedSeats] = useState<string[]>([]); // Seats selected by the current user
+const SeatSelection: FC<SeatMapProps> = ({ seatMap, selectedSeats, setSelectedSeats }) => {
 	const [bookedSeats, setBookedSeats] = useState<string[]>([]); // Seats booked by anyone
 	const [userSelectedSeats, setUserSelectedSeats] = useState<Map<string, string[]>>(new Map()); // Track selected seats for other users
 
@@ -181,7 +181,7 @@ const SeatSelection: FC<SeatMapProps> = ({ seatMap }) => {
 
 	return (
 		<div className='p-4'>
-			{seatMap.map(({ row, count, type }) => (
+			{seatMap.map(({ row, count }) => (
 				<div key={row} className='mb-4 flex items-center justify-center gap-2'>
 					<p className='mb-2 text-lg font-bold'>{row}</p>
 					<div className='flex items-center gap-4'>
@@ -198,14 +198,12 @@ const SeatSelection: FC<SeatMapProps> = ({ seatMap }) => {
 									key={seatLabel}
 									className={`h-12 w-12 rounded p-2 ${
 										isBooked
-											? 'bg-graySeatBlock cursor-not-allowed text-white' // Seat is booked, cannot be selected
+											? 'cursor-not-allowed bg-graySeatBlock text-white' // Seat is booked, cannot be selected
 											: isSelected
 												? 'bg-pinkSeat text-white' // Pink for the current user's selection
 												: isUserSelected
 													? 'bg-yellowSeatPick text-white' // Yellow for other users' selections (non-clickable)
-													: `${
-															type === 'vip' ? 'bg-redSeatVip' : 'bg-purpleSeatStandard'
-														} hover:bg-gray-400`
+													: `hover:bg-gray-400`
 									} transition-colors`}
 									onClick={() => {
 										// Only allow the user to select/unselect their own seat (no action for yellow seats)
