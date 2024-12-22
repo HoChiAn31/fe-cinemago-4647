@@ -30,18 +30,38 @@ const EditMovieGenrePage = () => {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
+
+		// Ensure movieGenre is not null
+		if (!movieGenre) return;
+
+		// Determine which language is being updated based on the 'name' field
+		const languageCode = name.includes('en') ? 'en' : 'vi'; // Assuming 'name' includes language code (e.g., 'name_en', 'name_vi')
+
 		setMovieGenre((prevState) => {
 			if (!prevState) return null;
+
+			// Update the correct translation based on the language
+			const updatedTranslations = prevState.movieGenreTranslation.map((translation) =>
+				translation.categoryLanguage.languageCode === languageCode
+					? {
+							...translation,
+							[name.split('_')[0]]: value, // Dynamically update name or description
+						}
+					: translation,
+			);
+
 			return {
 				...prevState,
-				[name]: value,
+				movieGenreTranslation: updatedTranslations,
 			};
 		});
 	};
 
 	const handleEditMovieGenre = async () => {
+		console.log(movieGenre);
 		setIsEditing(true);
-		const updatePromise = axios.put(`http://localhost:5000/movie-genres/${id}`, movieGenre);
+
+		const updatePromise = axios.patch(`http://localhost:5000/movie-genres/${id}`, movieGenre);
 
 		toast.promise(
 			updatePromise,
@@ -79,7 +99,7 @@ const EditMovieGenrePage = () => {
 				isOpen
 				isBack
 				onChangeBack={() => router.back()}
-				title={'Chi tiết thể loại'}
+				// title={'Chi tiết thể loại'}
 				titleOpen='Cập nhật'
 				onChange={handleEditMovieGenre}
 			/>

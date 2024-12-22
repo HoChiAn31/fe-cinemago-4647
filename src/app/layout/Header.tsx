@@ -109,9 +109,9 @@ const Header: FC = () => {
 							/>
 							<NavItem
 								type='navHeader'
-								href='/schedule'
+								href='/showtimes'
 								label={t('schedule')}
-								isActive={pathname === `/${locale}/schedule`}
+								isActive={pathname === `/${locale}/showtimes`}
 							/>
 							<NavItem
 								type='navHeader'

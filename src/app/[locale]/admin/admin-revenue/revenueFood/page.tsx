@@ -1,7 +1,7 @@
 'use client';
 import BarCharts from '@/app/components/Charts/BarCharts';
 import { chartFoodRevenue, chartFoodQuantity } from '@/app/components/Charts/ChartConfig';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 const revenueFoodPage: FC = () => {
 	return (
