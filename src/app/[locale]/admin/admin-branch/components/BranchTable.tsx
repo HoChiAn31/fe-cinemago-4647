@@ -47,54 +47,64 @@ const BranchTable: React.FC<BranchTableProps> = ({
 					</tr>
 				</thead>
 				<tbody>
-					{branches.map((branch, index) => (
-						<tr key={branch.id} className='border-b border-gray1'>
-							<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>
-							<td className='border-r border-gray1 p-3'>
-								{branch.translations
-									.filter((translation) => translation.languageCode === locale)
-									.map((translation) => translation.name)}
-							</td>
+					{isLoading ? (
+						<>
+							{branches.map((branch, index) => (
+								<tr key={branch.id} className='border-b border-gray1'>
+									<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>
+									<td className='border-r border-gray1 p-3'>
+										{branch.translations
+											.filter((translation) => translation.languageCode === locale)
+											.map((translation) => translation.name)}
+									</td>
 
-							<td className='border-r border-gray1 p-3'>
-								{branch.translations
-									.filter((translation) => translation.languageCode === locale)
-									.map((translation) => translation.address)}
-							</td>
-							{/* Adjust as needed */}
-							<td>
-								<div className='flex items-center justify-center gap-2'>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='warning'
-											onPress={() => {
-												router.push(`/${locale}/admin/admin-branch/${branch.id}`);
-											}}
-											isIconOnly
-											radius='sm'
-										>
-											<Pencil className='text-white' height={20} width={20} />
-										</Button>
-									</div>
-									<div className='flex items-center justify-center'>
-										<Button
-											color='danger'
-											onPress={() => {
-												setBranchToDelete(branch);
-												onDeleteOpen();
-											}}
-											isIconOnly
-											radius='sm'
-											variant='bordered'
-											className='border'
-										>
-											<Trash2 height={20} width={20} />
-										</Button>
-									</div>
-								</div>
+									<td className='border-r border-gray1 p-3'>
+										{branch.translations
+											.filter((translation) => translation.languageCode === locale)
+											.map((translation) => translation.address)}
+									</td>
+									{/* Adjust as needed */}
+									<td>
+										<div className='flex items-center justify-center gap-2'>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='warning'
+													onPress={() => {
+														router.push(`/${locale}/admin/admin-branch/${branch.id}`);
+													}}
+													isIconOnly
+													radius='sm'
+												>
+													<Pencil className='text-white' height={20} width={20} />
+												</Button>
+											</div>
+											<div className='flex items-center justify-center'>
+												<Button
+													color='danger'
+													onPress={() => {
+														setBranchToDelete(branch);
+														onDeleteOpen();
+													}}
+													isIconOnly
+													radius='sm'
+													variant='bordered'
+													className='border'
+												>
+													<Trash2 height={20} width={20} />
+												</Button>
+											</div>
+										</div>
+									</td>
+								</tr>
+							))}
+						</>
+					) : (
+						<tr>
+							<td colSpan={4} className='overflow-hidden border-b border-gray1 p-3 text-center'>
+								<Loading />
 							</td>
 						</tr>
-					))}
+					)}
 				</tbody>
 			</table>
 		</div>

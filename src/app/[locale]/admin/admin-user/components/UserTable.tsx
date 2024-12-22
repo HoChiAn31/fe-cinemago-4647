@@ -62,6 +62,7 @@ const UserTable: React.FC<UserTableProps> = ({
 												}}
 												isIconOnly
 												radius='sm'
+												size='sm'
 											>
 												<Pencil className='text-white' height={20} width={20} />
 											</Button>
@@ -77,6 +78,7 @@ const UserTable: React.FC<UserTableProps> = ({
 												radius='sm'
 												variant='bordered'
 												className='border'
+												size='sm'
 											>
 												<Trash2 height={20} width={20} />
 											</Button>

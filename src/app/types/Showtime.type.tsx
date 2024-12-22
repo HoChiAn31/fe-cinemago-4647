@@ -20,6 +20,11 @@ interface Room {
 	screeningType: string;
 	totalSeats: number;
 	branch: Branch;
+	seatMaps: {
+		id: string;
+		row: string;
+		count: number;
+	}[];
 }
 
 export interface Showtime {

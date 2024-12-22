@@ -1,6 +1,6 @@
 'use client';
-import { Button, Image, Input, Spinner } from '@nextui-org/react';
-import { Movies } from '../types'; // Import the Movie type
+import { Button, Image, Input, Spinner, Checkbox } from '@nextui-org/react';
+import { Genre, MovieDetails, Movies } from '../types'; // Import the Movie type
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -14,8 +14,10 @@ const EditMoviePage = () => {
 	const toastT = useTranslations('AdminToast');
 	const params = useParams();
 	const id = params.id as string;
-	const [movie, setMovie] = useState<Movies | null>(null);
-	const [isTrue, setIsTrue] = useState<boolean>(true);
+	const [genres, setGenres] = useState<Genre[]>([]);
+
+	const [movie, setMovie] = useState<MovieDetails | null>(null);
+	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 	const [isEditing, setIsEditing] = useState(false);
 	const router = useRouter();
 	const locale = useLocale();
@@ -24,12 +26,33 @@ const EditMoviePage = () => {
 		const fetchBranch = async () => {
 			const response = await fetch(`http://localhost:5000/movies/${id}`);
 			const data = await response.json();
-
+			console.log(data);
+			if (data?.genres) {
+				setSelectedGenres(data.genres.map((genre: any) => genre.id));
+			}
 			setMovie(data);
 		};
 		fetchBranch();
 	}, [id]);
 
+	useEffect(() => {
+		// Fetch categories and genres
+		const fetchData = async () => {
+			try {
+				const genreResponse = await axios.get('http://localhost:5000/movie-genres', {
+					params: {
+						page: 1,
+						items_per_page: 100,
+					},
+				});
+
+				setGenres(genreResponse.data.data);
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		};
+		fetchData();
+	}, []);
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setMovie((prevState) => {
@@ -39,6 +62,11 @@ const EditMoviePage = () => {
 				[name]: value,
 			};
 		});
+	};
+	const handleGenreChange = (genreId: string) => {
+		setSelectedGenres((prev) =>
+			prev.includes(genreId) ? prev.filter((id) => id !== genreId) : [...prev, genreId],
+		);
 	};
 	const handleTranslationChange = (
 		langId: string,
@@ -56,39 +84,28 @@ const EditMoviePage = () => {
 			return { ...prevState, translations: updatedTranslations };
 		});
 	};
-	// const handleAddMovie = async () => {
-	// 	setIsEditing(true);
 
-	// 	toast.loading('Added successfully.');
-	// 	try {
-	// 		const response = await axios.put(`http://localhost:5000/moviess/${id}`, movie);
-	// 		console.log('API Response:', response.data.affected);
-
-	// 		if (response.data.affected === 1) {
-	// 			toast.success('Added successfully.');
-	// 			setTimeout(() => {
-	// 				router.push(`/${locale}/admin/admin-movie/`);
-	// 			}, 3000);
-	// 		} else {
-	// 			toast.error('Add failed. Please try again.', {
-	// 				duration: 3000,
-	// 			});
-	// 		}
-	// 	} catch (error) {
-	// 		// console.error('Error adding movie:', error);
-	// 		toast.error('An error occurred. Please try again.', {
-	// 			duration: 3000,
-	// 		});
-	// 	} finally {
-	// 		setIsEditing(false);
-	// 	}
-	// };
-	// ... existing code ...
-
-	const handleAddMovie = async () => {
+	const handleEditMovie = async () => {
 		setIsEditing(true);
 
-		const updatePromise = axios.put(`http://localhost:5000/movies/${id}`, movie);
+		const dataMovie = {
+			...movie,
+		};
+		const updateMovieData = {
+			director: movie?.director,
+			cast: movie?.cast,
+			releaseDate: movie?.releaseDate,
+			duration: movie?.duration,
+			language: movie?.language,
+			country: movie?.country,
+			rating: movie?.rating,
+			poster_url: movie?.poster_url,
+			trailer_url: movie?.trailer_url,
+			translations: movie?.translations,
+			genres: selectedGenres.map((genreId) => ({ id: genreId })),
+		};
+		console.log(updateMovieData);
+		const updatePromise = axios.patch(`http://localhost:5000/movies/${id}`, updateMovieData);
 
 		toast.promise(
 			updatePromise,
@@ -120,13 +137,26 @@ const EditMoviePage = () => {
 		}
 	};
 
-	// ... existing code ...
-
 	return (
 		<div className='p-4'>
-			<ManagementHeader isOpen={true} onChange={() => router.back()} />
+			<ManagementHeader
+				isOpen
+				isBack
+				onChangeBack={() => router.back()}
+				title='Chi tiết'
+				titleOpen={isEditing ? <Spinner size='sm' /> : t('addMovie')}
+				onChange={handleEditMovie}
+			/>
 			<div className='space-y-4'>
-				<Image src={movie?.poster_url} alt={movie?.director} height={120} width={120} />
+				<Image
+					src={
+						movie?.poster_url ||
+						'https://drive-in-theatre.netlify.app/movieImages/default-movie.png'
+					}
+					alt={movie?.director}
+					height={120}
+					width={120}
+				/>
 
 				<Input
 					fullWidth
@@ -246,16 +276,38 @@ const EditMoviePage = () => {
 						/>
 					</>
 				))}
-
-				<Button
-					onClick={handleAddMovie}
+				{/* Handle genres */}
+				{genres.length > 0 && (
+					<>
+						<div className='flex items-center'>
+							<span className='mr-2 font-semibold'>{t('genres')}:</span>
+						</div>
+						<div className='flex flex-wrap gap-2'>
+							{genres.map((genre) =>
+								genre.movieGenreTranslation
+									.filter((genres) => genres.categoryLanguage.languageCode === locale)
+									.map((genres) => (
+										<Checkbox
+											key={genre.id}
+											isSelected={selectedGenres.includes(genre.id)}
+											onChange={() => handleGenreChange(genre.id)}
+										>
+											{genres.name}
+										</Checkbox>
+									)),
+							)}
+						</div>
+					</>
+				)}
+				{/* <Button
+					onClick={handleEditMovie}
 					type='submit'
 					color='primary'
 					isDisabled={isEditing}
 					fullWidth
 				>
 					{isEditing ? <Spinner size='sm' /> : t('addMovie')}
-				</Button>
+				</Button> */}
 			</div>
 			<Toaster />
 		</div>

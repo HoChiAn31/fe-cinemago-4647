@@ -78,7 +78,7 @@ const EditBranchPage = () => {
 
 	return (
 		<div className='p-4'>
-			<ManagementHeader isOpen={true} onChange={() => router.back()} />
+			<ManagementHeader isBack={true} onChange={() => router.back()} />
 			<div className='space-y-4'>
 				<Input
 					fullWidth

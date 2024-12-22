@@ -1,10 +1,11 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { MovieData } from '@/app/types/MovieDetail.type';
 import { useParams } from 'next/navigation';
 import Image from '@/app/components/Image';
+import SeatSelection from '@/app/components/SeatSelection';
 
 const movieData: MovieData = {
 	id: '047c527d-7005-4609-9d21-c16e07e907ce',
@@ -78,6 +79,7 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [],
 			},
 		},
 		{
@@ -114,9 +116,146 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [
+					{
+						id: '11889327-e102-42d1-87e8-0f178c35c2f6',
+						row: 'A',
+						count: 10,
+					},
+					{
+						id: '8e04e51b-bfce-438c-b6f5-b2fb4f07a44c',
+						row: 'E',
+						count: 10,
+					},
+					{
+						id: '96ea1554-677d-463d-9a6d-3c72f62684e4',
+						row: 'D',
+						count: 10,
+					},
+					{
+						id: 'bf3f1f99-f098-4c64-96bb-e175c85e547e',
+						row: 'B',
+						count: 10,
+					},
+					{
+						id: 'cbaf5568-f70d-4892-867c-32e47b53ae4c',
+						row: 'C',
+						count: 10,
+					},
+				],
 			},
 		},
-		// Các suất chiếu khác...
+		{
+			id: '9137b829-38ec-424e-8a60-00f0ed0bd856',
+			show_time_start: '2024-12-21T11:34:00.000Z',
+			show_time_end: '2024-12-21T12:34:00.000Z',
+			price: 10000,
+			room: {
+				id: '1a09985f-08fe-4d99-bd74-b7233c77e6fc',
+				name: 'A105',
+				screeningType: '3d',
+				totalSeats: 50,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
+		{
+			id: 'a55e4322-ed0d-49ac-8f5f-61a7da49e7bf',
+			show_time_start: '2024-12-20T08:30:00.000Z',
+			show_time_end: '2024-12-20T08:30:00.000Z',
+			price: 50000,
+			room: {
+				id: 'b2dc6f7b-0863-4fed-baeb-6ea8f96097f3',
+				name: 'A103',
+				screeningType: 'imax',
+				totalSeats: 50,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
+		{
+			id: 'a8b2df63-3c5f-462d-a095-baebd56e5b8f',
+			show_time_start: '2024-12-21T15:35:00.000Z',
+			show_time_end: '2024-12-21T16:35:00.000Z',
+			price: 10000,
+			room: {
+				id: 'f45742c5-897e-4cd2-a14a-16705169c41d',
+				name: 'A106',
+				screeningType: '3d',
+				totalSeats: 30,
+				branch: {
+					id: 'f33d1eca-f16b-4052-8979-ee485f5cff61',
+					email: 'cinemahbt@gmail.com',
+					translations: [
+						{
+							id: '36a24d69-a9df-45ca-b938-b6b5a02961de',
+							languageCode: 'vi',
+							name: 'Cinestar Hai Bà Trưng',
+							address: '125 Hai Bà Trưng, Quận 3',
+							categoryLanguage: {
+								id: '33348724-5aec-4f4b-8c44-4fbcab59b09d',
+							},
+						},
+						{
+							id: '4205a202-4b23-4e8f-89f5-434942ba95b0',
+							languageCode: 'en',
+							name: 'Cinestar Hai Ba Trung',
+							address: '125 Hai Ba Trung, District 3',
+							categoryLanguage: {
+								id: 'd5784fc5-3695-40e5-84ff-2456c9f6a199',
+							},
+						},
+					],
+				},
+				seatMaps: [],
+			},
+		},
 	],
 	comments: [
 		{
@@ -139,30 +278,74 @@ const BookingPage: FC = () => {
 	const locale = useLocale();
 	const param = useParams();
 	const id = param.id as string;
+	const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);
+	const [selectShowTime, setSelectShowTime] = useState<any>(null);
+	const [price, setPrice] = useState({
+		adult: {
+			price: 0,
+			quantity: 0,
+		},
+		student: {
+			price: 0,
+			quantity: 0,
+		},
+	});
+	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
+	console.log(selectedSeats);
 	const translation = movieData.translations.find(
 		(t) => t.categoryLanguage.languageCode === locale,
 	);
-
-	const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);
 
 	// Lọc danh sách các rạp (branch)
 	const branches = Array.from(
 		new Map(
 			movieData.showTimes.map((showTime) => {
 				const branch = showTime.room.branch.translations.find((t) => t.languageCode === locale);
-				return [branch?.id, branch];
+				return [branch?.id, { branch, showTimeId: showTime.room.branch.id }];
 			}),
 		).values(),
 	);
 
 	// Lọc các suất chiếu theo rạp đã chọn
 	const filteredShowTimes = selectedBranchId
-		? movieData.showTimes.filter((showTime) =>
-				showTime.room.branch.translations.some((t) => t.id === selectedBranchId),
-			)
+		? movieData.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
 		: [];
 
+	const handleSelectShowTime = (value: any) => setSelectShowTime(value);
+
+	console.log(selectShowTime);
+
+	const handleQuantityChange = (
+		type: 'adult' | 'student',
+		operation: 'increment' | 'decrement',
+	) => {
+		setPrice((prevPrice) => {
+			const newQuantity =
+				operation === 'increment' ? prevPrice[type].quantity + 1 : prevPrice[type].quantity - 1;
+			return {
+				...prevPrice,
+				[type]: {
+					...prevPrice[type],
+					quantity: Math.max(0, newQuantity), // Ensure quantity doesn't go below 0
+				},
+			};
+		});
+	};
+	useEffect(() => {
+		if (selectShowTime) {
+			setPrice({
+				adult: {
+					price: selectShowTime.price * 1.3,
+					quantity: 0, // Initialize the quantity to 0
+				},
+				student: {
+					price: selectShowTime.price,
+					quantity: 0, // Initialize the quantity to 0
+				},
+			});
+		}
+	}, [selectShowTime]);
 	return (
 		<div className='container mx-auto my-10'>
 			<div className='flex w-full'>
@@ -174,12 +357,14 @@ const BookingPage: FC = () => {
 				<h1>Danh sách rạp</h1>
 				<select
 					className='w-full rounded border px-4 py-2'
-					onChange={(e) => setSelectedBranchId(e.target.value)}
+					onChange={(e) => {
+						setSelectedBranchId(e.target.value);
+					}}
 					value={selectedBranchId || ''}
 				>
 					<option value=''>Chọn rạp</option>
-					{branches.map((branch) => (
-						<option key={branch?.id} value={branch?.id}>
+					{branches.map(({ branch, showTimeId }) => (
+						<option key={branch?.id} value={showTimeId}>
 							{branch?.name || 'Unknown Theater'}
 						</option>
 					))}
@@ -189,10 +374,9 @@ const BookingPage: FC = () => {
 			{/* Hiển thị các suất chiếu của rạp đã chọn */}
 			{selectedBranchId && filteredShowTimes.length > 0 ? (
 				<div>
-					<h2>Suất chiếu tại rạp {branches.find((b) => b?.id === selectedBranchId)?.name}</h2>
 					<ul>
 						{filteredShowTimes.map((showTime) => (
-							<li key={showTime.id}>
+							<li key={showTime.id} onClick={() => handleSelectShowTime(showTime)}>
 								{new Date(showTime.show_time_start).toLocaleString()} - {showTime.price} VND
 							</li>
 						))}
@@ -201,6 +385,44 @@ const BookingPage: FC = () => {
 			) : (
 				<p>Chưa có suất chiếu nào cho rạp này.</p>
 			)}
+
+			{/* Chon ve */}
+			<div>
+				<h1>Chon loai ve</h1>
+				{selectShowTime && (
+					<div>
+						<div>
+							<h3>Nguoi lon</h3>
+							<p>{selectShowTime.price * 1.3}</p>
+							<div>
+								<p onClick={() => handleQuantityChange('adult', 'increment')}>+</p>
+								<p>{price.adult.quantity}</p>
+								<p onClick={() => handleQuantityChange('adult', 'decrement')}>-</p>
+							</div>
+						</div>
+						<div>
+							<h3>HSSV</h3>
+							<p>{selectShowTime.price}</p>
+							<div>
+								<p onClick={() => handleQuantityChange('student', 'increment')}>+</p>
+								<p>{price.student.quantity}</p>
+								<p onClick={() => handleQuantityChange('student', 'decrement')}>-</p>
+							</div>
+						</div>
+					</div>
+				)}
+			</div>
+			<div>
+				{price.adult.quantity > 0 && (
+					<div>
+						<SeatSelection
+							seatMap={selectShowTime.room.seatMaps}
+							selectedSeats={selectedSeats} // Pass selectedSeats prop
+							setSelectedSeats={setSelectedSeats} // Pass the setter function for selected seats
+						/>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

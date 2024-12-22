@@ -81,6 +81,7 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 													radius='sm'
 													variant='bordered'
 													className='border'
+													size='sm'
 												>
 													<Trash2 height={20} width={20} />
 												</Button>

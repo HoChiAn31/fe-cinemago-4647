@@ -73,7 +73,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
 											movie.translations.length > 0 &&
 											(() => {
 												const translation = movie.translations.find(
-													(t) => t.categoryLanguage && t.categoryLanguage.languageCode === 'en',
+													(t) => t.categoryLanguage && t.categoryLanguage.languageCode === locale,
 												);
 												return translation ? translation.name : movie.translations[0].name;
 											})()}
