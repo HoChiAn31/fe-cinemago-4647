@@ -8,6 +8,7 @@ interface LinksProps extends LinkProps {
 	children: React.ReactNode;
 	className?: string;
 	hover?: string;
+	disabled?: boolean;
 	size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
 }
 

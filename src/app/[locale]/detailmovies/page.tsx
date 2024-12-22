@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
@@ -81,6 +81,7 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [],
 			},
 		},
 		{
@@ -117,6 +118,13 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [
+					{
+						id: '11889327-e102-42d1-87e8-0f178c35c2f6',
+						row: 'A',
+						count: 10,
+					},
+				],
 			},
 		},
 		{
@@ -153,6 +161,7 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [],
 			},
 		},
 		{
@@ -189,6 +198,7 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [],
 			},
 		},
 		{
@@ -225,6 +235,7 @@ const movieData: MovieData = {
 						},
 					],
 				},
+				seatMaps: [],
 			},
 		},
 	],
@@ -264,6 +275,7 @@ const MovieDetailPage: React.FC = () => {
 	} | null>(null);
 	const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
 	const dotsRef = React.useRef<HTMLDivElement | null>(null);
+	const [formattedDate, setFormattedDate] = useState<string | null>(null);
 
 	const handlePopupToggle = (commentId: string) => {
 		if (dotsRef.current) {
@@ -293,13 +305,18 @@ const MovieDetailPage: React.FC = () => {
 			setEditedComment(null);
 		}
 	};
-	console.log(isPopupOpen);
+
 	const handleDelete = (commentId: string) => {
 		const updatedComments = movieData.comments.filter((comment) => comment.id !== commentId);
 		movieData.comments = updatedComments;
 		localStorage.setItem('movieData', JSON.stringify(movieData));
 		setIsPopupOpen(null);
 	};
+
+	useEffect(() => {
+		const date = new Date(movieData.releaseDate);
+		setFormattedDate(date.toLocaleDateString());
+	}, []);
 
 	return (
 		<div className='min-h-screen text-white'>
@@ -323,9 +340,13 @@ const MovieDetailPage: React.FC = () => {
 								<p>
 									{t('labels.cast')}: {movieData.cast}
 								</p>
-								<p>
-									{t('labels.releaseDate')}: {new Date(movieData.releaseDate).toLocaleDateString()}
-								</p>
+								{formattedDate ? (
+									<p>
+										{t('labels.releaseDate')}: {formattedDate}
+									</p>
+								) : (
+									<p>''</p>
+								)}
 								<p>
 									{t('labels.duration')}: {movieData.duration} {t('labels.minutes')}
 								</p>
