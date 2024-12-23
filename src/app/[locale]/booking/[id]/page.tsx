@@ -150,6 +150,7 @@ const BookingPage: FC = () => {
 	};
 
 	useEffect(() => {
+		console.log(selectedBranchId);
 		if (selectedBranchId) {
 			setSelectedDate(null);
 			setSelectShowTime(null);

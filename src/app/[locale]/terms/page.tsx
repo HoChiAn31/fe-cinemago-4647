@@ -3,7 +3,7 @@
 import React, { FC } from 'react';
 import { useLocale } from 'next-intl';
 
-const ContactPage: FC = () => {
+const TransactionTermsPage: FC = () => {
 	const locale = useLocale();
 
 	return (
@@ -11,38 +11,67 @@ const ContactPage: FC = () => {
 			<div className='mx-4 flex flex-col items-center justify-center gap-10 md:mx-0'>
 				<div className='flex w-full flex-col items-center justify-center gap-5'>
 					<h1 className='mx-5 text-center text-4xl font-extrabold uppercase md:mx-0'>
-						{locale === 'vi' ? 'Quy định chung' : 'General Regulations'}
+						{locale === 'vi' ? 'Điều khoản giao dịch' : 'Transaction Terms'}
 					</h1>
 					<div className='flex flex-col gap-2'>
-						<p>
+						<p className='text-md'>
 							{locale === 'vi'
-								? 'Chào mừng và cảm ơn Quý Khách Hàng đã đến với website: cinemago.com.vn thuộc quyền sở hữu và quản lý của Công ty Cổ phần Giải trí – Phát hành phim – Rạp chiếu phim Cinemago tại địa chỉ: 135 Hai Bà Trưng, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh.'
-								: 'Welcome and thank you for visiting the website: cinemago.com.vn, owned and operated by Cinemago Entertainment – Film Distribution – Cinema Joint Stock Company located at 135 Hai Bà Trưng, Ben Nghe Ward, District 1, Ho Chi Minh City.'}
+								? 'Cinemago cam kết cung cấp dịch vụ tốt nhất cho khách hàng. Điều khoản giao dịch này quy định các quyền và nghĩa vụ của khách hàng khi sử dụng các dịch vụ của Cinemago.'
+								: 'Cinemago is committed to providing the best services to customers. These transaction terms outline the rights and obligations of customers when using Cinemago services.'}
 						</p>
-						<p>
+						<p className='text-md'>
 							{locale === 'vi'
-								? 'Website này được sử dụng cho các hoạt động của Cinemago, các chi nhánh phụ thuộc, các công ty con, công ty thành viên và các tổ chức liên quan do Cinemago góp vốn đầu tư (được gọi chung là Cinemago trong quy định chung này).'
-								: 'This website is used for the operations of Cinemago, its dependent branches, subsidiaries, affiliates, and related organizations funded by Cinemago (collectively referred to as Cinemago in these general regulations).'}
+								? 'Khi thực hiện giao dịch trên website Cinemago, Quý Khách Hàng đồng ý tuân thủ các điều khoản và điều kiện được nêu dưới đây.'
+								: 'By conducting transactions on the Cinemago website, you agree to comply with the terms and conditions outlined below.'}
 						</p>
-						<p>
+						<p className='text-md'>
 							{locale === 'vi'
-								? 'Khi truy cập vào đường dẫn: http://www.cinemago.com.vn, Quý Khách Hàng phải có độ tuổi phù hợp theo quy định của pháp luật. Trường hợp Quý Khách Hàng là trẻ em, người chưa thành niên, vui lòng chỉ truy cập website sau khi có sự đồng ý của người giám hộ hợp pháp.'
-								: 'When accessing the link: http://www.cinemago.com.vn, customers must meet the legal age requirements. If you are a child or minor, please only access the website with the consent of a legal guardian.'}
+								? 'Mọi giao dịch thanh toán, đổi/trả vé hoặc dịch vụ khác sẽ được thực hiện theo quy định hiện hành của Cinemago.'
+								: 'All payment transactions, ticket exchanges/returns, or other services will be carried out in accordance with Cinemago’s current regulations.'}
 						</p>
-						<p>
+						<p className='text-md'>
 							{locale === 'vi'
-								? 'Bằng việc truy cập, sử dụng, thao tác trên website, Quý Khách Hàng đã chấp nhận toàn bộ nội dung của Quy Định Chung và các chính sách bổ sung liên tục cập nhật của Cinemago. Trường hợp Quý Khách Hàng không đồng ý với các điều khoản chung này, vui lòng không sử dụng website.'
-								: 'By accessing, using, or interacting with the website, you accept all the content of the General Regulations and continuously updated policies of Cinemago. If you do not agree with these general terms, please do not use the website.'}
+								? 'Khách hàng cần cung cấp thông tin chính xác khi thực hiện giao dịch. Cinemago không chịu trách nhiệm đối với các sai sót do khách hàng cung cấp thông tin không chính xác.'
+								: 'Customers must provide accurate information when conducting transactions. Cinemago is not responsible for errors caused by inaccurate information provided by customers.'}
+						</p>
+						<p className='text-md'>
+							{locale === 'vi'
+								? 'Trường hợp có tranh chấp, hai bên sẽ cố gắng giải quyết thông qua thương lượng. Nếu không đạt được thỏa thuận, tranh chấp sẽ được giải quyết theo quy định của pháp luật Việt Nam.'
+								: 'In case of disputes, both parties will attempt to resolve them through negotiation. If no agreement is reached, disputes will be resolved in accordance with Vietnamese law.'}
 						</p>
 					</div>
 				</div>
 
-				<div>
-					<h1>Điều khoản giao dịch</h1>
+				<div className='flex w-full flex-col items-center justify-center gap-5'>
+					<h2 className='mx-5 text-center text-2xl font-bold uppercase md:mx-0'>
+						{locale === 'vi' ? 'Quy định chi tiết' : 'Detailed Regulations'}
+					</h2>
+					<div className='flex flex-col gap-2'>
+						<p className='text-md'>
+							{locale === 'vi'
+								? '1. Khách hàng có trách nhiệm kiểm tra thông tin giao dịch trước khi xác nhận.'
+								: '1. Customers are responsible for checking transaction information before confirmation.'}
+						</p>
+						<p className='text-md'>
+							{locale === 'vi'
+								? '2. Vé đã mua không được hoàn trả trừ trường hợp Cinemago có thông báo khác.'
+								: '2. Purchased tickets are non-refundable unless otherwise notified by Cinemago.'}
+						</p>
+						<p className='text-md'>
+							{locale === 'vi'
+								? '3. Cinemago bảo lưu quyền từ chối cung cấp dịch vụ nếu phát hiện hành vi vi phạm quy định.'
+								: '3. Cinemago reserves the right to refuse service if violations of regulations are detected.'}
+						</p>
+						<p className='text-md'>
+							{locale === 'vi'
+								? '4. Khách hàng cần tuân thủ các quy định tại rạp chiếu phim khi sử dụng dịch vụ.'
+								: '4. Customers must comply with cinema regulations when using services.'}
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default ContactPage;
+export default TransactionTermsPage;
