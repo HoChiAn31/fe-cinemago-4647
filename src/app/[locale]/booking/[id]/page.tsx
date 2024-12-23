@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { MovieData } from '@/app/types/MovieDetail.type';
 import { Showtime } from '@/app/types/Showtime.type';
 import { useParams, usePathname } from 'next/navigation';
@@ -17,9 +17,10 @@ const BookingPage: FC = () => {
 	const locale = useLocale();
 	const param = useParams();
 	const pathname = usePathname();
+	const t = useTranslations('Booking');
 	const id = param.id as string;
 	const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);
-  const [selectShowTime, setSelectShowTime] = useState<Showtime | null>(null);
+	const [selectShowTime, setSelectShowTime] = useState<Showtime | null>(null);
 	const [showTicketSelection, setShowTicketSelection] = useState(false);
 	const [price, setPrice] = useState({
 		adult: {
@@ -32,7 +33,7 @@ const BookingPage: FC = () => {
 		},
 	});
 	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
+	const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
 	const totalTickets = price.adult.quantity + price.student.quantity;
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -59,7 +60,7 @@ const BookingPage: FC = () => {
 			movie: translation?.name,
 			branch:
 				branches.find((branch) => branch.showTimeId === selectedBranchId)?.branch?.name ||
-				'Chưa chọn rạp',
+				t('noSelected'),
 			showTime: selectShowTime ? new Date(selectShowTime.show_time_start).toLocaleString() : '',
 			seats: selectedSeats,
 			quantities,
@@ -67,13 +68,13 @@ const BookingPage: FC = () => {
 		};
 		localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 	};
-  
+
 	const translation = movieData.translations.find(
 		(t) => t.categoryLanguage.languageCode === locale,
 	);
 
 	// Lọc danh sách các rạp (branch)
-const branches = movie
+	const branches = movie
 		? Array.from(
 				new Map(
 					movie.showTimes.map((showTime) => {
@@ -88,8 +89,8 @@ const branches = movie
 	const filteredShowTimes = selectedBranchId
 		? movieData.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
 		: [];
-  
-  const groupByDate = (showTimes: Showtime[]) => {
+
+	const groupByDate = (showTimes: Showtime[]) => {
 		return showTimes.reduce(
 			(groups, showTime) => {
 				const date = new Date(showTime.show_time_start);
@@ -130,8 +131,6 @@ const branches = movie
 		setSelectedDate(date);
 		setSelectShowTime(null);
 	};
-  
-  const handleSelectShowTime = (value: any) => setSelectShowTime(value);
 
 	const handleQuantityChange = (
 		type: 'adult' | 'student',
@@ -219,9 +218,9 @@ const branches = movie
 
 			{/* Chọn rạp */}
 			<div className='flex flex-col items-center justify-center gap-8'>
-				<h1 className='text-5xl font-extrabold uppercase'>Chọn rạp phim</h1>
+				<h1 className='text-5xl font-extrabold uppercase'>{t('branch')}</h1>
 				<select
-          className='w-full rounded border px-4 py-5 text-lg'
+					className='w-full rounded border px-4 py-5 text-lg'
 					onChange={(e) => {
 						const selectedBranch = e.target.value;
 						setSelectedBranchId(selectedBranch);
@@ -231,10 +230,10 @@ const branches = movie
 					}}
 					value={selectedBranchId || ''}
 				>
-					<option value=''>Chọn rạp</option>
+					<option value=''>{t('optionBranch')}</option>
 					{branches.map(({ branch, showTimeId }) => (
-            <option key={branch?.id} value={showTimeId} className='text-lg'>
-							{branch?.name || 'Unknown Theater'}
+						<option key={branch?.id} value={showTimeId} className='text-lg'>
+							{branch?.name || t('noNameBranch')}
 						</option>
 					))}
 				</select>
@@ -297,7 +296,7 @@ const branches = movie
 							</div>
 						</div>
 					) : (
-						<p>Chưa có suất chiếu nào cho ngày này.</p>
+						<p>{t('noShowtime')}</p>
 					)}
 				</div>
 			)}
@@ -306,10 +305,10 @@ const branches = movie
 			<div>
 				{showTicketSelection && selectShowTime && (
 					<div className='flex flex-col items-center justify-center gap-5'>
-						<h1 className='text-5xl font-extrabold uppercase'>Chọn loại vé</h1>
+						<h1 className='text-5xl font-extrabold uppercase'>{t('ticket')}</h1>
 						<div className='flex gap-40 text-xl'>
 							<div className='group flex flex-col items-center justify-center gap-5 rounded border p-5 px-20'>
-								<h3 className='text-2xl font-bold group-hover:text-primary'>Người lớn</h3>
+								<h3 className='text-2xl font-bold group-hover:text-primary'>{t('adult')}</h3>
 								<p>{selectShowTime.price * 1.3} VND</p>
 								<div className='flex items-center justify-center gap-5 rounded bg-slate-400'>
 									<p
@@ -329,7 +328,7 @@ const branches = movie
 							</div>
 
 							<div className='group flex flex-col items-center justify-center gap-5 rounded border p-5 px-20'>
-								<h3 className='text-2xl font-bold group-hover:text-primary'>HSSV</h3>
+								<h3 className='text-2xl font-bold group-hover:text-primary'>{t('student')}</h3>
 								<p>{selectShowTime.price} VND</p>
 								<div className='flex items-center justify-center gap-5 rounded bg-slate-400'>
 									<p
@@ -355,7 +354,8 @@ const branches = movie
 			{/* Chọn ghế */}
 			<div>
 				{(price.adult.quantity > 0 || price.student.quantity > 0) && (
-					<div>
+					<div className='flex flex-col items-center gap-5'>
+						<h1 className='text-5xl font-extrabold uppercase'>{t('seat')}</h1>
 						<SeatSelection
 							seatMap={selectShowTime.room.seatMaps}
 							selectedSeats={selectedSeats}
@@ -368,11 +368,14 @@ const branches = movie
 			{/* Chọn đồ ăn */}
 			<div>
 				{selectedSeats.length > 0 && (
-					<PopCornSelection
-						beverages={beverage}
-						quantities={quantities}
-						setQuantities={setQuantities}
-					/>
+					<div className='flex w-full flex-col items-center gap-5'>
+						<h1 className='text-5xl font-extrabold uppercase'>{t('food')}</h1>
+						<PopCornSelection
+							beverages={beverage}
+							quantities={quantities}
+							setQuantities={setQuantities}
+						/>
+					</div>
 				)}
 			</div>
 
@@ -389,17 +392,17 @@ const branches = movie
 					{selectedBranchId && (
 						<p className=''>
 							{branches.find((branch) => branch.showTimeId === selectedBranchId)?.branch?.name ||
-								'Chưa chọn rạp'}
+								t('noSelected')}
 							{(price.adult.quantity > 0 || price.student.quantity > 0) && ' | '}
-							{price.adult.quantity > 0 && `${price.adult.quantity} - Người lớn`}
+							{price.adult.quantity > 0 && `${price.adult.quantity} - ${t('adult')}`}
 							{price.adult.quantity > 0 && price.student.quantity > 0 && ', '}
-							{price.student.quantity > 0 && `${price.student.quantity} - HSSV`}
+							{price.student.quantity > 0 && `${price.student.quantity} ${t('student')}`}
 						</p>
 					)}
 
 					{selectedSeats.length > 0 && selectShowTime?.room?.name ? (
 						<p>
-							<strong>Phòng chiếu:</strong> {selectShowTime.room.name} | {selectedSeats.join(', ')}{' '}
+							<strong>{t('room')}:</strong> {selectShowTime.room.name} | {selectedSeats.join(', ')}{' '}
 							|{' '}
 							{new Date(selectShowTime.show_time_start).toLocaleDateString('en-GB', {
 								day: '2-digit',
@@ -413,7 +416,7 @@ const branches = movie
 							})}
 						</p>
 					) : (
-						<p>Thông tin phòng chiếu không có sẵn.</p>
+						<p>{t('noRoom')}</p>
 					)}
 
 					{Object.keys(quantities).length > 0 && (
@@ -423,7 +426,7 @@ const branches = movie
 									const product = beverage.find((b) => b.id === item);
 									const productName =
 										product?.translations.find((t) => t.categoryLanguage.languageCode === locale)
-											?.name || 'Sản phẩm không xác định';
+											?.name || t('noItem');
 									return (
 										<li key={item}>
 											{quantity} - {productName}
@@ -438,7 +441,7 @@ const branches = movie
 				{/* Giá tiền */}
 				<div className='flex flex-col items-end justify-between gap-3'>
 					<div className='flex items-center justify-between gap-10'>
-						<p className='text-sm'>Tạm tính:</p>
+						<p className='text-sm'>{t('price')}:</p>
 						<div className='flex gap-1 text-xl'>
 							<p>{totalAmount.toLocaleString() || '0'}</p>
 							<p>VND</p>
@@ -454,7 +457,7 @@ const branches = movie
 						href='/payment-pay'
 						onClick={handleSaveToLocalStorage}
 					>
-						Đặt vé
+						{t('button')}
 					</Links>
 				</div>
 			</div>

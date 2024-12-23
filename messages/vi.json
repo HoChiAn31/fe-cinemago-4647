@@ -333,6 +333,7 @@
 			"addRoom": "Thêm"
 		}
 	},
+
 	"AdminShowTimeSchedule": {
 		"table": {
 			"order": "Thứ tự",
@@ -350,7 +351,8 @@
 			"showTimeEnd": "Thời gian kết thúc",
 			"submit": "Cập nhật"
 		}
-  },
+	},
+
 	"About": {
 		"heading1": "HỆ THỐNG CỤM RẠP TRÊN TOÀN QUỐC",
 		"des1": "Cinemago là một trong những hệ thống rạp chiếu phim được yêu thích nhất tại Việt Nam, cung cấp nhiều mô hình giải trí hấp dẫn bao gồm Các Cụm Rạp Chiếu Phim hiện đại, Nhà hát, Khu vui chơi trẻ em Kidzone, Bowling, Billiards, Games, Phòng Gym và nhà hàng. Với mục tiêu trở thành điểm đến giải trí cho mọi gia đình Việt Nam, Cinemago đang được biết đến là cụm rạp ủng hộ phim Việt, góp phần phát triển điện ảnh Việt. Không chỉ chiếu các bộ phim bom tấn quốc tế, Cinemago còn đồng hành cùng các nhà làm phim Việt Nam, đưa những tác phẩm điện ảnh đặc sắc của Việt Nam đến gần hơn với khán giả.",
@@ -364,6 +366,7 @@
 		"room": "phòng chiếu với",
 		"chair": "ghế"
 	},
+
 	"Contact": {
 		"heading1": "Liên hệ với chúng tôi",
 		"headingForm": "Thông tin liên hệ",
@@ -377,5 +380,23 @@
 		"des": "Bạn hãy tận hưởng những trải nghiệm tuyệt vời tại Cinemago",
 		"room": "phòng chiếu với",
 		"chair": "ghế"
+	},
+
+	"Booking": {
+		"branch": "Chọn rạp phim",
+		"noNameBranch": "Không có rạp phim",
+		"optionBranch": "Chọn rạp",
+		"noShowtime": "Chưa có suất chiếu nào cho ngày này",
+		"ticket": "Chọn loại vé",
+		"adult": "Người lớn",
+		"student": "HSSV",
+		"seat": "Chọn ghế - Rạp ",
+		"food": "Chọn bắp nước",
+		"room": "Phòng chiếu",
+		"price": "Tạm tính",
+		"button": "Đặt vé",
+		"noSelected": "Chưa chọn rạp",
+		"noRoom": "Thông tin phòng chiếu không có sẵn",
+		"noItem": "Sản phẩm không xác định"
 	}
 }

@@ -23,7 +23,7 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, quantities, se
 
 	return (
 		<div>
-			<div className='grid grid-cols-1 items-center gap-8 sm:grid-cols-2 md:grid-cols-3'>
+			<div className='grid w-full grid-cols-1 items-center gap-16 sm:grid-cols-2 md:grid-cols-3'>
 				{beverages.map((item) => {
 					const translation = item.translations.find(
 						(t) => t.categoryLanguage.languageCode === locale,
