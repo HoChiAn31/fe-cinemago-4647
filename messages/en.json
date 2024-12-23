@@ -194,14 +194,7 @@
 			"all": "all discount and promotions",
 			"learn": "Learn more",
 			"trailer": "Watch Trailer",
-			"showTime": "See all Showtimes",
 			"buyNow": "Buy Tickets Now"
-		},
-		"rating": {
-			"t13": "Movies are allowed to be disseminated to viewers aged 13 years and over (13+)",
-			"t16": "Movies are allowed to be disseminated to viewers aged 16 years and over (16+)",
-			"t18": "Movies are allowed to be disseminated to viewers aged 18 years and over (18+)",
-			"k": "Movies are allowed to be disseminated to viewers under the age of 13 provided they are watched with a parent or guardian"
 		},
 		"label": {
 			"onGoing": "Now showing",
@@ -214,7 +207,9 @@
 			"cVipDes": "Cinemago VIP Card Offers Exclusive Benefits",
 			"option": "Entertainment Options",
 			"optionDes": "In addition to the high-quality cinema system, Cinemago also provides you with many other great types of entertainment.",
-			"date": "Premiere"
+			"date": "Premiere",
+			"update": "Not updated",
+			"minutes": "minutes"
 		}
 	},
 
