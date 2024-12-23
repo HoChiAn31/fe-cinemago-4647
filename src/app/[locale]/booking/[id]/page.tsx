@@ -49,7 +49,7 @@ const BookingPage: FC = () => {
 	const totalAmount = totalTicketPrice + totalFoodPrice;
 
 	useEffect(() => {
-		setMovie(movieData);
+		setMovie(movieData as MovieData);
 	}, []);
 
 	const handleSaveToLocalStorage = () => {
@@ -172,6 +172,23 @@ const BookingPage: FC = () => {
 	}, [selectedBranchId]);
 
 	useEffect(() => {
+		setSelectShowTime(null);
+		setSelectedSeats([]);
+		setQuantities({});
+		setPrice({
+			adult: {
+				price: 0,
+				quantity: 0,
+			},
+			student: {
+				price: 0,
+				quantity: 0,
+			},
+		});
+		setShowTicketSelection(false);
+		localStorage.removeItem('orderDetails');
+	}, [selectedDate]);
+	useEffect(() => {
 		if (selectShowTime) {
 			setSelectedSeats([]);
 			setQuantities({});
@@ -207,6 +224,9 @@ const BookingPage: FC = () => {
 			localStorage.removeItem('orderDetails');
 		}
 	}, [pathname]);
+	console.log(selectedBranchId);
+	console.log('selectShowTime', selectShowTime);
+	console.log('selectedDate', selectedDate);
 
 	return (
 		<div className='container mx-auto my-10 flex flex-col gap-10'>
@@ -354,21 +374,27 @@ const BookingPage: FC = () => {
 
 			{/* Chọn ghế */}
 			<div>
-				{(price.adult.quantity > 0 || price.student.quantity > 0) && (
-					<div className='flex flex-col items-center gap-5'>
-						<h1 className='text-5xl font-extrabold uppercase'>{t('seat')}</h1>
-						<SeatSelection
-							seatMap={selectShowTime.room.seatMaps}
-							selectedSeats={selectedSeats}
-							setSelectedSeats={setSelectedSeats}
-						/>
-					</div>
-				)}
+				{selectedBranchId
+					? (price.adult.quantity > 0 || price.student.quantity > 0) && (
+							<div className='flex flex-col items-center gap-5'>
+								<h1 className='text-5xl font-extrabold uppercase'>{t('seat')}</h1>
+								{selectShowTime?.room?.seatMaps ? (
+									<SeatSelection
+										seatMap={selectShowTime.room.seatMaps}
+										selectedSeats={selectedSeats}
+										setSelectedSeats={setSelectedSeats}
+									/>
+								) : (
+									<p className='text-gray-500 text-center text-xl'>Vui lòng chọn lịch chiếu.</p>
+								)}
+							</div>
+						)
+					: null}
 			</div>
 
 			{/* Chọn đồ ăn */}
 			<div>
-				{selectedSeats.length > 0 && (
+				{selectedBranchId && selectedSeats.length > 0 && (
 					<div className='flex w-full flex-col items-center gap-5'>
 						<h1 className='text-5xl font-extrabold uppercase'>{t('food')}</h1>
 						<PopCornSelection
@@ -401,7 +427,7 @@ const BookingPage: FC = () => {
 						</p>
 					)}
 
-					{selectedSeats.length > 0 && selectShowTime?.room?.name ? (
+					{selectedBranchId && selectedSeats.length > 0 && selectShowTime?.room?.name ? (
 						<p>
 							<strong>{t('room')}:</strong> {selectShowTime.room.name} | {selectedSeats.join(', ')}{' '}
 							|{' '}
@@ -420,7 +446,7 @@ const BookingPage: FC = () => {
 						<p>{t('noRoom')}</p>
 					)}
 
-					{Object.keys(quantities).length > 0 && (
+					{selectedBranchId && Object.keys(quantities).length > 0 && (
 						<div>
 							<ul>
 								{Object.entries(quantities).map(([item, quantity]) => {
@@ -444,7 +470,7 @@ const BookingPage: FC = () => {
 					<div className='flex items-center justify-between gap-10'>
 						<p className='text-sm'>{t('price')}:</p>
 						<div className='flex gap-1 text-xl'>
-							<p>{totalAmount.toLocaleString() || '0'}</p>
+							<p>{selectedBranchId ? totalAmount.toLocaleString() : 0}</p>
 							<p>VND</p>
 						</div>
 					</div>

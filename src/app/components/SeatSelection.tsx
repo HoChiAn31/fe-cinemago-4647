@@ -107,7 +107,7 @@ import { io, Socket } from 'socket.io-client';
 interface SeatMaps {
 	row: string;
 	count: number;
-	seatmapid: number;
+	id: number | string | null;
 }
 
 interface SeatMapProps {
@@ -226,7 +226,3 @@ const SeatSelection: FC<SeatMapProps> = ({ seatMap, selectedSeats, setSelectedSe
 };
 
 export default SeatSelection;
-
-// ${
-// 															type === 'vip' ? 'bg-redSeatVip' : 'bg-purpleSeatStandard'
-// 														}

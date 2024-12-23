@@ -5,7 +5,7 @@ interface BranchTranslation {
 	address: string;
 	categoryLanguage: {
 		id: string;
-	};
+	} | null;
 }
 
 interface Branch {
@@ -14,13 +14,18 @@ interface Branch {
 	translations: BranchTranslation[];
 }
 
+interface SeatMap {
+	id: string;
+	row: string;
+	count: number;
+}
 interface Room {
 	id: string;
 	name: string;
 	screeningType: string;
 	totalSeats: number;
 	branch: Branch;
-	seatMaps: { id: string; row: string; count: number }[];
+	seatMaps: SeatMap[] | [];
 }
 
 export interface Showtime {
