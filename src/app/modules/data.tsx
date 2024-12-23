@@ -801,8 +801,9 @@ export const movieData = {
 	poster_url:
 		'https://firebasestorage.googleapis.com/v0/b/be-cinemago-201024.appspot.com/o/movies%2F616f8c35-2d4d-4fdf-bbe1-d7180f0a30af-350x490.jpg?alt=media',
 	trailer_url: '6z1BoUbB-fs',
+	numberOfTicketsSold: 0,
 	createdAt: '2024-12-10T10:56:47.251Z',
-	updatedAt: '2024-12-10T10:56:47.251Z',
+	updatedAt: '2024-12-20T03:01:28.000Z',
 	translations: [
 		{
 			id: '1f74f803-88e2-4d8e-a3e7-47d67585fdb8',
@@ -825,7 +826,34 @@ export const movieData = {
 			},
 		},
 	],
-	genres: [],
+	genres: [
+		{
+			id: '3a70db43-caad-4fc5-b96b-6d0fb7180b80',
+			movieGenreTranslation: [
+				{
+					id: 'bac1dbe4-b7e3-45fb-b1d2-93cb8dd1a406',
+					name: 'Phiêu lưu',
+				},
+				{
+					id: 'fc9ee529-e0d2-4b48-9e2e-75abdcab5e03',
+					name: 'Adventure',
+				},
+			],
+		},
+		{
+			id: 'e147392f-f5cc-4d82-a563-f1f9f6dbf4f2',
+			movieGenreTranslation: [
+				{
+					id: '861d73db-05ec-4a8f-9a6d-4d0c087d3525',
+					name: 'Hài hước',
+				},
+				{
+					id: '9a33463a-9bba-44c4-b6ef-a0a5c05f2c93',
+					name: 'Humorous',
+				},
+			],
+		},
+	],
 	showTimes: [
 		{
 			id: '3869adbf-8833-4889-9bd8-b645ee4ff2ec',
@@ -1036,6 +1064,55 @@ export const movieData = {
 					],
 				},
 				seatMaps: [],
+			},
+		},
+		{
+			id: 'de1fd408-4129-4050-9aaf-63f35bb0df0b',
+			show_time_start: '2024-12-25T09:18:00.000Z',
+			show_time_end: '2024-12-25T10:18:00.000Z',
+			price: 1000000,
+			room: {
+				id: '689689ab-64a7-48e0-817c-20738a83709d',
+				name: 'A101',
+				screeningType: 'vip',
+				totalSeats: 30,
+				branch: {
+					id: 'd8c0406d-d1e9-43b6-9ea7-5386f1f261b6',
+					email: 'cinestar3@domain.com',
+					translations: [
+						{
+							id: '27b87d45-897d-4326-99af-1148e39e1e69',
+							languageCode: 'vi',
+							name: 'Cinestar Quận 3',
+							address: '123 Đường CMT8, Quận 3, TP.HCM',
+							categoryLanguage: null,
+						},
+						{
+							id: 'b8fd22c5-9d78-4542-8f0b-e9f51335bb0d',
+							languageCode: 'en',
+							name: 'Cinestar District 3',
+							address: '123 CMT8 Street, District 3, HCMC',
+							categoryLanguage: null,
+						},
+					],
+				},
+				seatMaps: [
+					{
+						id: '7a304c83-d107-4cb0-8d89-d1d953a4c24d',
+						row: 'A',
+						count: 10,
+					},
+					{
+						id: '9bfd1fd8-774d-4999-b21a-66f5d147a76a',
+						row: 'C',
+						count: 10,
+					},
+					{
+						id: 'fa1238ab-2232-4efd-b8ca-69b49eefc528',
+						row: 'B',
+						count: 10,
+					},
+				],
 			},
 		},
 	],

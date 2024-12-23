@@ -112,11 +112,11 @@ const SidebarAdmin: FC = () => {
 								label: t('supportRequests'), // Use translation for support requests
 								icon: <Phone height={20} width={20} />,
 							},
-							{
-								name: 'faq',
-								label: t('faq'), // Use translation for FAQ
-								icon: <FileQuestion height={20} width={20} />,
-							},
+							// {
+							// 	name: 'faq',
+							// 	label: t('faq'), // Use translation for FAQ
+							// 	icon: <FileQuestion height={20} width={20} />,
+							// },
 						]}
 					/>
 

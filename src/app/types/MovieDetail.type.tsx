@@ -14,10 +14,11 @@ export interface MovieData {
 	rating: number;
 	poster_url: string;
 	trailer_url: string;
+	numberOfTicketsSold: number;
 	createdAt: string;
 	updatedAt: string;
+	translations: Translation[];
 	genres: Genres[];
 	showTimes: Showtime[];
-	translations: Translation[];
 	comments: Comment[];
 }
