@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from './Image';
+import SampleNextArrow from './SampleNextArrow';
+import SamplePrevArrow from './SamplePrevArrow';
 import { useTheme } from '../context/ThemeContext';
 import { SliderProps } from '../types/Slider.type';
 
@@ -96,18 +98,8 @@ const Slider: React.FC<SliderProps> = ({
 			</div>
 			{showNavigation && (
 				<>
-					<button
-						onClick={prevSlide}
-						className={`hover:hover-color text-normal absolute left-[-40px] top-1/2 hidden -translate-y-1/2 transform p-2 hover:text-primary md:left-[-20px] md:text-4xl lg:left-[-50px] lg:block ${isDarkMode ? 'text-white' : 'text-black'}`}
-					>
-						&lt;
-					</button>
-					<button
-						onClick={nextSlide}
-						className={`hover:hover-color text-normal absolute right-[-40px] top-1/2 hidden -translate-y-1/2 transform p-2 hover:text-primary md:right-[-20px] md:text-4xl lg:right-[-50px] lg:block ${isDarkMode ? 'text-white' : 'text-black'}`}
-					>
-						&gt;
-					</button>
+					<SamplePrevArrow />
+					<SampleNextArrow />
 				</>
 			)}
 		</div>
