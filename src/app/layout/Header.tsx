@@ -21,6 +21,9 @@ import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import logo1 from '../Image/logo1.png';
 import { useTheme } from '../context/ThemeContext';
 import LinkUser from '../components/Header/LinkUser';
+import axios from 'axios';
+import { Movie } from '../[locale]/showtimes/type';
+import useDebounce from '../hook/useDebounce';
 
 const Header: FC = () => {
 	const pathname = usePathname();
@@ -32,12 +35,36 @@ const Header: FC = () => {
 	const t = useTranslations('LayoutHeader');
 	const router = useRouter();
 	const { isDarkMode, toggleDarkMode } = useTheme();
-
+	const [dataSearch, setDataSearch] = useState<Movie[]>([]);
+	const debouncedSearchQuery = useDebounce(valueSearch, 500);
 	const handleLogout = () => {
 		setIsLogin(false);
 		setRole('');
 		router.push(`/${locale}/`);
 	};
+	useEffect(() => {
+		axios
+			.get(`http://localhost:5000/movies?languageCode=${locale}`)
+			.then((response) => {
+				setDataSearch(response.data.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}, []);
+	useEffect(() => {
+		console.log(valueSearch);
+		if (valueSearch) {
+			axios
+				.get(`http://localhost:5000/movies?search=${valueSearch}&languageCode=${locale}`)
+				.then((response) => {
+					setDataSearch(response.data.data);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, [debouncedSearchQuery]);
 
 	const toggleMenu = () => setIsMenuOpen((prev) => !prev); // Toggle menu on mobile
 	const menuRef = useRef<HTMLDivElement | null>(null); // Create a ref for the mobile menu
@@ -54,12 +81,20 @@ const Header: FC = () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, []);
+	const handleChangeSearch = (e: any) => {
+		const value = e.target.value;
+		if (value === ' ') {
+			return;
+		}
+		console.log(value);
+		setValueSearch(value);
+	};
 	return (
 		<header
-			className={`fixed left-0 right-0 top-0 z-[48] overflow-hidden shadow ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}
+			className={`fixed left-0 right-0 top-0 z-[49] overflow-hidden shadow ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}
 		>
 			{/* Added overflow-hidden */}
-			<MaxWidth className='px-2'>
+			<MaxWidth className='relative px-2'>
 				<div className='flex items-center justify-between'>
 					{/* Logo */}
 					<div className='flex-shrink-0'>
@@ -68,7 +103,7 @@ const Header: FC = () => {
 						</Links>
 					</div>
 
-					<div className='flex lg:hidden'>
+					<div className='relative flex lg:hidden'>
 						<Input
 							className=''
 							placeholder={t('searchPlaceholder')}
@@ -342,37 +377,42 @@ const Header: FC = () => {
 										className=''
 										placeholder={t('searchPlaceholder')}
 										value={valueSearch}
-										onChange={(e) => {
-											const value = e.target.value;
-											if (value === ' ') {
-												return;
-											}
-											setValueSearch(value);
-										}}
+										onChange={handleChangeSearch}
 										isClearable
 										onClear={() => setValueSearch('')}
 									/>
 								</div>
-								<>
-									{valueSearch.length > 0 && (
-										<div className='p-4'>
-											<div className='flex items-start gap-3'>
-												<Image
-													src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTi-l_mowzkoFwpvj7_vTdhsHp0ZuLd6LnpQ&s'
-													alt=''
-													height={60}
-													width={60}
-												/>
-												<p>Marvel</p>
+								<div className='max-h-[360px] overflow-y-auto'>
+									{Array.isArray(dataSearch) &&
+										dataSearch.length > 0 &&
+										dataSearch.map((data, index) => (
+											<div className='p-4' key={index}>
+												<div className='flex items-start gap-3'>
+													<Image src={data.poster_url} alt='' height={60} width={60} />
+													<p>{data.translations.map((translation) => translation.name)}</p>
+												</div>
 											</div>
-										</div>
-									)}
-								</>
+										))}
+								</div>
 							</>
 						)}
 					</ModalContent>
 				</Modal>
 			</MaxWidth>
+			{valueSearch && (
+				<div className='z-[9999] max-h-[300px] overflow-y-auto lg:hidden'>
+					{Array.isArray(dataSearch) &&
+						dataSearch.length > 0 &&
+						dataSearch.map((data, index) => (
+							<div className='p-4' key={index}>
+								<div className='flex items-start gap-3'>
+									<Image src={data.poster_url} alt='' height={60} width={60} />
+									<p>{data.translations.map((translation) => translation.name)}</p>
+								</div>
+							</div>
+						))}
+				</div>
+			)}
 		</header>
 	);
 };
