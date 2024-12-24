@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
-import Button from './Button';
+import React from 'react';
 import Image from './Image';
 import { iconTags } from '@/app/contracts/IconTag.contract';
 import { formatDate } from '@/app/utils/format.utils';
 import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
-import { MovieProps } from '../types/Movie.type';
+import { MovieProp } from '../types/MovieDetail.type';
 import { useModal } from '../context/ModalContext';
+import Links from './Links';
 
-const Movie: React.FC<MovieProps> = ({ movie }) => {
+const Movie: React.FC<MovieProp> = ({ movie }) => {
 	const t = useTranslations('HomePage');
 	const locale = useLocale();
 	const { openModal } = useModal();
@@ -24,7 +24,7 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 		<div
 			className={`group relative my-2 mt-4 flex w-full max-w-xs flex-col overflow-hidden rounded-sm shadow-lg ${isDarkMode ? 'bg-white' : ''}`}
 		>
-			<a className='relative block min-h-[200px] flex-1 rounded-sm' href={`movies/${movie.id}`}>
+			<Links className='relative block min-h-[200px] flex-1 rounded-sm' href={`movies/${movie.id}`}>
 				<Image
 					src={movie.poster_url}
 					alt={translation?.name}
@@ -39,7 +39,7 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 								<Image src={getIconSrc(0)} alt='genre-icon' className='mr-2 h-6 w-6' />
 								<span>
 									{Array.isArray(movie.genres) && movie.genres.length > 0
-										? movie.genres.join(', ')
+										? movie.genres.map((genre) => genre.movieGenreTranslation[0]?.name).join(', ')
 										: t('label.update')}
 								</span>
 							</div>
@@ -60,7 +60,7 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 						</div>
 					</div>
 				</div>
-			</a>
+			</Links>
 
 			<div className='absolute left-[1px] top-[1px] flex w-full items-center transition-transform duration-500 group-hover:translate-y-[-150%]'>
 				<div className='flex items-center justify-center bg-[#f93] p-2 uppercase text-black'>
@@ -98,12 +98,12 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 						{t('button.trailer')}
 					</div>
 				</a>
-				<Button
-					href='#'
+				<Links
+					href={`/booking/${movie.id}`}
 					className={`text-nowrap px-9 py-3 text-sm hover:text-primary ${isDarkMode ? 'text-dark' : ''}`}
 				>
 					{t('button.book')}
-				</Button>
+				</Links>
 			</div>
 		</div>
 	);
