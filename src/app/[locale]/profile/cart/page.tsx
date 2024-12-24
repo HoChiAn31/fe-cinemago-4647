@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Tabs } from 'antd';
 import './cart.css';
+import Links from '@/app/components/Links';
 
 const items = [
 	{
@@ -63,56 +64,58 @@ const renderItems = (
 ) => (
 	<div className='grid grid-cols-1 gap-4'>
 		{items.map((item) => (
-			<Card key={item.id} bordered className='p-5 shadow-md'>
-				<div className='grid grid-cols-2 justify-between gap-6'>
-					{/* Cột hình ảnh + mô tả sản phẩm */}
-					<div className='flex gap-4'>
-						{/* Hình ảnh */}
-						<div className='flex items-center'>
-							<img src={item.image} alt={item.title} className='object-cover' />
+			<Links key={item.id} href={`/profile/cart/${item.id}`} className='block'>
+				<Card bordered className='p-5 shadow-md'>
+					<div className='grid grid-cols-2 justify-between gap-6'>
+						{/* Cột hình ảnh + mô tả sản phẩm */}
+						<div className='flex gap-4'>
+							{/* Hình ảnh */}
+							<div className='flex items-center'>
+								<img src={item.image} alt={item.title} className='object-cover' />
+							</div>
+
+							{/* Mô tả sản phẩm */}
+							<div className='flex flex-col justify-center text-lg'>
+								<h3 className='text-2xl font-bold'>{item.title}</h3>
+								<p>Số lượng: {item.quantity}</p>
+								<p>Số ghế: {item.seat}</p>
+							</div>
 						</div>
 
-						{/* Mô tả sản phẩm */}
-						<div className='flex flex-col justify-center text-lg'>
-							<h3 className='text-2xl font-bold'>{item.title}</h3>
-							<p>Số lượng: {item.quantity}</p>
-							<p>Số ghế: {item.seat}</p>
-						</div>
-					</div>
+						{/* Cột giá + trạng thái */}
+						<div className='flex items-center justify-end gap-2'>
+							{/* Giá */}
+							<div>
+								<p className='font-bold text-primary'>{item.price}</p>
+							</div>
 
-					{/* Cột giá + trạng thái */}
-					<div className='flex items-center justify-end gap-2'>
-						{/* Giá */}
-						<div>
-							<p className='font-bold text-primary'>{item.price}</p>
-						</div>
-
-						{/* Trạng thái */}
-						<div className='flex w-32 justify-center'>
-							<p
-								className={`h-fit w-fit rounded px-2 py-1 ${
-									item.paymentStatus === 'completed'
-										? 'bg-green-200 text-green-800'
+							{/* Trạng thái */}
+							<div className='flex w-32 justify-center'>
+								<p
+									className={`h-fit w-fit rounded px-2 py-1 ${
+										item.paymentStatus === 'completed'
+											? 'bg-green-200 text-green-800'
+											: item.paymentStatus === 'cancelled'
+												? 'bg-red-200 text-red-800'
+												: 'bg-yellow-200 text-yellow-800'
+									}`}
+								>
+									{item.paymentStatus === 'completed'
+										? 'Đã thanh toán'
 										: item.paymentStatus === 'cancelled'
-											? 'bg-red-200 text-red-800'
-											: 'bg-yellow-200 text-yellow-800'
-								}`}
-							>
-								{item.paymentStatus === 'completed'
-									? 'Đã thanh toán'
-									: item.paymentStatus === 'cancelled'
-										? 'Đã hủy'
-										: 'Đã hoàn tiền'}
-							</p>
+											? 'Đã hủy'
+											: 'Đã hoàn tiền'}
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</Card>
+				</Card>
+			</Links>
 		))}
 	</div>
 );
 
-const App: React.FC = () => {
+const CartPage: React.FC = () => {
 	const [activeTabKey, setActiveTabKey] = useState<string>('all');
 
 	useEffect(() => {
@@ -130,23 +133,25 @@ const App: React.FC = () => {
 	const filteredItems =
 		activeTabKey === 'all' ? items : items.filter((item) => item.paymentStatus === activeTabKey);
 
+	// Cập nhật items để sử dụng `items` thay vì `Tabs.TabPane`
+	const tabItems = tabListNoTitle.map((tab) => ({
+		key: tab.key,
+		label: <span className={`p-4 text-lg font-bold uppercase text-primary`}>{tab.label}</span>,
+	}));
+
 	return (
 		<div>
 			<Card style={{ width: '95%' }} className='flex h-auto w-[95%] flex-col gap-4 p-4'>
-				<Tabs defaultActiveKey='all' activeKey={activeTabKey} onChange={onTabChange}>
-					{tabListNoTitle.map((tab) => (
-						<Tabs.TabPane
-							key={tab.key}
-							tab={
-								<span className={`p-4 text-lg font-bold uppercase text-primary`}>{tab.label}</span>
-							}
-						/>
-					))}
-				</Tabs>
+				<Tabs
+					defaultActiveKey='all'
+					activeKey={activeTabKey}
+					onChange={onTabChange}
+					items={tabItems} // Sử dụng items thay vì TabPane
+				/>
 				{renderItems(filteredItems)}
 			</Card>
 		</div>
 	);
 };
 
-export default App;
+export default CartPage;

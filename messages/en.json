@@ -393,5 +393,24 @@
 		"noSelected": "No theater selected",
 		"noRoom": "Room information is not available",
 		"noItem": "Product is unknown"
+	},
+
+	"Cart": {
+		"noProduct": "No product found",
+		"status": {
+			"completed": "Paid",
+			"all": "All",
+			"cancelled": "Cancelled",
+			"return": "Refunded"
+		},
+		"time": "Time",
+		"date": "Show date",
+		"branch": "Cinema",
+		"room": "Cinema room",
+		"quantity": "Quantity",
+		"seat": "Seats",
+		"food": "Popcorn - Drink",
+		"total": "Total",
+		"qr": "Please present this code to Cinemago to receive your ticket"
 	}
 }

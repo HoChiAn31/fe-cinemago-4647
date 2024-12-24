@@ -393,5 +393,24 @@
 		"noSelected": "Chưa chọn rạp",
 		"noRoom": "Thông tin phòng chiếu không có sẵn",
 		"noItem": "Sản phẩm không xác định"
+	},
+
+	"Cart": {
+		"noProduct": "Không tìm thấy sản phẩm",
+		"status": {
+			"completed": "Đã thanh toán",
+			"all": "Tất cả",
+			"cancelled": "Đã hủy",
+			"return": "Đã hoàn tiền"
+		},
+		"time": "Thời gian",
+		"date": "Ngày chiếu",
+		"branch": "Rạp",
+		"room": "Phòng chiếu",
+		"quantity": "Số lượng",
+		"seat": "Ghế",
+		"food": "Bắp - Nước",
+		"total": "Thành tiền",
+		"qr": "Vui lòng đưa mã này đến Cinemago để nhận vé của bạn"
 	}
 }
