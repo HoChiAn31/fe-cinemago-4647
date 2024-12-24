@@ -22,3 +22,11 @@ export interface MovieData {
 	showTimes: Showtime[];
 	comments: Comment[];
 }
+
+export interface MovieProp {
+	movie: MovieData;
+}
+
+export interface MovieProps {
+	movie: MovieData[];
+}

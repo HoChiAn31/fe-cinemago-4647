@@ -3,31 +3,51 @@
 import React, { useEffect, useState } from 'react';
 import Movie from './Movie';
 import Slider from 'react-slick';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
 import './home.css';
-import { moviesData } from '@/app/modules/data';
-import { MovieProps } from '../types/Movie.type';
+import { MovieProp } from '../types/MovieDetail.type';
 import Links from './Links';
 import SamplePrevArrow from './SamplePrevArrow';
 import SampleNextArrow from './SampleNextArrow';
+import axios from 'axios';
+import Loading from './Loading';
 
 const UpComing: React.FC = () => {
-	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
+	const [movies, setMovies] = useState<MovieProp['movie'][]>([]);
 	const t = useTranslations('HomePage');
 	const { isDarkMode } = useTheme();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const locale = useLocale();
 
 	useEffect(() => {
-		const upcomingMovies = moviesData.filter((movie) => {
-			const releaseDate = new Date(movie.releaseDate);
-			const today = new Date();
-			return !movie.onGoing || releaseDate > today;
-		});
-		setMovies(upcomingMovies);
-	}, []);
+		axios
+			.get(`${process.env.NEXT_PUBLIC_API}/movies`, {
+				params: {
+					languageCode: locale,
+				},
+			})
+			.then((res) => {
+				const upcomingMovies: MovieProp['movie'][] = res.data.data;
+
+				const filteredMovies = upcomingMovies.filter((movie) => {
+					const releaseDate = new Date(movie.releaseDate);
+					const today = new Date();
+					return releaseDate > today;
+				});
+
+				setMovies(filteredMovies);
+				setIsLoading(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [locale]);
+
+	if (!isLoading) return <Loading />;
 
 	const settings = {
-		infinite: true,
+		infinite: false,
 		arrows: true,
 		speed: 500,
 		slidesToShow: 4,
@@ -63,9 +83,7 @@ const UpComing: React.FC = () => {
 	};
 
 	return (
-		<div
-			className={`container mx-auto mt-10 flex flex-col items-center justify-center ${isDarkMode}`}
-		>
+		<div className='container mx-auto mt-10 flex flex-col items-center justify-center'>
 			<div className='mb-8 text-center text-4xl font-bold uppercase'>{t('label.upComing')}</div>
 			<div className='container mx-auto mb-14 ml-9 md:ml-8 lg:ml-0'>
 				<Slider {...settings} className={`${isDarkMode ? 'darkmode' : ''}`}>

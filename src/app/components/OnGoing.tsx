@@ -3,24 +3,47 @@
 import React, { useEffect, useState } from 'react';
 import Movie from './Movie';
 import Slider from 'react-slick';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import './home.css';
 import { useTheme } from '@/app/context/ThemeContext';
-import { moviesData } from '@/app/modules/data';
-import { MovieProps } from '../types/Movie.type';
+import { MovieProp } from '../types/MovieDetail.type';
 import Links from './Links';
 import SamplePrevArrow from './SamplePrevArrow';
 import SampleNextArrow from './SampleNextArrow';
+import axios from 'axios';
+import Loading from './Loading';
 
 const OnGoing: React.FC = () => {
-	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
+	const [movies, setMovies] = useState<MovieProp['movie'][]>([]);
 	const t = useTranslations('HomePage');
 	const { isDarkMode } = useTheme();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const locale = useLocale();
 
 	useEffect(() => {
-		const ongoingMovies = moviesData.filter((movie) => movie.onGoing);
-		setMovies(ongoingMovies);
-	}, []);
+		axios
+			.get(`${process.env.NEXT_PUBLIC_API}/movies`, {
+				params: {
+					languageCode: locale,
+				},
+			})
+			.then((res) => {
+				const ongoingMovies: MovieProp['movie'][] = res.data.data;
+
+				const filteredMovies = ongoingMovies.filter((movie) => {
+					const releaseDate = new Date(movie.releaseDate);
+					const today = new Date();
+					return releaseDate <= today;
+				});
+				setMovies(filteredMovies);
+				setIsLoading(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [locale]);
+
+	if (!isLoading) return <Loading />;
 
 	const settings = {
 		infinite: true,
