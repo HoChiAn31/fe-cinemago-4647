@@ -3,19 +3,47 @@
 import { FC, useEffect, useState } from 'react';
 import MaxWidth from '@/app/components/MaxWidth';
 import UpComing from '@/app/components/UpComing';
-import { MovieProps } from '@/app/types/Movie.type';
-import { moviesData } from '@/app/modules/data';
-import { useTranslations } from 'next-intl';
+import { MovieProp } from '@/app/types/MovieDetail.type';
+import { useLocale, useTranslations } from 'next-intl';
 import Movie from '@/app/components/Movie';
+import axios from 'axios';
+import Loading from '@/app/components/Loading';
 
 const onGoingPage: FC = () => {
-	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
+	const [movies, setMovies] = useState<MovieProp['movie'][]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const t = useTranslations('HomePage');
+	const locale = useLocale();
 
 	useEffect(() => {
-		const ongoingMovies = moviesData.filter((movie) => movie.onGoing);
-		setMovies(ongoingMovies);
-	}, []);
+		axios
+			.get(`${process.env.NEXT_PUBLIC_API}/movies`, {
+				params: {
+					languageCode: locale,
+				},
+			})
+			.then((res) => {
+				const ongoingMovies: MovieProp['movie'][] = res.data.data;
+
+				const filteredMovies = ongoingMovies.filter((movie) => {
+					const releaseDate = new Date(movie.releaseDate);
+					const today = new Date();
+					return releaseDate <= today;
+				});
+				setMovies(filteredMovies);
+				setIsLoading(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [locale]);
+
+	if (!isLoading)
+		return (
+			<div className='my-10'>
+				<Loading />
+			</div>
+		);
 
 	return (
 		<MaxWidth>
