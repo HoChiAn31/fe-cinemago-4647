@@ -95,7 +95,7 @@ const UpComing: React.FC = () => {
 				</Slider>
 			</div>
 			<Links
-				href='movies/upcoming'
+				href={`/movies/upcoming`}
 				className={`rounded-md border-[0.1rem] border-second bg-primary px-20 py-3 text-white transition duration-200 hover:bg-white hover:text-second`}
 			>
 				{t('button.see')}

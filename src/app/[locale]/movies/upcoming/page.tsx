@@ -1,27 +1,48 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
+import { MovieProp } from '@/app/types/MovieDetail.type';
+import { useTheme } from '@/app/context/ThemeContext';
+import { useLocale, useTranslations } from 'next-intl';
+import axios from 'axios';
+import Movie from '@/app/components/Movie';
+import Loading from '@/app/components/Loading';
 import MaxWidth from '@/app/components/MaxWidth';
 import OnGoing from '@/app/components/OnGoing';
-import { MovieProps } from '@/app/types/Movie.type';
-import { moviesData } from '@/app/modules/data';
-import { useTheme } from '@/app/context/ThemeContext';
-import { useTranslations } from 'next-intl';
-import Movie from '@/app/components/Movie';
 
 const UpComingPage: FC = () => {
-	const [movies, setMovies] = useState<MovieProps['movie'][]>([]);
+	const [movies, setMovies] = useState<MovieProp['movie'][]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const t = useTranslations('HomePage');
 	const { isDarkMode } = useTheme();
+	const locale = useLocale();
 
 	useEffect(() => {
-		const upcomingMovies = moviesData.filter((movie) => {
-			const releaseDate = new Date(movie.releaseDate);
-			const today = new Date();
-			return !movie.onGoing || releaseDate > today;
-		});
-		setMovies(upcomingMovies);
-	}, []);
+		axios
+			.get(`${process.env.NEXT_PUBLIC_API}/movies`, {
+				params: {
+					languageCode: locale,
+				},
+			})
+			.then((res) => {
+				const upcomingMovies: MovieProp['movie'][] = res.data.data;
+
+				const filteredMovies = upcomingMovies.filter((movie) => {
+					const releaseDate = new Date(movie.releaseDate);
+					const today = new Date();
+					return releaseDate > today;
+				});
+
+				setMovies(filteredMovies);
+				setIsLoading(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [locale]);
+
+	if (!isLoading) return <Loading />;
 
 	return (
 		<MaxWidth>
