@@ -304,7 +304,9 @@
 			"update": "Chỉnh sửa",
 			"delete": "Xóa",
 			"dayAgo": "ngày trước",
-			"today": "Hôm nay"
+			"today": "Hôm nay",
+			"genres": "Thể loại",
+			"updaten": "Chưa cập nhật"
 		},
 
 		"button": {
@@ -392,7 +394,8 @@
 		"button": "Đặt vé",
 		"noSelected": "Chưa chọn rạp",
 		"noRoom": "Thông tin phòng chiếu không có sẵn",
-		"noItem": "Sản phẩm không xác định"
+		"noItem": "Sản phẩm không xác định",
+		"noShowtimesAvailable": "Hiện tại chưa có suất chiếu nào"
 	},
 
 	"Cart": {
