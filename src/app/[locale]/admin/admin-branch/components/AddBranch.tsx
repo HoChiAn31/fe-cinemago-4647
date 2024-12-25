@@ -21,7 +21,7 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 	onReloadData,
 }) => {
 	const [isAdding, setIsAdding] = useState(false);
-	const t = useTranslations('AdminBranchAdd');
+	const t = useTranslations('AdminBranch.add');
 	const [newBranch, setNewBranch] = useState<BranchAdd>({
 		email: '',
 		phone: '',
@@ -61,7 +61,7 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 		console.log(newBranch);
 		// setIsAdding(true);
 		try {
-			const response = await axios.post('http://localhost:5000/branch', newBranch);
+			const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/branch`, newBranch);
 			if (response.data && response.data.success) {
 				// onAddBranch(response.data.data);
 				onFinishAdding();
@@ -104,7 +104,7 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 
 	return (
 		<div className='container mx-auto rounded-lg p-4'>
-			<h1 className='mb-4 text-2xl font-bold'>Add New Branch</h1>
+			{/* <h1 className='mb-4 text-2xl font-bold'>Add New Branch</h1> */}
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

@@ -150,9 +150,9 @@ const Header: FC = () => {
 							/>
 							<NavItem
 								type='navHeader'
-								href='/tickets'
-								label={t('tickets')}
-								isActive={pathname === `/${locale}/tickets`}
+								href='/about'
+								label={t('about')}
+								isActive={pathname === `/${locale}/about`}
 							/>
 						</ul>
 					</nav>
@@ -254,9 +254,9 @@ const Header: FC = () => {
 								/>
 								<NavItem
 									type='navHeader'
-									href='/tickets'
-									label={t('tickets')}
-									isActive={pathname === `/${locale}/tickets`}
+									href='/about'
+									label={t('about')}
+									isActive={pathname === `/${locale}/about`}
 								/>
 							</ul>
 						</nav>

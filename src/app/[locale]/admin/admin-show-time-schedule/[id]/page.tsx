@@ -77,7 +77,7 @@ const EditShowTimeSchedule: React.FC<EditShowTimeScheduleProps> = ({
 				// toast.success('');
 				toast.success(toastT('The showtime has been successfully updated.'));
 				setTimeout(() => {
-					router.push(`/${locale}/admin/admin-food-drink/`);
+					router.push(`/${locale}/admin/admin-show-time-schedule/`);
 				}, 3000);
 			} else {
 				toast.error('Failed to update the showtime. Please try again.');
