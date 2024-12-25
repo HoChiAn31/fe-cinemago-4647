@@ -128,6 +128,12 @@ const movieDetailPage: React.FC = () => {
 								<p>
 									{t('labels.cast')}: {movie.cast}
 								</p>
+								<p>
+									{t('labels.genres')}:{' '}
+									{Array.isArray(movie.genres) && movie.genres.length > 0
+										? movie.genres.map((genre) => genre.movieGenreTranslation[0]?.name).join(', ')
+										: t('labels.update')}
+								</p>
 								{formattedDate ? (
 									<p>
 										{t('labels.releaseDate')}: {formattedDate}

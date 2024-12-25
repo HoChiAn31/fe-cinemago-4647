@@ -10,33 +10,29 @@ import SeatSelection from '@/app/components/SeatSelection';
 import PopCornSelection from '@/app/components/PopCornSelection';
 import { beverage } from '@/app/modules/data';
 import Links from '@/app/components/Links';
-import { movieData } from '@/app/modules/data';
+import axios from 'axios';
+import Loading from '@/app/components/Loading';
 
 const BookingPage: FC = () => {
-	const [movie, setMovie] = useState<MovieData | null>(null);
-	const locale = useLocale();
-	const param = useParams();
-	const pathname = usePathname();
-	const t = useTranslations('Booking');
-	const id = param.id as string;
+	const [movie, setMovie] = useState<MovieData>({} as MovieData);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);
 	const [selectShowTime, setSelectShowTime] = useState<Showtime | null>(null);
 	const [showTicketSelection, setShowTicketSelection] = useState(false);
 	const [price, setPrice] = useState({
-		adult: {
-			price: 0,
-			quantity: 0,
-		},
-		student: {
-			price: 0,
-			quantity: 0,
-		},
+		adult: { price: 0, quantity: 0 },
+		student: { price: 0, quantity: 0 },
 	});
 	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 	const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
-	const totalTickets = price.adult.quantity + price.student.quantity;
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+	const locale = useLocale();
+	const { id } = useParams();
+	const pathname = usePathname();
+	const t = useTranslations('Booking');
+
 	const totalFoodPrice = Object.entries(quantities).reduce((total, [item, quantity]) => {
 		const product = beverage.find((b) => b.id === item);
 		const productPrice = product ? Number(product.price) : 0;
@@ -48,9 +44,7 @@ const BookingPage: FC = () => {
 
 	const totalAmount = totalTicketPrice + totalFoodPrice;
 
-	useEffect(() => {
-		setMovie(movieData as MovieData);
-	}, []);
+	const totalTickets = price.adult.quantity + price.student.quantity;
 
 	const handleSaveToLocalStorage = () => {
 		if (!selectedBranchId || !selectShowTime || selectedSeats.length === 0) {
@@ -69,25 +63,23 @@ const BookingPage: FC = () => {
 		localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 	};
 
-	const translation = movieData.translations.find(
-		(t) => t.categoryLanguage.languageCode === locale,
-	);
+	const translation = movie.translations?.find((t) => t.categoryLanguage.languageCode === locale);
 
-	// Lọc danh sách các rạp (branch)
-	const branches = movie
+	const branches = movie.showTimes
 		? Array.from(
 				new Map(
 					movie.showTimes.map((showTime) => {
-						const branch = showTime.room.branch.translations.find((t) => t.languageCode === locale);
-						return [branch?.id, { branch, showTimeId: showTime.room.branch.id }];
+						const branch = showTime?.room?.branch?.translations?.find(
+							(t) => t.languageCode === locale,
+						);
+						return [branch?.id, { branch, showTimeId: showTime?.room?.branch?.id }];
 					}),
 				).values(),
 			)
 		: [];
 
-	// Lọc các suất chiếu theo rạp đã chọn
 	const filteredShowTimes = selectedBranchId
-		? movieData.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
+		? movie.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
 		: [];
 
 	const groupByDate = (showTimes: Showtime[]) => {
@@ -150,7 +142,28 @@ const BookingPage: FC = () => {
 	};
 
 	useEffect(() => {
-		console.log(selectedBranchId);
+		if (id) {
+			setIsLoading(true);
+
+			axios
+				.get(`${process.env.NEXT_PUBLIC_API}/movies/${id}`, {
+					params: {
+						languageCode: locale,
+					},
+				})
+				.then((res) => {
+					const movieData = res.data;
+					setMovie(movieData);
+					setIsLoading(true);
+				})
+				.catch((error) => {
+					console.error(error);
+					setIsLoading(false);
+				});
+		}
+	}, [id, locale]);
+
+	useEffect(() => {
 		if (selectedBranchId) {
 			setSelectedDate(null);
 			setSelectShowTime(null);
@@ -188,6 +201,7 @@ const BookingPage: FC = () => {
 		setShowTicketSelection(false);
 		localStorage.removeItem('orderDetails');
 	}, [selectedDate]);
+
 	useEffect(() => {
 		if (selectShowTime) {
 			setSelectedSeats([]);
@@ -207,16 +221,12 @@ const BookingPage: FC = () => {
 	}, [selectShowTime]);
 
 	useEffect(() => {
-		if (
+		setIsButtonDisabled(
 			!selectedBranchId ||
-			!selectShowTime ||
-			totalTickets === 0 ||
-			selectedSeats.length !== totalTickets
-		) {
-			setIsButtonDisabled(true);
-		} else {
-			setIsButtonDisabled(false);
-		}
+				!selectShowTime ||
+				totalTickets === 0 ||
+				selectedSeats.length !== totalTickets,
+		);
 	}, [selectedSeats, totalTickets, selectedBranchId, selectShowTime]);
 
 	useEffect(() => {
@@ -224,14 +234,13 @@ const BookingPage: FC = () => {
 			localStorage.removeItem('orderDetails');
 		}
 	}, [pathname]);
-	console.log(selectedBranchId);
-	console.log('selectShowTime', selectShowTime);
-	console.log('selectedDate', selectedDate);
+
+	if (!isLoading) return <Loading />;
 
 	return (
 		<div className='container mx-auto my-10 flex flex-col gap-10'>
 			<div className='flex w-full items-center gap-20 px-10'>
-				<Image src={movieData.poster_url} className='max-h-20 rounded-sm lg:max-h-40' />
+				<Image src={movie.poster_url} className='max-h-20 rounded-sm lg:max-h-40' />
 				<h1 className='text-8xl font-extrabold uppercase'>
 					{translation?.name || 'No title available'}
 				</h1>
@@ -250,13 +259,20 @@ const BookingPage: FC = () => {
 						}
 					}}
 					value={selectedBranchId || ''}
+					disabled={branches.length === 0}
 				>
-					<option value=''>{t('optionBranch')}</option>
-					{branches.map(({ branch, showTimeId }) => (
-						<option key={branch?.id} value={showTimeId} className='text-lg'>
-							{branch?.name || t('noNameBranch')}
-						</option>
-					))}
+					{branches.length === 0 ? (
+						<option value=''>{t('noShowtimesAvailable')}</option>
+					) : (
+						<>
+							<option value=''>{t('optionBranch')}</option>
+							{branches.map(({ branch, showTimeId }) => (
+								<option key={branch?.id} value={showTimeId} className='text-lg'>
+									{branch?.name || t('noNameBranch')}
+								</option>
+							))}
+						</>
+					)}
 				</select>
 			</div>
 
