@@ -124,6 +124,7 @@ const AddMovieModal: React.FC<AddMovieModalProps> = ({
 			console.log(`${key}: ${value}`);
 			// console.log(`${key}: ${typeof value}`);
 		}
+		console.log(movieData.genres);
 		try {
 			const response = await axios.post('http://localhost:5000/movies', formData, {
 				headers: { 'Content-Type': 'multipart/form-data' },

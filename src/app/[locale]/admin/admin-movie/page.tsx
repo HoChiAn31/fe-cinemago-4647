@@ -11,6 +11,7 @@ import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
 import SearchAndFilter from '@/app/components/SearchAndFilter';
+import { useRouter } from 'next/navigation';
 
 const AdminMoviePage: FC = () => {
 	const [movies, setMovies] = useState<Movie[]>([]);
@@ -41,6 +42,7 @@ const AdminMoviePage: FC = () => {
 	const [movieToEdit, setMovieToEdit] = useState<Movie | null>(null);
 	const [selectedMovies, setSelectedMovies] = useState<Set<string>>(new Set());
 	const debouncedSearchQuery = useDebounce(searchQuery, 200);
+	const router = useRouter();
 	useEffect(() => {
 		fetchMovies();
 	}, [currentPage, debouncedSearchQuery, selectedGenre, itemsPerPage]);
@@ -110,6 +112,8 @@ const AdminMoviePage: FC = () => {
 				title={isAddOpen ? '' : 'Quản lý phim'}
 				titleOpen='Thêm phim'
 				onChange={() => setIsAddOpen(true)}
+				isBack={isAddOpen}
+				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
 			/>
 			{!isAddOpen ? (
 				<>

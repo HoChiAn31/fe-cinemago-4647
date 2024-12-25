@@ -5,6 +5,7 @@
 		"schedule": "Lịch chiếu",
 		"tickets": "Vé",
 		"profile": "Tài khoản của tôi",
+		"about": "Giới thiệu",
 		"orderHistory": "Lịch sử giao dịch",
 		"admin": "Admin",
 		"logout": "Đăng xuất",
@@ -79,6 +80,10 @@
 	"LayoutHeaderAdmin": {
 		"logout": "Đăng xuất",
 		"darkMode": "Chế độ tối"
+	},
+	"ManagementHeader": {
+		"back": "Quay lại",
+		"add": "Thêm"
 	},
 	"AdminSearchAndFilter": {
 		"searchPlaceholder": "Nhập tên...",
@@ -176,16 +181,48 @@
 		"addUser": "Thêm người dùng"
 	},
 
-	"AdminBranchAdd": {
-		"email": "Email",
-		"phone": "Điện thoại",
-		"languageCode": "Mã ngôn ngữ",
-		"name": "Tên",
-		"address": "Địa chỉ",
-		"description": "Mô tả",
-		"addBranch": "Thêm Chi nhánh",
-		"translation": "Bản dịch",
-		"addTranslation": "Thêm Bản dịch"
+	"AdminBranch": {
+		"managementTitle": "Quản lý rạp phim",
+		"addCinema": "Thêm rạp",
+		"back": "Quay lại",
+		"add": {
+			"email": "Email",
+			"phone": "Điện thoại",
+			"languageCode": "Mã ngôn ngữ",
+			"name": "Tên",
+			"address": "Địa chỉ",
+			"description": "Mô tả",
+			"addBranch": "Thêm Chi nhánh",
+			"translation": "Bản dịch",
+			"addTranslation": "Thêm Bản dịch"
+		},
+		"edit": {
+			"email": "Email",
+			"phone": "Số điện thoại",
+			"languageCode": "Mã ngôn ngữ",
+			"name": "Tên rạp",
+			"address": "Địa chỉ",
+			"description": "Mô tả",
+			"addBranch": "Cập nhật rạp"
+		}
+	},
+
+	"AdminMovieGenres": {
+		"add": {
+			"title": "Thêm thể loại phim",
+			"languageCode": "Mã ngôn ngữ",
+			"name": "Tên",
+			"description": "Mô tả",
+			"submit": "Thêm thể loại phim"
+		},
+		"edit": {
+			"name": "Tên",
+			"description": "Mô tả",
+			"updating": "Đang cập nhật thể loại phim...",
+			"updateSuccess": "Cập nhật thể loại phim thành công!",
+			"updateFailed": "Cập nhật thể loại phim thất bại.",
+			"updateError": "Đã xảy ra lỗi khi cập nhật thể loại phim."
+		}
 	},
 	"HomePage": {
 		"button": {

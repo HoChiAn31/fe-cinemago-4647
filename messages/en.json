@@ -6,6 +6,7 @@
 		"tickets": "Tickets",
 		"profile": "My Account",
 		"orderHistory": "Order History",
+		"about": "About",
 		"admin": "Admin",
 		"logout": "Logout",
 		"login": "Login",
@@ -78,6 +79,10 @@
 	"LayoutHeaderAdmin": {
 		"logout": "Log Out",
 		"darkMode": "Dark Mode"
+	},
+	"ManagementHeader": {
+		"back": "Back",
+		"add": "Add"
 	},
 	"AdminSearchAndFilter": {
 		"searchPlaceholder": "Enter name...",
@@ -175,16 +180,48 @@
 		"addUser": "Add User"
 	},
 
-	"AdminBranchAdd": {
-		"email": "Email",
-		"phone": "Phone",
-		"languageCode": "Language Code",
-		"name": "Name",
-		"address": "Address",
-		"description": "Description",
-		"addBranch": "Add Branch",
-		"translation": "Translation",
-		"addTranslation": "Add Translation"
+	"AdminBranch": {
+		"managementTitle": "Cinema Management",
+		"addCinema": "Add Cinema",
+		"back": "Back",
+		"add": {
+			"email": "Email",
+			"phone": "Phone",
+			"languageCode": "Language Code",
+			"name": "Name",
+			"address": "Address",
+			"description": "Description",
+			"addBranch": "Add Branch",
+			"translation": "Translation",
+			"addTranslation": "Add Translation"
+		},
+		"edit": {
+			"email": "Email",
+			"phone": "Phone",
+			"languageCode": "Language Code",
+			"name": "Branch Name",
+			"address": "Address",
+			"description": "Description",
+			"addBranch": "Update Branch"
+		}
+	},
+
+	"AdminMovieGenres": {
+		"add": {
+			"title": "Add New Movie Genre",
+			"languageCode": "Language Code",
+			"name": "Name",
+			"description": "Description",
+			"submit": "Add Movie Genre"
+		},
+		"edit": {
+			"name": "Name",
+			"description": "Description",
+			"updating": "Updating movie genre...",
+			"updateSuccess": "Movie genre updated successfully!",
+			"updateFailed": "Failed to update movie genre.",
+			"updateError": "An error occurred while updating movie genre."
+		}
 	},
 
 	"HomePage": {

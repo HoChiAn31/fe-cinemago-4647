@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { useUser } from '@/app/context/UserContext';
 
 const stripePromise = loadStripe(
 	'pk_test_51QLqlw00phqwBHh4kTvBMZhiLnDHO0iqAH4lGsrfMRsxuN7f5kuGiSUtcxBLQVl2EE7z4b4kHZtsX0bG2MqxgFSr003ukeQSSi',
@@ -10,7 +11,9 @@ const PaymentPage: React.FC = () => {
 	const [stripe, setStripe] = useState<Stripe | null>(null);
 	const [elements, setElements] = useState<any>(null);
 	const [clientSecret, setClientSecret] = useState<string>('');
-
+	const { user } = useUser();
+	console.log(user?.id);
+	console.log(localStorage.getItem('orderDetails'));
 	useEffect(() => {
 		const initializeStripe = async () => {
 			const stripeInstance = await stripePromise;

@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import ManagementHeader from '@/app/components/ManagementHeader';
 
 const EditBranchPage = () => {
-	const t = useTranslations('AdminBranchEdit');
+	const t = useTranslations('AdminBranch.edit');
 	const toastT = useTranslations('AdminToast');
 	const params = useParams();
 	const id = params.id as string;
@@ -105,7 +105,7 @@ const EditBranchPage = () => {
 				{branch?.translations.map((translation, index) => (
 					<div key={index} className='space-y-2'>
 						<h3 className='text-xl font-semibold'>
-							{translation.languageCode === 'vi' ? 'Tiếng Việt' : 'English'}
+							{translation.languageCode === 'vi' ? 'Tiếng Việt:' : 'English:'}
 						</h3>
 						<Input
 							fullWidth
@@ -113,7 +113,7 @@ const EditBranchPage = () => {
 							name='languageCode'
 							value={translation.languageCode}
 							label={t('languageCode')}
-							disabled // Không cho phép chỉnh sửa languageCode
+							disabled
 							variant='bordered'
 						/>
 						<Input
