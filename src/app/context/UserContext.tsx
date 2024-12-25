@@ -35,7 +35,10 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [isLogin, setIsLogin] = useState<boolean>(false);
 	const [role, setRole] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [user, setUser] = useState<User | null>(null);
+	const [user, setUser] = useState<User | null>({
+		id: '2376a8a2-e2ce-4c8c-a676-447d57fc9b06',
+		role: 'user',
+	});
 	const [roleBc, setRoleBc] = useState<string>();
 	const router = useRouter();
 	const locale = useLocale();

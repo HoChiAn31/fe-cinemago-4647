@@ -1,5 +1,6 @@
 import { Button } from '@nextui-org/react';
 import { ChevronLeft, Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 interface ManagementHeaderProps {
@@ -28,6 +29,7 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 	if (isHidden) {
 		return null;
 	}
+	const t = useTranslations('ManagementHeader');
 	return (
 		<div className='flex items-center justify-between pb-6'>
 			{isBack && (
@@ -40,7 +42,7 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 						onClick={onChangeBack}
 						radius='sm'
 					>
-						Quay lại
+						{t('back')}
 					</Button>
 				</>
 			)}
@@ -59,7 +61,7 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 						onClick={onChange}
 						radius='sm'
 					>
-						{titleOpen}
+						{t('add')}
 					</Button>
 				</>
 			)}

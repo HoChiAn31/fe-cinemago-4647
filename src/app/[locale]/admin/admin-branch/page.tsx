@@ -1,17 +1,17 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
-import { Button, useDisclosure } from '@nextui-org/react';
+import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
-import { Branch } from './types'; // Adjust the import based on your types
-import BranchTable from './components/BranchTable'; // Create this component
+import { Branch } from './types';
+import BranchTable from './components/BranchTable';
 import SearchAndFilter from '@/app/components/SearchAndFilter';
-import AddBranchModal from './components/AddBranch'; // Create this component
-// Create this component
-import DeleteBranchModal from './components/DeleteBranch'; // Create this component
+import AddBranchModal from './components/AddBranch';
+import DeleteBranchModal from './components/DeleteBranch';
 import useDebounce from '@/app/hook/useDebounce';
 import PaginationControls from '@/app/components/PaginationControls';
 import ManagementHeader from '@/app/components/ManagementHeader';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const AdminBranchPage: FC = () => {
 	const [branches, setBranches] = useState<Branch[]>([]);
@@ -37,6 +37,7 @@ const AdminBranchPage: FC = () => {
 
 	const [branchToDelete, setBranchToDelete] = useState<Branch | null>(null);
 	const [branchToEdit, setBranchToEdit] = useState<Branch | null>(null);
+	const t = useTranslations('AdminBranch');
 	const debouncedSearchQuery = useDebounce(searchQuery, 700);
 	const router = useRouter();
 	useEffect(() => {
@@ -45,17 +46,14 @@ const AdminBranchPage: FC = () => {
 
 	const fetchBranches = async () => {
 		try {
-			const response = await axios.get(
-				'https://be-book-movie-ticket-012124-snp6-hochian31s-projects.vercel.app/branch',
-				{
-					// Adjust the endpoint
-					params: {
-						page: currentPage.toString(),
-						items_per_page: itemsPerPage.toString(),
-						search: searchQuery,
-					},
+			const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/branch`, {
+				// Adjust the endpoint
+				params: {
+					page: currentPage.toString(),
+					items_per_page: itemsPerPage.toString(),
+					search: searchQuery,
 				},
-			);
+			});
 			setIsLoading(true);
 			setBranches(response.data.data);
 			setTotalPages(response.data.total);
@@ -111,9 +109,9 @@ const AdminBranchPage: FC = () => {
 			<ManagementHeader
 				isOpen={!isAddOpen}
 				isBack={isAddOpen}
-				title={isAddOpen ? '' : 'Quản lý rạp phim'}
+				title={isAddOpen ? '' : `${t('managementTitle')}`}
 				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
-				titleOpen='Thêm rạp'
+				titleOpen={`${t('addCinema')}`}
 				onChange={() => setIsAddOpen(true)}
 			/>
 			{!isAddOpen ? (

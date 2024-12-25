@@ -21,7 +21,7 @@ const Links: FC<LinksProps> = ({ href, hover, className, size, children, ...prop
 		<Link
 			href={localizedHref}
 			{...props}
-			className={`${hover ? `hover:text-${hover}` : ''} text-${size} ${className} `}
+			className={`${hover ? `hover:text-${hover}` : ''} hover:text-primary text-${size} ${className} `}
 		>
 			{children}
 		</Link>
