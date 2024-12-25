@@ -86,22 +86,27 @@ const BookingPage: FC = () => {
 		return showTimes.reduce(
 			(groups, showTime) => {
 				const date = new Date(showTime.show_time_start);
-				const formattedDate = date.toLocaleDateString('en-GB', {
+				const day = date.toLocaleDateString(locale, {
 					day: '2-digit',
 					month: '2-digit',
 				});
+				const weekday = date.toLocaleDateString(locale, {
+					weekday: 'long',
+				});
 
-				if (!groups[formattedDate]) {
-					groups[formattedDate] = [];
+				if (!groups[day]) {
+					groups[day] = { weekday, showTimes: [] };
 				}
-				groups[formattedDate].push(showTime);
+				groups[day].showTimes.push(showTime);
 				return groups;
 			},
-			{} as Record<string, Showtime[]>,
+			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
 		);
 	};
 
-	const sortedGroupedShowTimes = Object.keys(groupByDate(filteredShowTimes))
+	const groupedShowTimes = groupByDate(filteredShowTimes);
+
+	const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
 		.sort((a, b) => {
 			const dateA = new Date(a.split('/').reverse().join('-'));
 			const dateB = new Date(b.split('/').reverse().join('-'));
@@ -109,13 +114,11 @@ const BookingPage: FC = () => {
 		})
 		.reduce(
 			(sortedGroups, date) => {
-				sortedGroups[date] = groupByDate(filteredShowTimes)[date];
+				sortedGroups[date] = groupedShowTimes[date];
 				return sortedGroups;
 			},
-			{} as Record<string, Showtime[]>,
+			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
 		);
-
-	const groupedShowTimes = groupByDate(filteredShowTimes);
 
 	const handleSelectShowTime = (value: any) => setSelectShowTime(value);
 
@@ -248,7 +251,7 @@ const BookingPage: FC = () => {
 
 			{/* Chọn rạp */}
 			<div className='flex flex-col items-center justify-center gap-8'>
-				<h1 className='text-5xl font-extrabold uppercase'>{t('branch')}</h1>
+				<h1 className='text-4xl font-extrabold uppercase'>{t('branch')}</h1>
 				<select
 					className='w-full rounded border px-4 py-5 text-lg'
 					onChange={(e) => {
@@ -278,56 +281,57 @@ const BookingPage: FC = () => {
 
 			{/* Hiển thị các ngày */}
 			{selectedBranchId && Object.keys(groupedShowTimes).length > 0 && (
-				<div className='flex flex-col items-center justify-center gap-5'>
-					<div className='flex space-x-4'>
-						{Object.keys(sortedGroupedShowTimes).map((date) => (
-							<button
-								key={date}
-								onClick={() => handleDateSelect(date)}
-								className={`rounded border-2 px-5 py-3 text-xl font-bold hover:bg-red-400 ${selectedDate === date ? 'bg-red-500 text-white hover:bg-red-500' : ''}`}
-							>
-								{date}
-							</button>
-						))}
+				<div className='flex flex-col items-center justify-center gap-20'>
+					<div className='flex flex-col items-center justify-center gap-8'>
+						<h1 className='text-4xl font-extrabold uppercase'>{t('branch')}</h1>
+
+						<div className='flex space-x-4'>
+							{Object.keys(sortedGroupedShowTimes).map((date) => {
+								const { weekday } = sortedGroupedShowTimes[date];
+								return (
+									<button
+										key={date}
+										onClick={() => handleDateSelect(date)}
+										className={`rounded border-2 p-5 text-xl font-bold hover:bg-red-400 ${
+											selectedDate === date ? 'bg-red-500 text-white hover:bg-red-500' : ''
+										}`}
+									>
+										<div className='flex w-32 flex-col'>
+											<div>{date}</div>
+											<div>{weekday}</div>
+										</div>
+									</button>
+								);
+							})}
+						</div>
 					</div>
 
 					{/* Hiển thị suất chiếu của ngày đã chọn */}
-					{selectedDate && groupedShowTimes[selectedDate]?.length > 0 ? (
-						<div className='flex flex-col items-center justify-center gap-5'>
+					{selectedDate && groupedShowTimes[selectedDate]?.showTimes.length > 0 ? (
+						<div className='flex flex-col items-center justify-center gap-8'>
+							<h1 className='text-4xl font-extrabold uppercase'>{t('branch')}</h1>
+
 							<div className='flex space-x-4'>
-								{Object.entries(
-									groupedShowTimes[selectedDate].reduce<Record<number, Showtime[]>>(
-										(acc, showTime) => {
-											const price = showTime.price;
-											if (!acc[price]) acc[price] = [];
-											acc[price].push(showTime);
-											return acc;
-										},
-										{},
-									),
-								)
-									.sort(([priceA], [priceB]) => Number(priceA) - Number(priceB))
-									.map(([price, showTimes]) => (
-										<div key={price} className='flex items-center gap-10'>
-											<div className='text-lg font-bold'>{price}</div>
-											<div className='flex gap-4'>
-												{showTimes.map((showTime) => (
-													<button
-														key={showTime.id}
-														onClick={() => handleSelectShowTime(showTime)}
-														className={`rounded border-2 px-5 py-3 text-xl font-bold hover:bg-red-400 ${
-															selectShowTime?.id === showTime.id
-																? 'bg-red-500 text-white hover:bg-red-500'
-																: ''
-														}`}
-													>
-														{new Date(showTime.show_time_start).toLocaleTimeString('en-GB', {
-															hour: '2-digit',
-															minute: '2-digit',
-														})}
-													</button>
-												))}
-											</div>
+								{groupedShowTimes[selectedDate].showTimes
+									.sort(
+										(a, b) =>
+											new Date(a.show_time_start).getTime() - new Date(b.show_time_start).getTime(),
+									)
+									.map((showTime) => (
+										<div key={showTime.id} className='flex items-center gap-10'>
+											<button
+												onClick={() => handleSelectShowTime(showTime)}
+												className={`rounded border-2 px-5 py-3 text-xl font-bold hover:bg-red-400 ${
+													selectShowTime?.id === showTime.id
+														? 'bg-red-500 text-white hover:bg-red-500'
+														: ''
+												}`}
+											>
+												{new Date(showTime.show_time_start).toLocaleTimeString('en-GB', {
+													hour: '2-digit',
+													minute: '2-digit',
+												})}
+											</button>
 										</div>
 									))}
 							</div>
@@ -342,7 +346,7 @@ const BookingPage: FC = () => {
 			<div>
 				{showTicketSelection && selectShowTime && (
 					<div className='flex flex-col items-center justify-center gap-5'>
-						<h1 className='text-5xl font-extrabold uppercase'>{t('ticket')}</h1>
+						<h1 className='text-4xl font-extrabold uppercase'>{t('ticket')}</h1>
 						<div className='flex gap-40 text-xl'>
 							<div className='group flex flex-col items-center justify-center gap-5 rounded border p-5 px-20'>
 								<h3 className='text-2xl font-bold group-hover:text-primary'>{t('adult')}</h3>
@@ -393,7 +397,7 @@ const BookingPage: FC = () => {
 				{selectedBranchId
 					? (price.adult.quantity > 0 || price.student.quantity > 0) && (
 							<div className='flex flex-col items-center gap-5'>
-								<h1 className='text-5xl font-extrabold uppercase'>{t('seat')}</h1>
+								<h1 className='text-4xl font-extrabold uppercase'>{t('seat')}</h1>
 								{selectShowTime?.room?.seatMaps ? (
 									<SeatSelection
 										seatMap={selectShowTime.room.seatMaps}
@@ -412,7 +416,7 @@ const BookingPage: FC = () => {
 			<div>
 				{selectedBranchId && selectedSeats.length > 0 && (
 					<div className='flex w-full flex-col items-center gap-5'>
-						<h1 className='text-5xl font-extrabold uppercase'>{t('food')}</h1>
+						<h1 className='text-4xl font-extrabold uppercase'>{t('food')}</h1>
 						<PopCornSelection
 							beverages={beverage}
 							quantities={quantities}
@@ -498,7 +502,13 @@ const BookingPage: FC = () => {
 						}`}
 						disabled={isButtonDisabled}
 						href='/payment-pay'
-						onClick={handleSaveToLocalStorage}
+						onClick={(e) => {
+							if (isButtonDisabled) {
+								e.preventDefault();
+							} else {
+								handleSaveToLocalStorage();
+							}
+						}}
 					>
 						{t('button')}
 					</Links>
