@@ -19,7 +19,7 @@ const Movie: React.FC<MovieProp> = ({ movie }) => {
 	const translation = movie.translations?.find((t) => t.categoryLanguage.languageCode === locale);
 
 	const getIconSrc = (index: number) => iconTags[index] || '';
-
+	console.log(movie.genres);
 	return (
 		<div
 			className={`group relative my-2 mt-4 flex w-full max-w-xs flex-col overflow-hidden rounded-sm shadow-lg ${isDarkMode ? 'bg-white' : ''}`}

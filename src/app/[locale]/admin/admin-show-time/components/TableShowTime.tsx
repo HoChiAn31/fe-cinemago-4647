@@ -5,14 +5,15 @@ import { useLocale } from 'next-intl';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTheme } from '@/app/context/ThemeContext';
 import Loading from '@/app/components/Loading';
+import FormattedTime from '@/app/components/FormattedTime';
+import { useRouter } from 'next/navigation';
 
 interface TableShowTimeProps {
 	showTimes: ShowTime[]; // Adjust the prop type
 	selectedShowTimes?: Set<string>;
 	setSelectedShowTimes?: React.Dispatch<React.SetStateAction<Set<string>>>;
-	onEditOpen: () => void;
+
 	onDeleteOpen: () => void;
-	setShowTimeToEdit: React.Dispatch<React.SetStateAction<ShowTime | null>>;
 	setShowTimeToDelete: React.Dispatch<React.SetStateAction<ShowTime | null>>;
 	isLoading: boolean;
 }
@@ -21,14 +22,15 @@ const TableShowTime: React.FC<TableShowTimeProps> = ({
 	showTimes,
 	selectedShowTimes,
 	setSelectedShowTimes,
-	onEditOpen,
+
 	onDeleteOpen,
-	setShowTimeToEdit,
+
 	setShowTimeToDelete,
 	isLoading,
 }) => {
 	const { isDarkMode } = useTheme();
 	const locale = useLocale();
+	const router = useRouter();
 	console.log(showTimes);
 	return (
 		<div className='overflow-hidden rounded-md border-x border-t border-gray1'>
@@ -38,8 +40,9 @@ const TableShowTime: React.FC<TableShowTimeProps> = ({
 						<th className='border-r border-gray1 p-3'>Order</th>
 						<th className='border-r border-gray1 p-3 text-left'>Movie</th>
 						<th className='border-r border-gray1 p-3 text-center'>Room</th>
+						<th className='border-r border-gray1 p-3 text-center'>Branch</th>
+
 						<th className='border-r border-gray1 p-3 text-center'>Start Time</th>
-						<th className='border-r border-gray1 p-3 text-center'>End Time</th>
 						<th className='border-r border-gray1 p-3 text-center'>Price</th>
 						<th className='p-3'></th>
 					</tr>
@@ -60,15 +63,16 @@ const TableShowTime: React.FC<TableShowTimeProps> = ({
 										.filter((translation) => translation.categoryLanguage.languageCode === locale)
 										.map((translation) => translation.name)}
 								</td>
+								<td className='border-r border-gray1 p-3'>
+									{showTime.room.branch.translations
+										.filter((translation) => translation.languageCode === locale)
+										.map((translation) => translation.name)}
+								</td>
 								<td className='border-r border-gray1 p-3 text-center'>{showTime.room.name}</td>
 								<td className='border-r border-gray1 p-3 text-center'>
-									{showTime.show_time_start}
+									<FormattedTime isoString={showTime.show_time_start} format='datetime' />
 								</td>
-								<td className='border-r border-gray1 p-3 text-center'>
-									{showTime.show_time_end}
 
-									{/* {new Date(showTime.show_time_end).toLocaleString(locale)} */}
-								</td>
 								<td className='border-r border-gray1 p-3 text-center'>{showTime.price}</td>
 								<td className=''>
 									<div className='flex items-center justify-center gap-2'>
@@ -76,8 +80,7 @@ const TableShowTime: React.FC<TableShowTimeProps> = ({
 											<Button
 												color='warning'
 												onPress={() => {
-													setShowTimeToEdit(showTime);
-													onEditOpen();
+													router.push(`/${locale}/admin/admin-show-time/${showTime.id}`);
 												}}
 												isIconOnly
 												radius='sm'

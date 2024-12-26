@@ -382,9 +382,45 @@
 			"showTimeStart": "Thời gian bắt đầu",
 			"showTimeEnd": "Thời gian kết thúc",
 			"submit": "Cập nhật"
+		},
+		"add": {
+			"showTimeStart": "Thời gian bắt đầu",
+			"showTimeEnd": "Thời gian kết thúc",
+			"placeholderShowTimeStart": "Chọn thời gian bắt đầu",
+			"placeholderShowTimeEnd": "Chọn thời gian kết thúc",
+			"placeholderMovie": "Chọn phim",
+			"add": "Thêm",
+			"movieId": "Phim"
 		}
 	},
-
+	"AdminShowTime": {
+		"table": {
+			"order": "Thứ tự",
+			"movie": "Phim",
+			"startTime": "Thời gian bắt đầu",
+			"endTime": "Thời gian kết thúc",
+			"type": "Loại",
+			"edit": "Chỉnh sửa",
+			"delete": "Xóa",
+			"loading": "Đang tải...",
+			"noData": "Không có dữ liệu"
+		},
+		"edit": {
+			"showTimeStart": "Thời gian bắt đầu",
+			"showTimeEnd": "Thời gian kết thúc",
+			"submit": "Cập nhật"
+		},
+		"add": {
+			"showTimeStart": "Thời gian bắt đầu",
+			"showTimeEnd": "Thời gian kết thúc",
+			"placeholderShowTimeStart": "Chọn thời gian bắt đầu",
+			"placeholderShowTimeEnd": "Chọn thời gian kết thúc",
+			"placeholderMovie": "Chọn phim",
+			"add": "Thêm",
+			"movieId": "Phim",
+			"price": "Giá"
+		}
+	},
 	"About": {
 		"heading1": "HỆ THỐNG CỤM RẠP TRÊN TOÀN QUỐC",
 		"des1": "Cinemago là một trong những hệ thống rạp chiếu phim được yêu thích nhất tại Việt Nam, cung cấp nhiều mô hình giải trí hấp dẫn bao gồm Các Cụm Rạp Chiếu Phim hiện đại, Nhà hát, Khu vui chơi trẻ em Kidzone, Bowling, Billiards, Games, Phòng Gym và nhà hàng. Với mục tiêu trở thành điểm đến giải trí cho mọi gia đình Việt Nam, Cinemago đang được biết đến là cụm rạp ủng hộ phim Việt, góp phần phát triển điện ảnh Việt. Không chỉ chiếu các bộ phim bom tấn quốc tế, Cinemago còn đồng hành cùng các nhà làm phim Việt Nam, đưa những tác phẩm điện ảnh đặc sắc của Việt Nam đến gần hơn với khán giả.",

@@ -6,7 +6,8 @@ import { ShowTime } from '../types';
 import { useLocale, useTranslations } from 'next-intl';
 import { Branch } from '../../admin-branch/types';
 import { Room } from '../../admin-room/types';
-import { Movie } from '../../admin-movie/types';
+import { Movie, MovieData } from '../../admin-movie/types';
+import ShowTimeItem from '@/app/components/ShowTimeItem';
 
 interface AddShowTimeProps {
 	isOpen: boolean;
@@ -24,13 +25,14 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 	onReloadData,
 }) => {
 	const [isAdding, setIsAdding] = useState(false);
+	const [dataMovie, setDataMovie] = useState<Movie[]>([]);
 	const [selectBranch, setSelectBranch] = useState<{ key: string; value: string }[]>([]);
 	const [selectRoom, setSelectRoom] = useState<{ key: string; value: string }[]>([]);
 	const [selectMovie, setSelectMovie] = useState<{ key: string; value: string }[]>([]);
-
+	const [duration, setDuration] = useState<number>();
 	const [selected, setSelected] = useState('');
 	const [selectedRoom, setSelectedRoom] = useState('');
-	const t = useTranslations('AdminShowTimeAdd');
+	const t = useTranslations('AdminShowTime.add');
 	const locale = useLocale();
 	const [newShowTime, setNewShowTime] = useState({
 		show_time_start: '',
@@ -58,15 +60,46 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 						value: translation ? translation.name : 'Unknown',
 					};
 				});
+
 				console.log(movieSelect);
 				setSelectMovie(movieSelect);
+				setDataMovie(movies);
 			} catch (error) {
 				console.error('Error fetching branches:', error);
 			}
 		};
 		fetchBranchs();
 	}, []);
+	useEffect(() => {
+		console.log(newShowTime.movieId);
+		console.log(dataMovie);
+		if (dataMovie.length > 0 && newShowTime.movieId) {
+			const movie = dataMovie
+				.filter((data) => data.id === newShowTime.movieId)
+				.map((data) => data.duration);
+			setDuration(Number(movie[0]));
+		}
+	}, [newShowTime.movieId]);
+	useEffect(() => {
+		if (newShowTime.show_time_start && duration) {
+			const startTime = new Date(newShowTime.show_time_start);
 
+			// Thêm duration (phút) vào thời gian bắt đầu
+			const endTime = new Date(startTime.getTime() + duration * 60000);
+
+			// Lấy thời gian kết thúc theo múi giờ địa phương
+			const offset = startTime.getTimezoneOffset() * 60000; // Múi giờ địa phương tính bằng mili giây
+			const localEndTime = new Date(endTime.getTime() - offset); // Điều chỉnh thời gian về múi giờ địa phương
+
+			// Chuyển thành định dạng 'YYYY-MM-DDTHH:mm' phù hợp với input
+			const formattedDate = localEndTime.toISOString().slice(0, 16);
+
+			setNewShowTime((prev) => ({
+				...prev,
+				show_time_end: formattedDate,
+			}));
+		}
+	}, [newShowTime.show_time_start, duration]);
 	// fetch branch
 	useEffect(() => {
 		const fetchBranchs = async () => {
@@ -172,40 +205,14 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 
 	return (
 		<div className='container mx-auto rounded-lg p-4'>
-			<h1 className='mb-4 text-2xl font-bold'>Add New Showtime</h1>
+			{/* <h1 className='mb-4 text-2xl font-bold'>Add New Showtime</h1> */}
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					handleAddShowTime();
 				}}
-				className='space-y-4'
+				className='space-y-8'
 			>
-				<Input
-					fullWidth
-					type='datetime-local'
-					name='show_time_start'
-					value={newShowTime.show_time_start}
-					onChange={handleInputChange}
-					label={t('showTimeStart')}
-					labelPlacement='outside'
-					placeholder={t('showTimeStart')}
-					required
-					variant='bordered'
-				/>
-				<Spacer y={4} />
-				<Input
-					fullWidth
-					type='datetime-local'
-					name='show_time_end'
-					value={newShowTime.show_time_end}
-					onChange={handleInputChange}
-					label={t('showTimeEnd')}
-					placeholder={t('showTimeEnd')}
-					labelPlacement='outside'
-					required
-					variant='bordered'
-				/>
-				<Spacer y={2} />
 				<Select
 					name='movieId'
 					label='Phim'
@@ -222,20 +229,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 						</SelectItem>
 					))}
 				</Select>
-				{/* <Spacer y={4} />
-				<Input
-					fullWidth
-					type='text'
-					name='movieId'
-					value={newShowTime.movieId}
-					onChange={handleInputChange}
-					label={t('movieId')}
-					labelPlacement='outside'
-					placeholder={t('movieId')}
-					required
-					variant='bordered'
-				/> */}
-				<Spacer y={2} />
+
 				<Select
 					name='Rạp phim'
 					label='Rạp phim'
@@ -252,7 +246,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 						</SelectItem>
 					))}
 				</Select>
-				<Spacer y={2} />
+
 				<Select
 					name='Phòng chiếu'
 					label='Phòng chiếu'
@@ -270,7 +264,47 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 						</SelectItem>
 					))}
 				</Select>
-				<Spacer y={4} />
+
+				<Input
+					fullWidth
+					type='datetime-local'
+					name='show_time_start'
+					value={newShowTime.show_time_start}
+					onChange={handleInputChange}
+					label={t('showTimeStart')}
+					labelPlacement='outside'
+					placeholder={t('showTimeStart')}
+					required
+					variant='bordered'
+				/>
+
+				<Input
+					fullWidth
+					type='datetime-local'
+					name='show_time_end'
+					value={newShowTime.show_time_end}
+					onChange={handleInputChange}
+					label={t('showTimeEnd')}
+					placeholder={t('showTimeEnd')}
+					labelPlacement='outside'
+					required
+					variant='bordered'
+				/>
+
+				{/* <Spacer y={4} />
+				<Input
+					fullWidth
+					type='text'
+					name='movieId'
+					value={newShowTime.movieId}
+					onChange={handleInputChange}
+					label={t('movieId')}
+					labelPlacement='outside'
+					placeholder={t('movieId')}
+					required
+					variant='bordered'
+				/> */}
+
 				<Input
 					fullWidth
 					type='number'
@@ -284,7 +318,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 					variant='bordered'
 				/>
 
-				<Spacer y={2} />
+				<Spacer y={4} />
 
 				<Button
 					onClick={handleAddShowTime}
@@ -293,7 +327,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 					disabled={isAdding}
 					fullWidth
 				>
-					{isAdding ? <Spinner size='sm' /> : t('addShowTime')}
+					{isAdding ? <Spinner size='sm' /> : t('add')}
 				</Button>
 			</form>
 		</div>
