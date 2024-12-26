@@ -6,9 +6,18 @@ export interface ShowTime {
 	room: {
 		id: string;
 		name: string;
+		branch: {
+			id: string;
+			translations: {
+				id: string;
+				languageCode: string;
+				name: string;
+			}[];
+		};
 	};
 	movie: {
 		id: string;
+		duration: number;
 		translations: {
 			name: string;
 			categoryLanguage: {

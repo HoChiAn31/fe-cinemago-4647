@@ -17,7 +17,7 @@ const AdminShowTimesPage: FC = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
-	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
 	const [nextPage, setNextPage] = useState<number | null>(null);
@@ -28,12 +28,6 @@ const AdminShowTimesPage: FC = () => {
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
-	const [showTimeEdit, setShowTimeEdit] = useState<ShowTime | null>(null);
 
 	const [showTimeToDelete, setShowTimeToDelete] = useState<ShowTime | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -117,8 +111,6 @@ const AdminShowTimesPage: FC = () => {
 						showTimes={showTimes}
 						onDeleteOpen={onDeleteOpen}
 						setShowTimeToDelete={setShowTimeToDelete}
-						onEditOpen={onEditOpen}
-						setShowTimeToEdit={setShowTimeEdit}
 					/>
 
 					<PaginationControls

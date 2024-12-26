@@ -17,7 +17,7 @@ const AdminShowTimeSchedulesPage: FC = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [totalPages, setTotalPages] = useState<number>(1);
-	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
 	const [nextPage, setNextPage] = useState<number | null>(null);
