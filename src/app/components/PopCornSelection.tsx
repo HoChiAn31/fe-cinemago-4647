@@ -1,23 +1,41 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { PopCornSelectionProps } from '../types/Beverage.type';
 import { useLocale } from 'next-intl';
 import Image from './Image';
 
-const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, quantities, setQuantities }) => {
+const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, foods, setQuantities }) => {
 	const locale = useLocale();
 
-	const handleQuantityChange = (id: string, operation: 'increment' | 'decrement') => {
-		setQuantities((prevQuantities: { [key: string]: number }) => {
-			const currentQuantity = prevQuantities[id] || 0;
-			const updatedQuantity =
-				operation === 'increment' ? currentQuantity + 1 : Math.max(0, currentQuantity - 1);
+	const handleQuantityChange = (
+		id: string,
+		price: number,
+		operation: 'increment' | 'decrement',
+	) => {
+		setQuantities((prevQuantities) => {
+			const updatedQuantities = Array.isArray(prevQuantities) ? [...prevQuantities] : [];
 
-			return {
-				...prevQuantities,
-				[id]: updatedQuantity,
-			};
+			const existingItem = updatedQuantities.find((item) => item.id === id);
+
+			if (existingItem) {
+				const updatedQuantity =
+					operation === 'increment'
+						? existingItem.quantity + 1
+						: Math.max(0, existingItem.quantity - 1);
+
+				if (updatedQuantity === 0) {
+					return updatedQuantities.filter((item) => item.id !== id);
+				} else {
+					return updatedQuantities.map((item) =>
+						item.id === id ? { ...item, quantity: updatedQuantity } : item,
+					);
+				}
+			} else if (operation === 'increment') {
+				return [...updatedQuantities, { id, quantity: 1, price }];
+			}
+
+			return updatedQuantities;
 		});
 	};
 
@@ -28,7 +46,8 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, quantities, se
 					const translation = item.translations.find(
 						(t) => t.categoryLanguage.languageCode === locale,
 					);
-					const quantity = quantities[item.id] || 0;
+					const foodItem = Array.isArray(foods) ? foods.find((food) => food.id === item.id) : null;
+					const quantity = foodItem?.quantity || 0;
 
 					return (
 						<div key={item.id} className='item-center flex justify-center'>
@@ -47,14 +66,18 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, quantities, se
 									</div>
 									<div className='flex items-center justify-center gap-5 rounded bg-slate-400'>
 										<p
-											onClick={() => handleQuantityChange(item.id, 'decrement')}
+											onClick={() =>
+												handleQuantityChange(item.id, parseFloat(item.price), 'decrement')
+											}
 											className='w-10 rounded py-3 text-center hover:text-primary'
 										>
 											-
 										</p>
 										<p className='text-lg'>{quantity}</p>
 										<p
-											onClick={() => handleQuantityChange(item.id, 'increment')}
+											onClick={() =>
+												handleQuantityChange(item.id, parseFloat(item.price), 'increment')
+											}
 											className='w-10 rounded py-3 text-center hover:text-primary'
 										>
 											+
