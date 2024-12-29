@@ -25,7 +25,7 @@ const PaymentPage: React.FC = () => {
 
 	const { user } = useUser();
 	const locale = useLocale();
-	const t = useTranslations('Booking');
+	const t = useTranslations('Payment');
 	const { isDarkMode } = useTheme();
 
 	// console.log(user?.id);
@@ -105,7 +105,7 @@ const PaymentPage: React.FC = () => {
 			console.error('Payment failed:', error.message);
 		} else {
 			console.log('Payment successful:', paymentIntent);
-			alert('Thanh toán thành công!');
+			alert(t('paymentSuccess'));
 		}
 	};
 
@@ -130,7 +130,7 @@ const PaymentPage: React.FC = () => {
 				<div
 					className={`flex w-full flex-col gap-4 rounded border-black p-5 ${isDarkMode ? 'border-2 bg-dark' : 'border-1 text-dark'}`}
 				>
-					<h1 className='text-xl font-semibold'>Nhập thông tin liên lạc</h1>
+					<h1 className='text-xl font-semibold'>{t('enterContactInfo')}</h1>
 
 					<Divider
 						dashed
@@ -142,7 +142,7 @@ const PaymentPage: React.FC = () => {
 							type='text'
 							id='fullName'
 							name='fullName'
-							placeholder='Nhập họ và tên'
+							placeholder={t('fullNamePlaceholder')}
 							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
 							required
 						/>
@@ -151,7 +151,7 @@ const PaymentPage: React.FC = () => {
 							type='email'
 							id='email'
 							name='email'
-							placeholder='Nhập email'
+							placeholder={t('emailPlaceholder')}
 							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
 							required
 						/>
@@ -160,7 +160,7 @@ const PaymentPage: React.FC = () => {
 							type='tel'
 							id='phone'
 							name='phone'
-							placeholder='Nhập số điện thoại'
+							placeholder={t('phonePlaceholder')}
 							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
 							required
 						/>
@@ -171,7 +171,7 @@ const PaymentPage: React.FC = () => {
 				<div
 					className={`flex w-full flex-col items-center rounded border-2 border-black bg-dark p-5 ${isDarkMode ? '' : ''}`}
 				>
-					<h2>Thanh toán trực tuyến</h2>
+					<h2>{t('onlinePayment')}</h2>
 					<form onSubmit={handleSubmit} className='flex w-full flex-col gap-3'>
 						<div
 							id='card-element'
@@ -183,7 +183,7 @@ const PaymentPage: React.FC = () => {
 								type='submit'
 								className={`text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
 							>
-								Thanh toan
+								{t('onlinesubmitPaymentayment')}
 							</Button>
 						</div>
 					</form>
@@ -196,7 +196,7 @@ const PaymentPage: React.FC = () => {
 			>
 				{/* Header */}
 				<div className='flex w-full items-center justify-center'>
-					<h1 className='text-2xl font-bold uppercase'>Chi tiet ve</h1>
+					<h1 className='text-2xl font-bold uppercase'>{t('ticketDetails')}</h1>
 				</div>
 
 				<Divider dashed className='my-0 border-dark' />
@@ -207,7 +207,7 @@ const PaymentPage: React.FC = () => {
 
 					<div className='flex'>
 						<div className='flex w-1/2 flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>Thoi gian</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('time')}</h2>
 							<p className='text-lg font-semibold'>
 								{new Date(detail.showTime).toLocaleTimeString('vi-VN', {
 									hour: '2-digit',
@@ -218,7 +218,7 @@ const PaymentPage: React.FC = () => {
 						</div>
 
 						<div className='flex w-1/2 flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>Ngay chieu</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('date')}</h2>
 							<p className='text-lg font-semibold'>
 								{new Date(detail.showTime).toLocaleDateString('en-GB', {
 									day: '2-digit',
@@ -230,19 +230,19 @@ const PaymentPage: React.FC = () => {
 
 					<div className='w-full'>
 						<div className='flex w-1/2 flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>Rap</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('cinema')}</h2>
 							<p className='text-lg font-semibold'>{detail.branch}</p>
 						</div>
 					</div>
 
 					<div className='flex w-full'>
 						<div className='flex w-1/2 flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>Phong chieu</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('room')}</h2>
 							<p className='text-lg font-semibold'>{detail.room}</p>
 						</div>
 
 						<div className='flex w-1/2 flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>So luong</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('quantity')}</h2>
 							<p className='text-lg font-semibold'>{detail.quantity}</p>
 						</div>
 					</div>
@@ -254,7 +254,7 @@ const PaymentPage: React.FC = () => {
 				<div className='flex flex-col gap-3'>
 					<div className='flex items-end justify-between'>
 						<div className='flex flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>Ghe ngoi</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('seat')}</h2>
 							<p className='text-lg font-semibold'>
 								{detail?.seats?.length ? detail.seats.join(', ') : ''}
 							</p>
@@ -263,7 +263,7 @@ const PaymentPage: React.FC = () => {
 
 					<div className='w-full'>
 						<div className='flex flex-col items-start'>
-							<h2 className='text-md uppercase tracking-tighter'>Loai ve</h2>
+							<h2 className='text-md uppercase tracking-tighter'>{t('ticketType')}</h2>
 							{detail?.ticket
 								.filter((ticket: any) => ticket.quantity > 0)
 								.map((ticket: any, index: number) => {
@@ -291,7 +291,7 @@ const PaymentPage: React.FC = () => {
 				<Divider dashed className='my-0 border-dark' />
 
 				<div className='flex w-full flex-col gap-3'>
-					<h2 className='text-md uppercase tracking-tighter'>bap nuoc</h2>
+					<h2 className='text-md uppercase tracking-tighter'>{t('snackDrink')}</h2>
 					<div>
 						{detail?.foods?.map((f: any, index: number) => (
 							<div
@@ -319,7 +319,7 @@ const PaymentPage: React.FC = () => {
 				<Divider dashed className='my-0 border-dark' />
 
 				<div className='flex items-end justify-between'>
-					<h2 className='text-md uppercase tracking-tighter'>Tong tien</h2>
+					<h2 className='text-md uppercase tracking-tighter'>{t('totalAmount')}</h2>
 					<p className='text-lg font-semibold'>{formatCurrencyVND(detail.totalAmount)}</p>
 				</div>
 			</div>

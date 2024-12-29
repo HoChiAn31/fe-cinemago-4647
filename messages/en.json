@@ -488,5 +488,42 @@
 		"food": "Popcorn - Drink",
 		"total": "Total",
 		"qr": "Please present this code to Cinemago to receive your ticket"
+	},
+
+	"Status": {
+		"success": {
+			"h1": "Booking successful!",
+			"p": "Thank you for using the service.",
+			"p1": "Invoice will be sent to email as soon as possible. We advise to keep thi email for future reference."
+		},
+
+		"fail": {
+			"h1": "Booking failed!",
+			"p": "Unfortunately, your transaction was unsuccessful.",
+			"p1": "Please try again or contact support for assistance."
+		},
+
+		"button": "Back to homepage"
+	},
+
+	"Payment": {
+		"enterContactInfo": "Enter contact information",
+		"fullNamePlaceholder": "Enter full name",
+		"emailPlaceholder": "Enter email",
+		"phonePlaceholder": "Enter phone number",
+		"onlinePayment": "Online payment",
+		"submitPayment": "Payment",
+		"ticketDetails": "Ticket details",
+		"time": "Time",
+		"date": "Show date",
+		"cinema": "Cinema",
+		"room": "Screening room",
+		"quantity": "Quantity",
+		"seat": "Seats",
+		"ticketType": "Ticket type",
+		"snackDrink": "Popsicle",
+		"noItem": "No items",
+		"totalAmount": "Total amount",
+		"paymentSuccess": "Payment successful!"
 	}
 }
