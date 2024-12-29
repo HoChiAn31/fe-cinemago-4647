@@ -524,6 +524,8 @@
 		"snackDrink": "Bắp nước",
 		"noItem": "Không có mục nào",
 		"totalAmount": "Tổng tiền",
-		"paymentSuccess": "Thanh toán thành công!"
+		"paymentSuccess": "Thanh toán thành công!",
+		"adult": "Người lớn",
+		"student": "HSSV"
 	}
 }

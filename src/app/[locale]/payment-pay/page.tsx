@@ -183,7 +183,7 @@ const PaymentPage: React.FC = () => {
 								type='submit'
 								className={`text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
 							>
-								{t('onlinesubmitPaymentayment')}
+								{t('submitPayment')}
 							</Button>
 						</div>
 					</form>
@@ -290,33 +290,35 @@ const PaymentPage: React.FC = () => {
 
 				<Divider dashed className='my-0 border-dark' />
 
-				<div className='flex w-full flex-col gap-3'>
-					<h2 className='text-md uppercase tracking-tighter'>{t('snackDrink')}</h2>
-					<div>
-						{detail?.foods?.map((f: any, index: number) => (
-							<div
-								key={index}
-								className='flex w-full items-end justify-between text-lg font-semibold'
-							>
-								<div className='flex gap-2'>
-									<p className='w-4'>{f.quantity}</p>
-									<p>x</p>
-									<p>
-										{beverage
-											.find((b) => b.id === f.id)
-											?.translations.find((t) => t.categoryLanguage.languageCode === locale)
-											?.name || t('noItem')}
-									</p>
+				{detail?.foods?.length > 0 && (
+					<div className='flex w-full flex-col gap-3'>
+						<h2 className='text-md uppercase tracking-tighter'>{t('snackDrink')}</h2>
+						<div>
+							{detail.foods.map((f: any, index: number) => (
+								<div
+									key={index}
+									className='flex w-full items-end justify-between text-lg font-semibold'
+								>
+									<div className='flex gap-2'>
+										<p className='w-4'>{f.quantity}</p>
+										<p>x</p>
+										<p>
+											{beverage
+												.find((b) => b.id === f.id)
+												?.translations.find((t) => t.categoryLanguage.languageCode === locale)
+												?.name || t('noItem')}
+										</p>
+									</div>
+									<div>
+										<p>{formatCurrencyVND(f.price * f.quantity)}</p>
+									</div>
 								</div>
-								<div>
-									<p>{formatCurrencyVND(f.price * f.quantity)}</p>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
+							))}
+						</div>
 
-				<Divider dashed className='my-0 border-dark' />
+						<Divider dashed className='my-0 border-dark' />
+					</div>
+				)}
 
 				<div className='flex items-end justify-between'>
 					<h2 className='text-md uppercase tracking-tighter'>{t('totalAmount')}</h2>
