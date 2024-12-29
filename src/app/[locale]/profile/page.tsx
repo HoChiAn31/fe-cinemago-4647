@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Input, Row, Col, Button } from 'antd';
 import './style.css';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { useUser } from '@/app/context/UserContext';
+import { useRouter } from 'next/navigation';
+import axios from '@/app/utils/axios';
+import { User } from '@/app/types';
 
 const userData = {
 	id: '1',
@@ -26,12 +30,31 @@ const App: React.FC = () => {
 	const [email, setEmail] = useState(userData.email);
 	const [phone, setPhone] = useState(userData.phone);
 	const [avatar, setAvatar] = useState(userData.avatar);
+	const [dataUser, setDataUser] = useState<User>();
 	const [imageLoad, setImageLoad] = useState<string>();
 	const [image, setImage] = useState<string | undefined>();
 	const [imageFile, setImageFile] = useState<File | undefined>();
 	const [editEmail, setEditEmail] = useState(false);
 	const [editPhone, setEditPhone] = useState(false);
 	const t = useTranslations('UserProfile.profile');
+	const router = useRouter();
+	const locale = useLocale();
+	const { user } = useUser();
+	useEffect(() => {
+		if (user?.id === '') {
+			router.push(`/${locale}/`);
+		} else {
+			axios
+				.get(`${process.env.NEXT_PUBLIC_API}/users/${user?.id}`)
+				.then((response) => {
+					// console.log(response.data);
+					setDataUser(response.data);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, [user]);
 
 	// Error states for validation
 	const [firstnameError, setFirstnameError] = useState('');
@@ -58,10 +81,10 @@ const App: React.FC = () => {
 		else setEmailError('');
 	};
 
-	const validatePhone = () => {
-		if (!phone) setPhoneError(`${t('validate.phone')}`);
-		else setPhoneError('');
-	};
+	// const validatePhone = () => {
+	// 	if (!phone) setPhoneError(`${t('validate.phone')}`);
+	// 	else setPhoneError('');
+	// };
 
 	// Function to mask email
 	const maskEmail = (email: string) => {
@@ -77,8 +100,49 @@ const App: React.FC = () => {
 
 	// Save handler
 	const handleSave = () => {
-		// Add save logic here
-		alert(`${t('save.alert')}`);
+		// Tạo instance FormData
+		const formData = new FormData();
+
+		// Thêm dữ liệu từ dataUser vào FormData
+		if (dataUser) {
+			Object.keys(dataUser).forEach((key) => {
+				const value = dataUser[key as keyof typeof dataUser];
+				if (value !== undefined && value !== null) {
+					formData.append(key, value.toString());
+				}
+			});
+		}
+
+		// Thêm file ảnh (nếu có)
+		if (imageFile) {
+			formData.append('avatar', imageFile); // "avatar" là tên field cho ảnh
+		}
+
+		// Kiểm tra dữ liệu trong FormData (Debugging)
+		for (const pair of formData.entries()) {
+			console.log(`${pair[0]}: ${pair[1]}`);
+		}
+
+		// Gửi FormData tới API
+		axios
+			.put(`${process.env.NEXT_PUBLIC_API}/users/${dataUser?.id}`, formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+			.then((response) => {
+				// Xử lý phản hồi thành công
+				if (response.status === 200) {
+					console.log('Cập nhật thành công:', response.data);
+					alert('Cập nhật thành công!');
+				} else {
+					console.error('Cập nhật thất bại:', response.status);
+					alert('Cập nhật thất bại!');
+				}
+			})
+			.catch((error) => {
+				// Xử lý lỗi
+				console.error('Lỗi trong quá trình cập nhật:', error);
+				alert('Đã xảy ra lỗi!');
+			});
 	};
 
 	// Check if any data has changed
@@ -87,7 +151,7 @@ const App: React.FC = () => {
 			firstname !== userData.firstName ||
 			lastname !== userData.lastName ||
 			email !== userData.email ||
-			phone !== userData.phone ||
+			// phone !== userData.phone ||
 			avatar !== userData.avatar;
 
 		const isAllFieldsFilled = !!(firstname && lastname && email && phone);
@@ -131,7 +195,7 @@ const App: React.FC = () => {
 									<div className='h-10 w-full'>
 										<Input
 											className={`h-10 rounded-sm px-3 ${firstnameError ? 'border-2 border-primary bg-red-50' : ''}`}
-											value={firstname}
+											value={dataUser?.firstName}
 											onChange={(e) => setFirstname(e.target.value)}
 											onBlur={validateFirstname}
 											placeholder={t('firstName')}
@@ -146,7 +210,7 @@ const App: React.FC = () => {
 									<div className='h-10 w-full'>
 										<Input
 											className={`h-10 rounded-sm px-3 ${lastnameError ? 'border-2 border-primary bg-red-50' : ''}`}
-											value={lastname}
+											value={dataUser?.lastName}
 											onChange={(e) => setLastname(e.target.value)}
 											onBlur={validateLastname}
 											placeholder={t('lastName')}
@@ -166,7 +230,7 @@ const App: React.FC = () => {
 										{editEmail ? (
 											<Input
 												className={`h-10 rounded-sm px-3 ${emailError ? 'border-2 border-primary bg-red-50' : ''}`}
-												value={email}
+												value={dataUser?.email}
 												onChange={(e) => setEmail(e.target.value)}
 												onBlur={validateEmail}
 												placeholder={t('email')}
@@ -189,7 +253,7 @@ const App: React.FC = () => {
 							</div>
 
 							{/* Phone Field */}
-							<div className='h-fit w-full'>
+							{/* <div className='h-fit w-full'>
 								<Col className='flex h-fit w-full items-center justify-center gap-4'>
 									<span className='flex h-10 w-32 items-center justify-end text-nowrap'>
 										{t('phone')}
@@ -198,7 +262,7 @@ const App: React.FC = () => {
 										{editPhone ? (
 											<Input
 												className={`flex h-10 rounded-sm px-3 ${phoneError ? 'border-2 border-primary bg-red-50' : ''}`}
-												value={phone}
+												value={dataUser?.lastName}
 												onChange={(e) => setPhone(e.target.value)}
 												onBlur={validatePhone}
 												placeholder={t('phone')}
@@ -218,7 +282,7 @@ const App: React.FC = () => {
 										{phoneError && <div className='text-primary'>{phoneError}</div>}
 									</div>
 								</Col>
-							</div>
+							</div> */}
 						</Col>
 
 						<Col className='order-1 flex w-full items-center justify-center border-b-1 border-gray2 lg:order-2 lg:mx-0 lg:border-b-0 lg:border-l-1'>
@@ -226,7 +290,13 @@ const App: React.FC = () => {
 								{' '}
 								<div className='flex flex-col items-center'>
 									<img
-										src={imageLoad ? imageLoad : image ? image : 'https://via.placeholder.com/150'}
+										src={
+											dataUser?.avatar
+												? dataUser?.avatar
+												: image
+													? image
+													: 'https://via.placeholder.com/150'
+										}
 										alt='Profile'
 										className='h-32 w-32 cursor-pointer rounded-full object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)]'
 										onClick={() => document.getElementById('fileInput')?.click()}
@@ -253,7 +323,7 @@ const App: React.FC = () => {
 								type='primary'
 								onClick={handleSave}
 								className={`rounded-sm border-none px-5 py-5 text-base text-white ${isChanged ? 'pointer bg-[#ee4d2d]' : 'not-allowed bg-[#facac0]'}`}
-								disabled={!isChanged}
+								// disabled={!isChanged}
 							>
 								{t('save.button')}
 							</Button>
