@@ -25,8 +25,7 @@ const BookingPage: FC = () => {
 		student: { price: 0, quantity: 0 },
 	});
 	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-	const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
-
+	const [foods, setFoods] = useState<{ id: string; quantity: number; price: number }[]>([]);
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 	const locale = useLocale();
@@ -34,10 +33,10 @@ const BookingPage: FC = () => {
 	const pathname = usePathname();
 	const t = useTranslations('Booking');
 
-	const totalFoodPrice = Object.entries(quantities).reduce((total, [item, quantity]) => {
-		const product = beverage.find((b) => b.id === item);
+	const totalFoodPrice = foods.reduce((total, food) => {
+		const product = beverage.find((b) => b.id === food.id);
 		const productPrice = product ? Number(product.price) : 0;
-		return total + productPrice * quantity;
+		return total + productPrice * food.quantity;
 	}, 0);
 
 	const totalTicketPrice =
@@ -56,9 +55,23 @@ const BookingPage: FC = () => {
 			branch:
 				branches.find((branch) => branch.showTimeId === selectedBranchId)?.branch?.name ||
 				t('noSelected'),
-			showTime: selectShowTime ? new Date(selectShowTime.show_time_start).toLocaleString() : '',
+			showTime: selectShowTime ? selectShowTime.show_time_start : '',
+			quantity: totalTickets,
 			seats: selectedSeats,
-			quantities,
+			room: selectShowTime.room.name,
+			ticket: [
+				{
+					type: 'adult',
+					price: price.adult.price,
+					quantity: price.adult.quantity,
+				},
+				{
+					type: 'student',
+					price: price.student.price,
+					quantity: price.student.quantity,
+				},
+			],
+			foods,
 			totalAmount,
 		};
 		console.log(orderDetails);
@@ -98,8 +111,9 @@ const BookingPage: FC = () => {
 
 				if (!groups[day]) {
 					groups[day] = { weekday, showTimes: [] };
+
+					groups[day].showTimes.push(showTime);
 				}
-				groups[day].showTimes.push(showTime);
 				return groups;
 			},
 			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
@@ -173,7 +187,7 @@ const BookingPage: FC = () => {
 			setSelectedDate(null);
 			setSelectShowTime(null);
 			setSelectedSeats([]);
-			setQuantities({});
+			setFoods([]);
 			setPrice({
 				adult: {
 					price: 0,
@@ -192,7 +206,7 @@ const BookingPage: FC = () => {
 	useEffect(() => {
 		setSelectShowTime(null);
 		setSelectedSeats([]);
-		setQuantities({});
+		setFoods([]);
 		setPrice({
 			adult: {
 				price: 0,
@@ -210,7 +224,7 @@ const BookingPage: FC = () => {
 	useEffect(() => {
 		if (selectShowTime) {
 			setSelectedSeats([]);
-			setQuantities({});
+			setFoods([]);
 			setPrice({
 				adult: {
 					price: selectShowTime.price * 1.3,
@@ -419,11 +433,7 @@ const BookingPage: FC = () => {
 				{selectedBranchId && selectedSeats.length > 0 && (
 					<div className='flex w-full flex-col items-center gap-5'>
 						<h1 className='text-4xl font-extrabold uppercase'>{t('food')}</h1>
-						<PopCornSelection
-							beverages={beverage}
-							quantities={quantities}
-							setQuantities={setQuantities}
-						/>
+						<PopCornSelection beverages={beverage} foods={foods} setQuantities={setFoods} />
 					</div>
 				)}
 			</div>
@@ -468,17 +478,17 @@ const BookingPage: FC = () => {
 						<p>{t('noRoom')}</p>
 					)}
 
-					{selectedBranchId && Object.keys(quantities).length > 0 && (
+					{selectedBranchId && Object.keys(foods).length > 0 && (
 						<div>
 							<ul>
-								{Object.entries(quantities).map(([item, quantity]) => {
-									const product = beverage.find((b) => b.id === item);
+								{foods.map((food) => {
+									const product = beverage.find((b) => b.id === food.id);
 									const productName =
 										product?.translations.find((t) => t.categoryLanguage.languageCode === locale)
 											?.name || t('noItem');
 									return (
-										<li key={item}>
-											{quantity} - {productName}
+										<li key={food.id}>
+											{food.quantity} - {productName}
 										</li>
 									);
 								})}
@@ -537,5 +547,4 @@ const BookingPage: FC = () => {
 		</div>
 	);
 };
-
 export default BookingPage;
