@@ -55,8 +55,22 @@ const BookingPage: FC = () => {
 			branch:
 				branches.find((branch) => branch.showTimeId === selectedBranchId)?.branch?.name ||
 				t('noSelected'),
-			showTime: selectShowTime ? new Date(selectShowTime.show_time_start).toLocaleString() : '',
+			showTime: selectShowTime ? selectShowTime.show_time_start : '',
+			quantity: totalTickets,
 			seats: selectedSeats,
+			room: selectShowTime.room.name,
+			ticket: [
+				{
+					type: 'adult',
+					price: price.adult.price,
+					quantity: price.adult.quantity,
+				},
+				{
+					type: 'student',
+					price: price.student.price,
+					quantity: price.student.quantity,
+				},
+			],
 			foods,
 			totalAmount,
 		};
