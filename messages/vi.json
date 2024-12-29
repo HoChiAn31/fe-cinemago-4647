@@ -488,5 +488,42 @@
 		"food": "Bắp - Nước",
 		"total": "Thành tiền",
 		"qr": "Vui lòng đưa mã này đến Cinemago để nhận vé của bạn"
+	},
+
+	"Status": {
+		"success": {
+			"h1": "Đặt vé thành công!",
+			"p": "Cảm ơn bạn đã sử dụng dịch vụ.",
+			"p1": "Hóa đơn sẽ được gửi qua email sớm nhất. Vui lòng lưu giữ để sử dụng sau này."
+		},
+
+		"fail": {
+			"h1": "Đặt vé thất bại!",
+			"p": "Rất tiếc, giao dịch của bạn không thành công.",
+			"p1": "Vui lòng thử lại hoặc liên hệ hỗ trợ để được giúp đỡ."
+		},
+
+		"button": "Về trang chủ"
+	},
+
+	"Payment": {
+		"enterContactInfo": "Nhập thông tin liên lạc",
+		"fullNamePlaceholder": "Nhập họ và tên",
+		"emailPlaceholder": "Nhập email",
+		"phonePlaceholder": "Nhập số điện thoại",
+		"onlinePayment": "Thanh toán trực tuyến",
+		"submitPayment": "Thanh toán",
+		"ticketDetails": "Chi tiết vé",
+		"time": "Thời gian",
+		"date": "Ngày chiếu",
+		"cinema": "Rạp",
+		"room": "Phòng chiếu",
+		"quantity": "Số lượng",
+		"seat": "Ghế ngồi",
+		"ticketType": "Loại vé",
+		"snackDrink": "Bắp nước",
+		"noItem": "Không có mục nào",
+		"totalAmount": "Tổng tiền",
+		"paymentSuccess": "Thanh toán thành công!"
 	}
 }
