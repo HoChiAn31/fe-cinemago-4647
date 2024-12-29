@@ -8,6 +8,7 @@ import { useUser } from '@/app/context/UserContext';
 import { useRouter } from 'next/navigation';
 import axios from '@/app/utils/axios';
 import { User } from '@/app/types';
+import { useTheme } from '@/app/context/ThemeContext';
 
 const userData = {
 	id: '1',
@@ -40,6 +41,7 @@ const App: React.FC = () => {
 	const router = useRouter();
 	const locale = useLocale();
 	const { user } = useUser();
+	const { isDarkMode } = useTheme();
 	useEffect(() => {
 		if (user?.id === '') {
 			router.push(`/${locale}/`);
@@ -177,8 +179,10 @@ const App: React.FC = () => {
 
 	return (
 		<div className='flex justify-center'>
-			<Card className='w-full p-3 pb-10 md:w-[90%]'>
-				<div className='mx-4 border-b-1 border-gray2 pb-4 text-sm'>
+			<Card
+				className={`mb-2 w-full rounded-t-none border-none p-3 pb-10 md:w-[90%] ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]`}
+			>
+				<div className='mx-4 border-b-1 border-gray1 pb-4 text-sm'>
 					<span className='text-xl font-bold'>{t('title')}</span> <br />
 					{t('subTitle')}
 				</div>
@@ -194,7 +198,7 @@ const App: React.FC = () => {
 									</span>
 									<div className='h-10 w-full'>
 										<Input
-											className={`h-10 rounded-sm px-3 ${firstnameError ? 'border-2 border-primary bg-red-50' : ''}`}
+											className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} h-10 rounded-sm px-3 ${firstnameError ? 'border-2 border-primary' : ''}`}
 											value={dataUser?.firstName}
 											onChange={(e) => setFirstname(e.target.value)}
 											onBlur={validateFirstname}
@@ -209,7 +213,7 @@ const App: React.FC = () => {
 									</span>
 									<div className='h-10 w-full'>
 										<Input
-											className={`h-10 rounded-sm px-3 ${lastnameError ? 'border-2 border-primary bg-red-50' : ''}`}
+											className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} h-10 rounded-sm px-3 ${lastnameError ? 'border-2 border-primary' : ''}`}
 											value={dataUser?.lastName}
 											onChange={(e) => setLastname(e.target.value)}
 											onBlur={validateLastname}
@@ -229,7 +233,7 @@ const App: React.FC = () => {
 									<div className='flex h-10 w-full flex-nowrap'>
 										{editEmail ? (
 											<Input
-												className={`h-10 rounded-sm px-3 ${emailError ? 'border-2 border-primary bg-red-50' : ''}`}
+												className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} h-10 rounded-sm px-3 ${emailError ? 'border-2 border-primary' : ''}`}
 												value={dataUser?.email}
 												onChange={(e) => setEmail(e.target.value)}
 												onBlur={validateEmail}
@@ -285,7 +289,7 @@ const App: React.FC = () => {
 							</div> */}
 						</Col>
 
-						<Col className='order-1 flex w-full items-center justify-center border-b-1 border-gray2 lg:order-2 lg:mx-0 lg:border-b-0 lg:border-l-1'>
+						<Col className='order-1 flex w-full items-center justify-center border-b-1 border-gray1 lg:order-2 lg:mx-0 lg:border-b-0 lg:border-l-1'>
 							<div className='flex w-full max-w-sm flex-col items-center justify-center gap-8 overflow-hidden py-10'>
 								{' '}
 								<div className='flex flex-col items-center'>
