@@ -18,6 +18,7 @@ import Axios from '@/app/utils/axios';
 import { useUser } from '@/app/context/UserContext';
 import useDebounce from '@/app/hook/useDebounce';
 import axios from 'axios';
+import { useTheme } from '@/app/context/ThemeContext';
 
 const userData = {
 	id: '1',
@@ -52,6 +53,7 @@ const App: React.FC = () => {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const t = useTranslations('UserProfile.reset');
 	const { user } = useUser();
+	const { isDarkMode } = useTheme();
 
 	const validateOldPassword = () => {
 		if (!isOldPasswordValid) {
@@ -147,9 +149,11 @@ const App: React.FC = () => {
 
 	return (
 		<div className='flex justify-center'>
-			<Card className='w-full pb-10 lg:w-[90%]'>
+			<Card
+				className={`w-full rounded-t-none border-none pb-10 lg:w-[90%] ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]`}
+			>
 				<div className='p-3'>
-					<div className='mx-4 border-b-1 border-gray2 pb-4 text-sm'>
+					<div className='mx-4 border-b-1 border-gray1 pb-4 text-sm'>
 						<span className='text-xl font-bold'>{t('title')}</span> <br />
 						{t('subTitle')}
 					</div>
@@ -165,7 +169,7 @@ const App: React.FC = () => {
 								<div className='relative h-10 w-full'>
 									<div className='relative flex items-center justify-center'>
 										<Input.Password
-											className={`h-10 rounded-sm px-3 ${passwordError ? 'border-2 border-primary bg-red-50' : isOldPasswordValid ? 'border-2 border-green-500 bg-green-50' : ''}`}
+											className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} h-10 rounded-md px-3 ${passwordError ? 'border-2 border-primary' : isOldPasswordValid ? 'border-2 border-green-500' : ''} focus:outline-none`}
 											value={oldPassword}
 											onChange={(e) => {
 												setOldPassword(e.target.value);
@@ -189,7 +193,7 @@ const App: React.FC = () => {
 								</span>
 								<div className='relative h-10 w-full'>
 									<Input.Password
-										className={`h-10 w-full rounded-sm px-3 ${newPasswordError ? 'border-2 border-primary bg-red-50' : ''}`}
+										className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} h-10 w-full rounded-md px-3 ${newPasswordError ? 'border-2 border-primary' : ''}`}
 										value={newPassword}
 										onChange={(e) => {
 											setNewPassword(e.target.value);
@@ -213,7 +217,7 @@ const App: React.FC = () => {
 								<div className='relative h-10 w-full'>
 									<div className='relative flex w-full items-center justify-center'>
 										<Input.Password
-											className={`h-10 w-full rounded-sm px-3 ${confirmPasswordError ? 'border-2 border-primary bg-red-50' : isConfirmPasswordValid ? 'border-2 border-green-500 bg-green-50' : ''}`}
+											className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} h-10 w-full rounded-md px-3 ${confirmPasswordError ? 'border-2 border-primary' : isConfirmPasswordValid ? 'border-2 border-green-500' : ''}`}
 											value={confirmPassword}
 											onChange={(e) => {
 												setConfirmPassword(e.target.value);
@@ -257,8 +261,8 @@ const App: React.FC = () => {
 							<ModalHeader className='flex flex-col gap-1'>{t('modal.otp')}</ModalHeader>
 							<ModalBody>
 								<Input
-									className='mb-4 flex h-10 w-full flex-col items-center justify-center rounded-sm px-3'
-									placeholder={t('modal.otp')}
+									className={`mb-4 flex h-10 w-full flex-col items-center justify-center rounded-md border-transparent px-3 ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}
+									// placeholder={t('modal.otp')}
 									value={otp}
 									onChange={(e) => {
 										setOtp(e.target.value);
@@ -268,7 +272,7 @@ const App: React.FC = () => {
 								{otpError && <div className='text-primary'>{otpError}</div>}
 							</ModalBody>
 							<ModalFooter className='flex items-center justify-center'>
-								<Button color='primary' onPress={handleOtpSubmit} className='rounded-sm'>
+								<Button color='primary' onPress={handleOtpSubmit} className='rounded-md'>
 									{t('button')}
 								</Button>
 							</ModalFooter>

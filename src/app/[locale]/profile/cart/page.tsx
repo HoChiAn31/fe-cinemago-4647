@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Tabs } from 'antd';
 import './cart.css';
 import Links from '@/app/components/Links';
+import { useTheme } from '@/app/context/ThemeContext';
 
 const items = [
 	{
@@ -61,63 +62,69 @@ const renderItems = (
 		paymentStatus: string;
 		image: string;
 	}[],
-) => (
-	<div className='grid grid-cols-1 gap-4'>
-		{items.map((item) => (
-			<Links key={item.id} href={`/profile/cart/${item.id}`} className='block'>
-				<Card bordered className='p-5 shadow-md'>
-					<div className='grid grid-cols-2 justify-between gap-6'>
-						{/* Cột hình ảnh + mô tả sản phẩm */}
-						<div className='flex gap-4'>
-							{/* Hình ảnh */}
-							<div className='flex items-center'>
-								<img src={item.image} alt={item.title} className='object-cover' />
+) => {
+	const { isDarkMode } = useTheme();
+	return (
+		<div className='grid grid-cols-1 gap-4'>
+			{items.map((item) => (
+				<Links key={item.id} href={`/profile/cart/${item.id}`} className='block'>
+					<Card
+						bordered
+						className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} border-gray1 p-5 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]`}
+					>
+						<div className='grid grid-cols-2 justify-between gap-6'>
+							{/* Cột hình ảnh + mô tả sản phẩm */}
+							<div className='flex gap-4'>
+								{/* Hình ảnh */}
+								<div className='flex items-center'>
+									<img src={item.image} alt={item.title} className='object-cover' />
+								</div>
+
+								{/* Mô tả sản phẩm */}
+								<div className='flex flex-col justify-center text-lg'>
+									<h3 className='text-2xl font-bold'>{item.title}</h3>
+									<p>Số lượng: {item.quantity}</p>
+									<p>Số ghế: {item.seat}</p>
+								</div>
 							</div>
 
-							{/* Mô tả sản phẩm */}
-							<div className='flex flex-col justify-center text-lg'>
-								<h3 className='text-2xl font-bold'>{item.title}</h3>
-								<p>Số lượng: {item.quantity}</p>
-								<p>Số ghế: {item.seat}</p>
-							</div>
-						</div>
+							{/* Cột giá + trạng thái */}
+							<div className='flex items-center justify-end gap-2'>
+								{/* Giá */}
+								<div>
+									<p className='font-bold text-primary'>{item.price}</p>
+								</div>
 
-						{/* Cột giá + trạng thái */}
-						<div className='flex items-center justify-end gap-2'>
-							{/* Giá */}
-							<div>
-								<p className='font-bold text-primary'>{item.price}</p>
-							</div>
-
-							{/* Trạng thái */}
-							<div className='flex w-32 justify-center'>
-								<p
-									className={`h-fit w-fit rounded px-2 py-1 ${
-										item.paymentStatus === 'completed'
-											? 'bg-green-200 text-green-800'
+								{/* Trạng thái */}
+								<div className='flex w-32 justify-center'>
+									<p
+										className={`h-fit w-fit rounded px-2 py-1 ${
+											item.paymentStatus === 'completed'
+												? 'bg-green-200 text-green-800'
+												: item.paymentStatus === 'cancelled'
+													? 'bg-red-200 text-red-800'
+													: 'bg-yellow-200 text-yellow-800'
+										}`}
+									>
+										{item.paymentStatus === 'completed'
+											? 'Đã thanh toán'
 											: item.paymentStatus === 'cancelled'
-												? 'bg-red-200 text-red-800'
-												: 'bg-yellow-200 text-yellow-800'
-									}`}
-								>
-									{item.paymentStatus === 'completed'
-										? 'Đã thanh toán'
-										: item.paymentStatus === 'cancelled'
-											? 'Đã hủy'
-											: 'Đã hoàn tiền'}
-								</p>
+												? 'Đã hủy'
+												: 'Đã hoàn tiền'}
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				</Card>
-			</Links>
-		))}
-	</div>
-);
+					</Card>
+				</Links>
+			))}
+		</div>
+	);
+};
 
 const CartPage: React.FC = () => {
 	const [activeTabKey, setActiveTabKey] = useState<string>('all');
-
+	const { isDarkMode } = useTheme();
 	useEffect(() => {
 		const storedTabKey = localStorage.getItem('activeTabKey');
 		if (storedTabKey) {
@@ -141,7 +148,10 @@ const CartPage: React.FC = () => {
 
 	return (
 		<div>
-			<Card style={{ width: '95%' }} className='flex h-auto w-[95%] flex-col gap-4 p-4'>
+			<Card
+				style={{ width: '95%' }}
+				className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'} flex h-auto w-[95%] flex-col gap-4 rounded-t-none border-none p-4`}
+			>
 				<Tabs
 					defaultActiveKey='all'
 					activeKey={activeTabKey}
