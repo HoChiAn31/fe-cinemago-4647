@@ -521,9 +521,11 @@
 		"quantity": "Quantity",
 		"seat": "Seats",
 		"ticketType": "Ticket type",
-		"snackDrink": "Popsicle",
+		"snackDrink": "Popcorn",
 		"noItem": "No items",
 		"totalAmount": "Total amount",
-		"paymentSuccess": "Payment successful!"
+		"paymentSuccess": "Payment successful!",
+		"adult": "Adult",
+		"student": "Student"
 	}
 }
