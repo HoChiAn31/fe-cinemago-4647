@@ -80,7 +80,6 @@ const OnGoing: React.FC = () => {
 		nextArrow: <SampleNextArrow />,
 		prevArrow: <SamplePrevArrow />,
 	};
-	console.log(movies);
 	return (
 		<div className='container mx-auto mt-10 flex flex-col items-center justify-center'>
 			<div className='mb-8 text-center text-4xl font-bold uppercase'>{t('label.onGoing')}</div>

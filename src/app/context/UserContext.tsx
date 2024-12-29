@@ -12,6 +12,7 @@ import { getCookie, setCookie, deleteCookie } from 'cookies-next'; // Import coo
 interface CustomJwtPayload extends JwtPayload {
 	id: string;
 	role: string;
+	email: string;
 }
 
 // Create Auth context with default values
@@ -36,8 +37,9 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [role, setRole] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [user, setUser] = useState<User | null>({
-		id: '2376a8a2-e2ce-4c8c-a676-447d57fc9b06',
-		role: 'user',
+		id: '',
+		role: '',
+		email: '',
 	});
 	const [roleBc, setRoleBc] = useState<string>();
 	const router = useRouter();
@@ -50,10 +52,11 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 				try {
 					setIsLoading(true);
 					const response = jwtDecode<CustomJwtPayload>(token);
-
+					console.log(response);
 					const userData: User = {
 						id: response.id, // Ensure these properties exist in your decoded token
 						role: response.role,
+						email: response.email,
 					};
 					setUser(userData);
 					setIsLogin(true);

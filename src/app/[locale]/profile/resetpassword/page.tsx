@@ -14,6 +14,10 @@ import {
 } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
+import Axios from '@/app/utils/axios';
+import { useUser } from '@/app/context/UserContext';
+import useDebounce from '@/app/hook/useDebounce';
+import axios from 'axios';
 
 const userData = {
 	id: '1',
@@ -41,18 +45,19 @@ const App: React.FC = () => {
 	const [isChanged, setIsChanged] = useState(false);
 	const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const debouncedSearchQuery = useDebounce(oldPassword, 300);
+	// const [isValid, setIsValid]=useState<boolean>(false)
 	const [otp, setOtp] = useState('');
 	const [otpError, setOtpError] = useState('');
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const t = useTranslations('UserProfile.reset');
+	const { user } = useUser();
 
 	const validateOldPassword = () => {
-		if (oldPassword !== userData.password) {
+		if (!isOldPasswordValid) {
 			setPasswordError(`${t('validate.oldPass')}`);
-			setIsOldPasswordValid(false);
 		} else {
 			setPasswordError('');
-			setIsOldPasswordValid(true);
 		}
 	};
 
@@ -84,9 +89,29 @@ const App: React.FC = () => {
 		}
 	}, [isOldPasswordValid, newPassword, confirmPassword]);
 
+	useEffect(() => {
+		if (oldPassword) {
+			Axios.post(`${process.env.NEXT_PUBLIC_API}/users/${user?.id}/check-password`, {
+				password: oldPassword,
+			})
+				.then((response) => {
+					setIsOldPasswordValid(response.data.isValid);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}, [debouncedSearchQuery]);
+	console.log(user);
+
 	const handlePasswordChange = () => {
+		console.log(newPassword);
+		console.log(user?.email);
 		if (isChanged) {
 			toast.success(`${t('modal.sendOtp')}`);
+			axios.post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, {
+				email: user?.email,
+			});
 			setTimeout(() => {
 				setIsModalVisible(true);
 				onOpen();
@@ -96,9 +121,17 @@ const App: React.FC = () => {
 		}
 	};
 
-	const handleOtpSubmit = () => {
-		if (otp === '') {
-			// Giả định mã OTP đúng là '123456'
+	const handleOtpSubmit = async () => {
+		const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/verify-otp`, {
+			otp: otp,
+			email: user?.email,
+		});
+		if (res.data === 'OTP201') {
+			await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/reset-password`, {
+				email: user?.email,
+				otp,
+				newPassword: newPassword,
+			});
 			toast.success(`${t('modal.success')}`);
 			setTimeout(() => {
 				setIsModalVisible(false);
