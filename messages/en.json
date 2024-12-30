@@ -246,7 +246,8 @@
 			"optionDes": "In addition to the high-quality cinema system, Cinemago also provides you with many other great types of entertainment.",
 			"date": "Premiere",
 			"update": "Not updated",
-			"minutes": "minutes"
+			"minutes": "minutes",
+			"noMoviesFound": "No matching movies found"
 		}
 	},
 
@@ -527,5 +528,14 @@
 		"paymentSuccess": "Payment successful!",
 		"adult": "Adult",
 		"student": "Student"
+	},
+
+	"Filter": {
+		"genres": "Genres",
+		"all": "Select all",
+		"rating": "Rating",
+		"country": "Country",
+		"duration": "Duration",
+		"age": "Age"
 	}
 }
