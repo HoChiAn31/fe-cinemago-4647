@@ -16,16 +16,16 @@ const Footer: FC = () => {
 
 	const [branch, setBranch] = useState<Branch[]>([]);
 	const locale = useLocale();
-	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/branch`)
-			.then((response) => {
-				setBranch(response.data.data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`http://localhost:5000/branch`)
+	// 		.then((response) => {
+	// 			setBranch(response.data.data);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(error);
+	// 		});
+	// }, []);
 	return (
 		<div
 			className={`bg-gray-900 pt-10 ${isDarkMode ? 'bg-dark text-white' : 'border-t border-t-gray1 bg-white text-black'}`}

@@ -12,6 +12,7 @@ import { beverage } from '@/app/modules/data';
 import Links from '@/app/components/Links';
 import axios from 'axios';
 import Loading from '@/app/components/Loading';
+import { Button } from '@nextui-org/react';
 
 const BookingPage: FC = () => {
 	const [movie, setMovie] = useState<MovieData>({} as MovieData);
@@ -27,7 +28,6 @@ const BookingPage: FC = () => {
 	const [foods, setFoods] = useState<{ id: string; quantity: number; price: number }[]>([]);
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
 	const locale = useLocale();
 	const { id } = useParams();
 	const pathname = usePathname();
@@ -82,6 +82,7 @@ const BookingPage: FC = () => {
 			foods,
 			totalAmount,
 		};
+		console.log(orderDetails);
 		localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 	};
 
@@ -513,7 +514,7 @@ const BookingPage: FC = () => {
 							<p>VND</p>
 						</div>
 					</div>
-					<Links
+					{/* <Links
 						className={`w-full rounded px-4 py-2 text-center text-white ${
 							isButtonDisabled
 								? 'cursor-not-allowed bg-red-500 opacity-50'
@@ -530,7 +531,25 @@ const BookingPage: FC = () => {
 						}}
 					>
 						{t('button')}
-					</Links>
+					</Links> */}
+					<Button
+						className={`w-full rounded px-4 py-2 text-center text-white ${
+							isButtonDisabled
+								? 'cursor-not-allowed bg-red-500 opacity-50'
+								: 'bg-red-500 hover:bg-red-600'
+						}`}
+						disabled={isButtonDisabled}
+						// href='/payment-pay'
+						onClick={(e) => {
+							if (isButtonDisabled) {
+								e.preventDefault();
+							} else {
+								handleSaveToLocalStorage();
+							}
+						}}
+					>
+						{t('button')}
+					</Button>
 				</div>
 			</div>
 		</div>

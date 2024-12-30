@@ -2,12 +2,14 @@
 
 import React, { FC, useState } from 'react';
 import { Divider } from 'antd';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import QRCode from 'react-qr-code';
 import Image from '@/app/components/Image';
 import { formatDate } from '@/app/utils/format.utils';
 import { useTheme } from '@/app/context/ThemeContext';
+import { ChevronLeft } from 'lucide-react';
+import { Button } from '@nextui-org/react';
 
 interface Item {
 	id: string;
@@ -132,17 +134,40 @@ const DetailCart: FC = () => {
 			],
 		},
 	];
-
+	const router = useRouter();
 	// Tìm item theo id
 	const item = items.find((item) => item.id === String(id));
 
 	if (!item) {
 		return <div>{t('noProduct')}</div>;
 	}
+	const handleBack = () => {
+		router.back();
+	};
 
 	return (
-		<div className={`mx-auto flex items-center ${isDarkMode ? 'bg-white text-black' : ''}`}>
+		<div
+			className={`mx-auto flex items-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] ${isDarkMode ? 'bg-dark text-white' : 'bg-white'} `}
+		>
 			<div className='flex w-1/2 flex-col gap-10 p-5'>
+				{/* <Button
+					className='border text-base'
+					variant='bordered'
+					startContent={<ChevronLeft height={20} width={20} />}
+					color='primary'
+					onClick={handleBack}
+					radius='sm'
+				>
+					{t('back')}
+				</Button> */}
+				<div className='-mt-8 flex items-center justify-start'>
+					<div
+						onClick={handleBack}
+						className='flex cursor-pointer items-center justify-center rounded-md border border-primary px-2 py-1 text-primary hover:opacity-65'
+					>
+						<ChevronLeft height={20} width={20} /> <p>Quay lại</p>
+					</div>
+				</div>
 				<div className='flex items-center justify-between'>
 					<div className='flex w-full flex-col gap-2'>
 						<div className='flex items-center justify-between'>

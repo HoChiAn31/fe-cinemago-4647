@@ -6,6 +6,7 @@ import { Menu } from 'antd';
 import { Bell, NotepadText, TicketPercent, UserRound, Menu as MenuIcon, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { useTheme } from '../context/ThemeContext';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -16,7 +17,7 @@ const SidebarUser: React.FC = () => {
 	const router = useRouter();
 	const locale = useLocale();
 	const t = useTranslations('UserSideBar');
-
+	const { isDarkMode } = useTheme();
 	const items: MenuItem[] = [
 		{
 			key: 'account',
@@ -126,7 +127,9 @@ const SidebarUser: React.FC = () => {
 					openKeys={openKeys}
 					mode='inline'
 					items={items}
-					className='overflow-hidden shadow-lg lg:w-[350px]'
+					// mode={mode}
+					theme={isDarkMode ? 'dark' : 'light'}
+					className={`overflow-hidden shadow-lg lg:w-[350px]`}
 					selectedKeys={[selectedKey]}
 					onOpenChange={onOpenChange}
 				/>

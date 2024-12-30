@@ -42,16 +42,16 @@ const Header: FC = () => {
 		setRole('');
 		router.push(`/${locale}/`);
 	};
-	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/movies?languageCode=${locale}`)
-			.then((response) => {
-				setDataSearch(response.data.data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`http://localhost:5000/movies?languageCode=${locale}`)
+	// 		.then((response) => {
+	// 			setDataSearch(response.data.data);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(error);
+	// 		});
+	// }, []);
 	useEffect(() => {
 		console.log(valueSearch);
 		if (valueSearch) {
