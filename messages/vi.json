@@ -246,7 +246,8 @@
 			"optionDes": "Ngoài hệ thống rạp chiếu phim chất lượng cao, Cinemago còn cung cấp cho bạn nhiều loại hình giải trí tuyệt vời khác.",
 			"date": "Khởi chiếu",
 			"update": "Chưa cập nhật",
-			"minutes": "phút"
+			"minutes": "phút",
+			"noMoviesFound": "Không có phim nào phù hợp"
 		}
 	},
 
@@ -527,5 +528,14 @@
 		"paymentSuccess": "Thanh toán thành công!",
 		"adult": "Người lớn",
 		"student": "HSSV"
+	},
+
+	"Filter": {
+		"genres": "Thể loại",
+		"all": "Chọn tất cả",
+		"rating": "Đánh giá",
+		"country": "Quốc gia",
+		"duration": "Thời lượng",
+		"age": "Độ tuổi"
 	}
 }
