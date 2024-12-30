@@ -3,7 +3,7 @@
 import React from 'react';
 
 const App: React.FC = () => {
-	return <div></div>;
+	return <div>Chưa có thông báo đơn hàng!</div>;
 };
 
 export default App;
