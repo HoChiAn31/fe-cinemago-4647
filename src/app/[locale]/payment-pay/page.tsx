@@ -203,13 +203,13 @@ const PaymentPage: React.FC = () => {
 
 				{/* Thông tin phim */}
 				<div className='flex flex-col gap-2'>
-					<h2 className='text-2xl font-semibold'>{detail?.movie}</h2>
+					<h2 className='text-nowrap text-2xl font-semibold'>{detail?.movie}</h2>
 
 					<div className='flex'>
 						<div className='flex w-1/2 flex-col items-start'>
 							<h2 className='text-md uppercase tracking-tighter'>{t('time')}</h2>
 							<p className='text-lg font-semibold'>
-								{new Date(detail.showTime).toLocaleTimeString('vi-VN', {
+								{new Date(detail.showTime.time).toLocaleTimeString('vi-VN', {
 									hour: '2-digit',
 									minute: '2-digit',
 									hour12: false,
@@ -220,7 +220,7 @@ const PaymentPage: React.FC = () => {
 						<div className='flex w-1/2 flex-col items-start'>
 							<h2 className='text-md uppercase tracking-tighter'>{t('date')}</h2>
 							<p className='text-lg font-semibold'>
-								{new Date(detail.showTime).toLocaleDateString('en-GB', {
+								{new Date(detail.showTime.time).toLocaleDateString('en-GB', {
 									day: '2-digit',
 									month: '2-digit',
 								})}
@@ -231,14 +231,14 @@ const PaymentPage: React.FC = () => {
 					<div className='w-full'>
 						<div className='flex w-1/2 flex-col items-start'>
 							<h2 className='text-md uppercase tracking-tighter'>{t('cinema')}</h2>
-							<p className='text-lg font-semibold'>{detail.branch}</p>
+							<p className='text-nowrap text-lg font-semibold'>{detail.branch}</p>
 						</div>
 					</div>
 
 					<div className='flex w-full'>
 						<div className='flex w-1/2 flex-col items-start'>
 							<h2 className='text-md uppercase tracking-tighter'>{t('room')}</h2>
-							<p className='text-lg font-semibold'>{detail.room}</p>
+							<p className='text-lg font-semibold'>{detail.room.name}</p>
 						</div>
 
 						<div className='flex w-1/2 flex-col items-start'>
