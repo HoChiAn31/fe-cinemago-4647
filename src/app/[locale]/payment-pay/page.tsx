@@ -231,7 +231,7 @@ const PaymentPage: React.FC = () => {
 
 				{/* Thông tin phim */}
 				<div className='flex flex-col gap-2'>
-					<h2 className='text-nowrap text-2xl font-semibold'>{detail?.movie}</h2>
+					<h2 className='text-nowrap text-2xl font-semibold'>{detail?.movie.name}</h2>
 
 					<div className='flex'>
 						<div className='flex w-1/2 flex-col items-start'>
