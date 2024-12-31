@@ -514,7 +514,7 @@ const BookingPage: FC = () => {
 							<p>VND</p>
 						</div>
 					</div>
-					{/* <Links
+					<Links
 						className={`w-full rounded px-4 py-2 text-center text-white ${
 							isButtonDisabled
 								? 'cursor-not-allowed bg-red-500 opacity-50'
@@ -531,8 +531,8 @@ const BookingPage: FC = () => {
 						}}
 					>
 						{t('button')}
-					</Links> */}
-					<Button
+					</Links>
+					{/* <Button
 						className={`w-full rounded px-4 py-2 text-center text-white ${
 							isButtonDisabled
 								? 'cursor-not-allowed bg-red-500 opacity-50'
@@ -549,7 +549,7 @@ const BookingPage: FC = () => {
 						}}
 					>
 						{t('button')}
-					</Button>
+					</Button> */}
 				</div>
 			</div>
 		</div>
