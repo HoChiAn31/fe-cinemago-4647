@@ -34,18 +34,18 @@ const EditMovieGenrePage = () => {
 		// Ensure movieGenre is not null
 		if (!movieGenre) return;
 
-		// Determine which language is being updated based on the 'name' field
-		const languageCode = name.includes('en') ? 'en' : 'vi'; // Assuming 'name' includes language code (e.g., 'name_en', 'name_vi')
+		// Parse the field and language code from the input name
+		const [field, languageCode] = name.split('_'); // Example: "name_en" => ["name", "en"]
 
 		setMovieGenre((prevState) => {
 			if (!prevState) return null;
 
-			// Update the correct translation based on the language
+			// Update the correct translation based on the language code
 			const updatedTranslations = prevState.movieGenreTranslation.map((translation) =>
 				translation.categoryLanguage.languageCode === languageCode
 					? {
 							...translation,
-							[name.split('_')[0]]: value, // Dynamically update name or description
+							[field]: value, // Dynamically update "name" or "description"
 						}
 					: translation,
 			);
@@ -57,40 +57,30 @@ const EditMovieGenrePage = () => {
 		});
 	};
 
-	const handleEditMovieGenre = async () => {
+	const handleEditMovieGenre = () => {
 		console.log(movieGenre);
 		setIsEditing(true);
 
-		const updatePromise = axios.patch(`http://localhost:5000/movie-genres/${id}`, movieGenre);
+		axios
+			.put(`http://localhost:5000/movie-genres/${id}`, movieGenre)
+			.then((response) => {
+				// if (response.data.affected === 1) {
 
-		toast.promise(
-			updatePromise,
-			{
-				loading: toastT('updating'),
-				success: (response) => {
-					if (response.data.affected === 1) {
-						setTimeout(() => {
-							router.push(`/${locale}/admin/admin-movie-genres/`);
-						}, 3000);
-						return toastT('updateSuccess');
-					} else {
-						throw new Error(toastT('updateFailed'));
-					}
-				},
-				error: toastT('updateError'),
-			},
-			{
-				duration: 3000,
-			},
-		);
-
-		try {
-			await updatePromise;
-		} catch (error) {
-			console.error('Error updating movie genre:', error);
-		} finally {
-			setIsEditing(false);
-		}
+				// } else {
+				// 	toast.error(toastT('updateFailed'));
+				// }
+				toast.success(toastT('updateSuccess'));
+				setTimeout(() => {
+					router.push(`/${locale}/admin/admin-movie-genres/`);
+				}, 3000);
+			})
+			.catch((error) => {
+				console.error('Error updating movie genre:', error);
+				toast.error(toastT('updateError'));
+			})
+			.finally(() => {
+				setIsEditing(false);
+			});
 	};
 
 	return (
@@ -99,7 +89,6 @@ const EditMovieGenrePage = () => {
 				isOpen
 				isBack
 				onChangeBack={() => router.back()}
-				// title={'Chi tiết thể loại'}
 				titleOpen='Cập nhật'
 				onChange={handleEditMovieGenre}
 			/>
@@ -110,12 +99,12 @@ const EditMovieGenrePage = () => {
 						<Input
 							fullWidth
 							type='text'
-							name='name'
+							name='name_en'
 							value={
 								movieGenre?.movieGenreTranslation.find(
 									(translation) => translation.categoryLanguage.languageCode === 'en',
 								)?.name || ''
-							} // Assuming first translation
+							}
 							onChange={handleInputChange}
 							label={t('name')}
 							required
@@ -124,7 +113,7 @@ const EditMovieGenrePage = () => {
 						<Input
 							fullWidth
 							type='text'
-							name='description'
+							name='description_en'
 							value={
 								movieGenre?.movieGenreTranslation.find(
 									(translation) => translation.categoryLanguage.languageCode === 'en',
@@ -143,12 +132,12 @@ const EditMovieGenrePage = () => {
 						<Input
 							fullWidth
 							type='text'
-							name='name'
+							name='name_vi'
 							value={
 								movieGenre?.movieGenreTranslation.find(
 									(translation) => translation.categoryLanguage.languageCode === 'vi',
 								)?.name || ''
-							} // Assuming first translation
+							}
 							onChange={handleInputChange}
 							label={t('name')}
 							required
@@ -157,7 +146,7 @@ const EditMovieGenrePage = () => {
 						<Input
 							fullWidth
 							type='text'
-							name='description'
+							name='description_vi'
 							value={
 								movieGenre?.movieGenreTranslation.find(
 									(translation) => translation.categoryLanguage.languageCode === 'vi',

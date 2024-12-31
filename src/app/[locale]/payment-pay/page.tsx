@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { Divider } from 'antd';
@@ -17,12 +17,13 @@ const stripePromise = loadStripe(
 );
 
 const PaymentPage: React.FC = () => {
+	const cardElementContainer = useRef(null);
 	const [stripe, setStripe] = useState<Stripe | null>(null);
 	const [elements, setElements] = useState<any>(null);
 	const [clientSecret, setClientSecret] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [beverage, setBeverage] = useState<BeverageProps[]>([]);
-
+	// const [isLoading, setIsLoaing] = useState<boolean>(false);
 	const { user } = useUser();
 	const locale = useLocale();
 	const t = useTranslations('Payment');
@@ -46,25 +47,50 @@ const PaymentPage: React.FC = () => {
 				body: JSON.stringify({ amount: 5000, currency: 'usd' }),
 			});
 			const data = await response.json();
+			console.log(data);
 			setClientSecret(data.clientSecret);
 		};
 
 		initializeStripe();
+		setIsLoading(true);
 	}, []);
 
+	// useEffect(() => {
+	// 	if (stripe && clientSecret) {
+	// 		const elementsInstance = stripe.elements();
+	// 		const cardElement = elementsInstance.create('card');
+
+	// 		// Kiểm tra xem phần tử #card-element đã tồn tại trên DOM chưa
+	// 		const cardElementContainer = document.getElementById('card-element');
+	// 		if (cardElementContainer) {
+	// 			console.log('hehhe');
+	// 			cardElement.mount('#card-element');
+	// 			setElements(elementsInstance);
+	// 		}
+	// 	}
+	// }, [stripe, clientSecret, cardElementContainer.current]);
 	useEffect(() => {
 		if (stripe && clientSecret) {
 			const elementsInstance = stripe.elements();
 			const cardElement = elementsInstance.create('card');
-
-			// Kiểm tra xem phần tử #card-element đã tồn tại trên DOM chưa
-			const cardElementContainer = document.getElementById('card-element');
-			if (cardElementContainer) {
-				cardElement.mount('#card-element');
-				setElements(elementsInstance);
-			}
+			cardElement.mount('#card-element');
+			setElements(elementsInstance);
 		}
 	}, [stripe, clientSecret]);
+
+	// useEffect(() => {
+	// 	console.log(cardElementContainer.current); // Should now log the DOM element
+	// 	console.log('cardElementContainer:', document.getElementById('card-element'));
+
+	// 	if (stripe && clientSecret && cardElementContainer.current) {
+	// 		const elementsInstance = stripe.elements();
+	// 		const cardElement = elementsInstance.create('card');
+
+	// 		// Mount the card element
+	// 		cardElement.mount(cardElementContainer.current);
+	// 		setElements(elementsInstance);
+	// 	}
+	// }, [stripe, clientSecret, cardElementContainer.current]);
 
 	// Lấy API đồ ăn, nước uống
 	useEffect(() => {
@@ -172,9 +198,11 @@ const PaymentPage: React.FC = () => {
 					className={`flex w-full flex-col items-center rounded border-2 border-black bg-dark p-5 ${isDarkMode ? '' : ''}`}
 				>
 					<h2>{t('onlinePayment')}</h2>
+
 					<form onSubmit={handleSubmit} className='flex w-full flex-col gap-3'>
 						<div
 							id='card-element'
+							ref={cardElementContainer}
 							style={{ border: '1px solid #ccc' }}
 							className='border-1 border-solid border-white p-5'
 						></div>

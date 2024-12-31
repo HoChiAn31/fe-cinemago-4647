@@ -8,6 +8,7 @@ import { Movie } from './type';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Branch } from '../admin/admin-branch/types';
+import { useLocale } from 'next-intl';
 
 const generateDateOptions = () => {
 	const options = [];
@@ -47,6 +48,7 @@ const ShowTimesPage = () => {
 	const [branchOptions, setBranchOptions] = useState<{ key: string; label: string }[]>([]);
 	const [dataFilter, setDataFilter] = useState<Branch[]>([]);
 	const [groupedByMovie, setGroupedByMovie] = useState<any[]>([]);
+	const locale = useLocale();
 	const [selectedShowTime, setSelectedShowTime] = useState<{
 		branch: string;
 		time: string;
@@ -59,7 +61,7 @@ const ShowTimesPage = () => {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:5000/movies/showtimes`, {
+			.get(`http://localhost:5000/movies/showtimes?languageCode=${locale}`, {
 				params: {
 					items_per_page: 100,
 					// date: selectedDay,
@@ -236,7 +238,7 @@ const ShowTimesPage = () => {
 												(genre: any) =>
 													genre.movieGenreTranslation.find(
 														(translation: any) =>
-															translation.categoryLanguage.languageCode === 'vi',
+															translation.categoryLanguage.languageCode === locale,
 													)?.name || movie?.genres[0].movieGenreTranslation[0].name,
 											)
 											.join(', ')}
