@@ -51,7 +51,10 @@ const BookingPage: FC = () => {
 			return;
 		}
 		const orderDetails = {
-			movie: translation?.name,
+			movie: {
+				id: movie.id,
+				name: translation?.name,
+			},
 			branch:
 				branches.find((branch) => branch.showTimeId === selectedBranchId)?.branch?.name ||
 				t('noSelected'),
@@ -514,7 +517,7 @@ const BookingPage: FC = () => {
 							<p>VND</p>
 						</div>
 					</div>
-					{/* <Links
+					<Links
 						className={`w-full rounded px-4 py-2 text-center text-white ${
 							isButtonDisabled
 								? 'cursor-not-allowed bg-red-500 opacity-50'
@@ -531,25 +534,7 @@ const BookingPage: FC = () => {
 						}}
 					>
 						{t('button')}
-					</Links> */}
-					<Button
-						className={`w-full rounded px-4 py-2 text-center text-white ${
-							isButtonDisabled
-								? 'cursor-not-allowed bg-red-500 opacity-50'
-								: 'bg-red-500 hover:bg-red-600'
-						}`}
-						disabled={isButtonDisabled}
-						// href='/payment-pay'
-						onClick={(e) => {
-							if (isButtonDisabled) {
-								e.preventDefault();
-							} else {
-								handleSaveToLocalStorage();
-							}
-						}}
-					>
-						{t('button')}
-					</Button>
+					</Links>
 				</div>
 			</div>
 		</div>
