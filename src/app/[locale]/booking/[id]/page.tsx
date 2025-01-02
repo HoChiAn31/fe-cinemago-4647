@@ -25,7 +25,9 @@ const BookingPage: FC = () => {
 		student: { price: 0, quantity: 0 },
 	});
 	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-	const [foods, setFoods] = useState<{ id: string; quantity: number; price: number }[]>([]);
+	const [foods, setFoods] = useState<{ foodDrinksId: string; quantity: number; price: number }[]>(
+		[],
+	);
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 	const locale = useLocale();
@@ -34,7 +36,7 @@ const BookingPage: FC = () => {
 	const t = useTranslations('Booking');
 
 	const totalFoodPrice = foods.reduce((total, food) => {
-		const product = beverage.find((b) => b.id === food.id);
+		const product = beverage.find((b) => b.id === food.foodDrinksId);
 		const productPrice = product ? Number(product.price) : 0;
 		return total + productPrice * food.quantity;
 	}, 0);
@@ -51,7 +53,12 @@ const BookingPage: FC = () => {
 			return;
 		}
 		const orderDetails = {
-			movie: translation?.name,
+			// movie: translation?.name,
+			movie: {
+				id: movie.id,
+				name: translation?.name,
+			},
+
 			branch:
 				branches.find((branch) => branch.showTimeId === selectedBranchId)?.branch?.name ||
 				t('noSelected'),
@@ -69,13 +76,13 @@ const BookingPage: FC = () => {
 			},
 			ticket: [
 				{
-					type: 'adult',
-					price: price.adult.price,
+					ticketType: 'adult',
+					ticketPrice: price.adult.price,
 					quantity: price.adult.quantity,
 				},
 				{
-					type: 'student',
-					price: price.student.price,
+					ticketType: 'student',
+					ticketPrice: price.student.price,
 					quantity: price.student.quantity,
 				},
 			],
@@ -95,7 +102,8 @@ const BookingPage: FC = () => {
 						const branch = showTime?.room?.branch?.translations?.find(
 							(t) => t.languageCode === locale,
 						);
-						return [branch?.id, { branch, showTimeId: showTime?.room?.branch?.id }];
+						// Ensure that the branch name is unique by using it as the key in Map
+						return [branch?.name, { branch, showTimeId: showTime?.room?.branch?.id }];
 					}),
 				).values(),
 			)
@@ -105,23 +113,73 @@ const BookingPage: FC = () => {
 		? movie.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
 		: [];
 
+	// const groupByDate = (showTimes: Showtime[]) => {
+	// 	return showTimes.reduce(
+	// 		(groups, showTime) => {
+	// 			const date = new Date(showTime.show_time_start);
+	// 			const day = date.toLocaleDateString(locale, {
+	// 				day: '2-digit',
+	// 				month: '2-digit',
+	// 			});
+	// 			const weekday = date.toLocaleDateString(locale, {
+	// 				weekday: 'long',
+	// 			});
+
+	// 			if (!groups[day]) {
+	// 				groups[day] = { weekday, showTimes: [] };
+
+	// 				groups[day].showTimes.push(showTime);
+	// 			}
+	// 			return groups;
+	// 		},
+	// 		{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
+	// 	);
+	// };
+
+	// const groupedShowTimes = groupByDate(filteredShowTimes);
+	// console.log('filteredShowTimes', filteredShowTimes);
+	// const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
+	// 	.sort((a, b) => {
+	// 		const dateA = new Date(a.split('/').reverse().join('-'));
+	// 		const dateB = new Date(b.split('/').reverse().join('-'));
+	// 		return dateA.getTime() - dateB.getTime();
+	// 	})
+	// 	.reduce(
+	// 		(sortedGroups, date) => {
+	// 			sortedGroups[date] = groupedShowTimes[date];
+	// 			return sortedGroups;
+	// 		},
+	// 		{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
+	// 	);
 	const groupByDate = (showTimes: Showtime[]) => {
+		// Get the current date to filter out past showtimes
+		const currentDate = new Date();
+
 		return showTimes.reduce(
 			(groups, showTime) => {
-				const date = new Date(showTime.show_time_start);
-				const day = date.toLocaleDateString(locale, {
-					day: '2-digit',
+				// Parse the showtime start date
+				const showTimeDate = new Date(showTime.show_time_start);
+
+				// If the showtime is in the past, skip it
+				if (showTimeDate < currentDate) return groups;
+
+				// Format the date as 'YYYY/MM/DD' (for example: '2025/01/02')
+				const day = showTimeDate.toLocaleDateString(locale, {
+					year: 'numeric', // Include the year
 					month: '2-digit',
+					day: '2-digit',
 				});
-				const weekday = date.toLocaleDateString(locale, {
+
+				const weekday = showTimeDate.toLocaleDateString(locale, {
 					weekday: 'long',
 				});
 
+				// Group showtimes by full date (year, month, day)
 				if (!groups[day]) {
 					groups[day] = { weekday, showTimes: [] };
-
-					groups[day].showTimes.push(showTime);
 				}
+				groups[day].showTimes.push(showTime);
+
 				return groups;
 			},
 			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
@@ -129,10 +187,13 @@ const BookingPage: FC = () => {
 	};
 
 	const groupedShowTimes = groupByDate(filteredShowTimes);
+	console.log('filteredShowTimes', filteredShowTimes);
 
+	// Sort the grouped dates
 	const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
 		.sort((a, b) => {
-			const dateA = new Date(a.split('/').reverse().join('-'));
+			// Parse the date strings to create proper Date objects for comparison
+			const dateA = new Date(a.split('/').reverse().join('-')); // Reversing for YYYY-MM-DD format
 			const dateB = new Date(b.split('/').reverse().join('-'));
 			return dateA.getTime() - dateB.getTime();
 		})
@@ -143,6 +204,8 @@ const BookingPage: FC = () => {
 			},
 			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
 		);
+
+	console.log('sortedGroupedShowTimes', sortedGroupedShowTimes);
 
 	const handleSelectShowTime = (value: any) => setSelectShowTime(value);
 
@@ -173,14 +236,16 @@ const BookingPage: FC = () => {
 			setIsLoading(true);
 
 			axios
-				.get(`${process.env.NEXT_PUBLIC_API}/movies/${id}`, {
+				.get(`${process.env.NEXT_PUBLIC_API}/movies/findOneSelect/${id}`, {
 					params: {
 						languageCode: locale,
 					},
 				})
 				.then((res) => {
 					const movieData = res.data;
+					console.log(movieData);
 					setMovie(movieData);
+
 					setIsLoading(true);
 				})
 				.catch((error) => {
@@ -263,7 +328,8 @@ const BookingPage: FC = () => {
 	}, [pathname]);
 
 	if (!isLoading) return <Loading />;
-
+	console.log('sortedGroupedShowTimes', sortedGroupedShowTimes);
+	console.log(selectedDate);
 	return (
 		<div className='container mx-auto my-10 flex flex-col gap-10'>
 			<div className='flex w-full items-center gap-20 px-10'>
@@ -341,23 +407,26 @@ const BookingPage: FC = () => {
 										(a, b) =>
 											new Date(a.show_time_start).getTime() - new Date(b.show_time_start).getTime(),
 									)
-									.map((showTime) => (
-										<div key={showTime.id} className='flex items-center gap-10'>
-											<button
-												onClick={() => handleSelectShowTime(showTime)}
-												className={`rounded border-2 px-5 py-3 text-xl font-bold hover:bg-red-400 ${
-													selectShowTime?.id === showTime.id
-														? 'bg-red-500 text-white hover:bg-red-500'
-														: ''
-												}`}
-											>
-												{new Date(showTime.show_time_start).toLocaleTimeString('en-GB', {
-													hour: '2-digit',
-													minute: '2-digit',
-												})}
-											</button>
-										</div>
-									))}
+									.map((showTime) => {
+										console.log('showTime', showTime); // Log the value of showTime
+										return (
+											<div key={showTime.id} className='flex items-center gap-10'>
+												<button
+													onClick={() => handleSelectShowTime(showTime)}
+													className={`rounded border-2 px-5 py-3 text-xl font-bold hover:bg-red-400 ${
+														selectShowTime?.id === showTime.id
+															? 'bg-red-500 text-white hover:bg-red-500'
+															: ''
+													}`}
+												>
+													{new Date(showTime.show_time_start).toLocaleTimeString('en-GB', {
+														hour: '2-digit',
+														minute: '2-digit',
+													})}
+												</button>
+											</div>
+										);
+									})}
 							</div>
 						</div>
 					) : (
@@ -490,12 +559,12 @@ const BookingPage: FC = () => {
 						<div>
 							<ul>
 								{foods.map((food) => {
-									const product = beverage.find((b) => b.id === food.id);
+									const product = beverage.find((b) => b.id === food.foodDrinksId);
 									const productName =
 										product?.translations.find((t) => t.categoryLanguage.languageCode === locale)
 											?.name || t('noItem');
 									return (
-										<li key={food.id}>
+										<li key={food.foodDrinksId}>
 											{food.quantity} - {productName}
 										</li>
 									);

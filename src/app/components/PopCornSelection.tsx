@@ -9,14 +9,14 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, foods, setQuan
 	const locale = useLocale();
 
 	const handleQuantityChange = (
-		id: string,
+		foodDrinksId: string,
 		price: number,
 		operation: 'increment' | 'decrement',
 	) => {
 		setQuantities((prevQuantities) => {
 			const updatedQuantities = Array.isArray(prevQuantities) ? [...prevQuantities] : [];
 
-			const existingItem = updatedQuantities.find((item) => item.id === id);
+			const existingItem = updatedQuantities.find((item) => item.foodDrinksId === foodDrinksId);
 
 			if (existingItem) {
 				const updatedQuantity =
@@ -25,14 +25,14 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, foods, setQuan
 						: Math.max(0, existingItem.quantity - 1);
 
 				if (updatedQuantity === 0) {
-					return updatedQuantities.filter((item) => item.id !== id);
+					return updatedQuantities.filter((item) => item.foodDrinksId !== foodDrinksId);
 				} else {
 					return updatedQuantities.map((item) =>
-						item.id === id ? { ...item, quantity: updatedQuantity } : item,
+						item.foodDrinksId === foodDrinksId ? { ...item, quantity: updatedQuantity } : item,
 					);
 				}
 			} else if (operation === 'increment') {
-				return [...updatedQuantities, { id, quantity: 1, price }];
+				return [...updatedQuantities, { foodDrinksId, quantity: 1, price }];
 			}
 
 			return updatedQuantities;
@@ -46,7 +46,9 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, foods, setQuan
 					const translation = item.translations.find(
 						(t) => t.categoryLanguage.languageCode === locale,
 					);
-					const foodItem = Array.isArray(foods) ? foods.find((food) => food.id === item.id) : null;
+					const foodItem = Array.isArray(foods)
+						? foods.find((food) => food.foodDrinksId === item.id)
+						: null;
 					const quantity = foodItem?.quantity || 0;
 
 					return (

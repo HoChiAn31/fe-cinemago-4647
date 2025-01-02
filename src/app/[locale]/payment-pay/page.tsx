@@ -11,11 +11,29 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { BeverageProps } from '@/app/types/Beverage.type';
 import Loading from '@/app/components/Loading';
 import Button from '@/app/components/Button';
+import { useRouter } from 'next/navigation';
 
 const stripePromise = loadStripe(
 	'pk_test_51QLqlw00phqwBHh4kTvBMZhiLnDHO0iqAH4lGsrfMRsxuN7f5kuGiSUtcxBLQVl2EE7z4b4kHZtsX0bG2MqxgFSr003ukeQSSi',
 );
+const errorMessages: { [key: string]: string } = {
+	invalid_number: 'Số thẻ không hợp lệ.',
+	invalid_expiry_month: 'Tháng hết hạn không hợp lệ.',
+	invalid_expiry_year: 'Năm hết hạn không hợp lệ.',
+	invalid_cvc: 'Mã CVC không hợp lệ.',
+	expired_card: 'Thẻ đã hết hạn.',
+	incorrect_cvc: 'Mã CVC không chính xác.',
+	incomplete_number: 'Số thẻ chưa đầy đủ.',
+	incomplete_expiry: 'Ngày hết hạn chưa đầy đủ.',
+	incomplete_cvc: 'Mã CVC chưa đầy đủ.',
+	card_declined: 'Thẻ bị từ chối.',
+	processing_error: 'Đã xảy ra lỗi xử lý thanh toán.',
+	rate_limit: 'Có quá nhiều yêu cầu. Vui lòng thử lại sau.',
+};
 
+const translateError = (errorCode: string): string => {
+	return errorMessages[errorCode] || 'Đã xảy ra lỗi không xác định. Vui lòng thử lại.';
+};
 const PaymentPage: React.FC = () => {
 	const cardElementContainer = useRef(null);
 	const [stripe, setStripe] = useState<Stripe | null>(null);
@@ -28,7 +46,7 @@ const PaymentPage: React.FC = () => {
 	const locale = useLocale();
 	const t = useTranslations('Payment');
 	const { isDarkMode } = useTheme();
-
+	const router = useRouter();
 	// console.log(user?.id);
 
 	// Lấy data từ page đặt vé
@@ -69,28 +87,23 @@ const PaymentPage: React.FC = () => {
 	// 		}
 	// 	}
 	// }, [stripe, clientSecret, cardElementContainer.current]);
+
 	useEffect(() => {
 		if (stripe && clientSecret) {
+			// const appearance = {
+			// 	theme: 'stripe',
+			// 	variables: {
+			// 		colorPrimary: '#00C853', // customize primary color
+			// 		fontFamily: 'Arial, sans-serif', // customize font
+			// 		borderRadius: '4px', // customize border radius
+			// 	},
+			// };
 			const elementsInstance = stripe.elements();
 			const cardElement = elementsInstance.create('card');
 			cardElement.mount('#card-element');
 			setElements(elementsInstance);
 		}
 	}, [stripe, clientSecret]);
-
-	// useEffect(() => {
-	// 	console.log(cardElementContainer.current); // Should now log the DOM element
-	// 	console.log('cardElementContainer:', document.getElementById('card-element'));
-
-	// 	if (stripe && clientSecret && cardElementContainer.current) {
-	// 		const elementsInstance = stripe.elements();
-	// 		const cardElement = elementsInstance.create('card');
-
-	// 		// Mount the card element
-	// 		cardElement.mount(cardElementContainer.current);
-	// 		setElements(elementsInstance);
-	// 	}
-	// }, [stripe, clientSecret, cardElementContainer.current]);
 
 	// Lấy API đồ ăn, nước uống
 	useEffect(() => {
@@ -110,17 +123,30 @@ const PaymentPage: React.FC = () => {
 				setIsLoading(false);
 			});
 	}, [locale]);
+	console.log('user', user?.id);
 
+	console.log('detail', detail);
+
+	const totalQuantity = detail.ticket.reduce(
+		(sum: number, ticketItem: any) => sum + ticketItem.quantity,
+		0,
+	);
+
+	// console.log('data', data);
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 
+		// Kiểm tra xem Stripe.js đã được tải đúng chưa
 		if (!stripe || !elements || !clientSecret) {
 			console.error('Stripe.js not loaded properly');
+			alert('Stripe không được tải đúng cách.');
 			return;
 		}
 
+		// Lấy phần tử thẻ tín dụng
 		const cardElement = elements.getElement('card');
 
+		// Xác nhận thanh toán
 		const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
 			payment_method: {
 				card: cardElement,
@@ -128,10 +154,64 @@ const PaymentPage: React.FC = () => {
 		});
 
 		if (error) {
+			// Xử lý lỗi nếu có
+			const translatedError = translateError(error.code || '');
 			console.error('Payment failed:', error.message);
-		} else {
+			alert(`Thanh toán thất bại: ${translatedError}`);
+		} else if (paymentIntent && paymentIntent.status === 'succeeded') {
+			// Thanh toán thành công
 			console.log('Payment successful:', paymentIntent);
-			alert(t('paymentSuccess'));
+			if (user?.id !== null) {
+				const data = {
+					foodDrinks: detail.foods,
+					payment: {
+						paymentMethod: 'Online',
+						paymentAmount: detail.totalAmount,
+						paymentStatus: 'Confirmed',
+					},
+					bookingDetails: {
+						seatNumber: detail.seats,
+						price: detail.totalAmount,
+						quantity: totalQuantity,
+						booking: '',
+						tickets: [],
+						foodDrinks: [],
+					},
+					booking: {
+						user: user?.id,
+						totalTickets: totalQuantity,
+						totalAmount: detail.totalAmount,
+						payment: '',
+						showTimes: detail.showTime.id,
+						movie: detail.movie.id,
+					},
+					tickets: detail.ticket,
+				};
+				// Gửi yêu cầu tạo booking
+				console.log(data);
+				try {
+					const response = await axios.post(
+						`${process.env.NEXT_PUBLIC_API}/bookings/create-booking`,
+						data,
+					);
+					console.log('response.data', response.data);
+
+					// Xóa dữ liệu orderDetails sau khi tạo booking
+					localStorage.removeItem('orderDetails');
+
+					// Thông báo thành công cho người dùng
+					alert(t('paymentSuccess'));
+					router.push(`/${locale}/payment-status`);
+				} catch (error) {
+					// Xử lý lỗi khi gọi API tạz`o booking
+					console.error('Error creating booking:', error);
+					alert('Có lỗi xảy ra khi tạo booking. Vui lòng thử lại.');
+				}
+			}
+		} else {
+			// Nếu paymentIntent không thành công
+			console.error('Payment failed, unexpected status:', paymentIntent?.status);
+			alert('Thanh toán không thành công. Vui lòng thử lại.');
 		}
 	};
 
@@ -204,12 +284,13 @@ const PaymentPage: React.FC = () => {
 							id='card-element'
 							ref={cardElementContainer}
 							style={{ border: '1px solid #ccc' }}
-							className='border-1 border-solid border-white p-5'
+							className='rounded-md border-1 border-solid border-gray1 p-5 text-white'
 						></div>
-						<div className='flex w-full items-center justify-center'>
+						<div className='`justify-center flex w-full items-center'>
 							<Button
 								type='submit'
-								className={`text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
+								onClick={handleSubmit}
+								className={`cursor-pointer text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
 							>
 								{t('submitPayment')}
 							</Button>
@@ -231,7 +312,7 @@ const PaymentPage: React.FC = () => {
 
 				{/* Thông tin phim */}
 				<div className='flex flex-col gap-2'>
-					<h2 className='text-nowrap text-2xl font-semibold'>{detail?.movie}</h2>
+					<h2 className='text-nowrap text-2xl font-semibold'>{detail?.movie.name}</h2>
 
 					<div className='flex'>
 						<div className='flex w-1/2 flex-col items-start'>
@@ -295,7 +376,7 @@ const PaymentPage: React.FC = () => {
 							{detail?.ticket
 								.filter((ticket: any) => ticket.quantity > 0)
 								.map((ticket: any, index: number) => {
-									const totalPrice = ticket.quantity * ticket.price;
+									const totalPrice = ticket.quantity * ticket.ticketPrice;
 									return (
 										<div
 											key={index}
@@ -304,7 +385,7 @@ const PaymentPage: React.FC = () => {
 											<div className='flex gap-2'>
 												<p className='w-4'>{ticket.quantity}</p>
 												<p>x</p>
-												<p>{t(ticket.type)}</p>
+												<p>{t(ticket.ticketType)}</p>
 											</div>
 											<div>
 												<p>{formatCurrencyVND(totalPrice)}</p>
@@ -332,7 +413,7 @@ const PaymentPage: React.FC = () => {
 										<p>x</p>
 										<p>
 											{beverage
-												.find((b) => b.id === f.id)
+												.find((b) => b.id === f.foodDrinksId)
 												?.translations.find((t) => t.categoryLanguage.languageCode === locale)
 												?.name || t('noItem')}
 										</p>

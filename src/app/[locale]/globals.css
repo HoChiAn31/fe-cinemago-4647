@@ -70,3 +70,8 @@ body {
 :where(.css-dev-only-do-not-override-1kf000u).ant-card .ant-card-head {
 	border-bottom: 1px solid #424242;
 }
+
+/* custom payment */
+.ElementsApp input {
+	color: white !important;
+}
