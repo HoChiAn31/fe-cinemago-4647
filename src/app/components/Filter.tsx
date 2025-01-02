@@ -56,9 +56,12 @@ const Filter: FC<FilterProps> = ({
 		checkedGenres.some((id) => filteredGenres.some((genre) => genre.id === id)) &&
 		!allGenresChecked;
 
-	const onGenresChangeHandler = (list: string[]) => {
-		setCheckedGenres(list);
-		onGenresChange(list);
+	const handleGenreToggle = (id: string) => {
+		const updatedCheckedGenres = checkedGenres.includes(id)
+			? checkedGenres.filter((genreId) => genreId !== id)
+			: [...checkedGenres, id];
+		setCheckedGenres(updatedCheckedGenres);
+		onGenresChange(updatedCheckedGenres);
 	};
 
 	const onCheckAllGenresChange = (e: CheckboxChangeEvent) => {
@@ -80,6 +83,22 @@ const Filter: FC<FilterProps> = ({
 		setCheckedCountries(list);
 		onCountriesChange(list);
 	};
+
+	const onCountryToggle = (value: string) => {
+		const updatedCheckedCountries = checkedCountries.includes(value)
+			? checkedCountries.filter((country) => country !== value)
+			: [...checkedCountries, value];
+		setCheckedCountries(updatedCheckedCountries);
+		onCountriesChange(updatedCheckedCountries);
+	};
+
+	// const handleCountriesToggle = (id: string) => {
+	// 	const updatedCheckedCountries = checkedCountries.includes(id)
+	// 		? checkedCountries.filter((genreId) => genreId !== id)
+	// 		: [...checkedCountries, id];
+	// 	handleGenreToggle(updatedCheckedCountries);
+	// 	handleGenreToggle(updatedCheckedCountries);
+	// };
 
 	const onCheckAllCountriesChange = (e: CheckboxChangeEvent) => {
 		const newCheckedCountries = e.target.checked ? filteredCountries : [];
@@ -138,25 +157,29 @@ const Filter: FC<FilterProps> = ({
 				<Divider dashed className={`my-0 ${isDarkMode ? 'border-white' : ''}`} />
 				<Row gutter={[16, 16]} className='my-1'>
 					<Col span={12}>
-						<CheckboxGroup
-							options={genresFirstColumn.map((genre) => ({
-								label: <span className={isDarkMode ? 'text-white' : ''}>{genre.name}</span>,
-								value: genre.id,
-							}))}
-							value={checkedGenres}
-							onChange={onGenresChangeHandler}
-						/>
+						{genresFirstColumn.map((genre) => (
+							<Checkbox
+								key={genre.id}
+								checked={checkedGenres.includes(genre.id)}
+								onChange={() => handleGenreToggle(genre.id)}
+								className={isDarkMode ? 'text-white' : ''}
+							>
+								{genre.name}
+							</Checkbox>
+						))}
 					</Col>
 
 					<Col span={12}>
-						<CheckboxGroup
-							options={genresSecondColumn.map((genre) => ({
-								label: <span className={isDarkMode ? 'text-white' : ''}>{genre.name}</span>,
-								value: genre.id,
-							}))}
-							value={checkedGenres}
-							onChange={onGenresChangeHandler}
-						/>
+						{genresSecondColumn.map((genre) => (
+							<Checkbox
+								key={genre.id}
+								checked={checkedGenres.includes(genre.id)}
+								onChange={() => handleGenreToggle(genre.id)}
+								className={isDarkMode ? 'text-white' : ''}
+							>
+								{genre.name}
+							</Checkbox>
+						))}
 					</Col>
 				</Row>
 
@@ -213,27 +236,29 @@ const Filter: FC<FilterProps> = ({
 				<Divider dashed className={`my-0 ${isDarkMode ? 'border-white' : ''}`} />
 				<Row gutter={[16, 16]} className='my-1'>
 					<Col span={12}>
-						<CheckboxGroup
-							options={countriesSecondColumn.map((c) => ({
-								label: <span className={isDarkMode ? 'text-white' : ''}>{c}</span>,
-								value: c,
-							}))}
-							value={checkedCountries}
-							onChange={onCountriesHandlerChange}
-							className='flex flex-col'
-						/>
+						{countriesFirstColumn.map((country) => (
+							<Checkbox
+								key={country}
+								checked={checkedCountries.includes(country)}
+								onChange={() => onCountryToggle(country)}
+								className={isDarkMode ? 'text-white' : ''}
+							>
+								{country}
+							</Checkbox>
+						))}
 					</Col>
 
 					<Col span={12}>
-						<CheckboxGroup
-							options={countriesFirstColumn.map((c) => ({
-								label: <span className={isDarkMode ? 'text-white' : ''}>{c}</span>,
-								value: c,
-							}))}
-							value={checkedCountries}
-							onChange={onCountriesHandlerChange}
-							className='flex flex-col'
-						/>
+						{countriesSecondColumn.map((country) => (
+							<Checkbox
+								key={country}
+								checked={checkedCountries.includes(country)}
+								onChange={() => onCountryToggle(country)}
+								className={isDarkMode ? 'text-white' : ''}
+							>
+								{country}
+							</Checkbox>
+						))}
 					</Col>
 				</Row>
 
