@@ -8,6 +8,7 @@ import { Branch } from '../../admin-branch/types';
 import { Room } from '../../admin-room/types';
 import { Movie, MovieData } from '../../admin-movie/types';
 import ShowTimeItem from '@/app/components/ShowTimeItem';
+import Loading from '@/app/components/Loading';
 
 interface AddShowTimeProps {
 	isOpen: boolean;
@@ -29,6 +30,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 	const [selectBranch, setSelectBranch] = useState<{ key: string; value: string }[]>([]);
 	const [selectRoom, setSelectRoom] = useState<{ key: string; value: string }[]>([]);
 	const [selectMovie, setSelectMovie] = useState<{ key: string; value: string }[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 	const [duration, setDuration] = useState<number>();
 	const [selected, setSelected] = useState('');
 	const [selectedRoom, setSelectedRoom] = useState('');
@@ -37,7 +39,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 	const [newShowTime, setNewShowTime] = useState({
 		show_time_start: '',
 		show_time_end: '',
-		price: '',
+		price: '100000',
 		roomId: '',
 		movieId: '',
 	});
@@ -46,7 +48,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 	useEffect(() => {
 		const fetchBranchs = async () => {
 			try {
-				const response = await axios.get('http://localhost:5000/movies');
+				const response = await axios.get(`http://localhost:5000/movies/findAllName?${locale}`);
 				const movies: Movie[] = response.data.data;
 
 				// Xử lý dữ liệu để tạo selectBranch
@@ -60,7 +62,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 						value: translation ? translation.name : 'Unknown',
 					};
 				});
-
+				setIsLoading(true);
 				console.log(movieSelect);
 				setSelectMovie(movieSelect);
 				setDataMovie(movies);
@@ -70,6 +72,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 		};
 		fetchBranchs();
 	}, []);
+
 	useEffect(() => {
 		console.log(newShowTime.movieId);
 		console.log(dataMovie);

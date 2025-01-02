@@ -21,8 +21,8 @@ interface CategoryLanguage {
 
 export interface PopCornSelectionProps {
 	beverages: BeverageProps[];
-	foods: { id: string; quantity: number; price: number }[];
+	foods: { foodDrinksId: string; quantity: number; price: number }[];
 	setQuantities: React.Dispatch<
-		React.SetStateAction<{ id: string; quantity: number; price: number }[]>
+		React.SetStateAction<{ foodDrinksId: string; quantity: number; price: number }[]>
 	>;
 }
