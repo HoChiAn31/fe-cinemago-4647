@@ -47,7 +47,11 @@ const AddShowTimeSchedule: React.FC<AddShowTimeScheduleProps> = ({
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.NEXT_PUBLIC_API}/movies?languageCode=${locale}`)
+			.get(`${process.env.NEXT_PUBLIC_API}/movies/findAllName?languageCode=${locale}`, {
+				params: {
+					items_per_page: '1000',
+				},
+			})
 			.then((response) => {
 				const Data = response.data.data;
 				setDataMovie(response.data.data);
