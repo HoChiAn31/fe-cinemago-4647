@@ -29,6 +29,7 @@ const onGoingPage: FC = () => {
 			.get(`${process.env.NEXT_PUBLIC_API}/movies`, {
 				params: {
 					languageCode: locale,
+					items_per_page: '100',
 				},
 			})
 			.then((res) => {

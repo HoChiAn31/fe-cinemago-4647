@@ -38,7 +38,7 @@ const Status: FC = () => {
 			{/* Nút chuyển về trang Home */}
 			<Links
 				href='/'
-				className='w-fit text-nowrap rounded-md border-[0.1rem] border-blue-500 bg-blue-500 px-9 py-3 font-bold text-white transition duration-200 hover:bg-white hover:text-blue-500'
+				className='w-fit text-nowrap rounded-md border-[0.1rem] border-blue-500 bg-blue-500 px-9 py-3 font-bold text-white transition duration-200 hover:bg-white hover:!text-blue-500'
 			>
 				{t('button')}
 			</Links>

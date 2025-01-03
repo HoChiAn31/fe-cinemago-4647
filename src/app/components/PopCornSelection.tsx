@@ -60,10 +60,11 @@ const PopCornSelection: FC<PopCornSelectionProps> = ({ beverages, foods, setQuan
 									className='h-32 w-32 rounded border object-cover'
 								/>
 								<div className='flex flex-col items-start justify-between'>
-									<div>
+									<div className='flex flex-col gap-2'>
 										<h3 className='text-lg font-semibold group-hover:text-primary'>
 											{translation?.name}
 										</h3>
+										<p className='text-gray-500'>{translation?.description}</p>
 										<p className='text-gray-500'>{item.price} VND</p>
 									</div>
 									<div className='flex items-center justify-center gap-5 rounded bg-slate-400'>

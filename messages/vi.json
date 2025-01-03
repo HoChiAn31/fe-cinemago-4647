@@ -469,7 +469,9 @@
 		"noSelected": "Chưa chọn rạp",
 		"noRoom": "Thông tin phòng chiếu không có sẵn",
 		"noItem": "Sản phẩm không xác định",
-		"noShowtimesAvailable": "Hiện tại chưa có suất chiếu nào"
+		"noShowtimesAvailable": "Hiện tại chưa có suất chiếu nào",
+		"optionDate": "Chọn ngày chiếu",
+		"optionTime": "Chọn giờ chiếu"
 	},
 
 	"Cart": {
