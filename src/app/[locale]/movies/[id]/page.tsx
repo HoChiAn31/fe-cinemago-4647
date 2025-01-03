@@ -188,7 +188,7 @@ const movieDetailPage: React.FC = () => {
 					{/* Upload Comment */}
 					<div className='flex items-start gap-2 rounded bg-white p-2'>
 						<Image
-							src='https://icon-library.com/images/admin-user-icon/admin-user-icon-4.jpg'
+							src='https://cdn-icons-png.flaticon.com/512/149/149071.png'
 							alt='name'
 							className='h-10 w-10 lg:h-14 lg:w-14'
 						/>
@@ -228,7 +228,7 @@ const movieDetailPage: React.FC = () => {
 													<Image
 														src={
 															comment.user.avatar ||
-															'https://icon-library.com/images/admin-user-icon/admin-user-icon-4.jpg'
+															'https://cdn-icons-png.flaticon.com/512/149/149071.png'
 														}
 														className='h-10 w-10 lg:h-14 lg:w-14'
 														alt={`${comment.user.firstName} ${comment.user.lastName}`}

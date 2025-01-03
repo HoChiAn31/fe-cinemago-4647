@@ -25,6 +25,7 @@ const UpComing: React.FC = () => {
 			.get(`${process.env.NEXT_PUBLIC_API}/movies`, {
 				params: {
 					languageCode: locale,
+					items_per_page: '100',
 				},
 			})
 			.then((res) => {
@@ -47,7 +48,7 @@ const UpComing: React.FC = () => {
 	if (!isLoading) return <Loading />;
 
 	const settings = {
-		infinite: false,
+		infinite: true,
 		arrows: true,
 		speed: 500,
 		slidesToShow: 4,

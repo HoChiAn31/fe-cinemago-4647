@@ -4,15 +4,15 @@ import React, { FC, useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { MovieData } from '@/app/types/MovieDetail.type';
 import { Showtime } from '@/app/types/Showtime.type';
+import { BeverageProps } from '@/app/types/Beverage.type';
 import { useParams, usePathname } from 'next/navigation';
 import Image from '@/app/components/Image';
 import SeatSelection from '@/app/components/SeatSelection';
 import PopCornSelection from '@/app/components/PopCornSelection';
-import { beverage } from '@/app/modules/data';
 import Links from '@/app/components/Links';
 import axios from 'axios';
 import Loading from '@/app/components/Loading';
-import { Button } from '@nextui-org/react';
+import { generateDates } from '@/app/utils/date.utils';
 
 const BookingPage: FC = () => {
 	const [movie, setMovie] = useState<MovieData>({} as MovieData);
@@ -28,6 +28,7 @@ const BookingPage: FC = () => {
 	const [foods, setFoods] = useState<{ foodDrinksId: string; quantity: number; price: number }[]>(
 		[],
 	);
+	const [beverages, setBeverages] = useState<BeverageProps[]>([]);
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 	const locale = useLocale();
@@ -35,8 +36,10 @@ const BookingPage: FC = () => {
 	const pathname = usePathname();
 	const t = useTranslations('Booking');
 
+	console.log(beverages);
+
 	const totalFoodPrice = foods.reduce((total, food) => {
-		const product = beverage.find((b) => b.id === food.foodDrinksId);
+		const product = beverages?.find((b) => b.id === food.foodDrinksId);
 		const productPrice = product ? Number(product.price) : 0;
 		return total + productPrice * food.quantity;
 	}, 0);
@@ -88,7 +91,6 @@ const BookingPage: FC = () => {
 			foods,
 			totalAmount,
 		};
-		console.log(orderDetails);
 		localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 	};
 
@@ -112,44 +114,6 @@ const BookingPage: FC = () => {
 		? movie.showTimes.filter((showTime) => showTime.room.branch.id === selectedBranchId)
 		: [];
 
-	// const groupByDate = (showTimes: Showtime[]) => {
-	// 	return showTimes.reduce(
-	// 		(groups, showTime) => {
-	// 			const date = new Date(showTime.show_time_start);
-	// 			const day = date.toLocaleDateString(locale, {
-	// 				day: '2-digit',
-	// 				month: '2-digit',
-	// 			});
-	// 			const weekday = date.toLocaleDateString(locale, {
-	// 				weekday: 'long',
-	// 			});
-
-	// 			if (!groups[day]) {
-	// 				groups[day] = { weekday, showTimes: [] };
-
-	// 				groups[day].showTimes.push(showTime);
-	// 			}
-	// 			return groups;
-	// 		},
-	// 		{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
-	// 	);
-	// };
-
-	// const groupedShowTimes = groupByDate(filteredShowTimes);
-	// console.log('filteredShowTimes', filteredShowTimes);
-	// const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
-	// 	.sort((a, b) => {
-	// 		const dateA = new Date(a.split('/').reverse().join('-'));
-	// 		const dateB = new Date(b.split('/').reverse().join('-'));
-	// 		return dateA.getTime() - dateB.getTime();
-	// 	})
-	// 	.reduce(
-	// 		(sortedGroups, date) => {
-	// 			sortedGroups[date] = groupedShowTimes[date];
-	// 			return sortedGroups;
-	// 		},
-	// 		{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
-	// 	);
 	const groupByDate = (showTimes: Showtime[]) => {
 		// Get the current date to filter out past showtimes
 		const currentDate = new Date();
@@ -186,7 +150,6 @@ const BookingPage: FC = () => {
 	};
 
 	const groupedShowTimes = groupByDate(filteredShowTimes);
-	console.log('filteredShowTimes', filteredShowTimes);
 
 	// Sort the grouped dates
 	const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
@@ -203,8 +166,6 @@ const BookingPage: FC = () => {
 			},
 			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
 		);
-
-	console.log('sortedGroupedShowTimes', sortedGroupedShowTimes);
 
 	const handleSelectShowTime = (value: any) => setSelectShowTime(value);
 
@@ -230,6 +191,8 @@ const BookingPage: FC = () => {
 		});
 	};
 
+	const availableDates = generateDates(locale);
+
 	useEffect(() => {
 		if (id) {
 			setIsLoading(true);
@@ -242,7 +205,6 @@ const BookingPage: FC = () => {
 				})
 				.then((res) => {
 					const movieData = res.data;
-					console.log(movieData);
 					setMovie(movieData);
 
 					setIsLoading(true);
@@ -253,6 +215,25 @@ const BookingPage: FC = () => {
 				});
 		}
 	}, [id, locale]);
+
+	useEffect(() => {
+		axios
+			.get(`${process.env.NEXT_PUBLIC_API}/food-drinks`, {
+				params: {
+					languageCode: locale,
+				},
+			})
+			.then((res) => {
+				const food = res.data.data;
+				console.log(food);
+				setBeverages(food);
+
+				setIsLoading(true);
+			})
+			.catch((error) => {
+				console.error('Failed to fetch beverages:', error);
+			});
+	}, []);
 
 	useEffect(() => {
 		if (selectedBranchId) {
@@ -327,8 +308,6 @@ const BookingPage: FC = () => {
 	}, [pathname]);
 
 	if (!isLoading) return <Loading />;
-	console.log('sortedGroupedShowTimes', sortedGroupedShowTimes);
-	console.log(selectedDate);
 	return (
 		<div className='container mx-auto my-10 flex flex-col gap-10'>
 			<div className='flex w-full items-center gap-20 px-10'>
@@ -353,17 +332,14 @@ const BookingPage: FC = () => {
 					value={selectedBranchId || ''}
 					disabled={branches.length === 0}
 				>
-					{branches.length === 0 ? (
-						<option value=''>{t('noShowtimesAvailable')}</option>
+					{branches && branches.length > 0 ? (
+						branches.map(({ branch, showTimeId }) => (
+							<option key={`${branch?.id}-${showTimeId}`} value={showTimeId} className='text-lg'>
+								{branch?.name || t('noNameBranch')}
+							</option>
+						))
 					) : (
-						<>
-							<option value=''>{t('optionBranch')}</option>
-							{branches.map(({ branch, showTimeId }) => (
-								<option key={branch?.id} value={showTimeId} className='text-lg'>
-									{branch?.name || t('noNameBranch')}
-								</option>
-							))}
-						</>
+						<option value=''>{t('noShowtimesAvailable')}</option>
 					)}
 				</select>
 			</div>
@@ -375,23 +351,18 @@ const BookingPage: FC = () => {
 						<h1 className='text-4xl font-extrabold uppercase'>{t('branch')}</h1>
 
 						<div className='flex space-x-4'>
-							{Object.keys(sortedGroupedShowTimes).map((date) => {
-								const { weekday } = sortedGroupedShowTimes[date];
-								return (
-									<button
-										key={date}
-										onClick={() => handleDateSelect(date)}
-										className={`rounded border-2 p-5 text-xl font-bold hover:bg-red-400 ${
-											selectedDate === date ? 'bg-red-500 text-white hover:bg-red-500' : ''
-										}`}
-									>
-										<div className='flex w-32 flex-col'>
-											<div>{date}</div>
-											<div>{weekday}</div>
-										</div>
-									</button>
-								);
-							})}
+							{availableDates.map(({ date, weekday, fullDate }) => (
+								<button
+									key={fullDate}
+									onClick={() => setSelectedDate(fullDate)}
+									className={`rounded border-2 p-5 text-xl font-bold hover:bg-red-400 ${
+										selectedDate === fullDate ? 'bg-red-500 text-white hover:bg-red-500' : ''
+									}`}
+								>
+									<div>{weekday}</div>
+									<div>{date}</div>
+								</button>
+							))}
 						</div>
 					</div>
 
@@ -407,7 +378,6 @@ const BookingPage: FC = () => {
 											new Date(a.show_time_start).getTime() - new Date(b.show_time_start).getTime(),
 									)
 									.map((showTime) => {
-										console.log('showTime', showTime); // Log the value of showTime
 										return (
 											<div key={showTime.id} className='flex items-center gap-10'>
 												<button
@@ -509,7 +479,7 @@ const BookingPage: FC = () => {
 				{selectedBranchId && selectedSeats.length > 0 && (
 					<div className='flex w-full flex-col items-center gap-5'>
 						<h1 className='text-4xl font-extrabold uppercase'>{t('food')}</h1>
-						<PopCornSelection beverages={beverage} foods={foods} setQuantities={setFoods} />
+						<PopCornSelection beverages={beverages} foods={foods} setQuantities={setFoods} />
 					</div>
 				)}
 			</div>
@@ -558,7 +528,7 @@ const BookingPage: FC = () => {
 						<div>
 							<ul>
 								{foods.map((food) => {
-									const product = beverage.find((b) => b.id === food.foodDrinksId);
+									const product = beverages.find((b) => b.id === food.foodDrinksId);
 									const productName =
 										product?.translations.find((t) => t.categoryLanguage.languageCode === locale)
 											?.name || t('noItem');
