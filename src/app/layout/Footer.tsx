@@ -1,31 +1,16 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
-import Link from 'next/link';
+import { FC } from 'react';
 import MaxWidth from '../components/MaxWidth';
 import Links from '../components/Links';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Image } from '@nextui-org/react';
 import { useTheme } from '../context/ThemeContext';
-import { Branch } from '../[locale]/admin/admin-branch/types';
-import axios from 'axios';
 
 const Footer: FC = () => {
 	const t = useTranslations('LayoutFooter');
 	const { isDarkMode } = useTheme();
 	const theaters = t.raw('theaterSystem.theaters') as { name: string }[];
 
-	const [branch, setBranch] = useState<Branch[]>([]);
-	const locale = useLocale();
-	// useEffect(() => {
-	// 	axios
-	// 		.get(`http://localhost:5000/branch`)
-	// 		.then((response) => {
-	// 			setBranch(response.data.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error);
-	// 		});
-	// }, []);
 	return (
 		<div
 			className={`bg-gray-900 pt-10 ${isDarkMode ? 'bg-dark text-white' : 'border-t border-t-gray1 bg-white text-black'}`}
@@ -66,11 +51,9 @@ const Footer: FC = () => {
 						<div className='mb-6 w-full sm:w-1/2 md:w-1/5'>
 							<h3 className='mb-4 text-xl font-semibold'>{t('theaterSystem.title')}</h3>
 							<ul className='text-gray-400 flex flex-col gap-2 text-base'>
-								{branch?.slice(0, 5).map((b, index) => (
+								{theaters.slice(0, 5).map((theater, index) => (
 									<li key={index}>
-										<Links hover='white' href='/'>
-											{b.translations.filter((t) => t.languageCode === locale).map((t) => t.name)}
-										</Links>
+										<Links href='/'>{theater.name}</Links>
 									</li>
 								))}
 							</ul>
