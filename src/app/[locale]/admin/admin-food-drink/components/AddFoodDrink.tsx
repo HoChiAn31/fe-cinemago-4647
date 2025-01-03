@@ -1,7 +1,7 @@
 import { Button, Input, Spacer, Spinner } from '@nextui-org/react';
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { FoodDrinkAdd } from '../types';
 import { useTranslations } from 'next-intl';
 
@@ -200,6 +200,7 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 					{isAdding ? <Spinner size='sm' /> : t('addFoodDrink')}
 				</Button>
 			</form>
+			<Toaster />
 		</div>
 	);
 };

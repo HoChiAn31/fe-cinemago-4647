@@ -357,6 +357,9 @@
 		"form": {
 			"comment": "Let us know how you feel!",
 			"rate": "Rate"
+		},
+		"toast": {
+			"success": "Comments posted"
 		}
 	},
 

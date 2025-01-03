@@ -357,6 +357,9 @@
 		"form": {
 			"comment": "Hãy cho chúng tôi biết cảm nhận của bạn!",
 			"rate": "Đánh giá"
+		},
+		"toast": {
+			"success": "Bình luận được đăng tải"
 		}
 	},
 
