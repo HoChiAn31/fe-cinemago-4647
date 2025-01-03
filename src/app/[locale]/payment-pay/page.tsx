@@ -73,31 +73,8 @@ const PaymentPage: React.FC = () => {
 		setIsLoading(true);
 	}, []);
 
-	// useEffect(() => {
-	// 	if (stripe && clientSecret) {
-	// 		const elementsInstance = stripe.elements();
-	// 		const cardElement = elementsInstance.create('card');
-
-	// 		// Kiểm tra xem phần tử #card-element đã tồn tại trên DOM chưa
-	// 		const cardElementContainer = document.getElementById('card-element');
-	// 		if (cardElementContainer) {
-	// 			console.log('hehhe');
-	// 			cardElement.mount('#card-element');
-	// 			setElements(elementsInstance);
-	// 		}
-	// 	}
-	// }, [stripe, clientSecret, cardElementContainer.current]);
-
 	useEffect(() => {
 		if (stripe && clientSecret) {
-			// const appearance = {
-			// 	theme: 'stripe',
-			// 	variables: {
-			// 		colorPrimary: '#00C853', // customize primary color
-			// 		fontFamily: 'Arial, sans-serif', // customize font
-			// 		borderRadius: '4px', // customize border radius
-			// 	},
-			// };
 			const elementsInstance = stripe.elements();
 			const cardElement = elementsInstance.create('card');
 			cardElement.mount('#card-element');
@@ -195,17 +172,13 @@ const PaymentPage: React.FC = () => {
 						data,
 					);
 					console.log('response.data', response.data);
+					router.push(`/${locale}/payment-status`);
 
 					// Xóa dữ liệu orderDetails sau khi tạo booking
 					localStorage.removeItem('orderDetails');
-
-					// Thông báo thành công cho người dùng
-					alert(t('paymentSuccess'));
-					router.push(`/${locale}/payment-status`);
 				} catch (error) {
 					// Xử lý lỗi khi gọi API tạz`o booking
 					console.error('Error creating booking:', error);
-					alert('Có lỗi xảy ra khi tạo booking. Vui lòng thử lại.');
 				}
 			}
 		} else {
@@ -261,15 +234,6 @@ const PaymentPage: React.FC = () => {
 							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
 							required
 						/>
-
-						<input
-							type='tel'
-							id='phone'
-							name='phone'
-							placeholder={t('phonePlaceholder')}
-							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
-							required
-						/>
 					</form>
 				</div>
 
@@ -284,9 +248,9 @@ const PaymentPage: React.FC = () => {
 							id='card-element'
 							ref={cardElementContainer}
 							style={{ border: '1px solid #ccc' }}
-							className='rounded-md border-1 border-solid border-gray1 p-5 text-white'
+							className='rounded-md border-1 border-solid border-gray1 p-5 !text-white'
 						></div>
-						<div className='`justify-center flex w-full items-center'>
+						<div className='flex w-full items-center justify-center'>
 							<Button
 								type='submit'
 								onClick={handleSubmit}

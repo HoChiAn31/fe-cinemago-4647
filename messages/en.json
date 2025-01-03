@@ -491,7 +491,9 @@
 		"noSelected": "No theater selected",
 		"noRoom": "Room information is not available",
 		"noItem": "Product is unknown",
-		"noShowtimesAvailable": "There are currently no showtimes available"
+		"noShowtimesAvailable": "There are currently no showtimes available",
+		"optionDate": "Choose date",
+		"optionTime": "Choose time"
 	},
 
 	"Cart": {

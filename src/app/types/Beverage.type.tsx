@@ -7,6 +7,10 @@ export interface BeverageProps {
 	translations: Translation[];
 }
 
+export interface BeveragePropss {
+	beverageProps: BeverageProps[];
+}
+
 interface Translation {
 	id: string;
 	name: string;
