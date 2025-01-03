@@ -37,6 +37,7 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 				description: '',
 			},
 		],
+		type: 'food',
 	});
 	const [imageFile, setImageFile] = useState<File | null>(null); // New state for handling file
 
@@ -71,6 +72,8 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 		setIsAdding(true);
 		const formData = new FormData();
 		formData.append('price', newFoodDrink.price);
+		formData.append('type', newFoodDrink.type);
+
 		if (imageFile) {
 			console.log('imageFile', imageFile);
 			console.log('imageFile', typeof imageFile);
@@ -107,6 +110,7 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 							description: '',
 						},
 					],
+					type: 'combo',
 				});
 				setImageFile(null); // Reset file state
 				onOpenChange && onOpenChange();

@@ -48,7 +48,14 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 	useEffect(() => {
 		const fetchBranchs = async () => {
 			try {
-				const response = await axios.get(`http://localhost:5000/movies/findAllName?${locale}`);
+				const response = await axios.get(
+					`${process.env.NEXT_PUBLIC_API}/movies/findAllName?${locale}`,
+					{
+						params: {
+							items_per_page: '1000',
+						},
+					},
+				);
 				const movies: Movie[] = response.data.data;
 
 				// Xử lý dữ liệu để tạo selectBranch
