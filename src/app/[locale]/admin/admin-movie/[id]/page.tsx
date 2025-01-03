@@ -10,8 +10,8 @@ import ManagementHeader from '@/app/components/ManagementHeader';
 
 const EditMoviePage = () => {
 	// Accept movie prop
-	const t = useTranslations('AdminMovieAdd');
-	const toastT = useTranslations('AdminToast');
+	const t = useTranslations('AdminMovie.edit');
+	// const toastT = useTranslations('AdminToast');
 	const params = useParams();
 	const id = params.id as string;
 	const [genres, setGenres] = useState<Genre[]>([]);
@@ -110,18 +110,18 @@ const EditMoviePage = () => {
 		toast.promise(
 			updatePromise,
 			{
-				loading: toastT('updating'),
+				loading: t('toast.updating'),
 				success: (response) => {
 					if (response.data.affected === 1) {
 						setTimeout(() => {
 							router.push(`/${locale}/admin/admin-movie/`);
 						}, 3000);
-						return toastT('updateSuccess');
+						return t('toast.updateSuccess');
 					} else {
-						throw new Error(toastT('updateFailed'));
+						throw new Error(t('toast.updateFailed'));
 					}
 				},
-				error: toastT('updateError'),
+				error: t('toast.updateError'),
 			},
 			{
 				duration: 3000,
@@ -140,12 +140,12 @@ const EditMoviePage = () => {
 	return (
 		<div className='p-4'>
 			<ManagementHeader
-				isOpen
+				// isOpen
 				isBack
 				onChangeBack={() => router.back()}
-				title='Chi tiết'
-				titleOpen={isEditing ? <Spinner size='sm' /> : t('addMovie')}
-				onChange={handleEditMovie}
+				// title='Chi tiết'
+				// titleOpen={isEditing ? <Spinner size='sm' /> : t('addMovie')}
+				// onChange={handleEditMovie}
 			/>
 			<div className='space-y-4'>
 				<Image
@@ -299,7 +299,7 @@ const EditMoviePage = () => {
 						</div>
 					</>
 				)}
-				{/* <Button
+				<Button
 					onClick={handleEditMovie}
 					type='submit'
 					color='primary'
@@ -307,7 +307,7 @@ const EditMoviePage = () => {
 					fullWidth
 				>
 					{isEditing ? <Spinner size='sm' /> : t('addMovie')}
-				</Button> */}
+				</Button>
 			</div>
 			<Toaster />
 		</div>
