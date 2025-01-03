@@ -350,7 +350,8 @@
 		"button": {
 			"order": "Get Ticket",
 			"submit": "Post",
-			"update": "Update"
+			"update": "Update",
+			"login": "Login"
 		},
 
 		"form": {
@@ -422,6 +423,27 @@
 			"placeholderMovie": "Select movie",
 			"movieId": "Movie",
 			"price": "Price"
+		}
+	},
+
+	"AdminFoodDrink": {
+		"add": {
+			"addFoodDrink": "Add New Food/Drink",
+			"price": "Price",
+			"image": "Image",
+			"name": "Name",
+			"description": "Description"
+		},
+		"edit": {
+			"addFoodDrink": "Add New Food/Drink",
+			"editFoodDrink": "Edit Food/Drink",
+			"uploadImage": "Upload Image",
+			"price": "Price",
+			"image": "Image",
+			"name_en": "Name (English)",
+			"description_en": "Description (English)",
+			"name_vi": "Name (Vietnamese)",
+			"description_vi": "Description (Vietnamese)"
 		}
 	},
 	"About": {

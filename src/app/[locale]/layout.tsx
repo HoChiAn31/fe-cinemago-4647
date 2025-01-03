@@ -47,7 +47,7 @@ export default async function RootLayout({
 				<>
 					<df-messenger
 						intent='WELCOME'
-						chat-title='Chăm sóc khách hàng'
+						chat-title='Chăm sóc khách hàng	'
 						agent-id='1afc3b5c-44b8-49ac-9acc-3f838090507d'
 						language-code='en'
 					></df-messenger>

@@ -11,6 +11,8 @@ import Links from '@/app/components/Links';
 import axios from 'axios';
 import Loading from '@/app/components/Loading';
 import { useParams } from 'next/navigation';
+import { useUser } from '@/app/context/UserContext';
+import { divider } from '@nextui-org/react';
 
 const currentUserEmail = 'a';
 
@@ -31,13 +33,16 @@ const movieDetailPage: React.FC = () => {
 	const dotsRef = React.useRef<HTMLDivElement | null>(null);
 	const [formattedDate, setFormattedDate] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-
+	const { user } = useUser();
+	const [rating, setRating] = useState<number>();
+	const [comments, setComments] = useState<string>();
+	const [isReload, setIsReload] = useState<number>(0);
 	useEffect(() => {
 		if (id) {
 			setIsLoading(true);
 
 			axios
-				.get(`${process.env.NEXT_PUBLIC_API}/movies/${id}`, {
+				.get(`${process.env.NEXT_PUBLIC_API}/movies/findOneView/${id}`, {
 					params: {
 						languageCode: locale,
 					},
@@ -53,7 +58,7 @@ const movieDetailPage: React.FC = () => {
 					setIsLoading(false);
 				});
 		}
-	}, [id, locale]);
+	}, [id, locale, isReload]);
 
 	useEffect(() => {
 		if (movie.releaseDate) {
@@ -105,7 +110,24 @@ const movieDetailPage: React.FC = () => {
 			setIsPopupOpen(null);
 		}
 	};
+	const handleSubmitComment = () => {
+		const data = {
+			movieId: movie.id,
+			userId: user?.id,
+			rating: rating,
+			content: comments,
+		};
 
+		axios
+			.post(`${process.env.NEXT_PUBLIC_API}/comments`, data)
+			.then((response) => {
+				setIsReload(isReload + 1);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+		console.log('comment submission', data);
+	};
 	return (
 		<div className='min-h-screen text-white'>
 			<div className='container mx-auto flex w-full flex-col gap-6 p-4 lg:w-[60%]'>
@@ -186,34 +208,51 @@ const movieDetailPage: React.FC = () => {
 				<div className='flex flex-col gap-6 rounded border-2 border-black bg-dark p-4'>
 					<h2 className='text-xl font-semibold text-yellow-500'>{t('labels.comment')}</h2>
 					{/* Upload Comment */}
-					<div className='flex items-start gap-2 rounded bg-white p-2'>
-						<Image
-							src='https://icon-library.com/images/admin-user-icon/admin-user-icon-4.jpg'
-							alt='name'
-							className='h-10 w-10 lg:h-14 lg:w-14'
-						/>
-						<div className='w-full'>
-							<form className='flex flex-col gap-2'>
-								<input
-									className='w-full rounded bg-slate-100 p-1 px-2 text-xs text-black hover:bg-slate-200 md:p-3 md:px-5 md:text-base'
-									placeholder={t('form.comment')}
-								></input>
-								<div className='flex items-center gap-1'>
-									<input
-										className='w-16 rounded bg-slate-100 px-1 py-2 text-xs text-black hover:bg-slate-200 md:w-20 md:text-base'
-										placeholder={t('form.rate')}
-									></input>
-									<p className='font-bold text-black md:text-xl'>/10</p>
-								</div>
-							</form>
-						</div>
-						<Button
-							href='#'
-							className={`text-nowrap rounded-full bg-red-500 px-3 py-1 text-xs font-normal transition duration-200 hover:bg-red-400 md:px-7 md:py-2 md:text-base ${isDarkMode ? 'text-white' : 'text-dark'}`}
+					{user?.id !== '' ? (
+						<div
+							className={`${isDarkMode ? 'bg-dark text-white' : 'bg-white'} flex items-start gap-2 rounded p-2`}
 						>
-							{t('button.submit')}
-						</Button>
-					</div>
+							<Image
+								src='https://icon-library.com/images/admin-user-icon/admin-user-icon-4.jpg'
+								alt='name'
+								className='h-10 w-10 lg:h-14 lg:w-14'
+							/>
+							<div className='w-full'>
+								<form className='flex flex-col gap-2'>
+									<input
+										className={`${isDarkMode ? 'bg-dark1 text-white' : 'bg-slate-100'} w-full rounded p-1 px-2 text-xs focus:outline-none md:p-3 md:px-5 md:text-base`}
+										placeholder={t('form.comment')}
+										onChange={(e: any) => setComments(e.target.value)}
+									></input>
+									<div className='flex items-center gap-1'>
+										<input
+											className={`w-16 rounded ${isDarkMode ? 'bg-dark1 text-white' : 'bg-slate-100'} px-1 py-2 text-xs focus:outline-none md:w-20 md:text-base`}
+											placeholder={t('form.rate')}
+											onChange={(e: any) => setRating(e.target.value)}
+										></input>
+										<p className='font-bold md:text-xl'>/10</p>
+									</div>
+								</form>
+							</div>
+							<Button
+								// href='#'
+								onClick={handleSubmitComment}
+								className={`flex h-12 cursor-pointer items-center justify-center text-nowrap rounded-md bg-red-500 px-3 py-10 text-xs font-normal transition duration-200 hover:bg-red-400 md:px-7 md:py-2 md:text-base ${isDarkMode ? 'text-white' : 'text-dark'}`}
+							>
+								{t('button.submit')}
+							</Button>
+						</div>
+					) : (
+						<div className='flex items-center justify-center'>
+							<Button
+								href={`/${locale}/login`}
+								className={`cursor-pointer text-nowrap rounded-md bg-red-500 px-3 py-1 text-xs font-normal transition duration-200 hover:bg-red-400 md:px-7 md:py-2 md:text-base ${isDarkMode ? 'text-white' : 'text-dark'}`}
+							>
+								{t('button.login')}
+							</Button>
+						</div>
+					)}
+
 					{/* Load Comments */}
 					<div className='flex flex-col gap-4'>
 						{movie.comments?.length
