@@ -350,7 +350,8 @@
 		"button": {
 			"order": "Đặt vé",
 			"submit": "Đăng tải",
-			"update": "Cập nhật"
+			"update": "Cập nhật",
+			"login": "Đăng nhập"
 		},
 
 		"form": {
@@ -422,6 +423,26 @@
 			"add": "Thêm",
 			"movieId": "Phim",
 			"price": "Giá"
+		}
+	},
+	"AdminFoodDrink": {
+		"add": {
+			"addFoodDrink": "Thêm Món Ăn/Thức Uống",
+			"price": "Giá",
+			"image": "Hình ảnh",
+			"name": "Tên",
+			"description": "Mô tả"
+		},
+		"edit": {
+			"addFoodDrink": "Thêm Món Ăn/Thức Uống",
+			"editFoodDrink": "Chỉnh Sửa Món Ăn/Thức Uống",
+			"uploadImage": "Tải Ảnh Lên",
+			"price": "Giá",
+			"image": "Hình ảnh",
+			"name_en": "Tên (Tiếng Anh)",
+			"description_en": "Mô tả (Tiếng Anh)",
+			"name_vi": "Tên (Tiếng Việt)",
+			"description_vi": "Mô tả (Tiếng Việt)"
 		}
 	},
 	"About": {
