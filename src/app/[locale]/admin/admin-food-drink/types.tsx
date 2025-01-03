@@ -21,4 +21,5 @@ export interface FoodDrinkAdd {
 		name: string;
 		description: string;
 	}[];
+	type: string;
 }

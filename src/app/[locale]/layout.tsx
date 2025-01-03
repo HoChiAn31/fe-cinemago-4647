@@ -41,17 +41,27 @@ export default async function RootLayout({
 		<html lang={locale}>
 			<head>
 				<link rel='shortcut icon' href='/favicon.ico' />
+				<script src='https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1'></script>
 			</head>
 			<body className={inter.className}>
-				<NextIntlClientProvider messages={messages}>
-					<NextUIProvider>
-						<UserProvider>
-							<ThemeProvider>
-								<MainLayout>{children}</MainLayout>
-							</ThemeProvider>
-						</UserProvider>
-					</NextUIProvider>
-				</NextIntlClientProvider>
+				<>
+					<df-messenger
+						intent='WELCOME'
+						chat-title='Chăm sóc khách hàng'
+						agent-id='1afc3b5c-44b8-49ac-9acc-3f838090507d'
+						language-code='en'
+					></df-messenger>
+
+					<NextIntlClientProvider messages={messages}>
+						<NextUIProvider>
+							<UserProvider>
+								<ThemeProvider>
+									<MainLayout>{children}</MainLayout>
+								</ThemeProvider>
+							</UserProvider>
+						</NextUIProvider>
+					</NextIntlClientProvider>
+				</>
 			</body>
 		</html>
 	);
