@@ -86,7 +86,7 @@ const Movie: React.FC<MovieProp> = ({ movie }) => {
 					onClick={() => openModal(movie.trailer_url)}
 				>
 					<Image
-						src={`../images/icons/icon-play-vid.svg`}
+						src={`/images/icons/icon-play-vid.svg`}
 						className='border-gray-100 rounded-full border'
 						width='23'
 						height='23'

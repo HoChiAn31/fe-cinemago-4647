@@ -70,19 +70,10 @@ const Filter: FC<FilterProps> = ({
 		onGenresChange(newCheckedGenres);
 	};
 
-	const genresHalfLength = Math.floor(filteredGenres.length / 2);
-	const genresFirstColumn = filteredGenres.slice(0, genresHalfLength);
-	const genresSecondColumn = filteredGenres.slice(genresHalfLength);
-
 	// Country checkbox logic
 	const allCountriesChecked = checkedCountries.length === filteredCountries.length;
 	const countriesIndeterminate =
 		checkedCountries.length > 0 && checkedCountries.length < filteredCountries.length;
-
-	const onCountriesHandlerChange = (list: string[]) => {
-		setCheckedCountries(list);
-		onCountriesChange(list);
-	};
 
 	const onCountryToggle = (value: string) => {
 		const updatedCheckedCountries = checkedCountries.includes(value)
@@ -92,23 +83,11 @@ const Filter: FC<FilterProps> = ({
 		onCountriesChange(updatedCheckedCountries);
 	};
 
-	// const handleCountriesToggle = (id: string) => {
-	// 	const updatedCheckedCountries = checkedCountries.includes(id)
-	// 		? checkedCountries.filter((genreId) => genreId !== id)
-	// 		: [...checkedCountries, id];
-	// 	handleGenreToggle(updatedCheckedCountries);
-	// 	handleGenreToggle(updatedCheckedCountries);
-	// };
-
 	const onCheckAllCountriesChange = (e: CheckboxChangeEvent) => {
 		const newCheckedCountries = e.target.checked ? filteredCountries : [];
 		setCheckedCountries(newCheckedCountries);
 		onCountriesChange(newCheckedCountries);
 	};
-
-	const countriesHalfLength = Math.floor(filteredCountries.length / 2);
-	const countriesFirstColumn = filteredCountries.slice(0, countriesHalfLength);
-	const countriesSecondColumn = filteredCountries.slice(countriesHalfLength);
 
 	// Rating slider logic
 	const handleRatingChange = (value: number[]) => {
@@ -155,33 +134,18 @@ const Filter: FC<FilterProps> = ({
 					<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} allowClear />
 				</div>
 				<Divider dashed className={`my-0 ${isDarkMode ? 'border-white' : ''}`} />
-				<Row gutter={[16, 16]} className='my-1'>
-					<Col span={12}>
-						{genresFirstColumn.map((genre) => (
-							<Checkbox
-								key={genre.id}
-								checked={checkedGenres.includes(genre.id)}
-								onChange={() => handleGenreToggle(genre.id)}
-								className={isDarkMode ? 'text-white' : ''}
-							>
-								{genre.name}
-							</Checkbox>
-						))}
-					</Col>
-
-					<Col span={12}>
-						{genresSecondColumn.map((genre) => (
-							<Checkbox
-								key={genre.id}
-								checked={checkedGenres.includes(genre.id)}
-								onChange={() => handleGenreToggle(genre.id)}
-								className={isDarkMode ? 'text-white' : ''}
-							>
-								{genre.name}
-							</Checkbox>
-						))}
-					</Col>
-				</Row>
+				<div className='my-1 grid grid-cols-2 gap-x-5'>
+					{filteredGenres.map((genre) => (
+						<Checkbox
+							key={genre.id}
+							checked={checkedGenres.includes(genre.id)}
+							onChange={() => handleGenreToggle(genre.id)}
+							className={isDarkMode ? 'text-white' : ''}
+						>
+							{genre.name}
+						</Checkbox>
+					))}
+				</div>
 
 				<Divider className={`my-0 ${isDarkMode ? 'border-white' : ''}`} />
 			</div>
@@ -234,33 +198,19 @@ const Filter: FC<FilterProps> = ({
 					/>
 				</div>
 				<Divider dashed className={`my-0 ${isDarkMode ? 'border-white' : ''}`} />
-				<Row gutter={[16, 16]} className='my-1'>
-					<Col span={12}>
-						{countriesFirstColumn.map((country) => (
-							<Checkbox
-								key={country}
-								checked={checkedCountries.includes(country)}
-								onChange={() => onCountryToggle(country)}
-								className={isDarkMode ? 'text-white' : ''}
-							>
-								{country}
-							</Checkbox>
-						))}
-					</Col>
 
-					<Col span={12}>
-						{countriesSecondColumn.map((country) => (
-							<Checkbox
-								key={country}
-								checked={checkedCountries.includes(country)}
-								onChange={() => onCountryToggle(country)}
-								className={isDarkMode ? 'text-white' : ''}
-							>
-								{country}
-							</Checkbox>
-						))}
-					</Col>
-				</Row>
+				<div className='my-1 grid grid-cols-2 gap-x-5'>
+					{filteredCountries.map((country) => (
+						<Checkbox
+							key={country}
+							checked={checkedCountries.includes(country)}
+							onChange={() => onCountryToggle(country)}
+							className={isDarkMode ? 'text-white' : ''}
+						>
+							{country}
+						</Checkbox>
+					))}
+				</div>
 
 				<Divider className={`my-0 ${isDarkMode ? 'border-white' : ''}`} />
 			</div>
