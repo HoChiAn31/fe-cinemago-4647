@@ -105,6 +105,30 @@
 		"edit": "Sửa",
 		"delete": "Xóa"
 	},
+	"AdminMovie": {
+		"edit": {
+			"addMovie": "Cập nhật",
+			"director": "Đạo diễn",
+			"cast": "Diễn viên",
+			"releaseDate": "Ngày phát hành",
+			"duration": "Thời lượng (phút)",
+			"language": "Ngôn ngữ",
+			"country": "Quốc gia",
+			"poster_url": "URL Poster",
+			"trailer_url": "URL Trailer",
+			"name_vi": "Tên phim (Tiếng Việt)",
+			"name_en": "Tên phim (Tiếng Anh)",
+			"description_vi": "Mô tả (Tiếng Việt)",
+			"description_en": "Mô tả (Tiếng Anh)",
+			"genres": "Thể loại",
+			"toast": {
+				"updating": "Đang cập nhật...",
+				"updateSuccess": "Cập nhật phim thành công!",
+				"updateFailed": "Cập nhật phim thất bại.",
+				"updateError": "Đã xảy ra lỗi khi cập nhật phim."
+			}
+		}
+	},
 	"AdminMovieAdd": {
 		"title": "Thêm Phim Mới",
 		"director": "Đạo diễn",
@@ -357,6 +381,9 @@
 		"form": {
 			"comment": "Hãy cho chúng tôi biết cảm nhận của bạn!",
 			"rate": "Đánh giá"
+		},
+		"toast": {
+			"success": "Bình luận được đăng tải"
 		}
 	},
 

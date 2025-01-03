@@ -13,6 +13,7 @@ import Loading from '@/app/components/Loading';
 import { useParams } from 'next/navigation';
 import { useUser } from '@/app/context/UserContext';
 import { divider } from '@nextui-org/react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const currentUserEmail = 'a';
 
@@ -121,6 +122,8 @@ const movieDetailPage: React.FC = () => {
 		axios
 			.post(`${process.env.NEXT_PUBLIC_API}/comments`, data)
 			.then((response) => {
+				toast.success(t('toast.success'));
+
 				setIsReload(isReload + 1);
 			})
 			.catch((error) => {
@@ -381,6 +384,7 @@ const movieDetailPage: React.FC = () => {
 					</div>
 				</div>
 			</div>
+			<Toaster />
 		</div>
 	);
 };
