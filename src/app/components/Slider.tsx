@@ -98,8 +98,8 @@ const Slider: React.FC<SliderProps> = ({
 			</div>
 			{showNavigation && (
 				<>
-					<SamplePrevArrow />
-					<SampleNextArrow />
+					<SamplePrevArrow onClick={prevSlide} />
+					<SampleNextArrow onClick={nextSlide} />
 				</>
 			)}
 		</div>

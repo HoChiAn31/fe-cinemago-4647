@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Branch } from '../admin/admin-branch/types';
 import { useLocale } from 'next-intl';
+import Links from '@/app/components/Links';
+import { Showtimes } from '@/app/types/Showtime.type';
 
 const generateDateOptions = () => {
 	const options = [];
@@ -18,7 +20,7 @@ const generateDateOptions = () => {
 		const date = new Date(today);
 		date.setDate(today.getDate() + i);
 
-		const key = date.toISOString().split('T')[0]; // YYYY-MM-DD
+		const key = date.toISOString().split('T')[0];
 		const label = date.toLocaleDateString('vi-VN', {
 			weekday: 'long',
 			day: '2-digit',
@@ -31,6 +33,10 @@ const generateDateOptions = () => {
 
 	return options;
 };
+
+interface MovieWithFilteredShowTimes extends Movie {
+	filteredShowTimes: Showtimes[];
+}
 
 const optionsDay = generateDateOptions();
 const todayKey = optionsDay[0].key;
@@ -46,27 +52,14 @@ const ShowTimesPage = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [movieOptions, setMovieOptions] = useState<{ key: string; label: string }[]>([]);
 	const [branchOptions, setBranchOptions] = useState<{ key: string; label: string }[]>([]);
-	const [dataFilter, setDataFilter] = useState<Branch[]>([]);
 	const [groupedByMovie, setGroupedByMovie] = useState<any[]>([]);
 	const locale = useLocale();
-	const [selectedShowTime, setSelectedShowTime] = useState<{
-		branch: string;
-		time: string;
-		room: string;
-	}>({
-		branch: '',
-		time: '',
-		room: '',
-	});
 
 	useEffect(() => {
 		axios
 			.get(`http://localhost:5000/movies/showtimes?languageCode=${locale}`, {
 				params: {
 					items_per_page: 100,
-					// date: selectedDay,
-					// movie_id: selectedMovie,
-					// branch_id: selectedBranch,
 				},
 			})
 			.then((response) => {
@@ -83,7 +76,7 @@ const ShowTimesPage = () => {
 				setIsLoading(true);
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
 
 		axios
@@ -102,7 +95,7 @@ const ShowTimesPage = () => {
 				setIsLoading(true);
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
 	}, []);
 
@@ -112,79 +105,61 @@ const ShowTimesPage = () => {
 				params: {
 					branchId: selectedBranch,
 					movie_id: selectedMovie,
-					// date: selectedDay,
+					date: selectedDay,
 				},
 			})
 			.then((response) => {
 				const Data = response.data.data;
-
-				setDataFilter(Data);
+				setGroupedByMovie(Data); // Directly set the filtered data
 				setIsLoading(true);
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
-	}, [selectedMovie, selectedBranch]);
-
-	useEffect(() => {
-		if (isLoading && dataShowTime.length > 0) {
-			const groupedByBranch = dataShowTime.map((movie) => {
-				const branches = movie.showTimes.reduce((acc: any, showTime) => {
-					const branchName = showTime.room.branch.translations.find(
-						(t) => t.languageCode === 'vi',
-					)?.name;
-					const branchAddress = showTime.room.branch.translations.find(
-						(t) => t.languageCode === 'vi',
-					)?.address;
-					if (!branchName) return acc;
-
-					if (!acc[branchName]) acc[branchName] = [];
-
-					acc[branchName].push({
-						...movie,
-						branchId: showTime.room.branch.id,
-						movieId: movie.id,
-						roomId: showTime.room.id,
-						time: new Date(showTime.show_time_start).toLocaleTimeString('vi-VN', {
-							hour: '2-digit',
-							minute: '2-digit',
-						}),
-						room: showTime.room.name,
-						address: branchAddress || 'Địa chỉ không xác định',
-					});
-
-					return acc;
-				}, {});
-
-				return {
-					movie,
-					branches,
-				};
-			});
-
-			setGroupedByMovie(groupedByBranch);
-		}
-	}, [isLoading, dataShowTime]);
+	}, [selectedMovie, selectedBranch, selectedDay]);
 
 	if (!isLoading) {
 		return <Spinner />;
 	}
-	console.log(groupedByMovie);
 
-	const handleShowTimeSelection = (value: {
-		branch: string;
-		time: string;
-		room: string;
-		branchId: string;
-		movieId: string;
-		roomId: string;
-		movie: Movie;
-	}) => {
-		const { branch, time, room, branchId, movieId, roomId, movie } = value;
-		console.log(value);
-		// setSelectedShowTime({ branch, time, room, branchId, movieId, roomId });
-		console.log('Selected Show Time:', { branch, time, room });
+	// Nhóm suất chiếu theo từng rạp
+	const groupShowtimesByBranch = (showTimes: Showtimes[]): Record<string, Showtimes[]> => {
+		const grouped: Record<string, Showtimes[]> = {};
+		showTimes.forEach((showTime) => {
+			const branchId = showTime.room.branch.id;
+			if (!grouped[branchId]) {
+				grouped[branchId] = [];
+			}
+			grouped[branchId].push(showTime);
+		});
+		return grouped;
 	};
+
+	const filteredMovies = dataShowTime
+		.map((movie) => {
+			if (!selectedBranch) {
+				const showTimesForDay = movie.showTimes.filter((showTime) => {
+					const showDate = new Date(showTime.show_time_start).toISOString().split('T')[0];
+					return showDate === selectedDay;
+				});
+				return { ...movie, filteredShowTimes: showTimesForDay };
+			}
+
+			const showTimesForBranchAndDay = movie.showTimes.filter((showTime) => {
+				const showDate = new Date(showTime.show_time_start).toISOString().split('T')[0];
+				const isSameDay = showDate === selectedDay;
+				const isSameBranch = showTime.room.branch.id === selectedBranch;
+				return isSameDay && isSameBranch;
+			});
+
+			if (showTimesForBranchAndDay.length === 0) {
+				return null;
+			}
+
+			return { ...movie, filteredShowTimes: showTimesForBranchAndDay };
+		})
+		.filter((movie): movie is MovieWithFilteredShowTimes => movie !== null);
+
 	return (
 		<div className='container mx-auto px-3'>
 			<div className='py-5'>
@@ -201,7 +176,9 @@ const ShowTimesPage = () => {
 						title='2. Phim'
 						options={movieOptions}
 						Icon={ClapperboardIcon}
-						onChange={setSelectedMovie}
+						onChange={(value) => {
+							setSelectedMovie(value);
+						}}
 					/>
 					<ShowTimeItem
 						title='3. Rạp'
@@ -216,113 +193,126 @@ const ShowTimesPage = () => {
 					title='2. Phim'
 					options={movieOptions}
 					Icon={ClapperboardIcon}
-					onChange={setSelectedMovie}
+					onChange={(value) => {
+						setSelectedMovie(value);
+					}}
 				/>
 			</div>
-			<div>
-				{groupedByMovie.map(({ movie, branches }) => (
-					<div key={movie.id} className='flex gap-10 border-t border-gray1 py-5'>
-						<div className='w-[25%]'>
-							<Image isZoomed alt='movie' src={movie?.poster_url} width={280} />
-							<h3 className='py-3 text-xl font-bold uppercase'>
-								{movie?.translations.find(
-									(translation: any) => translation.categoryLanguage.languageCode === 'vi',
-								)?.name || movie?.translations[0]?.name}
-							</h3>
-							<div className='space-y-2'>
-								<div className='flex items-center gap-1'>
-									<Image src='https://cinestar.com.vn/assets/images/icon-tag.svg' />
-									<p>
-										{movie.genres
-											.map(
-												(genre: any) =>
-													genre.movieGenreTranslation.find(
-														(translation: any) =>
-															translation.categoryLanguage.languageCode === locale,
-													)?.name || movie?.genres[0].movieGenreTranslation[0].name,
-											)
-											.join(', ')}
-									</p>
-								</div>
-								<div className='flex items-center gap-1'>
-									<Image src='https://cinestar.com.vn/assets/images/icon-clock.svg' />
-									<p>{movie.duration}</p>
-								</div>
-								<div className='flex items-center gap-1'>
-									<Image src='https://i.imgur.com/x2P1DNN.png' />
-									<p>{movie.country}</p>
-								</div>
-								<div className='flex items-center gap-1'>
-									<Image
-										src='https://cinestar.com.vn/assets/images/subtitle.svg'
-										width={17}
-										height={21}
-									/>
-									<p>{movie.language}</p>
-								</div>
-							</div>
-						</div>
-						<div className='w-[70%]'>
-							{Object.keys(branches).length === 0 ? (
-								<div className='flex w-full items-center gap-2'>
-									<ClapperboardIcon height={20} width={20} />
-									<p className='text-gray-500 text-left text-lg'>Chưa có lịch chiếu</p>
-								</div>
-							) : (
-								Object.keys(branches).map((branch) => (
-									<div key={branch} className='flex w-full gap-4 border-b border-gray1 py-3'>
-										<div className='w-1/3'>
-											<h3 className='text-xl'>{branch}</h3>
-											<p className='text-sm'>Địa chỉ: {branches[branch][0]?.address}</p>
-										</div>
+			{selectedBranch && filteredMovies.length === 0 ? (
+				<div className='flex w-full items-center justify-center gap-2'>
+					<p className='text-gray-500 text-center text-lg font-semibold uppercase'>
+						Rạp chưa có lịch chiếu trong ngày{' '}
+						{new Date(selectedDay).toLocaleDateString('vi-VN', {
+							weekday: 'long',
+							day: '2-digit',
+							month: '2-digit',
+							year: 'numeric',
+						})}
+					</p>
+				</div>
+			) : (
+				<div>
+					{/* Hiển thị tất cả các bộ phim */}
+					{filteredMovies.map((movie) => {
+						// Lọc các suất chiếu cho ngày đã chọn
+						const { filteredShowTimes } = movie;
 
-										<div className='flex flex-wrap gap-2 pb-2'>
-											{branches[branch].map(
-												(
-													{
-														time,
-														room,
-														branchId,
-														movieId,
-														roomId,
-														...movie
-													}: {
-														time: string;
-														room: string;
-														branchId: string;
-														movieId: string;
-														roomId: string;
-														movie: Movie;
-													},
-													index: number,
-												) => (
-													<button
-														key={index}
-														className='h-10 rounded border border-gray1 px-4 py-2 text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-blue-300'
-														onClick={() =>
-															handleShowTimeSelection({
-																branch,
-																time,
-																room,
-																branchId,
-																movieId,
-																roomId,
-																...movie,
-															})
-														}
-													>
-														{time}
-													</button>
-												),
-											)}
+						// Nhóm các suất chiếu theo rạp
+						const groupedShowTimes = groupShowtimesByBranch(filteredShowTimes);
+
+						return (
+							<div key={movie.id} className='flex gap-10 border-t border-gray1 py-5'>
+								<div className='w-[25%]'>
+									<Links href={`movies/${movie.id}`}>
+										<Image isZoomed alt='movie' src={movie?.poster_url} width={280} />
+									</Links>
+									<h3 className='py-3 text-xl font-bold uppercase'>
+										{movie?.translations.find(
+											(translation: any) => translation.categoryLanguage.languageCode === 'vi',
+										)?.name || movie?.translations[0]?.name}
+									</h3>
+									{/* Chi tiết phim */}
+									<div className='space-y-2'>
+										<div className='flex items-center gap-2'>
+											<Image src='https://cinestar.com.vn/assets/images/icon-tag.svg' />
+											<p>
+												{movie.genres
+													.map(
+														(genre) =>
+															genre.movieGenreTranslation.find(
+																(translation: any) =>
+																	translation.categoryLanguage.languageCode === locale,
+															)?.name || movie?.genres[0].movieGenreTranslation[0].name,
+													)
+													.join(', ')}
+											</p>
+										</div>
+										<div className='flex items-center gap-2'>
+											<Image src='https://cinestar.com.vn/assets/images/icon-clock.svg' />
+											<p>{movie.duration}'</p>
+										</div>
+										<div className='flex items-center gap-2'>
+											<Image src='https://i.imgur.com/x2P1DNN.png' />
+											<p>{movie.country}</p>
+										</div>
+										<div className='flex items-center gap-2'>
+											<Image
+												src='https://cinestar.com.vn/assets/images/subtitle.svg'
+												width={17}
+												height={21}
+											/>
+											<p>{movie.language}</p>
 										</div>
 									</div>
-								))
-							)}
-						</div>
-					</div>
-				))}
-			</div>
+								</div>
+								<div className='flex w-[70%] flex-col gap-2'>
+									{/* Nếu không có suất chiếu nào */}
+									{Object.keys(groupedShowTimes).length === 0 ? (
+										<div className='flex w-full items-center gap-2'>
+											<ClapperboardIcon height={20} width={20} />
+											<p className='text-gray-500 text-left text-lg'>Chưa có lịch chiếu</p>
+										</div>
+									) : (
+										// Hiển thị các suất chiếu của từng rạp
+										Object.entries(groupedShowTimes).map(([branchId, showTimesForBranch]) => {
+											const branchName = showTimesForBranch[0].room.branch.translations.find(
+												(t) => t.languageCode === locale,
+											)?.name;
+
+											const branchAddress = showTimesForBranch[0].room.branch.translations.find(
+												(t) => t.languageCode === locale,
+											)?.address;
+											return (
+												<div
+													key={branchId}
+													className='flex w-full gap-4 border-b border-gray1 py-3'
+												>
+													<div className='w-80'>
+														<div className='text-xl'>{branchName}</div>
+														<div className='text-sm'>Địa chỉ: {branchAddress}</div>
+													</div>
+													<div className='flex w-full flex-wrap items-start justify-start gap-2 pb-2'>
+														{showTimesForBranch.map((showTime) => (
+															<div key={showTime.id}>
+																<button className='h-10 w-24 rounded border border-gray1 px-4 py-2 text-white hover:bg-primary'>
+																	{new Date(showTime.show_time_start).toLocaleTimeString('vi-VN', {
+																		hour: '2-digit',
+																		minute: '2-digit',
+																	})}
+																</button>
+															</div>
+														))}
+													</div>
+												</div>
+											);
+										})
+									)}
+								</div>
+							</div>
+						);
+					})}
+				</div>
+			)}
 		</div>
 	);
 };

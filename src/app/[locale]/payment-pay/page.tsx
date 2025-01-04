@@ -239,7 +239,7 @@ const PaymentPage: React.FC = () => {
 
 				{/* Thanh toán trực tuyến */}
 				<div
-					className={`flex w-full flex-col items-center rounded border-2 border-black bg-dark p-5 ${isDarkMode ? '' : ''}`}
+					className={`flex w-full flex-col items-center rounded border-2 border-black bg-white p-5 ${isDarkMode ? '' : ''}`}
 				>
 					<h2>{t('onlinePayment')}</h2>
 
@@ -253,7 +253,6 @@ const PaymentPage: React.FC = () => {
 						<div className='flex w-full items-center justify-center'>
 							<Button
 								type='submit'
-								onClick={handleSubmit}
 								className={`cursor-pointer text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
 							>
 								{t('submitPayment')}

@@ -53,7 +53,6 @@ const Header: FC = () => {
 	// 		});
 	// }, []);
 	useEffect(() => {
-		console.log(valueSearch);
 		if (valueSearch) {
 			axios
 				.get(`http://localhost:5000/movies?search=${valueSearch}&languageCode=${locale}`)
@@ -387,10 +386,14 @@ const Header: FC = () => {
 										dataSearch.length > 0 &&
 										dataSearch.map((data, index) => (
 											<div className='p-4' key={index}>
-												<div className='flex items-start gap-3'>
+												<Links
+													className='flex items-start gap-3'
+													href={`movies/${data.id}`}
+													onClick={onClose}
+												>
 													<Image src={data.poster_url} alt='' height={60} width={60} />
 													<p>{data.translations.map((translation) => translation.name)}</p>
-												</div>
+												</Links>
 											</div>
 										))}
 								</div>
@@ -405,10 +408,10 @@ const Header: FC = () => {
 						dataSearch.length > 0 &&
 						dataSearch.map((data, index) => (
 							<div className='p-4' key={index}>
-								<div className='flex items-start gap-3'>
+								<Links className='flex items-start gap-3' href={`movies/${data.id}`}>
 									<Image src={data.poster_url} alt='' height={60} width={60} />
 									<p>{data.translations.map((translation) => translation.name)}</p>
-								</div>
+								</Links>
 							</div>
 						))}
 				</div>
