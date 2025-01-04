@@ -42,6 +42,7 @@ export default async function RootLayout({
 			<head>
 				<link rel='shortcut icon' href='/favicon.ico' />
 				<script src='https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1'></script>
+				{/* <script src='https://js.stripe.com/v3/'></script> */}
 			</head>
 			<body className={inter.className}>
 				<>

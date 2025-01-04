@@ -37,9 +37,9 @@ const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 			<table className={`w-full ${isDarkMode ? 'text-white' : 'text-black'} border-collapse`}>
 				<thead>
 					<tr className='border-b border-gray1'>
-						<th className='border-r border-gray1 p-3'>Order</th>
-						<th className='border-r border-gray1 p-3 text-left'>Name</th>
-						<th className='border-r border-gray1 p-3'>Price</th>
+						<th className='border-r border-gray1 p-3'>STT</th>
+						<th className='border-r border-gray1 p-3 text-left'>Tên</th>
+						<th className='border-r border-gray1 p-3'>Giá</th>
 						<th className='p-3'></th>
 					</tr>
 				</thead>

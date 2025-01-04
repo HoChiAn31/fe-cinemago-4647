@@ -37,13 +37,13 @@ const TableShowTime: React.FC<TableShowTimeProps> = ({
 			<table className={`w-full ${isDarkMode ? 'text-white' : 'text-black'} border-collapse`}>
 				<thead>
 					<tr className='border-b border-gray1'>
-						<th className='border-r border-gray1 p-3'>Order</th>
-						<th className='border-r border-gray1 p-3 text-left'>Movie</th>
-						<th className='border-r border-gray1 p-3 text-center'>Room</th>
-						<th className='border-r border-gray1 p-3 text-center'>Branch</th>
+						<th className='border-r border-gray1 p-3'>STT</th>
+						<th className='border-r border-gray1 p-3 text-left'>Phim</th>
+						<th className='border-r border-gray1 p-3 text-center'>Phòng</th>
+						<th className='border-r border-gray1 p-3 text-center'>Chi nhánh</th>
 
-						<th className='border-r border-gray1 p-3 text-center'>Start Time</th>
-						<th className='border-r border-gray1 p-3 text-center'>Price</th>
+						<th className='border-r border-gray1 p-3 text-center'>Thời gian bắt đầu</th>
+						<th className='border-r border-gray1 p-3 text-center'>Giá</th>
 						<th className='p-3'></th>
 					</tr>
 				</thead>

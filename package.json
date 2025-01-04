@@ -42,6 +42,7 @@
 		"react-tooltip": "^5.28.0",
 		"slick-carousel": "^1.8.1",
 		"socket.io-client": "^4.8.0",
+		"stripe": "^17.5.0",
 		"tailwindcss-animated": "^1.1.2",
 		"xlsx": "^0.18.5",
 		"yup": "^1.4.0"

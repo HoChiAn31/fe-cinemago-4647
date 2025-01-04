@@ -7,6 +7,7 @@ export interface User {
 	email: string;
 	role: string;
 	avatar?: string;
+	name?: string;
 }
 
 export interface RegisterUserDto {
