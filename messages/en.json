@@ -104,6 +104,31 @@
 		"edit": "Edit",
 		"delete": "Delete"
 	},
+	"AdminMovie": {
+		"edit": {
+			"addMovie": "Update",
+			"director": "Director",
+			"cast": "Cast",
+			"releaseDate": "Release Date",
+			"duration": "Duration (minutes)",
+			"language": "Language",
+			"country": "Country",
+			"poster_url": "Poster URL",
+			"trailer_url": "Trailer URL",
+			"name_vi": "Movie Name (Vietnamese)",
+			"name_en": "Movie Name (English)",
+			"description_vi": "Description (Vietnamese)",
+			"description_en": "Description (English)",
+			"genres": "Genres",
+			"toast": {
+				"updating": "Updating...",
+				"updateSuccess": "Movie updated successfully!",
+				"updateFailed": "Movie update failed.",
+				"updateError": "An error occurred while updating the movie."
+			}
+		}
+	},
+
 	"AdminMovieAdd": {
 		"title": "Add New Movie",
 		"director": "Director",
@@ -350,12 +375,16 @@
 		"button": {
 			"order": "Get Ticket",
 			"submit": "Post",
-			"update": "Update"
+			"update": "Update",
+			"login": "Login"
 		},
 
 		"form": {
 			"comment": "Let us know how you feel!",
 			"rate": "Rate"
+		},
+		"toast": {
+			"success": "Comments posted"
 		}
 	},
 
@@ -422,6 +451,27 @@
 			"placeholderMovie": "Select movie",
 			"movieId": "Movie",
 			"price": "Price"
+		}
+	},
+
+	"AdminFoodDrink": {
+		"add": {
+			"addFoodDrink": "Add New Food/Drink",
+			"price": "Price",
+			"image": "Image",
+			"name": "Name",
+			"description": "Description"
+		},
+		"edit": {
+			"addFoodDrink": "Add New Food/Drink",
+			"editFoodDrink": "Edit Food/Drink",
+			"uploadImage": "Upload Image",
+			"price": "Price",
+			"image": "Image",
+			"name_en": "Name (English)",
+			"description_en": "Description (English)",
+			"name_vi": "Name (Vietnamese)",
+			"description_vi": "Description (Vietnamese)"
 		}
 	},
 	"About": {

@@ -247,13 +247,12 @@ const PaymentPage: React.FC = () => {
 						<div
 							id='card-element'
 							ref={cardElementContainer}
-							style={{ border: '1px solid #ccc', color: 'white' }}
+							style={{ border: '1px solid #ccc' }}
 							className='rounded-md border-1 border-solid border-gray1 p-5 !text-white'
 						></div>
 						<div className='flex w-full items-center justify-center'>
 							<Button
 								type='submit'
-								onClick={handleSubmit}
 								className={`cursor-pointer text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
 							>
 								{t('submitPayment')}

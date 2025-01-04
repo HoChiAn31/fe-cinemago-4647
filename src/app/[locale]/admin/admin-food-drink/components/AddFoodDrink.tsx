@@ -1,7 +1,7 @@
 import { Button, Input, Spacer, Spinner } from '@nextui-org/react';
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { FoodDrinkAdd } from '../types';
 import { useTranslations } from 'next-intl';
 
@@ -21,7 +21,7 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 	onReloadData,
 }) => {
 	const [isAdding, setIsAdding] = useState(false);
-	const t = useTranslations('AdminFoodDrinkAdd');
+	const t = useTranslations('AdminFoodDrink.add');
 	const [newFoodDrink, setNewFoodDrink] = useState<FoodDrinkAdd>({
 		price: '',
 		image: '',
@@ -131,7 +131,7 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 
 	return (
 		<div className='container mx-auto rounded-lg p-4'>
-			<h1 className='mb-4 text-2xl font-bold'>Add New Food/Drink</h1>
+			<h1 className='mb-4 text-2xl font-bold'>{t('addFoodDrink')}</h1>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -200,6 +200,7 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 					{isAdding ? <Spinner size='sm' /> : t('addFoodDrink')}
 				</Button>
 			</form>
+			<Toaster />
 		</div>
 	);
 };
