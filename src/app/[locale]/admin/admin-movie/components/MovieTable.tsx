@@ -65,7 +65,7 @@ const MovieTable: React.FC<MovieTableProps> = ({
 						<>
 							{movies.map((movie, index) => (
 								<tr key={movie.id} className='border-b border-gray1'>
-									<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>{' '}
+									<td className='w-[5%] border-r border-gray1 p-3 text-center'>{index + 1}</td>
 									{/* Display order number */}
 									{/* <td className='border-r border-gray1 p-3 text-center'>{movie.id}</td> */}
 									<td className='border-r border-gray1 p-3'>

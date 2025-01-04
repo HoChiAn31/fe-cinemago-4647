@@ -75,3 +75,10 @@ body {
 .ElementsApp input {
 	color: white !important;
 }
+
+.CardField-cvc input,
+.CardField-expiry input,
+.CardField-number .CardField-number-fakeNumber,
+.CardField-number input {
+	color: white !important;
+}

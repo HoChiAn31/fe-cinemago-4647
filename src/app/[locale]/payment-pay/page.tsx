@@ -5,13 +5,14 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { Divider } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
-
+import customAxios from '@/app/utils/axios';
 import { useUser } from '@/app/context/UserContext';
 import { useTheme } from '@/app/context/ThemeContext';
 import { BeverageProps } from '@/app/types/Beverage.type';
 import Loading from '@/app/components/Loading';
 import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
+import { User } from '@/app/types/User.type';
 
 const stripePromise = loadStripe(
 	'pk_test_51QLqlw00phqwBHh4kTvBMZhiLnDHO0iqAH4lGsrfMRsxuN7f5kuGiSUtcxBLQVl2EE7z4b4kHZtsX0bG2MqxgFSr003ukeQSSi',
@@ -41,19 +42,31 @@ const PaymentPage: React.FC = () => {
 	const [clientSecret, setClientSecret] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [beverage, setBeverage] = useState<BeverageProps[]>([]);
+	const [dataUser, setDataUser] = useState<User>();
 	// const [isLoading, setIsLoaing] = useState<boolean>(false);
 	const { user } = useUser();
 	const locale = useLocale();
 	const t = useTranslations('Payment');
 	const { isDarkMode } = useTheme();
 	const router = useRouter();
-	// console.log(user?.id);
 
 	// Lấy data từ page đặt vé
 	const detail = localStorage.getItem('orderDetails')
 		? JSON.parse(localStorage.getItem('orderDetails') as string)
 		: null;
-
+	useEffect(() => {
+		if (user?.id?.trim()) {
+			console.log(1);
+			axios
+				.get(`${process.env.NEXT_PUBLIC_API}/users/${user?.id}`)
+				.then((response) => {
+					setDataUser(response.data);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, [user?.id]);
 	// Fetch clientSecret từ backend
 	useEffect(() => {
 		const initializeStripe = async () => {
@@ -100,9 +113,9 @@ const PaymentPage: React.FC = () => {
 				setIsLoading(false);
 			});
 	}, [locale]);
-	console.log('user', user?.id);
+	// console.log('user', user?.id);
 
-	console.log('detail', detail);
+	// console.log('detail', detail);
 
 	const totalQuantity = detail.ticket.reduce(
 		(sum: number, ticketItem: any) => sum + ticketItem.quantity,
@@ -224,6 +237,7 @@ const PaymentPage: React.FC = () => {
 							placeholder={t('fullNamePlaceholder')}
 							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
 							required
+							value={dataUser?.firstName ? dataUser?.firstName + dataUser?.lastName : ''}
 						/>
 
 						<input
@@ -233,6 +247,7 @@ const PaymentPage: React.FC = () => {
 							placeholder={t('emailPlaceholder')}
 							className='border-gray-300 w-full border-b-1 bg-transparent py-2 focus:outline-none'
 							required
+							value={dataUser?.email ? dataUser?.email : ''}
 						/>
 					</form>
 				</div>

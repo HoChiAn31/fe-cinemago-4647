@@ -29,10 +29,10 @@ const VoucherTable: React.FC<VoucherTableProps> = ({
 			<table className={`w-full border-collapse`}>
 				<thead className=''>
 					<tr className='border-b border-gray1'>
-						<th className='border-r border-gray1 p-3'>Order</th>
-						<th className='border-r border-gray1 p-3 text-left'>Name</th>
-						<th className='border-r border-gray1 p-3 text-left'>Discount</th>
-						<th className='border-r border-gray1 p-3 text-left'>Expiration Date</th>
+						<th className='border-r border-gray1 p-3'>STT</th>
+						<th className='border-r border-gray1 p-3 text-left'>Tên</th>
+						<th className='border-r border-gray1 p-3 text-left'>Loại</th>
+						<th className='border-r border-gray1 p-3 text-left'>Giá trị</th>
 						<th className='p-3'></th>
 					</tr>
 				</thead>

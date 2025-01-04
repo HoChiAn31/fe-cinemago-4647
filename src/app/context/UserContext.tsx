@@ -13,6 +13,7 @@ interface CustomJwtPayload extends JwtPayload {
 	id: string;
 	role: string;
 	email: string;
+	name: string;
 }
 
 // Create Auth context with default values
@@ -40,6 +41,7 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		id: '',
 		role: '',
 		email: '',
+		name: '',
 	});
 	const [roleBc, setRoleBc] = useState<string>();
 	const router = useRouter();
@@ -57,6 +59,7 @@ export const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 						id: response.id, // Ensure these properties exist in your decoded token
 						role: response.role,
 						email: response.email,
+						name: response.name, // Add additional properties if needed
 					};
 					setUser(userData);
 					setIsLogin(true);
