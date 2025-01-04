@@ -239,7 +239,7 @@ const PaymentPage: React.FC = () => {
 
 				{/* Thanh toán trực tuyến */}
 				<div
-					className={`flex w-full flex-col items-center rounded border-2 border-black bg-dark p-5 ${isDarkMode ? '' : ''}`}
+					className={`flex w-full flex-col items-center rounded border-2 border-black bg-white p-5 ${isDarkMode ? '' : ''}`}
 				>
 					<h2>{t('onlinePayment')}</h2>
 
@@ -247,7 +247,7 @@ const PaymentPage: React.FC = () => {
 						<div
 							id='card-element'
 							ref={cardElementContainer}
-							style={{ border: '1px solid #ccc' }}
+							style={{ border: '1px solid #ccc', color: 'white' }}
 							className='rounded-md border-1 border-solid border-gray1 p-5 !text-white'
 						></div>
 						<div className='flex w-full items-center justify-center'>

@@ -35,3 +35,11 @@ export interface Showtime {
 	price: number;
 	room: Room;
 }
+
+export interface Showtimes {
+	id: string;
+	show_time_start: string;
+	show_time_end: string;
+	price?: number;
+	room: Room;
+}
