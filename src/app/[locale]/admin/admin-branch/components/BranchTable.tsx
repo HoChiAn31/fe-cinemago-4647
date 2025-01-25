@@ -20,11 +20,11 @@ interface BranchTableProps {
 
 const BranchTable: React.FC<BranchTableProps> = ({
 	branches,
-	selectedBranches,
-	setSelectedBranches,
-	onEditOpen,
+	// selectedBranches,
+	// setSelectedBranches,
+	// onEditOpen,
 	onDeleteOpen,
-	setBranchToEdit,
+	// setBranchToEdit,
 	setBranchToDelete,
 	isLoading,
 }) => {

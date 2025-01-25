@@ -1,77 +1,15 @@
 'use client';
-import SeatSelection from '@/app/components/SeatSelection';
-import { Button } from '@nextui-org/react';
-import React, { FC, useEffect, useState } from 'react';
 
-// interface seatMaps {
-// 	row: string;
-// 	count: number;
-// 	type: string;
-// 	seatmapid: number;
-// }
-
-// interface seatMapProps {
-// 	seatMap: seatMaps[];
-// }
-
-// const SeatSelection: FC<seatMapProps> = ({ seatMap }) => {
-// 	const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-// 	const [bookedSeats, setBookedSeats] = useState<string[]>([]);
-
-// 	useEffect(() => {
-// 		setBookedSeats(['A1', 'B2', 'C5', 'C6', 'C7', 'D8', 'E10']);
-// 	}, []);
-// 	const handleSeatClick = (seatLabel: string) => {
-// 		if (selectedSeats.includes(seatLabel)) {
-// 			setSelectedSeats(selectedSeats.filter((seat) => seat !== seatLabel));
-// 		} else {
-// 			setSelectedSeats([...selectedSeats, seatLabel]);
-// 		}
-// 	};
-// 	console.log(selectedSeats);
-// 	return (
-// 		<div className='p-4'>
-// 			{seatMap.map(({ row, count, type }) => (
-// 				<div key={row} className='mb-4 flex items-center justify-center gap-2'>
-// 					<p className='mb-2 text-lg font-bold'>{row}</p>
-// 					<div className='flex items-center gap-4'>
-// 						{Array.from({ length: count }).map((_, index) => {
-// 							const seatLabel = `${row}${index + 1}`;
-// 							const isSelected = selectedSeats.includes(seatLabel);
-// 							const isBooked = bookedSeats.includes(seatLabel);
-
-// 							return (
-// 								<button
-// 									key={seatLabel}
-// 									className={`h-12 w-12 rounded p-2 ${
-// 										isBooked
-// 											? 'bg-graySeatBlock cursor-not-allowed text-white' // Booked seat style
-// 											: isSelected
-// 												? 'bg-pinkSeat text-white'
-// 												: `${type === 'vip' ? 'bg-redSeatVip' : 'bg-purpleSeatStandard'} hover:bg-gray-400`
-// 									} transition-colors`}
-// 									onClick={() => handleSeatClick(seatLabel)}
-// 									disabled={isBooked} // Disable interaction for booked seats
-// 								>
-// 									{seatLabel}
-// 								</button>
-// 							);
-// 						})}
-// 					</div>
-// 				</div>
-// 			))}
-// 		</div>
-// 	);
-// };
+import React, { FC } from 'react';
 
 // Usage
-const seatMapData = [
-	{ row: 'A', count: 10, type: 'standard', seatmapid: 1 },
-	{ row: 'B', count: 10, type: 'standard', seatmapid: 1 },
-	{ row: 'C', count: 10, type: 'vip', seatmapid: 1 },
-	{ row: 'D', count: 10, type: 'standard', seatmapid: 1 },
-	{ row: 'E', count: 10, type: 'standard', seatmapid: 1 },
-];
+// const seatMapData = [
+// 	{ row: 'A', count: 10, type: 'standard', seatmapid: 1 },
+// 	{ row: 'B', count: 10, type: 'standard', seatmapid: 1 },
+// 	{ row: 'C', count: 10, type: 'vip', seatmapid: 1 },
+// 	{ row: 'D', count: 10, type: 'standard', seatmapid: 1 },
+// 	{ row: 'E', count: 10, type: 'standard', seatmapid: 1 },
+// ];
 
 const App: FC = () => {
 	return (

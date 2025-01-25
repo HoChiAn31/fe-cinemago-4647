@@ -1,5 +1,5 @@
 import { ArrowLeft } from './icon';
-
+import React from 'react';
 interface SamplePrevArrowProps {
 	className?: string;
 	onClick?: () => void;

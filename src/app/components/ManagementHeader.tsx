@@ -19,11 +19,11 @@ interface ManagementHeaderProps {
 
 const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 	title,
-	buttonText,
-	onPress,
+	// buttonText,
+	// onPress,
 	isOpen,
 	onChange,
-	titleOpen,
+	// titleOpen,
 	isBack,
 	onChangeBack,
 	isHidden,

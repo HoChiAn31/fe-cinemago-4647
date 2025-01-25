@@ -18,9 +18,9 @@ interface UserTableProps {
 
 const UserTable: React.FC<UserTableProps> = ({
 	users,
-	selectedUsers,
-	setSelectedUsers,
-	onEditOpen,
+	// selectedUsers,
+	// setSelectedUsers,
+	// onEditOpen,
 	onDeleteOpen,
 	// setUserToEdit,
 	setUserToDelete,

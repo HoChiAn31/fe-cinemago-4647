@@ -1,4 +1,5 @@
 // components/BarChart.tsx
+import React from 'react';
 import { useEffect, useRef } from 'react';
 import { Chart as ChartJS, ChartConfiguration } from 'chart.js/auto';
 

@@ -8,7 +8,7 @@ import {
 	SelectItem,
 	ModalContent,
 } from '@nextui-org/react';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Order } from '@/app/types/Order';
 
 interface EditOrderModalProps {

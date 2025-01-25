@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -23,7 +23,7 @@ const ForgotPasswordPage: FC = () => {
 	const locale = useLocale();
 	const handleSubmit = async (
 		values: typeof initialForgotPasswordValues,
-		{ setSubmitting, resetForm, setTouched }: any,
+		{ setSubmitting, resetForm }: any,
 	) => {
 		try {
 			// setErrorMessage('');
@@ -77,8 +77,8 @@ const ForgotPasswordPage: FC = () => {
 						handleBlur,
 						handleSubmit,
 						isSubmitting,
-						isValid,
-						dirty,
+						// isValid,
+						// dirty,
 					}) => (
 						<Form
 							className='space-y-10'

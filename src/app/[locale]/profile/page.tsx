@@ -32,11 +32,11 @@ const App: React.FC = () => {
 	const [phone, setPhone] = useState(userData.phone);
 	const [avatar, setAvatar] = useState(userData.avatar);
 	const [dataUser, setDataUser] = useState<User>();
-	const [imageLoad, setImageLoad] = useState<string>();
+	// const [imageLoad, setImageLoad] = useState<string>();
 	const [image, setImage] = useState<string | undefined>();
 	const [imageFile, setImageFile] = useState<File | undefined>();
 	const [editEmail, setEditEmail] = useState(false);
-	const [editPhone, setEditPhone] = useState(false);
+	// const [editPhone, setEditPhone] = useState(false);
 	const t = useTranslations('UserProfile.profile');
 	const router = useRouter();
 	const locale = useLocale();

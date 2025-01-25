@@ -1,6 +1,6 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
-import { Button, useDisclosure } from '@nextui-org/react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Movie } from './types';
 import MovieTable from './components/MovieTable';
@@ -18,7 +18,7 @@ const AdminMoviePage: FC = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [selectedGenre, setSelectedGenre] = useState<string>('');
@@ -32,11 +32,11 @@ const AdminMoviePage: FC = () => {
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
+	// const {
+	// 	isOpen: isEditOpen,
+	// 	onOpen: onEditOpen,
+	// 	onOpenChange: onEditOpenChange,
+	// } = useDisclosure();
 
 	const [movieToDelete, setMovieToDelete] = useState<Movie | null>(null);
 	const [movieToEdit, setMovieToEdit] = useState<Movie | null>(null);
@@ -58,7 +58,7 @@ const AdminMoviePage: FC = () => {
 				},
 			});
 			setMovies(response.data.data);
-			setTotalPages(response.data.total);
+			// setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
@@ -82,11 +82,11 @@ const AdminMoviePage: FC = () => {
 		}
 	};
 
-	const handleEditMovie = () => {
-		setMovieToEdit(null);
-		onEditOpenChange();
-		fetchMovies();
-	};
+	// const handleEditMovie = () => {
+	// 	setMovieToEdit(null);
+	// 	onEditOpenChange();
+	// 	fetchMovies();
+	// };
 
 	const handlePageChange = (newPage: number) => {
 		if (newPage >= 1 && newPage <= lastPage) {
@@ -130,7 +130,7 @@ const AdminMoviePage: FC = () => {
 						movies={movies}
 						selectedMovies={selectedMovies}
 						setSelectedMovies={setSelectedMovies}
-						onEditOpen={onEditOpen}
+						// onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}
 						setMovieToEdit={setMovieToEdit}
 						setMovieToDelete={setMovieToDelete}

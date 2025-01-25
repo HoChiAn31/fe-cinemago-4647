@@ -103,7 +103,7 @@ const AddVoucherModal: React.FC<AddVoucherModalProps> = ({
 						},
 					],
 				});
-				onOpenChange && onOpenChange(); // Close modal
+				onOpenChange?.(); // Close modal
 				toast.success('Voucher has been successfully added.', { duration: 3000 });
 			} else {
 				console.error('Failed to add voucher:', response.data);

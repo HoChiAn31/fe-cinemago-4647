@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { ElementType, FC, useEffect, useRef, useState } from 'react';
+import React, { ElementType, FC, useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
@@ -25,7 +25,6 @@ const TabItem: FC<TabItemProps> = ({
 	setActiveSubTab,
 	tabName,
 	title,
-	icon,
 	subItems,
 	icon: Icon,
 }) => {

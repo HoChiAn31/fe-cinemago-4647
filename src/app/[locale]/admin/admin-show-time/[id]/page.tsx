@@ -1,7 +1,7 @@
 'use client';
-import { useLocale } from 'next-intl';
+
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button, Spacer, Spinner } from '@nextui-org/react';
 import ManagementHeader from '@/app/components/ManagementHeader';
 import Loading from '@/app/components/Loading';

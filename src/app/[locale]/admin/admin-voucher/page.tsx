@@ -15,7 +15,7 @@ const AdminVoucherPage: FC = () => {
 	const [vouchers, setVouchers] = useState<Voucher[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
@@ -47,7 +47,7 @@ const AdminVoucherPage: FC = () => {
 			console.log(response.data.data);
 			setIsLoading(true);
 			setVouchers(response.data.data);
-			setTotalPages(response.data.total);
+			// setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);

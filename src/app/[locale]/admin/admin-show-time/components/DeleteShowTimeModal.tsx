@@ -34,9 +34,7 @@ const DeleteShowTimeModal: React.FC<DeleteShowTimeModalProps> = ({
 
 		setIsDeleting(true);
 		try {
-			const response = await axios.delete(
-				`http://localhost:5000/show-times/${showTimeToDelete.id}`,
-			);
+			await axios.delete(`http://localhost:5000/show-times/${showTimeToDelete.id}`);
 
 			onDeleteShowTime(showTimeToDelete.id);
 			toast.success('The showtime has been successfully deleted.', {

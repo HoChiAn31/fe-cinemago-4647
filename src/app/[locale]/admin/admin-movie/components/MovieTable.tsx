@@ -1,8 +1,6 @@
 import React from 'react';
 import { Movie } from '../types';
 import { Button } from '@nextui-org/react';
-import Link from 'next/link';
-import Links from '@/app/components/Links';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/app/context/ThemeContext';
@@ -13,7 +11,7 @@ interface MovieTableProps {
 	movies: Movie[];
 	selectedMovies: Set<string>;
 	setSelectedMovies: React.Dispatch<React.SetStateAction<Set<string>>>;
-	onEditOpen: () => void;
+	onEditOpen?: () => void;
 	onDeleteOpen: () => void;
 	setMovieToEdit: React.Dispatch<React.SetStateAction<Movie | null>>;
 	setMovieToDelete: React.Dispatch<React.SetStateAction<Movie | null>>;
@@ -24,9 +22,9 @@ const MovieTable: React.FC<MovieTableProps> = ({
 	movies,
 	selectedMovies,
 	setSelectedMovies,
-	onEditOpen,
+	// onEditOpen,
 	onDeleteOpen,
-	setMovieToEdit,
+	// setMovieToEdit,
 	setMovieToDelete,
 	isLoading,
 }) => {

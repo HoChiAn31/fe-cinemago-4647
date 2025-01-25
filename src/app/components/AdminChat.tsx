@@ -1,5 +1,6 @@
 // components/AdminChat.tsx
-import { useEffect, useState, useContext } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import axios from '../utils/axios';
 import { useUser } from '../context/UserContext';

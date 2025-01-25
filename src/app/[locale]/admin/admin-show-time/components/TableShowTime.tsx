@@ -20,8 +20,8 @@ interface TableShowTimeProps {
 
 const TableShowTime: React.FC<TableShowTimeProps> = ({
 	showTimes,
-	selectedShowTimes,
-	setSelectedShowTimes,
+	// selectedShowTimes,
+	// setSelectedShowTimes,
 
 	onDeleteOpen,
 

@@ -1,6 +1,6 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
-import { Button, useDisclosure } from '@nextui-org/react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDisclosure } from '@nextui-org/react';
 import axios from '@/app/utils/axios';
 import { User } from './types'; // Assuming you have a User type defined
 import UserTable from './components/UserTable'; // Create this component

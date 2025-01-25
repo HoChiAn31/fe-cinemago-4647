@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Button, Pagination } from '@nextui-org/react';
+import React, { FC } from 'react';
+import { Button } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '../context/ThemeContext';
 
@@ -18,7 +18,7 @@ const PaginationControls: FC<PaginationControlsProps> = ({
 	lastPage,
 	prevPage,
 	nextPage,
-	totalPages,
+	// totalPages,
 	onPageChange,
 }) => {
 	const t = useTranslations('ComponentPaginationControls');

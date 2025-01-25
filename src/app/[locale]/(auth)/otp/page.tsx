@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -19,14 +19,14 @@ const initialOtpValues = {
 
 const OtpPage: FC = () => {
 	const t = useTranslations('PageOtp');
-	const [errorMessage, setErrorMessage] = useState('');
+	// const [errorMessage, setErrorMessage] = useState('');
 	const router = useRouter();
 	const locale = useLocale();
 	const searchParams = useSearchParams();
 	const email = searchParams.get('email');
 	const handleVerifyOtp = async (values: typeof initialOtpValues) => {
 		try {
-			setErrorMessage('');
+			// setErrorMessage('');
 			const res = await axios.post('http://localhost:5000/auth/verify-otp', {
 				otp: values.otp,
 				email,
@@ -76,8 +76,8 @@ const OtpPage: FC = () => {
 						handleChange,
 						isSubmitting,
 						handleBlur,
-						isValid,
-						dirty,
+						// isValid,
+						// dirty,
 					}) => (
 						<Form className='space-y-10'>
 							{/* OTP Input */}

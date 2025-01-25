@@ -116,6 +116,7 @@ const AddShowTimeSchedule: React.FC<AddShowTimeScheduleProps> = ({
 				toast.error('Failed to add showtime. Please try again.');
 			}
 		} catch (error) {
+			console.error(error);
 			toast.error('An error occurred while adding the showtime. Please try again.');
 		} finally {
 			setIsAdding(false);

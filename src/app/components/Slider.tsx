@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from './Image';
 import SampleNextArrow from './SampleNextArrow';
 import SamplePrevArrow from './SamplePrevArrow';
-import { useTheme } from '../context/ThemeContext';
 import { SliderProps } from '../types/Slider.type';
 
 const Slider: React.FC<SliderProps> = ({
@@ -14,7 +13,6 @@ const Slider: React.FC<SliderProps> = ({
 }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const slides = children ? React.Children.toArray(children) : images || [];
-	const { isDarkMode } = useTheme();
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [startX, setStartX] = useState(0);
 	const [isSwiping, setIsSwiping] = useState(false);

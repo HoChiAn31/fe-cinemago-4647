@@ -2,7 +2,7 @@
 import { Button, Input, Spinner } from '@nextui-org/react';
 import { Branch } from '../types'; // Import the Branch type
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';

@@ -27,17 +27,17 @@ interface FoodDrink {
 	updatedAt: string;
 }
 
-interface Item {
-	id: string;
-	price: string;
-	image: string;
-	type: string;
-	soldQuantity: number;
-	createdAt: string;
-	updatedAt: string;
-	translations: Translation[];
-	foodDrink: FoodDrink[];
-}
+// interface Item {
+// 	id: string;
+// 	price: string;
+// 	image: string;
+// 	type: string;
+// 	soldQuantity: number;
+// 	createdAt: string;
+// 	updatedAt: string;
+// 	translations: Translation[];
+// 	foodDrink: FoodDrink[];
+// }
 interface foodDrinkRevenueProps {
 	name: string;
 	quantity: number;

@@ -20,20 +20,20 @@ import useDebounce from '@/app/hook/useDebounce';
 import axios from 'axios';
 import { useTheme } from '@/app/context/ThemeContext';
 
-const userData = {
-	id: '1',
-	firstName: 'Nguyễn',
-	lastName: 'Văn A',
-	email: 'hotrilake@gmail.com',
-	password: '1',
-	phone: '123456789',
-	refreshToken: null,
-	role: 'user',
-	avatar: null,
-	status: 1,
-	createdAt: new Date().toISOString(),
-	updatedAt: new Date().toISOString(),
-};
+// const userData = {
+// 	id: '1',
+// 	firstName: 'Nguyễn',
+// 	lastName: 'Văn A',
+// 	email: 'hotrilake@gmail.com',
+// 	password: '1',
+// 	phone: '123456789',
+// 	refreshToken: null,
+// 	role: 'user',
+// 	avatar: null,
+// 	status: 1,
+// 	createdAt: new Date().toISOString(),
+// 	updatedAt: new Date().toISOString(),
+// };
 
 const App: React.FC = () => {
 	const [oldPassword, setOldPassword] = useState('');
@@ -45,7 +45,7 @@ const App: React.FC = () => {
 	const [isOldPasswordValid, setIsOldPasswordValid] = useState(false);
 	const [isChanged, setIsChanged] = useState(false);
 	const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(false);
-	const [isModalVisible, setIsModalVisible] = useState(false);
+	// const [isModalVisible, setIsModalVisible] = useState(false);
 	const debouncedSearchQuery = useDebounce(oldPassword, 300);
 	// const [isValid, setIsValid]=useState<boolean>(false)
 	const [otp, setOtp] = useState('');
@@ -115,7 +115,7 @@ const App: React.FC = () => {
 				email: user?.email,
 			});
 			setTimeout(() => {
-				setIsModalVisible(true);
+				// setIsModalVisible(true);
 				onOpen();
 			}, 1000);
 		} else {
@@ -136,7 +136,7 @@ const App: React.FC = () => {
 			});
 			toast.success(`${t('modal.success')}`);
 			setTimeout(() => {
-				setIsModalVisible(false);
+				// setIsModalVisible(false);
 				onOpenChange();
 				setOldPassword('');
 				setNewPassword('');
@@ -256,7 +256,7 @@ const App: React.FC = () => {
 			{/* Modal nhập OTP */}
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange} className='pt-0 md:mt-10'>
 				<ModalContent>
-					{(onClose) => (
+					{() => (
 						<>
 							<ModalHeader className='flex flex-col gap-1'>{t('modal.otp')}</ModalHeader>
 							<ModalBody>

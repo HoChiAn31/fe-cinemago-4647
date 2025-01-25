@@ -1,7 +1,7 @@
 'use client';
 import MaxWidth from '@/app/components/MaxWidth';
 import { Button, Input } from '@nextui-org/react';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useTheme } from '@/app/context/ThemeContext';

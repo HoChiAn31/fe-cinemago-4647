@@ -2,7 +2,7 @@
 import { Button, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
 import { User } from '../types'; // Import the User type
 import { useParams, useRouter } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from '@/app/utils/axios';
 import toast, { Toaster } from 'react-hot-toast';

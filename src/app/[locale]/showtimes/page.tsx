@@ -1,8 +1,8 @@
 'use client';
-
+import React from 'react';
 import ShowTimeItem from '@/app/components/ShowTimeItem';
 import { useTheme } from '@/app/context/ThemeContext';
-import { Image, Select, SelectItem, Spinner } from '@nextui-org/react';
+import { Image, Spinner } from '@nextui-org/react';
 import { CalendarIcon, ClapperboardIcon, MapPinIcon } from 'lucide-react';
 import { Movie } from './type';
 import { useEffect, useState } from 'react';
