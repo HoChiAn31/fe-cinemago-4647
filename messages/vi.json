@@ -83,7 +83,8 @@
 	},
 	"ManagementHeader": {
 		"back": "Quay lại",
-		"add": "Thêm"
+		"add": "Thêm",
+		"edit": "Cập nhật"
 	},
 	"AdminSearchAndFilter": {
 		"searchPlaceholder": "Nhập tên...",
@@ -159,7 +160,9 @@
 		"Loading": "Đang xử lý",
 		"updateSuccess": "Cập nhật thành công",
 		"updateFailed": "Lỗi! Hãy thử lại.",
-		"updateError": "Có lỗi xảy ra! Hãy thử lại."
+		"updateError": "Có lỗi xảy ra! Hãy thử lại.",
+		"noNumbersAllowed": "Không được nhập số.",
+		"updating": "Đang cập nhật..."
 	},
 	"PageForgotPassword": {
 		"title": "Quên Mật Khẩu",
@@ -424,6 +427,19 @@
 			"movieId": "Phim"
 		}
 	},
+
+	"AdminVoucherAdd": {
+		"discountType": "Loại giảm giá",
+		"discountValue": "Giá trị giảm giá",
+		"startDate": "Ngày bắt đầu",
+		"endDate": "Ngày kết thúc",
+		"minimumPurchase": "Mua tối thiểu",
+		"usageLimit": "Giới hạn sử dụng",
+		"name": "Tên",
+		"description": "Mô tả",
+		"addVoucher": "Thêm Voucher"
+	},
+
 	"AdminShowTime": {
 		"table": {
 			"order": "Thứ tự",

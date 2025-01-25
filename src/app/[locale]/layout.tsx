@@ -9,6 +9,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { Metadata } from 'next';
 import { UserProvider } from '../context/UserContext';
 import { icons } from 'lucide-react';
+import DFmessenger from '../layout/DFmessenger';
 // import faviocon from '../../../public/images/icon-movie.png';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -46,13 +47,6 @@ export default async function RootLayout({
 			</head>
 			<body className={inter.className}>
 				<>
-					<df-messenger
-						intent='WELCOME'
-						chat-title='Chăm sóc khách hàng	'
-						agent-id='1afc3b5c-44b8-49ac-9acc-3f838090507d'
-						language-code='en'
-					></df-messenger>
-
 					<NextIntlClientProvider messages={messages}>
 						<NextUIProvider>
 							<UserProvider>

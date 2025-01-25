@@ -98,10 +98,12 @@ const AdminVoucherPage: FC = () => {
 	return (
 		<div>
 			<ManagementHeader
-				isOpen={isAddOpen}
+				isBack
+				isOpen={!isAddOpen}
 				onChange={handleOpenAddVoucher}
-				title='Quản lý Voucher'
+				// title='Quản lý Voucher'
 				buttonText='Thêm Voucher'
+				titleOpen='Thêm Voucher'
 			/>
 			{!isAddOpen ? (
 				<>

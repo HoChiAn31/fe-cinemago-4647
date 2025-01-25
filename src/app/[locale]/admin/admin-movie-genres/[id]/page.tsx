@@ -34,6 +34,12 @@ const EditMovieGenrePage = () => {
 		// Ensure movieGenre is not null
 		if (!movieGenre) return;
 
+		// Check if the value contains numbers
+		if (/\d/.test(value)) {
+			toast.error(toastT('noNumbersAllowed')); // Optional: Display a toast message if numbers are detected
+			return;
+		}
+
 		// Parse the field and language code from the input name
 		const [field, languageCode] = name.split('_'); // Example: "name_en" => ["name", "en"]
 
@@ -58,7 +64,7 @@ const EditMovieGenrePage = () => {
 	};
 
 	const handleEditMovieGenre = () => {
-		console.log(movieGenre);
+		// console.log(movieGenre);
 		setIsEditing(true);
 
 		axios
@@ -86,11 +92,11 @@ const EditMovieGenrePage = () => {
 	return (
 		<div className='p-4'>
 			<ManagementHeader
-				isOpen
+				isEdit
 				isBack
 				onChangeBack={() => router.back()}
 				titleOpen='Cập nhật'
-				onChange={handleEditMovieGenre}
+				onEdit={handleEditMovieGenre}
 			/>
 			<div className='space-y-4'>
 				<div>

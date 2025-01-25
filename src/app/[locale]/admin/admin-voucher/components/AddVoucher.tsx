@@ -125,7 +125,7 @@ const AddVoucherModal: React.FC<AddVoucherModalProps> = ({
 
 	return (
 		<div className='container mx-auto rounded-lg p-4'>
-			<h1 className='mb-4 text-2xl font-bold'>Add New Voucher</h1>
+			{/* <h1 className='mb-4 text-2xl font-bold'>Add New Voucher</h1> */}
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

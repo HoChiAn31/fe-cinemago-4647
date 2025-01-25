@@ -13,6 +13,8 @@ interface ManagementHeaderProps {
 	isBack?: boolean;
 	onChangeBack?: () => void;
 	isHidden?: boolean;
+	isEdit?: boolean;
+	onEdit?: () => void;
 }
 
 const ManagementHeader: React.FC<ManagementHeaderProps> = ({
@@ -25,6 +27,8 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 	isBack,
 	onChangeBack,
 	isHidden,
+	isEdit,
+	onEdit,
 }) => {
 	if (isHidden) {
 		return null;
@@ -62,6 +66,20 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
 						radius='sm'
 					>
 						{t('add')}
+					</Button>
+				</>
+			)}
+			{isEdit && (
+				<>
+					<Button
+						className='border text-base'
+						variant='bordered'
+						color='primary'
+						startContent={<Plus height={20} width={20} />}
+						onClick={onEdit}
+						radius='sm'
+					>
+						{t('edit')}
 					</Button>
 				</>
 			)}
