@@ -22,8 +22,8 @@ interface SearchAndFilterProps {
 const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 	searchQuery,
 	setSearchQuery,
-	selectedGenre,
-	setSelectedGenre,
+	// selectedGenre,
+	// setSelectedGenre,
 	isSelectedRole,
 	selectedRole,
 	setSelectedRole,

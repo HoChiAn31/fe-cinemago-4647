@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { FoodDrink } from './types';
@@ -16,7 +16,7 @@ const AdminFoodDrinkPage: FC = () => {
 	const [foodDrinks, setFoodDrinks] = useState<FoodDrink[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
@@ -35,7 +35,7 @@ const AdminFoodDrinkPage: FC = () => {
 	} = useDisclosure();
 
 	const [foodDrinkToDelete, setFoodDrinkToDelete] = useState<FoodDrink | null>(null);
-	const [foodDrinkToEdit, setFoodDrinkToEdit] = useState<FoodDrink | null>(null);
+	// const [foodDrinkToEdit, setFoodDrinkToEdit] = useState<FoodDrink | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 300);
 	const router = useRouter();
 
@@ -55,7 +55,7 @@ const AdminFoodDrinkPage: FC = () => {
 			});
 			setIsLoading(true);
 			setFoodDrinks(response.data.data);
-			setTotalPages(response.data.total);
+			// setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
@@ -120,9 +120,9 @@ const AdminFoodDrinkPage: FC = () => {
 					<FoodDrinkTable
 						isLoading={isLoading}
 						foodDrinks={foodDrinks}
-						onEditOpen={onEditOpen}
+						// onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}
-						setFoodDrinkToEdit={setFoodDrinkToEdit}
+						// setFoodDrinkToEdit={setFoodDrinkToEdit}
 						setFoodDrinkToDelete={setFoodDrinkToDelete}
 					/>
 					<PaginationControls

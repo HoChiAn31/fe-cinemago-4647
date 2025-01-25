@@ -2,7 +2,7 @@
 import Loading from '@/app/components/Loading';
 import { Order } from '@/app/types/Order';
 import axios from 'axios';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import OrderTable from './components/TableOrder';
 import ManagementHeader from '@/app/components/ManagementHeader';
 import PaginationControls from '@/app/components/PaginationControls';
@@ -14,7 +14,7 @@ const adminOderPage: FC = () => {
 	const [dataOrder, setDataOrder] = useState<Order[]>([]);
 	const [isLoading, setIsLoaing] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [nextPage, setNextPage] = useState<number | null>(null);
@@ -67,7 +67,7 @@ const adminOderPage: FC = () => {
 			.then((response) => {
 				setDataOrder(response.data.data);
 				setIsLoaing(true);
-				setTotalPages(response.data.total);
+				// setTotalPages(response.data.total);
 
 				setLastPage(response.data.lastPage);
 				setNextPage(response.data.nextPage);

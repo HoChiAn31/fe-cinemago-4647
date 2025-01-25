@@ -17,7 +17,7 @@ import { useTranslations } from 'next-intl';
 import { useTheme } from '../context/ThemeContext';
 import '@/app/styles/Filter.css';
 
-const CheckboxGroup = Checkbox.Group;
+// const CheckboxGroup = Checkbox.Group;
 
 const Filter: FC<FilterProps> = ({
 	genres,

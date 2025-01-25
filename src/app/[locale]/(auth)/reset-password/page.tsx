@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Formik, Form } from 'formik';
@@ -9,7 +9,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import ErrorMessage from '@/app/components/ErrorMessage';
 import { useSearchParams } from 'next/navigation';
-import { useTheme } from '@/app/context/ThemeContext';
 
 const resetPasswordValidationSchema = Yup.object({
 	newPassword: Yup.string()
@@ -81,16 +80,7 @@ const ResetPasswordPage: FC = () => {
 					validationSchema={resetPasswordValidationSchema}
 					onSubmit={handleResetPassword}
 				>
-					{({
-						values,
-						errors,
-						touched,
-						handleChange,
-						handleBlur,
-						isSubmitting,
-						isValid,
-						dirty,
-					}) => (
+					{({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
 						<Form className='space-y-6'>
 							{/* New Password Input */}
 							<div>

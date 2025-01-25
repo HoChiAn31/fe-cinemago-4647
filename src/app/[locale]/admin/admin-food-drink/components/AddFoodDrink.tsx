@@ -113,12 +113,13 @@ const AddFoodDrinkModal: React.FC<AddFoodDrinkModalProps> = ({
 					type: 'combo',
 				});
 				setImageFile(null); // Reset file state
-				onOpenChange && onOpenChange();
+				onOpenChange?.();
 				toast.success('The new food/drink has been successfully added.');
 			} else {
 				toast.error('Failed to add food/drink. Please try again.');
 			}
 		} catch (error) {
+			console.error(error);
 			toast.error('An error occurred while adding the food/drink. Please try again.');
 		} finally {
 			setIsAdding(false);

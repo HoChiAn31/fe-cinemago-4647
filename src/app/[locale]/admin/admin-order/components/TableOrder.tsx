@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { useTheme } from '@/app/context/ThemeContext';
 import Loading from '@/app/components/Loading';
 import { Order } from '@/app/types/Order';
-import EditOrderModal from './EditOrderModal';
 
 // interface Order {
 // 	orderId: string;

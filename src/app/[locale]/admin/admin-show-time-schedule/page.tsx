@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { ShowTime } from './types';
@@ -16,7 +16,7 @@ const AdminShowTimeSchedulesPage: FC = () => {
 	const [showTimes, setShowTimes] = useState<ShowTime[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
@@ -28,12 +28,8 @@ const AdminShowTimeSchedulesPage: FC = () => {
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
-	const [showTimeEdit, setShowTimeEdit] = useState<ShowTime | null>(null);
+
+	// const [showTimeEdit, setShowTimeEdit] = useState<ShowTime | null>(null);
 
 	const [showTimeToDelete, setShowTimeToDelete] = useState<ShowTime | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -54,7 +50,7 @@ const AdminShowTimeSchedulesPage: FC = () => {
 				},
 			});
 			setShowTimes(response.data.data);
-			setTotalPages(response.data.total);
+			// setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
@@ -117,8 +113,8 @@ const AdminShowTimeSchedulesPage: FC = () => {
 						showTimes={showTimes}
 						onDeleteOpen={onDeleteOpen}
 						setShowTimeToDelete={setShowTimeToDelete}
-						onEditOpen={onEditOpen}
-						setShowTimeToEdit={setShowTimeEdit}
+						// onEditOpen={onEditOpen}
+						// setShowTimeToEdit={setShowTimeEdit}
 					/>
 
 					<PaginationControls

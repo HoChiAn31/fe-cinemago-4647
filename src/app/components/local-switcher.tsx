@@ -2,16 +2,16 @@
 
 import { Image, Tooltip } from '@nextui-org/react';
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
-import { useState, useTransition, useEffect, useRef } from 'react';
+// import { usePathname, useRouter } from 'next/navigation';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
 export default function LocaleSwitcher() {
-	const [isPending, startTransition] = useTransition();
+	// const [isPending, startTransition] = useTransition();
 	const { isDarkMode } = useTheme();
-	const router = useRouter();
+	// const router = useRouter();
 	const localeActive = useLocale();
-	const pathname = usePathname();
+	// const pathname = usePathname();
 	const [selectedLocale, setSelectedLocale] = useState<string>(localeActive);
 	const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -31,10 +31,10 @@ export default function LocaleSwitcher() {
 
 	const onSelectChange = (nextLocale: string) => {
 		setSelectedLocale(nextLocale);
-		startTransition(() => {
-			const newPathname = pathname.replace(`/${localeActive}`, `/${nextLocale}`);
-			router.replace(newPathname);
-		});
+		// startTransition(() => {
+		// 	const newPathname = pathname.replace(`/${localeActive}`, `/${nextLocale}`);
+		// 	router.replace(newPathname);
+		// });
 		setIsDropdownOpen(false);
 	};
 

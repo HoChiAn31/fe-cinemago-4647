@@ -11,7 +11,7 @@ interface TableMovieGenresProps {
 	movieGenres: MovieGenre[]; // Adjust the prop type
 	selectedGenres?: Set<string>;
 	setSelectedGenres?: React.Dispatch<React.SetStateAction<Set<string>>>;
-	onEditOpen: () => void;
+	onEditOpen?: () => void;
 	onDeleteOpen: () => void;
 	setGenreToEdit: React.Dispatch<React.SetStateAction<MovieGenre | null>>;
 	setGenreToDelete: React.Dispatch<React.SetStateAction<MovieGenre | null>>;
@@ -20,11 +20,11 @@ interface TableMovieGenresProps {
 
 const MovieGenreTable: React.FC<TableMovieGenresProps> = ({
 	movieGenres,
-	selectedGenres,
-	setSelectedGenres,
-	onEditOpen,
+	// selectedGenres,
+	// setSelectedGenres,
+	// onEditOpen,
 	onDeleteOpen,
-	setGenreToEdit,
+	// setGenreToEdit,
 	setGenreToDelete,
 	isLoading,
 }) => {

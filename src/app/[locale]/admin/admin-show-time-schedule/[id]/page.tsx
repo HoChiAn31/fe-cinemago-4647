@@ -16,13 +16,15 @@ interface EditShowTimeScheduleProps {
 	onReloadData: () => void;
 }
 
-const EditShowTimeSchedule: React.FC<EditShowTimeScheduleProps> = ({
-	showTime,
-	onOpenChange,
-	onUpdateShowTime,
-	onFinishEditing,
-	onReloadData,
-}) => {
+const EditShowTimeSchedule: React.FC<EditShowTimeScheduleProps> = (
+	{
+		// showTime,
+		// onOpenChange,
+		// onUpdateShowTime,
+		// onFinishEditing,
+		// onReloadData,
+	},
+) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const router = useRouter();
 	const locale = useLocale();
@@ -83,6 +85,7 @@ const EditShowTimeSchedule: React.FC<EditShowTimeScheduleProps> = ({
 				toast.error('Failed to update the showtime. Please try again.');
 			}
 		} catch (error) {
+			console.error('Error updating showtime:', error);
 			toast.error('An error occurred while updating the showtime. Please try again.');
 		} finally {
 			setIsEditing(false);

@@ -2,7 +2,7 @@
 import { Button, Image, Input, Spacer, Spinner } from '@nextui-org/react';
 import { FoodDrink } from '../types'; // Import FoodDrink type
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';

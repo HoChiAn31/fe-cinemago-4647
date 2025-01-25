@@ -34,9 +34,7 @@ const DeleteFoodDrinkModal: React.FC<DeleteFoodDrinkModalProps> = ({
 
 		setIsDeleting(true);
 		try {
-			const response = await axios.delete(
-				`http://localhost:5000/food-drinks/${foodDrinkToDelete.id}`,
-			);
+			await axios.delete(`http://localhost:5000/food-drinks/${foodDrinkToDelete.id}`);
 
 			onDeleteFoodDrink(foodDrinkToDelete.id);
 			toast.success('The food/drink item has been successfully deleted.', {

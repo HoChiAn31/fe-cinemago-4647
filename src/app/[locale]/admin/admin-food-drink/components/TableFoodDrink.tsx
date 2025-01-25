@@ -11,20 +11,20 @@ interface FoodDrinkTableProps {
 	foodDrinks: FoodDrink[]; // Adjust the prop type
 	selectedFoodDrinks?: Set<string>;
 	setSelectedFoodDrinks?: React.Dispatch<React.SetStateAction<Set<string>>>;
-	onEditOpen: () => void;
+	onEditOpen?: () => void;
 	onDeleteOpen: () => void;
-	setFoodDrinkToEdit: React.Dispatch<React.SetStateAction<FoodDrink | null>>;
+	setFoodDrinkToEdit?: React.Dispatch<React.SetStateAction<FoodDrink | null>>;
 	setFoodDrinkToDelete: React.Dispatch<React.SetStateAction<FoodDrink | null>>;
 	isLoading: boolean;
 }
 
 const FoodDrinkTable: React.FC<FoodDrinkTableProps> = ({
 	foodDrinks,
-	selectedFoodDrinks,
-	setSelectedFoodDrinks,
-	onEditOpen,
+	// selectedFoodDrinks,
+	// setSelectedFoodDrinks,
+	// onEditOpen,
 	onDeleteOpen,
-	setFoodDrinkToEdit,
+	// setFoodDrinkToEdit,
 	setFoodDrinkToDelete,
 	isLoading,
 }) => {

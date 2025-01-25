@@ -1,3 +1,4 @@
+import React from 'react';
 import { Doughnut as ChartDoughnut } from 'react-chartjs-2';
 
 interface DoughnutProps {

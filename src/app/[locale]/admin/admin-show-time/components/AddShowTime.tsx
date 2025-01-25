@@ -1,14 +1,12 @@
-import { Button, Input, Select, SelectItem, Selection, Spacer, Spinner } from '@nextui-org/react';
-import React, { useState, useCallback, useEffect, ChangeEvent, use } from 'react';
+import { Button, Input, Select, SelectItem, Spacer, Spinner } from '@nextui-org/react';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { ShowTime } from '../types';
 import { useLocale, useTranslations } from 'next-intl';
 import { Branch } from '../../admin-branch/types';
 import { Room } from '../../admin-room/types';
-import { Movie, MovieData } from '../../admin-movie/types';
-import ShowTimeItem from '@/app/components/ShowTimeItem';
-import Loading from '@/app/components/Loading';
+import { Movie } from '../../admin-movie/types';
 
 interface AddShowTimeProps {
 	isOpen: boolean;
@@ -30,7 +28,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 	const [selectBranch, setSelectBranch] = useState<{ key: string; value: string }[]>([]);
 	const [selectRoom, setSelectRoom] = useState<{ key: string; value: string }[]>([]);
 	const [selectMovie, setSelectMovie] = useState<{ key: string; value: string }[]>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 	const [duration, setDuration] = useState<number>();
 	const [selected, setSelected] = useState('');
 	const [selectedRoom, setSelectedRoom] = useState('');
@@ -69,7 +67,7 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 						value: translation ? translation.name : 'Unknown',
 					};
 				});
-				setIsLoading(true);
+				// setIsLoading(true);
 				console.log(movieSelect);
 				setSelectMovie(movieSelect);
 				setDataMovie(movies);
@@ -202,7 +200,8 @@ const AddShowTime: React.FC<AddShowTimeProps> = ({
 			} else {
 				toast.error('Failed to add showtime. Please try again.');
 			}
-		} catch (error) {
+		} catch (err) {
+			console.error('Error adding showtime:', err);
 			toast.error('An error occurred while adding the showtime. Please try again.');
 		} finally {
 			setIsAdding(false);

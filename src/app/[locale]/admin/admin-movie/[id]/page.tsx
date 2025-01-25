@@ -1,8 +1,8 @@
 'use client';
 import { Button, Image, Input, Spinner, Checkbox } from '@nextui-org/react';
-import { Genre, MovieDetails, Movies } from '../types'; // Import the Movie type
+import { Genre, MovieDetails } from '../types'; // Import the Movie type
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
@@ -88,9 +88,9 @@ const EditMoviePage = () => {
 	const handleEditMovie = async () => {
 		setIsEditing(true);
 
-		const dataMovie = {
-			...movie,
-		};
+		// const dataMovie = {
+		// 	...movie,
+		// };
 		const updateMovieData = {
 			director: movie?.director,
 			cast: movie?.cast,

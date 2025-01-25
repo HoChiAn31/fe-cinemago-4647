@@ -1,3 +1,4 @@
+import React from 'react';
 import { ArrowLeft } from './icon';
 
 interface SampleNextArrowProps {

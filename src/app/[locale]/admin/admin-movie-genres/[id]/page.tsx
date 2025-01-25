@@ -1,8 +1,8 @@
 'use client';
-import { Button, Input, Spinner } from '@nextui-org/react';
+import { Input } from '@nextui-org/react';
 import { MovieGenre } from '../types'; // Import the MovieGenre type
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
@@ -14,7 +14,7 @@ const EditMovieGenrePage = () => {
 	const params = useParams();
 	const id = params.id as string;
 	const [movieGenre, setMovieGenre] = useState<MovieGenre | null>(null);
-	const [isEditing, setIsEditing] = useState(false);
+	// const [isEditing, setIsEditing] = useState(false);
 	const router = useRouter();
 	const locale = useLocale();
 
@@ -65,7 +65,7 @@ const EditMovieGenrePage = () => {
 
 	const handleEditMovieGenre = () => {
 		// console.log(movieGenre);
-		setIsEditing(true);
+		// setIsEditing(true);
 
 		axios
 			.put(`http://localhost:5000/movie-genres/${id}`, movieGenre)
@@ -85,7 +85,7 @@ const EditMovieGenrePage = () => {
 				toast.error(toastT('updateError'));
 			})
 			.finally(() => {
-				setIsEditing(false);
+				// setIsEditing(false);
 			});
 	};
 

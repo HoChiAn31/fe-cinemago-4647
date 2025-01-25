@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { CircleAlert } from 'lucide-react';
 
 interface ErrorMessageProps {

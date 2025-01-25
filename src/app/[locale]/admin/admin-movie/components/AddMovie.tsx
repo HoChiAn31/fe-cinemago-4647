@@ -135,7 +135,7 @@ const AddMovieModal: React.FC<AddMovieModalProps> = ({
 				onFinishAdding();
 				onReloadData();
 				resetForm();
-				onOpenChange && onOpenChange();
+				onOpenChange?.();
 				toast.success('The new movie has been successfully added.', { duration: 3000 });
 			} else {
 				console.error('Failed to add movie. Response:', response.data);

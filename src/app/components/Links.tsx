@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import Link, { LinkProps } from 'next/link';
 import { useLocale } from 'next-intl';
 

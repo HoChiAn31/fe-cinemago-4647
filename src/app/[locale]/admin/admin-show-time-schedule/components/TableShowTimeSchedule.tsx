@@ -11,20 +11,20 @@ interface TableShowTimeScheduleProps {
 	showTimes: ShowTime[]; // Adjust the prop type
 	selectedShowTimes?: Set<string>;
 	setSelectedShowTimes?: React.Dispatch<React.SetStateAction<Set<string>>>;
-	onEditOpen: () => void;
+	onEditOpen?: () => void;
 	onDeleteOpen: () => void;
-	setShowTimeToEdit: React.Dispatch<React.SetStateAction<ShowTime | null>>;
+	setShowTimeToEdit?: React.Dispatch<React.SetStateAction<ShowTime | null>>;
 	setShowTimeToDelete: React.Dispatch<React.SetStateAction<ShowTime | null>>;
 	isLoading: boolean;
 }
 
 const TableShowTimeSchedule: React.FC<TableShowTimeScheduleProps> = ({
 	showTimes,
-	selectedShowTimes,
-	setSelectedShowTimes,
-	onEditOpen,
+	// selectedShowTimes,
+	// setSelectedShowTimes,
+	// onEditOpen,
 	onDeleteOpen,
-	setShowTimeToEdit,
+	// setShowTimeToEdit,
 	setShowTimeToDelete,
 	isLoading,
 }) => {
@@ -97,7 +97,7 @@ const TableShowTimeSchedule: React.FC<TableShowTimeScheduleProps> = ({
 													color='warning'
 													onPress={() => {
 														router.push(`/${locale}/admin/admin-show-time-schedule/${showTime.id}`);
-														onEditOpen();
+														// onEditOpen();
 													}}
 													isIconOnly
 													radius='sm'

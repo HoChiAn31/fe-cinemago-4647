@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 const AdminMovieGenrePage: FC = () => {
 	const [movieGenres, setMovieGenres] = useState<MovieGenre[]>([]);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
@@ -28,11 +28,11 @@ const AdminMovieGenrePage: FC = () => {
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
+	// const {
+	// 	isOpen: isEditOpen,
+	// 	onOpen: onEditOpen,
+	// 	onOpenChange: onEditOpenChange,
+	// } = useDisclosure();
 
 	const [genreToDelete, setGenreToDelete] = useState<MovieGenre | null>(null);
 	const [genreToEdit, setGenreToEdit] = useState<MovieGenre | null>(null);
@@ -54,7 +54,7 @@ const AdminMovieGenrePage: FC = () => {
 			});
 			setIsLoading(true);
 			setMovieGenres(response.data.data);
-			setTotalPages(response.data.total);
+			// setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
@@ -76,11 +76,11 @@ const AdminMovieGenrePage: FC = () => {
 		}
 	};
 
-	const handleEditMovieGenre = () => {
-		setGenreToEdit(null);
-		onEditOpenChange();
-		fetchMovieGenres();
-	};
+	// const handleEditMovieGenre = () => {
+	// 	setGenreToEdit(null);
+	// 	onEditOpenChange();
+	// 	fetchMovieGenres();
+	// };
 
 	const handlePageChange = (newPage: number) => {
 		if (newPage >= 1 && newPage <= lastPage) {
@@ -123,7 +123,7 @@ const AdminMovieGenrePage: FC = () => {
 					/>
 					<MovieGenreTable
 						movieGenres={movieGenres}
-						onEditOpen={onEditOpen}
+						// onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}
 						setGenreToEdit={setGenreToEdit}
 						setGenreToDelete={setGenreToDelete}

@@ -65,7 +65,7 @@ const AddMovieGenres: React.FC<AddMovieGenresModalProps> = ({
 					onAddMovieGenre(response.data.data);
 					onFinishAdding();
 					onReloadData();
-					onOpenChange && onOpenChange();
+					onOpenChange?.();
 				}, 1500);
 
 				setNewMovieGenre({

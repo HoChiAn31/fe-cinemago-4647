@@ -1,3 +1,4 @@
+import React from 'react';
 export const ArrowLeft = ({ className = '', width = '22px', height = '16px' }: any) => (
 	<svg
 		width={width}
