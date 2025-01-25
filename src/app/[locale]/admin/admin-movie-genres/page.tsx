@@ -63,7 +63,7 @@ const AdminMovieGenrePage: FC = () => {
 		}
 	};
 
-	const handleAddMovieGenre = () => {
+	const handleAddMovieGenre: any = () => {
 		fetchMovieGenres();
 	};
 

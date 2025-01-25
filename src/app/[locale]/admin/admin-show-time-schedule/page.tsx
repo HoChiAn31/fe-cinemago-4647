@@ -97,7 +97,7 @@ const AdminShowTimeSchedulesPage: FC = () => {
 			<ManagementHeader
 				isOpen={!isAddOpen}
 				isBack={isAddOpen}
-				title={isAddOpen ? '' : 'Quản lý suất chiếu'}
+				title={isAddOpen ? '' : 'Quản lý lịch chiếu'}
 				onChangeBack={isAddOpen ? () => setIsAddOpen(false) : () => router.back()}
 				titleOpen='Thêm suất chiếu'
 				onChange={() => setIsAddOpen(true)}

@@ -16,6 +16,7 @@ import { useTheme } from '../context/ThemeContext';
 import SidebarAdmin from './SidebarAdmin';
 import HeaderAdmin from './HeaderAdmin';
 import SidebarUser from './SidebarUser';
+import DFmessenger from './DFmessenger';
 // import SidebarAdmin from './SidebarAdmin';
 
 const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
@@ -26,6 +27,7 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 		<div
 			className={`flex min-h-screen flex-col overflow-hidden ${pathname.startsWith(`/${locale}/admin`) ? '' : ``} ${isDarkMode ? 'bg-[#18191A] text-white' : 'bg-white text-black'} `}
 		>
+			<DFmessenger />
 			{pathname.startsWith(`/${locale}/admin`) ? (
 				<AdminGuard>
 					<div className={``}>

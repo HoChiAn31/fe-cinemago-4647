@@ -82,7 +82,8 @@
 	},
 	"ManagementHeader": {
 		"back": "Back",
-		"add": "Add"
+		"add": "Add",
+		"edit": "Edit"
 	},
 	"AdminSearchAndFilter": {
 		"searchPlaceholder": "Enter name...",
@@ -159,7 +160,9 @@
 		"Loading": "Loading",
 		"updateSuccess": "Added successfully.",
 		"updateFailed": "Add failed! Please try again.",
-		"updateError": "An error occurred! Please try again."
+		"updateError": "An error occurred! Please try again.",
+		"noNumbersAllowed": "Numbers are not allowed.",
+		"updating": "Updating..."
 	},
 	"PageForgotPassword": {
 		"title": "Forgot Password",
@@ -424,6 +427,17 @@
 			"placeholderMovie": "Select movie",
 			"movieId": "Movie"
 		}
+	},
+	"AdminVoucherAdd": {
+		"discountType": "Discount Type",
+		"discountValue": "Discount Value",
+		"startDate": "Start Date",
+		"endDate": "End Date",
+		"minimumPurchase": "Minimum Purchase",
+		"usageLimit": "Usage Limit",
+		"name": "Name",
+		"description": "Description",
+		"addVoucher": "Add Voucher"
 	},
 	"AdminShowTime": {
 		"table": {

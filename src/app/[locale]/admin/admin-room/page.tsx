@@ -110,7 +110,7 @@ const AdminRoomPage: FC = () => {
 
 	return (
 		<div>
-			<ManagementHeaderUpdate title='Danh sách rạp' />
+			<ManagementHeaderUpdate title='Danh sách phòng' />
 			{!isAddOpen ? (
 				<>
 					<SearchAndFilter

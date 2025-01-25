@@ -29,6 +29,10 @@ const EditBranchPage = () => {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
+		if (name === 'phone' && /[^0-9]/.test(value) && value.length > 11) {
+			// Nếu nhập vào không phải số, không cập nhật giá trị
+			return;
+		}
 		setBranch((prevState) => {
 			if (!prevState) return null;
 			return {
@@ -40,7 +44,7 @@ const EditBranchPage = () => {
 
 	const handleEditBranch = async () => {
 		setIsEditing(true);
-		const updatePromise = axios.put(`http://localhost:5000/branches/${id}`, branch);
+		const updatePromise = axios.put(`http://localhost:5000/branch/${id}`, branch);
 
 		toast.promise(
 			updatePromise,
@@ -73,7 +77,25 @@ const EditBranchPage = () => {
 	};
 
 	const handleTranslationChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
-		// Your logic to handle the translation change
+		const { name, value } = event.target;
+		console.log(name, value);
+
+		// Update the specific translation at the given index
+		setBranch((prevState) => {
+			if (!prevState) return null;
+
+			// Update the translation field based on the index and input name
+			const updatedTranslations = [...prevState.translations];
+			updatedTranslations[index] = {
+				...updatedTranslations[index],
+				[name]: value,
+			};
+
+			return {
+				...prevState,
+				translations: updatedTranslations,
+			};
+		});
 	};
 
 	return (

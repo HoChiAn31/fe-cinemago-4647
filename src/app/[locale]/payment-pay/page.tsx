@@ -268,6 +268,7 @@ const PaymentPage: React.FC = () => {
 						<div className='flex w-full items-center justify-center'>
 							<Button
 								type='submit'
+								onClick={handleSubmit}
 								className={`cursor-pointer text-nowrap rounded-md border-[0.1rem] border-second bg-primary px-9 py-3 transition duration-200 hover:bg-white hover:text-second`}
 							>
 								{t('submitPayment')}
