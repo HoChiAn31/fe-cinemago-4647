@@ -1,16 +1,8 @@
 'use client';
-import { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { CircleUserRound, Search, Menu, X, LogOut } from 'lucide-react';
-import {
-	Tooltip,
-	Modal,
-	ModalContent,
-	useDisclosure,
-	Input,
-	Image,
-	Button,
-} from '@nextui-org/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { Tooltip, Modal, ModalContent, useDisclosure, Input, Image } from '@nextui-org/react';
+import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Links from '../components/Links';
 import NavItem from '../components/NavItem';
@@ -18,7 +10,6 @@ import MaxWidth from '../components/MaxWidth';
 import { useUser } from '../context/UserContext';
 import LocaleSwitcher from '../components/local-switcher';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import logo1 from '../Image/logo1.png';
 import { useTheme } from '../context/ThemeContext';
 import LinkUser from '../components/Header/LinkUser';
 import axios from 'axios';
@@ -27,21 +18,21 @@ import useDebounce from '../hook/useDebounce';
 
 const Header: FC = () => {
 	const pathname = usePathname();
-	const { isLogin, setIsLogin, setRole, role, logout } = useUser();
+	const { isLogin, role, logout } = useUser();
 	const locale = useLocale();
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const [valueSearch, setValueSearch] = useState<string>('');
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // New state for mobile menu
 	const t = useTranslations('LayoutHeader');
-	const router = useRouter();
+
 	const { isDarkMode, toggleDarkMode } = useTheme();
 	const [dataSearch, setDataSearch] = useState<Movie[]>([]);
 	const debouncedSearchQuery = useDebounce(valueSearch, 500);
-	const handleLogout = () => {
-		setIsLogin(false);
-		setRole('');
-		router.push(`/${locale}/`);
-	};
+	// const handleLogout = () => {
+	// 	setIsLogin(false);
+	// 	setRole('');
+	// 	router.push(`/${locale}/`);
+	// };
 	// useEffect(() => {
 	// 	axios
 	// 		.get(`http://localhost:5000/movies?languageCode=${locale}`)
@@ -80,7 +71,7 @@ const Header: FC = () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, []);
-	const handleChangeSearch = (e: any) => {
+	const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		if (value === ' ') {
 			return;

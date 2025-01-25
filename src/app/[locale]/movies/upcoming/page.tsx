@@ -1,8 +1,7 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { MovieProp } from '@/app/types/MovieDetail.type';
-import { useTheme } from '@/app/context/ThemeContext';
 import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
 import Movie from '@/app/components/Movie';
@@ -23,7 +22,7 @@ const UpComingPage: FC = () => {
 	const [filteredMovies, setFilteredMovies] = useState<MovieProp['movie'][]>([]);
 
 	const t = useTranslations('HomePage');
-	const { isDarkMode } = useTheme();
+
 	const locale = useLocale();
 
 	useEffect(() => {

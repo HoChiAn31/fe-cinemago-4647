@@ -38,7 +38,7 @@ const DeleteRoomModal: React.FC<DeleteRoomModalProps> = ({
 		console.log(roomToDelete.id);
 		axios
 			.delete(`${url}/rooms/${roomToDelete.id}`)
-			.then((response) => {
+			.then(() => {
 				setTimeout(() => {
 					onDeleteRoom(roomToDelete.id); // Change from onDeleteBranch to onDeleteRoom
 

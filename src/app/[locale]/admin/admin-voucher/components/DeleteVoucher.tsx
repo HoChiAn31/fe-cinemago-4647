@@ -34,7 +34,7 @@ const DeleteVoucherModal: React.FC<DeleteVoucherModalProps> = ({
 
 		setIsDeleting(true);
 		try {
-			const response = await axios.delete(`http://localhost:5000/vouchers/${voucherToDelete.id}`);
+			await axios.delete(`http://localhost:5000/vouchers/${voucherToDelete.id}`);
 
 			onDeleteVoucher(voucherToDelete.id);
 			toast.success('The voucher has been successfully deleted.', {

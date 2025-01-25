@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import axios from 'axios';
 import { Voucher } from './types'; // Import Voucher type
@@ -27,14 +27,8 @@ const AdminVoucherPage: FC = () => {
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
 
 	const [voucherToDelete, setVoucherToDelete] = useState<Voucher | null>(null);
-	const [voucherToEdit, setVoucherToEdit] = useState<Voucher | null>(null);
 	const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
 	useEffect(() => {

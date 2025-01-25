@@ -1,5 +1,5 @@
 import { Image } from '@nextui-org/react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 const NotFoundPage: FC = () => {
 	return (

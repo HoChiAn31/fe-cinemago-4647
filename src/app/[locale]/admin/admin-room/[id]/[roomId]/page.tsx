@@ -1,12 +1,12 @@
 'use client';
-import { Button, Input, Spacer, Spinner } from '@nextui-org/react';
-import { Room, RoomEdit } from '../../types'; // Import the Room type
+import React from 'react';
+import { Button, Input, Spinner } from '@nextui-org/react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import axios from 'axios';
+import { RoomEdit } from '../../types'; // Import the Room type
 import toast, { Toaster } from 'react-hot-toast';
-import ManagementHeader from '@/app/components/ManagementHeader';
 import ManagementHeaderUpdate from '@/app/components/ManagementHeader';
 
 const EditRoomPage = () => {
@@ -19,7 +19,6 @@ const EditRoomPage = () => {
 	const [room, setRoom] = useState<RoomEdit | null>(null);
 	const [isEditing, setIsEditing] = useState(false);
 	const router = useRouter();
-	const locale = useLocale();
 
 	const fetchRoom = async () => {
 		axios

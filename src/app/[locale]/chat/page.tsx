@@ -1,17 +1,16 @@
 // pages/chat.tsx
 'use client';
-import { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import UserChat from '@/app/components/UserChat';
 
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/app/context/UserContext';
-import { useLocale } from 'next-intl';
 
 const ChatPage: React.FC = () => {
-	const { user, isLogin, isLoading, role } = useUser();
+	const { user, isLogin, isLoading } = useUser();
 
 	const router = useRouter();
-	const locale = useLocale();
+
 	useEffect(() => {
 		console.log('user', user);
 		console.log('isLogin', isLogin);

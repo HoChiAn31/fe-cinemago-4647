@@ -152,27 +152,27 @@ const BookingPage: FC = () => {
 	const groupedShowTimes = groupByDate(filteredShowTimes);
 
 	// Sort the grouped dates
-	const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
-		.sort((a, b) => {
-			// Parse the date strings to create proper Date objects for comparison
-			const dateA = new Date(a.split('/').reverse().join('-')); // Reversing for YYYY-MM-DD format
-			const dateB = new Date(b.split('/').reverse().join('-'));
-			return dateA.getTime() - dateB.getTime();
-		})
-		.reduce(
-			(sortedGroups, date) => {
-				sortedGroups[date] = groupedShowTimes[date];
-				return sortedGroups;
-			},
-			{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
-		);
+	// const sortedGroupedShowTimes = Object.keys(groupedShowTimes)
+	// 	.sort((a, b) => {
+	// 		// Parse the date strings to create proper Date objects for comparison
+	// 		const dateA = new Date(a.split('/').reverse().join('-')); // Reversing for YYYY-MM-DD format
+	// 		const dateB = new Date(b.split('/').reverse().join('-'));
+	// 		return dateA.getTime() - dateB.getTime();
+	// 	})
+	// 	.reduce(
+	// 		(sortedGroups, date) => {
+	// 			sortedGroups[date] = groupedShowTimes[date];
+	// 			return sortedGroups;
+	// 		},
+	// 		{} as Record<string, { weekday: string; showTimes: Showtime[] }>,
+	// 	);
 
-	const handleSelectShowTime = (value: any) => setSelectShowTime(value);
+	const handleSelectShowTime = (value: Showtime) => setSelectShowTime(value);
 
-	const handleDateSelect = (date: string) => {
-		setSelectedDate(date);
-		setSelectShowTime(null);
-	};
+	// const handleDateSelect = (date: string) => {
+	// 	setSelectedDate(date);
+	// 	setSelectShowTime(null);
+	// };
 
 	const handleQuantityChange = (
 		type: 'adult' | 'student',

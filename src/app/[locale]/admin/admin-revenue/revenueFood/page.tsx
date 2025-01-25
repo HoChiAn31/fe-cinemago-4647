@@ -1,4 +1,5 @@
 'use client';
+
 import axios from 'axios';
 import { ChartConfiguration } from 'chart.js';
 import { useLocale } from 'next-intl';
@@ -6,7 +7,6 @@ import React, { FC, useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import BarCharts from '@/app/components/Charts/BarCharts';
-import { chartFoodRevenue, chartFoodQuantity } from '@/app/components/Charts/ChartConfig';
 interface CategoryLanguage {
 	id: string;
 	languageCode: string;
@@ -38,9 +38,12 @@ interface Item {
 	translations: Translation[];
 	foodDrink: FoodDrink[];
 }
-
+interface foodDrinkRevenueProps {
+	name: string;
+	quantity: number;
+	revenue: number;
+}
 const RevenueFoodPage: FC = () => {
-	const [dataFoodDrink, setDataFoodDrink] = useState<Item[]>([]);
 	const [startDate, setStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');
 	const [foodData, setFoodData] = useState([
@@ -147,9 +150,9 @@ const RevenueFoodPage: FC = () => {
 				const response = await axios.get('http://localhost:5000/food-drinks/revenue');
 				const { data } = response.data;
 
-				const labels = data.map((item: any) => item.name);
-				const revenues = data.map((item: any) => item.revenue);
-				const quantity = data.map((item: any) => item.quantity);
+				const labels = data.map((item: foodDrinkRevenueProps) => item.name);
+				const revenues = data.map((item: foodDrinkRevenueProps) => item.revenue);
+				const quantity = data.map((item: foodDrinkRevenueProps) => item.quantity);
 				setChartConfig((prev) => ({
 					...prev,
 					data: {

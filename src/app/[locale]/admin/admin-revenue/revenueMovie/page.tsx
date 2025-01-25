@@ -1,6 +1,5 @@
 'use client';
 import BarCharts from '@/app/components/Charts/BarCharts';
-import { chartMovie, chartTicket } from '@/app/components/Charts/ChartConfig';
 
 import axios from 'axios';
 import { ChartConfiguration } from 'chart.js';
@@ -17,7 +16,11 @@ interface Movie {
 	createdAt: string;
 	updatedAt: string;
 }
-
+interface movielRevenueProps {
+	name: string;
+	totalTicketsSold: number;
+	totalRevenue: number;
+}
 const RevenueMoviePage: FC = () => {
 	const [movieData, setMovieData] = useState<Movie[]>([]);
 	const [startDate, setStartDate] = useState('');
@@ -124,9 +127,9 @@ const RevenueMoviePage: FC = () => {
 				const response = await axios.get('http://localhost:5000/movies/findAllRevenue');
 				const { data } = response.data;
 
-				const labels = data.map((item: any) => item.name);
-				const revenues = data.map((item: any) => item.totalRevenue);
-				const quantity = data.map((item: any) => item.totalTicketsSold);
+				const labels = data.map((item: movielRevenueProps) => item.name);
+				const revenues = data.map((item: movielRevenueProps) => item.totalRevenue);
+				const quantity = data.map((item: movielRevenueProps) => item.totalTicketsSold);
 				setChartConfigMovie((prev) => ({
 					...prev,
 					data: {

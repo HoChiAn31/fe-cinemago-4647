@@ -1,6 +1,6 @@
 // layout/MainLayout.tsx
 'use client';
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import 'slick-carousel/slick/slick.css';
@@ -11,7 +11,6 @@ import ClientOnly from '../components/ClientOnly'; // Import thành phần clien
 import { usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import AdminGuard from '../components/AdminGuard';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { useTheme } from '../context/ThemeContext';
 import SidebarAdmin from './SidebarAdmin';
 import HeaderAdmin from './HeaderAdmin';

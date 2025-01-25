@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import MaxWidth from '../components/MaxWidth';
 import Links from '../components/Links';
 import { useTranslations } from 'next-intl';

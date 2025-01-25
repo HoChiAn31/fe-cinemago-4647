@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import MaxWidth from '../components/MaxWidth';
 import Banner from '../components/Banner';
 import OnGoing from '../components/OnGoing';

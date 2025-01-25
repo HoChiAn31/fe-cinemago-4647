@@ -3,7 +3,7 @@ import { Branch } from '../../admin-branch/types'; // Adjust the import based on
 import { Button } from '@nextui-org/react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { Eye, Pencil, Trash2 } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { useTheme } from '@/app/context/ThemeContext';
 import Loading from '@/app/components/Loading';
 
@@ -15,14 +15,7 @@ interface AdminBranchTableProps {
 	isLoading: boolean;
 }
 
-const BranchTable: React.FC<AdminBranchTableProps> = ({
-	branches,
-	onEditOpen,
-	onDeleteOpen,
-	setBranchToEdit,
-
-	isLoading,
-}) => {
+const BranchTable: React.FC<AdminBranchTableProps> = ({ branches, isLoading }) => {
 	const { isDarkMode } = useTheme();
 	const router = useRouter();
 	const locale = useLocale();

@@ -1,7 +1,6 @@
 'use client';
-import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
-import { AuthResponse, User, UserContextType } from '../types';
-import customAxios from '@/app/utils/axios';
+import React, { ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import { User, UserContextType } from '../types';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';

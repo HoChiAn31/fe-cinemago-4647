@@ -1,5 +1,5 @@
 // services/api.ts (Thay thế API call bằng dữ liệu giả)
-export const getStatistics = async (endpoint: string, params: any) => {
+export const getStatistics = async (endpoint: string) => {
 	switch (endpoint) {
 		case 'dishes/top-selling':
 			return {

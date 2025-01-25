@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Pencil, Trash2 } from 'lucide-react';
-import { useTheme } from '@/app/context/ThemeContext';
+
 import Loading from '@/app/components/Loading';
 
 interface VoucherTableProps {
@@ -20,7 +20,6 @@ const VoucherTable: React.FC<VoucherTableProps> = ({
 	setVoucherToDelete,
 	isLoading,
 }) => {
-	const { isDarkMode } = useTheme();
 	const router = useRouter();
 	const locale = useLocale();
 	console.log(vouchers);

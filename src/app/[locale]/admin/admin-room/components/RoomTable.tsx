@@ -4,7 +4,7 @@ import { Room } from '../types'; // Adjust the import based on your types
 import { Button } from '@nextui-org/react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { Eye, Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import { useTheme } from '@/app/context/ThemeContext';
 import Loading from '@/app/components/Loading';
 
@@ -20,9 +20,7 @@ interface AdminRoomTableProps {
 
 const AdminRoomTable: React.FC<AdminRoomTableProps> = ({
 	rooms,
-	onEditOpen,
 	onDeleteOpen,
-	setRoomToEdit,
 	setRoomToDelete,
 	isLoading,
 	idBranch,
