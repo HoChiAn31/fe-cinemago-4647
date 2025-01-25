@@ -5,13 +5,11 @@ import LineChart, {
 } from '@/app/components/Charts/LineChart';
 import MyBarChart from '@/app/components/Charts/MyBarChart';
 import Links from '@/app/components/Links';
-import { useTheme } from '@/app/context/ThemeContext';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 const AdminRevenuePage: FC = () => {
-	const { isDarkMode } = useTheme();
 	const locale = useLocale();
 
 	return (

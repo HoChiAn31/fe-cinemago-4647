@@ -4,7 +4,6 @@ import {
 	ChartBarStacked,
 	CirclePercent,
 	Clapperboard,
-	FileQuestion,
 	House,
 	MessageCircleMore,
 	NotebookTabs,
@@ -14,8 +13,7 @@ import {
 	Store,
 	UserRound,
 } from 'lucide-react';
-import { FC, useEffect, useRef, useState } from 'react';
-import { useUser } from '../context/UserContext';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
@@ -26,7 +24,6 @@ const SidebarAdmin: FC = () => {
 	const [activeMainTab, setActiveMainTab] = useState<string>('');
 	const [activeSubTab, setActiveSubTab] = useState<string>('');
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
-	const { isLogin, setIsLogin, setRole } = useUser();
 	const { isCollapsedAdmin, isDarkMode } = useTheme();
 	const router = useRouter();
 	const locale = useLocale();

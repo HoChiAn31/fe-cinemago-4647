@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import BarCharts from '@/app/components/Charts/BarCharts';
 import { chartCinemaRevenue, chartTicketCinema } from '@/app/components/Charts/ChartConfig';
 import { FC } from 'react';

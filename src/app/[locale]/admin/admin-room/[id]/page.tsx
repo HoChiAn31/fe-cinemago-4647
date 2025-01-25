@@ -1,11 +1,11 @@
 'use client';
-import { Button, Input, Spinner, useDisclosure } from '@nextui-org/react';
+import React from 'react';
+import { useDisclosure } from '@nextui-org/react';
 import { Room } from '../types'; // Import the Room type
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import AdminRoomTable from '../components/RoomTable';
 import { useTheme } from '@/app/context/ThemeContext';
 import ManagementHeader from '@/app/components/ManagementHeader';
@@ -16,9 +16,8 @@ import SearchAndFilter from '@/app/components/SearchAndFilter';
 import useDebounce from '@/app/hook/useDebounce';
 
 const EditRoomPage = () => {
-	const t = useTranslations('AdminRoomEdit');
 	const { url } = useTheme();
-	const toastT = useTranslations('AdminToast');
+
 	const params = useParams();
 	const id = params.id as string;
 	const [currentPage, setCurrentPage] = useState<number>(1);
@@ -30,7 +29,6 @@ const EditRoomPage = () => {
 	const [prevPage, setPrevPage] = useState<number | null>(null);
 	const [rooms, setRooms] = useState<Room[]>([]);
 	const router = useRouter();
-	const locale = useLocale();
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		isOpen: isDeleteOpen,

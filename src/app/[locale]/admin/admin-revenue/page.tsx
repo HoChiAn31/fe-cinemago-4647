@@ -1,15 +1,13 @@
 'use client';
+import React from 'react';
 import LineChart, {
 	monthlyRevenueData,
 	monthlyRevenueOptions,
 } from '@/app/components/Charts/LineChart';
 import MyBarChart from '@/app/components/Charts/MyBarChart';
-import { useTheme } from '@/app/context/ThemeContext';
 import { FC } from 'react';
 
 const AdminRevenuePage: FC = () => {
-	const { isDarkMode } = useTheme();
-
 	return (
 		<div className='p-4'>
 			<div className='mb-4 grid grid-cols-1 gap-4 md:grid-cols-4'>

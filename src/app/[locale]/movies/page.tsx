@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import MaxWidth from '@/app/components/MaxWidth';
 import UpComing from '@/app/components/UpComing';
 import { MovieProp } from '@/app/types/MovieDetail.type';

@@ -1,11 +1,10 @@
 'use client';
-import { Button, Input, Select, SelectItem, Selection, Spacer, Spinner } from '@nextui-org/react';
+import { Button, Input, Spacer, Spinner } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Room, RoomAdd } from '../types'; // Adjust import based on your definitions
-import { useLocale, useTranslations } from 'next-intl';
-import { Branch } from '../../admin-branch/types';
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface AddRoomProps {
@@ -27,7 +26,7 @@ const AddRoom: React.FC<AddRoomProps> = ({
 }) => {
 	const [isAdding, setIsAdding] = useState(false);
 	const t = useTranslations('AdminRoom.AdminRoomGeneral');
-	const [dataBranches, setDataBranches] = useState<Branch[]>([]);
+	// const [dataBranches, setDataBranches] = useState<Branch[]>([]);
 	const { url } = useTheme();
 	const [newRoom, setNewRoom] = useState<RoomAdd>({
 		name: '',
@@ -40,7 +39,13 @@ const AddRoom: React.FC<AddRoomProps> = ({
 		axios
 			.get(`${url}/branch`)
 			.then((res) => {
-				setDataBranches(res.data.data);
+				// setDataBranches(res.data.data);
+				console.log(res.data.data);
+				// setIsLoadingBranches(true);
+				// setIsAdding(true);
+				// onFinishAdding();
+				// onReloadData();
+				// onOpenChange && onOpenChange();
 			})
 			.catch((err) => {
 				console.error(err);
@@ -70,7 +75,7 @@ const AddRoom: React.FC<AddRoomProps> = ({
 					onAddRoom(response.data.data);
 					onFinishAdding();
 					onReloadData();
-					onOpenChange && onOpenChange();
+					onOpenChange?.();
 				}, 1500);
 				toast.success('The new room has been successfully added.', {
 					duration: 3000,

@@ -12,7 +12,6 @@ import axios from 'axios';
 import Loading from '@/app/components/Loading';
 import { useParams } from 'next/navigation';
 import { useUser } from '@/app/context/UserContext';
-import { divider } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const currentUserEmail = 'a';
@@ -121,9 +120,8 @@ const movieDetailPage: React.FC = () => {
 
 		axios
 			.post(`${process.env.NEXT_PUBLIC_API}/comments`, data)
-			.then((response) => {
+			.then(() => {
 				toast.success(t('toast.success'));
-
 				setIsReload(isReload + 1);
 			})
 			.catch((error) => {
@@ -164,7 +162,7 @@ const movieDetailPage: React.FC = () => {
 										{t('labels.releaseDate')}: {formattedDate}
 									</p>
 								) : (
-									<p>''</p>
+									<p>&#39;&#39;</p>
 								)}
 								<p>
 									{t('labels.duration')}: {movie.duration} {t('labels.minutes')}
@@ -225,13 +223,18 @@ const movieDetailPage: React.FC = () => {
 									<input
 										className={`${isDarkMode ? 'bg-dark1 text-white' : 'bg-slate-100'} w-full rounded p-1 px-2 text-xs focus:outline-none md:p-3 md:px-5 md:text-base`}
 										placeholder={t('form.comment')}
-										onChange={(e: any) => setComments(e.target.value)}
+										onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+											setComments(e.target.value)
+										}
 									></input>
 									<div className='flex items-center gap-1'>
 										<input
 											className={`w-16 rounded ${isDarkMode ? 'bg-dark1 text-white' : 'bg-slate-100'} px-1 py-2 text-xs focus:outline-none md:w-20 md:text-base`}
 											placeholder={t('form.rate')}
-											onChange={(e: any) => setRating(e.target.value)}
+											type='number'
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+												setRating(Number(e.target.value))
+											}
 										></input>
 										<p className='font-bold md:text-xl'>/10</p>
 									</div>

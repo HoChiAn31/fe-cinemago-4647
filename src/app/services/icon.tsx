@@ -1,3 +1,4 @@
+import React from 'react';
 export const EyeSlashFilledIcon = (props: React.SVGProps<SVGSVGElement>) => (
 	<svg
 		aria-hidden='true'

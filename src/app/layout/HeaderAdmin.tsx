@@ -1,39 +1,35 @@
 'use client';
-import { Bell, ChevronDown, CircleUserRound, LogOut, Mail, Menu, UserRoundCog } from 'lucide-react';
-import React, { FC, useState } from 'react';
+import { Bell, ChevronDown, LogOut, Mail, Menu, UserRoundCog } from 'lucide-react';
+import React, { FC } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import LocaleSwitcher from '../components/local-switcher';
 import { Button, Tooltip } from '@nextui-org/react';
 import { useUser } from '../context/UserContext';
-import { useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 const HeaderAdmin: FC = () => {
 	const t = useTranslations('LayoutHeaderAdmin');
-	const [notificationCount, setNotificationCount] = useState(5);
 	const {
 		isCollapsedAdmin,
-		setIsCollapsedAdmin,
+		// setIsCollapsedAdmin,
 		toggleCollapsedAdmin,
 		isDarkMode,
 		toggleDarkMode,
 	} = useTheme();
-	const { isLogin, setIsLogin, setRole, logout } = useUser();
+	const { logout } = useUser();
 
-	const router = useRouter();
-	const locale = useLocale();
-	const handleChangeCollapsedAdmin = () => {
-		if (setIsCollapsedAdmin) {
-			setIsCollapsedAdmin(!isCollapsedAdmin);
-		}
-	};
-	const handleLogOutAdmin = () => {
-		setRole('');
-		setIsLogin(false);
-		router.push(`/${locale}/`);
-		// window.location.reload();
-	};
+	// const handleChangeCollapsedAdmin = () => {
+	// 	if (setIsCollapsedAdmin) {
+	// 		setIsCollapsedAdmin(!isCollapsedAdmin);
+	// 	}
+	// };
+	// const handleLogOutAdmin = () => {
+	// 	setRole('');
+	// 	setIsLogin(false);
+	// 	router.push(`/${locale}/`);
+	// 	// window.location.reload();
+	// };
 	return (
 		<div
 			className={`fixed transition-all duration-500 ${isCollapsedAdmin ? 'left-[112px]' : 'left-[320px]'} right-0 top-0 z-[100] p-5 shadow ${isDarkMode ? 'bg-dark text-white' : 'bg-white text-black'}`}

@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { Divider } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
-import customAxios from '@/app/utils/axios';
 import { useUser } from '@/app/context/UserContext';
 import { useTheme } from '@/app/context/ThemeContext';
 import { BeverageProps } from '@/app/types/Beverage.type';
@@ -14,6 +13,16 @@ import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
 import { User } from '@/app/types/User.type';
 
+interface TicketProps {
+	quantity: number;
+	ticketPrice: number;
+	ticketType: string;
+}
+interface FoodProps {
+	quantity: number;
+	foodDrinksId: string;
+	price: number;
+}
 const stripePromise = loadStripe(
 	'pk_test_51QLqlw00phqwBHh4kTvBMZhiLnDHO0iqAH4lGsrfMRsxuN7f5kuGiSUtcxBLQVl2EE7z4b4kHZtsX0bG2MqxgFSr003ukeQSSi',
 );
@@ -118,7 +127,7 @@ const PaymentPage: React.FC = () => {
 	// console.log('detail', detail);
 
 	const totalQuantity = detail.ticket.reduce(
-		(sum: number, ticketItem: any) => sum + ticketItem.quantity,
+		(sum: number, ticketItem: TicketProps) => sum + ticketItem.quantity,
 		0,
 	);
 
@@ -353,8 +362,8 @@ const PaymentPage: React.FC = () => {
 						<div className='flex flex-col items-start'>
 							<h2 className='text-md uppercase tracking-tighter'>{t('ticketType')}</h2>
 							{detail?.ticket
-								.filter((ticket: any) => ticket.quantity > 0)
-								.map((ticket: any, index: number) => {
+								.filter((ticket: TicketProps) => ticket.quantity > 0)
+								.map((ticket: TicketProps, index: number) => {
 									const totalPrice = ticket.quantity * ticket.ticketPrice;
 									return (
 										<div
@@ -382,7 +391,7 @@ const PaymentPage: React.FC = () => {
 					<div className='flex w-full flex-col gap-3'>
 						<h2 className='text-md uppercase tracking-tighter'>{t('snackDrink')}</h2>
 						<div>
-							{detail.foods.map((f: any, index: number) => (
+							{detail.foods.map((f: FoodProps, index: number) => (
 								<div
 									key={index}
 									className='flex w-full items-end justify-between text-lg font-semibold'

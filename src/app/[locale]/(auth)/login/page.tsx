@@ -1,11 +1,11 @@
 'use client';
 import { Button, Image, Input } from '@nextui-org/react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { JwtPayload } from 'jwt-decode';
 import toast, { Toaster } from 'react-hot-toast';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -16,10 +16,6 @@ import { useUser } from '@/app/context/UserContext';
 import ErrorMessage from '@/app/components/ErrorMessage';
 import { useTheme } from '@/app/context/ThemeContext';
 import { EyeFilledIcon, EyeSlashFilledIcon } from '@/app/services/icon';
-
-interface CustomJwtPayload extends JwtPayload {
-	role: string;
-}
 
 const loginValidationSchema = Yup.object({
 	email: Yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
@@ -32,12 +28,11 @@ const initialLoginValues = {
 };
 
 const LoginPage: FC = () => {
-	const { setIsLogin, setRole, login } = useUser();
+	const { login } = useUser();
 	const [isLoginEmail, setIsLoginEmail] = useState(false);
 	const [isAnimate, setIsAnimate] = useState(0);
 	const router = useRouter();
 	const locale = useLocale();
-	const [errorMessage, setErrorMessage] = useState('');
 	const { isDarkMode } = useTheme();
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 
