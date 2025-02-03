@@ -21,7 +21,6 @@ const AdminRoomPage: FC = () => {
 	const [prevPage, setPrevPage] = useState<number | null>(null);
 	const [branches, setBranches] = useState<Branch[]>([]);
 	const [isLoadingBranch, setIsLoadingBranches] = useState<boolean>(false);
-
 	const debouncedSearchQuery = useDebounce(searchQuery, 700);
 	useEffect(() => {
 		fetchBranches();

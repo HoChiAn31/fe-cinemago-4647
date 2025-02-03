@@ -1,6 +1,8 @@
 'use client';
 
-const SupportAdminPage = () => {
+import React, { FC } from 'react';
+
+const SupportAdminPage: FC = () => {
 	return <div>SupportAdminPage</div>;
 };
 
