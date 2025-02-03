@@ -34,7 +34,7 @@ const DeleteBranchModal: React.FC<DeleteBranchModalProps> = ({
 
 		setIsDeleting(true);
 		try {
-			const response = await axios.delete(`http://localhost:5000/branch/${branchToDelete.id}`);
+			await axios.delete(`http://localhost:5000/branch/${branchToDelete.id}`);
 
 			onDeleteBranch(branchToDelete.id);
 			toast.success('The branch has been successfully deleted.', {

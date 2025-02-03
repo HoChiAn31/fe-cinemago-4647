@@ -11,7 +11,7 @@ interface BranchTableProps {
 	branches: Branch[]; // Adjust the prop type
 	selectedBranches?: Set<string>;
 	setSelectedBranches?: React.Dispatch<React.SetStateAction<Set<string>>>;
-	onEditOpen: () => void;
+	onEditOpen?: () => void;
 	onDeleteOpen: () => void;
 	setBranchToEdit: React.Dispatch<React.SetStateAction<Branch | null>>;
 	setBranchToDelete: React.Dispatch<React.SetStateAction<Branch | null>>;

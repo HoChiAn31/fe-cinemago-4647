@@ -17,7 +17,7 @@ const AdminBranchPage: FC = () => {
 	const [branches, setBranches] = useState<Branch[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [totalPages, setTotalPages] = useState<number>(1);
+	// const [totalPages, setTotalPages] = useState<number>(1);
 	const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [lastPage, setLastPage] = useState<number>(1);
@@ -29,11 +29,11 @@ const AdminBranchPage: FC = () => {
 		onOpen: onDeleteOpen,
 		onOpenChange: onDeleteOpenChange,
 	} = useDisclosure();
-	const {
-		isOpen: isEditOpen,
-		onOpen: onEditOpen,
-		onOpenChange: onEditOpenChange,
-	} = useDisclosure();
+	// const {
+	// 	isOpen: isEditOpen,
+	// 	onOpen: onEditOpen,
+	// 	onOpenChange: onEditOpenChange,
+	// } = useDisclosure();
 
 	const [branchToDelete, setBranchToDelete] = useState<Branch | null>(null);
 	const [branchToEdit, setBranchToEdit] = useState<Branch | null>(null);
@@ -56,7 +56,7 @@ const AdminBranchPage: FC = () => {
 			});
 			setIsLoading(true);
 			setBranches(response.data.data);
-			setTotalPages(response.data.total);
+			// setTotalPages(response.data.total);
 			setLastPage(response.data.lastPage);
 			setNextPage(response.data.nextPage);
 			setPrevPage(response.data.prevPage);
@@ -78,11 +78,11 @@ const AdminBranchPage: FC = () => {
 		}
 	};
 
-	const handleEditBranch = () => {
-		setBranchToEdit(null);
-		onEditOpenChange();
-		fetchBranches();
-	};
+	// const handleEditBranch = () => {
+	// 	setBranchToEdit(null);
+	// 	onEditOpenChange();
+	// 	fetchBranches();
+	// };
 
 	const handlePageChange = (newPage: number) => {
 		if (newPage >= 1 && newPage <= lastPage) {
@@ -126,7 +126,7 @@ const AdminBranchPage: FC = () => {
 					<BranchTable
 						isLoading={isLoading}
 						branches={branches} // Adjust the prop name
-						onEditOpen={onEditOpen}
+						// onEditOpen={onEditOpen}
 						onDeleteOpen={onDeleteOpen}
 						setBranchToEdit={setBranchToEdit} // Adjust the prop name
 						setBranchToDelete={setBranchToDelete} // Adjust the prop name

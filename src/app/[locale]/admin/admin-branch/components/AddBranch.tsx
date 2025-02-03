@@ -37,9 +37,14 @@ const AddBranchModal: React.FC<AddBranchModalProps> = ({
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
+		const trimmedValue = value.trim();
+
+		if (name === 'phone') {
+			if (/[^0-9]/.test(trimmedValue) || trimmedValue.length > 12) return;
+		}
 		setNewBranch((prevState) => ({
 			...prevState,
-			[name]: value,
+			[name]: trimmedValue,
 		}));
 	};
 

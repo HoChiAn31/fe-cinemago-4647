@@ -41,16 +41,17 @@ const adminOderPage: FC = () => {
 	// 	console.log('Updated Order:', updatedOrder);
 	// };
 	const handleSave = async (updatedOrder: Order) => {
-		try {
-			const response = await axios.put(
-				`${process.env.NEXT_PUBLIC_API}/bookings/${updatedOrder.id}`,
-				{ paymentStatus: updatedOrder.payment.paymentStatus },
-			);
-			console.log('Order updated:', response.data);
-			fetchOrder(); // Refresh orders
-		} catch (error) {
-			console.error('Failed to update order:', error);
-		}
+		console.log(updatedOrder);
+		// try {
+		// 	const response = await axios.put(
+		// 		`${process.env.NEXT_PUBLIC_API}/bookings/${updatedOrder.id}`,
+		// 		{ paymentStatus: updatedOrder.payment.paymentStatus },
+		// 	);
+		// 	console.log('Order updated:', response.data);
+		// 	fetchOrder(); // Refresh orders
+		// } catch (error) {
+		// 	console.error('Failed to update order:', error);
+		// }
 	};
 	useEffect(() => {
 		fetchOrder();

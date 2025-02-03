@@ -29,15 +29,17 @@ const EditBranchPage = () => {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		if (name === 'phone' && /[^0-9]/.test(value) && value.length > 11) {
+		const trimmedValue = value.trim();
+		if (name === 'phone' && /[^0-9]/.test(trimmedValue)) {
 			// Nếu nhập vào không phải số, không cập nhật giá trị
+			if (trimmedValue.length > 12) return;
 			return;
 		}
 		setBranch((prevState) => {
 			if (!prevState) return null;
 			return {
 				...prevState,
-				[name]: value,
+				[name]: trimmedValue,
 			};
 		});
 	};
@@ -54,7 +56,7 @@ const EditBranchPage = () => {
 					if (response.data.affected === 1) {
 						setTimeout(() => {
 							router.push(`/${locale}/admin/admin-branch/`);
-						}, 3000);
+						}, 800);
 						return toastT('updateSuccess');
 					} else {
 						throw new Error(toastT('updateFailed'));
@@ -63,7 +65,7 @@ const EditBranchPage = () => {
 				error: toastT('updateError'),
 			},
 			{
-				duration: 3000,
+				duration: 800,
 			},
 		);
 
@@ -100,7 +102,7 @@ const EditBranchPage = () => {
 
 	return (
 		<div className='p-4'>
-			<ManagementHeader isBack={true} onChange={() => router.back()} />
+			<ManagementHeader isBack={true} onChangeBack={() => router.back()} />
 			<div className='space-y-4'>
 				<Input
 					fullWidth

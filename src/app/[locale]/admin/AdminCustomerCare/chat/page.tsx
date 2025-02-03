@@ -1,6 +1,8 @@
 'use client';
 
-const ChatAdminPage = () => {
+import React, { FC } from 'react';
+
+const ChatAdminPage: FC = () => {
 	return <div>ChatAdminPage</div>;
 };
 

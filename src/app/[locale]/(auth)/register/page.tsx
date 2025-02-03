@@ -54,13 +54,10 @@ const RegisterPage: FC = () => {
 
 	const toggleVisibility = () => setIsVisible(!isVisible);
 
-	const handleSubmit = async (
-		values: RegisterValues,
-		{ setSubmitting, resetForm, setTouched }: any,
-	) => {
+	const handleSubmit = async (values: RegisterValues, { setSubmitting, resetForm }: any) => {
 		try {
 			// Gửi dữ liệu tới API đăng ký
-			const response = await axios.post('http://localhost:5000/auth/register', values);
+			await axios.post('http://localhost:5000/auth/register', values);
 
 			// Xử lý phản hồi thành công
 			toast.success('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
@@ -113,11 +110,11 @@ const RegisterPage: FC = () => {
 							touched,
 							handleChange,
 							handleBlur,
-							isValid,
-							dirty,
+							// isValid,
+							// dirty,
 							isSubmitting,
 							handleSubmit,
-							setTouched,
+							// setTouched,
 						}) => (
 							<Form
 								className='mx-auto my-4 max-w-lg space-y-5'
